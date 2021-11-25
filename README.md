@@ -1,5 +1,5 @@
 # bqStart
 
-##Jump Start your aspnet core + Angular Project
+## Jump Start your aspnet core + Angular Project
 
 
