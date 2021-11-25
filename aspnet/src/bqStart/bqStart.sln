@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BinaryQuest.Framework.Core", "Binaryquest.Framework.Core\BinaryQuest.Framework.Core.csproj", "{229C272D-EAE1-4191-B730-AB40A0DF9A71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryQuest.Framework.CoreTests", "BinaryQuest.Framework.CoreTests\BinaryQuest.Framework.CoreTests.csproj", "{413F062C-9E67-417D-A909-9D1F1ABBC1C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{229C272D-EAE1-4191-B730-AB40A0DF9A71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{229C272D-EAE1-4191-B730-AB40A0DF9A71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{229C272D-EAE1-4191-B730-AB40A0DF9A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{229C272D-EAE1-4191-B730-AB40A0DF9A71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{413F062C-9E67-417D-A909-9D1F1ABBC1C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{413F062C-9E67-417D-A909-9D1F1ABBC1C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{413F062C-9E67-417D-A909-9D1F1ABBC1C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{413F062C-9E67-417D-A909-9D1F1ABBC1C3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8AAE7BC8-A0C9-4EBD-827A-068B3914F7F5}
+	EndGlobalSection
+EndGlobal
