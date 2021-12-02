@@ -1,0 +1,64 @@
+<div class="p-fluid">
+  <div
+    [ngClass]="'p-chips p-component'"
+    [ngStyle]="style"
+    [class]="styleClass"
+    (click)="onClick()"
+  >
+    <ul
+      [ngClass]="{'p-inputtext p-chips-multiple-container':true,'p-focus':focus,'p-disabled':disabled}"
+    >
+      <li
+        #token
+        *ngFor="let item of value; let i = index;"
+        class="p-chips-token"
+        (click)="onItemClick($event, item)"
+      >
+        <ng-container
+          *ngTemplateOutlet="itemTemplate; context: {$implicit: item}"
+        ></ng-container>
+        <span *ngIf="!itemTemplate" class="p-chips-token-label"
+          >{{field ? resolveFieldData(item,field) : item}}</span
+        >
+        <span
+          *ngIf="!disabled"
+          class="p-chips-token-icon pi pi-times-circle"
+          (click)="removeItem($event,i)"
+        ></span>
+      </li>
+      <li class="p-chips-input-token">
+        <input
+          #inputtext
+          type="text"
+          [(ngModel)]="typedText"
+          [attr.id]="inputId"
+          [attr.placeholder]="(value && value.length ? null : placeholder)"
+          [attr.tabindex]="tabindex"
+          (keydown)="onKeydown($event)"
+          (input)="onInput()"
+          (paste)="onPaste($event)"
+          (ngModelChange)="inputChanged($event)"
+          [attr.aria-labelledby]="ariaLabelledBy"
+          (focus)="onInputFocus($event)"
+          (blur)="onInputBlur($event)"
+          [disabled]="disabled"
+          [ngStyle]="inputStyle"
+          [class]="inputStyleClass"
+        />
+      </li>
+    </ul>
+    <div class="bq-chip-menu-overlay p-dropdown-panel" *ngIf="menuVisible">
+      <li class="p-dropdown-items">
+        <ul
+          *ngFor="let filter of defaultFilters"
+          class="p-dropdown-item p-ripple"
+          [ngClass]="{'p-highlight': filter == selectedFilter}"
+          (click)="menuClicked(filter, $event)"
+        >
+        <i class="pi pi-arrow-right" *ngIf="filter == selectedFilter"></i>
+          Search {{filter.caption}} {{filter.defaultPredicate.display}} {{typedText}}
+        </ul>
+      </li>
+    </div>
+  </div>
+</div>

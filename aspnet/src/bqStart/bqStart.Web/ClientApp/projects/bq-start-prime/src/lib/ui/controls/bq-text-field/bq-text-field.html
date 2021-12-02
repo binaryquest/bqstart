@@ -1,0 +1,165 @@
+<div [class]="mainCss" provide-parent-form>
+  <label [for]="id" [class]="labelCss">{{caption}}</label>
+  <div [class]="fieldCss" [style.align-self]="innerDivVAlign">
+    <ng-container [ngTemplateOutlet]="controlRenderTemplate"></ng-container>
+  </div>
+</div>
+
+<ng-template #defaultRender>
+  <span>{{model}}</span>
+</ng-template>
+
+<ng-template #errorBlock let-myField="value">
+  <div [hidden]="myField.valid || myField.pristine" class="mt-1">
+    <small class="p-error" *ngIf="myField.errors?.required">* required<br/></small>
+    <small class="p-error" *ngIf="myField.errors?.minlength"
+      >* minimum required length
+      {{myField.errors?.minlength?.requiredLength}}<br/></small
+    >
+    <small class="p-error" *ngIf="myField.errors?.maxlength"
+      >* maxium length allowed
+      {{myField.errors?.maxlength?.requiredLength}}<br/></small
+    >
+    <small class="p-error" *ngIf="myField.errors?.pattern"
+      >* invalid pattern<br/>* {{regexMessage}}<br/></small
+    >
+    <small class="p-error" *ngIf="myField.errors?.email">* invalid email<br/></small>
+
+    <small class="p-error" *ngIf="myField.errors?.compare">* {{compareToMsg}}<br/></small>
+  </div>
+</ng-template>
+
+<ng-template #stringRender>
+  <input
+    [id]="id"
+    [name]="id"
+    type="text"
+    class="inputfield w-full"
+    [(ngModel)]="model"
+    (ngModelChange)="onChange($event)"
+    [required]="isRequired"
+    [disabled]="disabled ? true : field?.autoGen ? true : false"
+    [maxlength]="maxLength"
+    [minlength]="minLength"
+    [pattern]="regexPattern"
+    compare
+    [compare-to]="compareTo"
+    [compare-parent]="compareParent"
+    #myField="ngModel"
+  />
+
+  <ng-container
+    [ngTemplateOutlet]="errorBlock"
+    [ngTemplateOutletContext]="{value:myField}"
+  ></ng-container>
+</ng-template>
+
+<ng-template #integerRender>
+  <p-inputNumber
+    [name]="id"
+    [(ngModel)]="model"
+    [styleClass]="'w-full'"
+    (ngModelChange)="onChange($event)"
+    [min]="min"
+    [max]="max"
+    [useGrouping]="seperateDigits"
+    [mode]="numberMode"
+    [required]="isRequired"
+    [disabled]="disabled ? true : field?.autoGen ? true : false"
+    #myField="ngModel"
+  >
+  </p-inputNumber>
+
+  <ng-container
+    [ngTemplateOutlet]="errorBlock"
+    [ngTemplateOutletContext]="{value:myField}"
+  ></ng-container>
+</ng-template>
+
+<ng-template #numberRender>
+  <p-inputNumber
+    [name]="id"
+    [(ngModel)]="model"
+    mode="decimal"
+    [maxFractionDigits]="4"
+    [styleClass]="'w-full'"
+    [minFractionDigits]="2"
+    (ngModelChange)="onChange($event)"
+    [min]="min"
+    [max]="max"
+    [useGrouping]="seperateDigits"
+    [mode]="numberMode"
+    [currency]="currencyCode"
+    [required]="isRequired"
+    [disabled]="disabled ? true : field?.autoGen ? true : false"
+    [style]="{'text-align': currency ? 'right':'' }"
+    #myField="ngModel"
+  >
+  </p-inputNumber>
+
+  <ng-container
+    [ngTemplateOutlet]="errorBlock"
+    [ngTemplateOutletContext]="{value:myField}"
+  ></ng-container>
+</ng-template>
+
+<ng-template #dateRender>
+  <p-calendar
+    [name]="id"
+    hourFormat="12"
+    [showSeconds]="true"
+    [(ngModel)]="model"
+    (ngModelChange)="onChange($event)"
+    [required]="isRequired"
+    [dateFormat]="localeFormat"
+    [styleClass]="'w-full'"
+    [disabled]="disabled ? true : field?.autoGen ? true : false"
+    #myField="ngModel"
+  ></p-calendar>
+
+  <ng-container
+    [ngTemplateOutlet]="errorBlock"
+    [ngTemplateOutletContext]="{value:myField}"
+  ></ng-container>
+</ng-template>
+
+<ng-template #emailRender>
+  <input
+    [id]="id"
+    [name]="id"
+    type="email"
+    class="inputfield w-full"
+    [(ngModel)]="model"
+    (ngModelChange)="onChange($event)"
+    [required]="isRequired"
+    [disabled]="disabled ? true : field?.autoGen ? true : false"
+    [email]="true"
+    #myField="ngModel"
+  />
+
+  <ng-container
+    [ngTemplateOutlet]="errorBlock"
+    [ngTemplateOutletContext]="{value:myField}"
+  ></ng-container>
+</ng-template>
+
+<ng-template #boolRender>
+
+  <input type="checkbox"
+    [id]="id"
+    [name]="id"
+    [(ngModel)]="model"
+    [value]="true"
+    [disabled]="disabled ? true : field?.autoGen ? true : false"
+    #myField="ngModel"/>
+
+  <ng-container
+    [ngTemplateOutlet]="errorBlock"
+    [ngTemplateOutletContext]="{value:myField}"
+  ></ng-container>
+
+</ng-template>
+
+<ng-template #booleanDisplayRender>
+  <span>{{model | boolToYesNo}}</span>
+</ng-template>

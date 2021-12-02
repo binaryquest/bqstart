@@ -1,0 +1,14 @@
+<ul *ngIf="showSelf" class="list-none py-3 px-5 m-0 surface-section flex align-items-center font-medium overflow-x-auto border-top-1 border-bottom-1 surface-border shadow-2 lg:shadow-none">
+
+  <li class="pr-3" *ngIf="menuStack.length>0"><a class="cursor-pointer" href="/"><i class="pi pi-home text-blue-500"></i></a></li>
+
+  <li class="pr-3" *ngIf="menuStack.length==0"><a title="Back" class="cursor-pointer" (click)="goBack()"><i class="pi pi-angle-double-left text-blue-500"></i></a></li>
+
+  <ng-container *ngFor="let mn of menuStack">
+    <li class="px-2"><i class="pi pi-angle-right text-500"></i></li>
+    <li class="px-2"><a class="text-blue-500 white-space-nowrap">{{mn.label}}</a></li>
+  </ng-container>
+  <li class="px-2" *ngIf="menuStack.length>0"><i class="pi pi-angle-right text-500"></i></li>
+  <li class="px-2"><a class="white-space-nowrap">{{title}}</a></li>
+
+</ul>

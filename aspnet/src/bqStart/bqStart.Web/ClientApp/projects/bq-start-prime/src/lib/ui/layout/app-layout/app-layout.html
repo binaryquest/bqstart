@@ -1,0 +1,22 @@
+<div class="layout-wrapper">
+
+  <bq-top-bar (menuButtonClick)="onMenuButtonClick()"></bq-top-bar>
+  <bq-menu-bar *ngIf="isAuthenticated" [active]="menuActive"></bq-menu-bar>
+
+  <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}" (click)="onMaskClick()"></div>
+  <div [ngClass]="isAuthenticated?'layout-content':'layout-content-inactive'">
+
+
+    <breadcrumb></breadcrumb>
+
+    <div class="content-section">
+      <p-toast></p-toast>
+      <view-wrapper>
+        <ng-content></ng-content>
+      </view-wrapper>
+    </div>
+
+
+    <bq-footer-bar *ngIf="isAuthenticated"></bq-footer-bar>
+  </div>
+</div>

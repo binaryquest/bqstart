@@ -1,0 +1,21 @@
+<div class="layout-topbar">
+  <a class="menu-button" (click)="onMenuButtonClick($event)">
+    <i class="pi pi-bars"></i>
+  </a>
+  <a [routerLink]="['/']" class="logo logo-margin">
+    <img alt="logo" [src]="logo" />
+  </a>
+  <ul #topbarMenu class="topbar-menu">
+    <li>
+      <a [routerLink]="[logoutPath]" [state]='{ local: true }' *ngIf="isAuthenticated">
+        <i class="pi pi-sign-out"></i>
+        Logout
+      </a>
+      <a [routerLink]="[loginPath]" [state]='{ local: true }' *ngIf="!isAuthenticated">
+        <i class="pi pi-sign-in"></i>
+        Login
+      </a>
+    </li>
+  </ul>
+
+</div>

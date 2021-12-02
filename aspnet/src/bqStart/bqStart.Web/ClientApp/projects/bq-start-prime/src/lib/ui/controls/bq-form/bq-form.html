@@ -1,0 +1,38 @@
+<p-toolbar styleClass="mb-2">
+  <div class="p-toolbar-group-right">
+
+    <p-button *ngIf="showNew" label="{{'bq-start.buttons.new' | translate}}" icon="pi pi-plus" styleClass="mr-2" (onClick)="create()" ></p-button>
+    <p-button *ngIf="showEdit" label="{{'bq-start.buttons.edit' | translate}}" icon="pi pi-pencil" styleClass="mr-2 p-button-info" (onClick)="edit()"></p-button>
+    <p-button *ngIf="showDelete" label="{{'bq-start.buttons.delete' | translate}}" icon="pi pi-trash" styleClass="mr-2 p-button-warning" (onClick)="delete()"></p-button>
+
+    <button *ngIf="editMode" pButton type="submit" label="{{'bq-start.buttons.save' | translate}}" icon="pi pi-save"
+      class="mr-2 p-button-success" [disabled]="!form.form.valid"
+      (click)="save()"></button>
+    <p-button *ngIf="editMode" label="{{'bq-start.buttons.discard' | translate}}" icon="pi pi-times" styleClass="p-button-danger mr-2" (onClick)="discard()"></p-button>
+
+    <ng-container *ngIf="(!editMode && additionalActions) then additionalActions; else defaultRender" [ngTemplateOutlet]="additionalActions"></ng-container>
+
+  </div>
+
+  <div class="p-toolbar-group-right">
+    <ng-container *ngIf="(!editMode && additionalActionsOnRight) then additionalActionsOnRight else defaultRender" [ngTemplateOutlet]="additionalActionsOnRight"></ng-container>
+  </div>
+
+</p-toolbar>
+
+<div class="card">
+  <form #form="ngForm" (ngSubmit)="save()">
+
+    <ng-content></ng-content>
+
+  </form>
+</div>
+
+<ng-template #defaultRender>
+</ng-template>
+
+<hr />
+The form is {{ form.valid ? 'valid' : 'invalid' }}. <br /><br />
+{{ form.value | json }}
+<hr/>
+{{ parentForm.model | json }}

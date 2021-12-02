@@ -1,0 +1,37 @@
+<div class="layout-sidebar" [ngClass]="{'active': active}">
+  <div class="layout-menu">
+    <ng-container *ngFor="let menu of menus">
+
+      <div class="menu-category" *ngIf="menu.childMenus.length>0 && menu.isVisible">{{menu.label}}</div>
+      <div class="menu-items" *ngFor="let cm of menu.childMenus">
+        <ng-container *ngIf="menu.isVisible">
+          <a *ngIf="cm.childMenus.length==0 && menu.isVisible" (click)="menuClicked(cm)"
+          [routerLink]="[cm.routerLink]" [queryParams]="cm.queryParams" routerLinkActive="router-link-exact-active">{{cm.label}}</a>
+
+          <div *ngIf="cm.childMenus.length>0 && cm.isVisible">
+            <a tabindex="0" (click)="toggleSubmenu($event, cm)">
+              {{cm.label}}
+              <i class="pi pi-fw pi-angle-down" [class.link-active]="isSubmenuActive(cm)"></i>
+            </a>
+            <div [@submenu]="isSubmenuActive(cm) ? 'visible': 'hidden'">
+              <ul>
+
+                <li *ngFor="let scm of cm.childMenus">
+                  <a [routerLink]="[scm.routerLink]" [queryParams]="scm.queryParams" routerLinkActive="router-link-exact-active"
+                    *ngIf="scm.isVisible" (click)="menuClicked(scm)">{{scm.label}}</a>
+                </li>
+
+              </ul>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+
+      <div class="menu-items" *ngIf="menu.childMenus.length==0 && menu.isVisible">
+        <a (click)="menuClicked(menu)" [routerLink]="[menu.routerLink]" [queryParams]="menu.queryParams" routerLinkActive="router-link-exact-active">{{menu.label}}</a>
+      </div>
+
+    </ng-container>
+  </div>
+</div>

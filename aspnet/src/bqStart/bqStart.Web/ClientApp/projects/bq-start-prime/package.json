@@ -1,0 +1,47 @@
+{
+  "name": "bq-start-prime",
+  "version": "1.12.3",
+  "homepage": "https://github.com/binaryquest/bqstart",
+  "keywords": [
+    "bqStart",
+    "starter",
+    "aspnet",
+    "aspnet core",
+    "primeng",
+    "binaryquest"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/binaryquest/bqstart.git"
+  },
+  "license": "MIT",
+  "author": "Sazzad Hossain <sazzad@binaryquest.com> (http://bqstart.com)",
+  "peerDependencies": {
+    "@angular/common": "^12.2.1",
+    "@angular/core": "^12.2.1",
+    "@angular/cdk": "^12.2.1",
+    "@angular/animations": "^12.2.1",
+    "@angular/forms": "^12.2.1",
+    "@angular/platform-browser": "^12.2.1",
+    "@angular/material": "^12.2.1",
+    "rxjs": "^7.3.0",
+    "zone.js": "^0.11.4"
+  },
+  "dependencies": {
+    "@ng-select/ng-select": "^7.3.0",
+    "@ngx-translate/core": "^13.0.0",
+    "@ngx-translate/http-loader": "^6.0.0",
+    "lodash-es": "^4.17.21",
+    "moment": "^2.29.1",
+    "oidc-client": "^1.11.5",
+    "primeflex": "^3.0.1",
+    "primeicons": "^4.1.0",
+    "primeng": "^12.0.1",
+    "tslib": "^2.3.0",
+    "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.5",
+    "@types/validator": "^13.6.3"
+  }
+}

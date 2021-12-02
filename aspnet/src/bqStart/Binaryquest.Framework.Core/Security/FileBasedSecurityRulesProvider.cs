@@ -20,7 +20,7 @@ namespace BinaryQuest.Framework.Core.Security
 
         public List<SecurityRule> GetRules()
         {
-            List<SecurityRule> ret = new List<SecurityRule>();
+            List<SecurityRule> ret = new();
             string fullPath = Path.Combine(AppContext.BaseDirectory, path);
             string[] ruleFiles = Directory.GetFiles(fullPath, "*.config");
             if (ruleFiles.Length > 0)

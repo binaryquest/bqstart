@@ -1,0 +1,35 @@
+.bq-filter-overlay-container {
+  position: relative;
+}
+
+.bq-filter-overlay {
+  width: 30vw;
+  position: absolute;
+  right: 0;
+  z-index: 9999;
+  margin-top:35px;
+  padding: 5px;
+  visibility: hidden;
+  display: none;
+
+  &.visible {
+    visibility: inherit;
+    display: inherit;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .bq-filter-overlay-container {
+    position: revert;
+  }
+  .bq-filter-overlay {
+    left: 15px;
+    right: 15px;
+    width: unset;
+  }
+}
+
+.bq-table-custom-filter-container{
+  flex-grow: 90;
+}
+

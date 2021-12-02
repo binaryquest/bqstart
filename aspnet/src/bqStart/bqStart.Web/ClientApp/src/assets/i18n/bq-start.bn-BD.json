@@ -1,0 +1,42 @@
+{
+  "bq-start": {
+    "copyright": "বাংলা কপিরাইট ©",
+    "poweredby": "পাওয়ারড বাই bqStart",
+    "buttons":{
+      "new": "নতুন",
+      "edit": "এডিট",
+      "delete": "ডিলিট",
+      "save": "সেভ",
+      "discard": "ক্যান্সেল",
+      "filter": "ফিল্টার",
+      "applyFilter": "অ্যাপ্লাই",
+      "addCondition": "কন্ডিশন যোগ"
+    },
+    "messages":{
+      "confirmation": "Confirmation",
+      "deleteConfirm": "Are you sure that you want to delete?",
+      "discardConfirm": "Are you sure that you want to discard?",
+      "recordDeleted":"Record Deleted",
+      "recordSaved": "Record Saved",
+      "dataLoaded": "Server Data Loaded",
+      "error":"এরর"
+    },
+    "filters":{
+      "title": "ফিল্টার",
+      "customTitle": "কাস্টম ফিল্টার",
+      "search": "সার্চ...",
+      "contains": "আছে",
+      "notContains": "নাই",
+      "startsWith": "শুরু হয়",
+      "endsWith": "শেষ হয়",
+      "between": "মদ্ধে",
+      "eq": "=",
+      "gt": ">",
+      "ge": ">=",
+      "lt": "<",
+      "le": "<=",
+      "isSet": "সেট আছে",
+      "isNotSet": "সেট করা নাই"
+    }
+  }
+}

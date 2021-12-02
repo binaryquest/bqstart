@@ -1,0 +1,23 @@
+.layout-footer {
+  padding: 2rem;
+  font-size: 1rem;
+  background-color: var(--surface-b);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #dee4e9;
+  height: 4rem;
+
+  a {
+    color: var(--text-color);
+    font-weight: 600;
+  }
+
+  .layout-footer-right {
+    justify-content: right;
+    a {
+      color: var(--text-secondary-color);
+      font-size: 1rem;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "bq-start": {
+    "copyright": "Copyright ©",
+    "poweredby": "Powered By bqStart",
+    "buttons":{
+      "new": "New",
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
+      "discard": "Discard",
+      "filter": "Filter",
+      "applyFilter": "Apply",
+      "addCondition": "Add Condition"
+    },
+    "messages":{
+      "confirmation": "Confirmation",
+      "deleteConfirm": "Are you sure that you want to delete?",
+      "discardConfirm": "Are you sure that you want to discard?",
+      "recordDeleted": "Record Deleted",
+      "recordSaved": "Record Saved",
+      "dataLoaded": "Server Data Loaded",
+      "error":"Error"
+    },
+    "filters":{
+      "title": "Filters",
+      "customTitle": "Custom Filters",
+      "search": "Search...",
+      "contains": "contains",
+      "notContains":"not contains",
+      "startsWith":"starts with",
+      "endsWith":"ends with",
+      "between":"between",
+      "eq":"=",
+      "gt":">",
+      "ge":">=",
+      "lt":"<",
+      "le":"<=",
+      "isSet":"is set",
+      "isNotSet":"is not set"
+    }
+  }
+}

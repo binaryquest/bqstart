@@ -1,0 +1,49 @@
+<div>
+  <div>
+    <bq-table-filters [filters]="filters" [metaData]="metaData" [tableParams]="tableParams" [predefinedFilters]='predefinedFilters' [showAddButton]="showAddButton" (addButtonClicked)="gotoAddNew()" ></bq-table-filters>
+  </div>
+  <p-table #internalTable [value]='model' [styleClass]="styleClass" [ngClass]="{'bq-table-flex':!equalColumnWidth}"
+    [resizableColumns]="resizableColumns" [loading]="loading" [lazy]="true" [lazyLoadOnInit]="false"
+    (onLazyLoad)="lazyLoadData($event)" [paginator]="true" [rows]="pageSize" [totalRecords]="count"
+    [rowsPerPageOptions]="pageSizeOptions">
+    <ng-template pTemplate="header">
+      <tr>
+        <ng-container *ngFor="let col of columns">
+          <ng-container *ngIf="!col.allowSort; else sortRenderer">
+            <th pResizableColumn [style]="col.headerStyle">
+              {{col.caption}}
+            </th>
+          </ng-container>
+          <ng-template #sortRenderer>
+            <th pResizableColumn [pSortableColumn]="$any(col.sortName)" [style]="col.headerStyle">
+              {{col.caption}}
+              <p-sortIcon *ngIf="col.allowSort" [field]="$any(col.sortName)"></p-sortIcon>
+            </th>
+          </ng-template>
+        </ng-container>
+        <th *ngIf="!hideOptionsColumn">Options</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-data>
+      <tr>
+        <td *ngFor="let col of columns" [style]="col.cellStyle">
+          <ng-container *ngIf="col.cellTemplate; else defaultRender" [ngTemplateOutlet]="col.cellTemplate"
+            [ngTemplateOutletContext]="{row:data}"></ng-container>
+          <ng-template #defaultRender>
+            {{getFormattedValue(data, col.field)}}
+          </ng-template>
+        </td>
+        <td *ngIf="!hideOptionsColumn">
+          <ng-container *ngIf="optionColumnTemplate; else defaultOptionRender" [ngTemplateOutlet]="optionColumnTemplate"
+            [ngTemplateOutletContext]="{row:data}"></ng-container>
+          <ng-template #defaultOptionRender>
+            <span class="p-buttonset">
+              <button *ngIf="allowEdit" pButton icon="pi pi-pencil" aria-label="Edit" type="button" class="p-button-primary p-button-sm" (click)="gotoEdit(data)"></button>
+              <button *ngIf="allowDetails" pButton icon="pi pi-file" aria-label="Details" type="button" class="p-button-secondary p-button-sm" (click)="gotoDetails(data)"></button>
+            </span>
+          </ng-template>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

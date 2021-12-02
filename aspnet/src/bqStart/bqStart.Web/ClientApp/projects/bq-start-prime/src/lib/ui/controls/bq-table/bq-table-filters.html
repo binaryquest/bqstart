@@ -1,0 +1,63 @@
+<div>
+  <div class="flex md:justify-content-between flex-wrap pb-3 sm:justify-content-center">
+
+    <div class="mr-2 pr-2 mb-1">
+      <p-button  *ngIf="showAddButton" label="{{'bq-start.buttons.new' | translate}}" icon="pi pi-plus" (onClick)="gotoAddView()"></p-button>
+    </div>
+
+    <div class="flex justify-content-end" *ngIf="filters.length>0">
+      <bq-chips-menu placeholder="{{'bq-start.filters.search' | translate}}" [(ngModel)]="appliedFilters" (onAdd)="onAdd($event)"
+        (onRemove)="onRemove($event)" [filters]="filters">
+        <ng-template let-item pTemplate="item">
+          <span class="pi pi-filter p-mr-2"></span> {{item}}
+        </ng-template>
+      </bq-chips-menu>
+
+      <span class="pl-1">
+        <button type="text" pButton icon="pi pi-angle-down" label="{{'bq-start.buttons.filter' | translate}}" (click)="toggleMenu()"></button>
+      </span>
+
+      <div #container class="bq-filter-overlay-container">
+        <div class="bq-filter-overlay p-dropdown-panel" [ngClass]="{'visible': showMenu}" (click)="onContainerClick()">
+          <form #customFiltersForm="ngForm">
+            <div *ngIf="predefinedFilters.length>0">
+              <div>
+                {{'bq-start.filters.title' | translate}}
+              </div>
+              <ul class="p-dropdown-items">
+                <li *ngFor="let pf of predefinedFilters" class="p-dropdown-item p-ripple"
+                  (click)="pfMenuClicked(pf, $event)">
+                  <i class="pi pi-filter" *ngIf="pf.isSelected"></i>
+                  <span [ngStyle]="{'font-weight': pf.isSelected ? 'bold' : ''}">
+                    {{pf.filterName}}
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div>
+              {{'bq-start.filters.customTitle' | translate}}
+            </div>
+            <div class="p-d-flex p-flex-row p-jc-around p-ai-center" *ngFor="let cf of customFilters; let i = index">
+              <div class="bq-table-custom-filter-container">
+                <bq-table-custom-filter [formName]="('cfField' + i)" [filterCluase]="cf" [filters]="filters.toArray()">
+                </bq-table-custom-filter>
+              </div>
+              <div class="p-ml-2" *ngIf="i>0">
+                <button type="button" pButton icon="pi pi-trash" class="p-button-warning p-button-sm"
+                  (click)="removeConditon(i)"></button>
+              </div>
+            </div>
+            <div class="p-text-center">
+              <button type="button" pButton icon="pi pi-check" class="p-button-primary p-button-sm"
+                label="{{'bq-start.buttons.applyFilter' | translate}}"
+                (click)="apply()"></button>
+              <button type="button" pButton icon="pi pi-plus" class="p-button-secondary p-button-sm p-ml-2"
+                label="{{'bq-start.buttons.addCondition' | translate}}"
+                (click)="addCondtion()"></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

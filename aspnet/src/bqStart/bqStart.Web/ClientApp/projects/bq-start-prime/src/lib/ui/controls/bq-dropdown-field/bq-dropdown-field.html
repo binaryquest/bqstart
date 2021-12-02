@@ -1,0 +1,47 @@
+<div [class]="mainCss" provide-parent-form>
+  <label [for]="id" [class]="labelCss">{{caption}}</label>
+  <div [class]="fieldCss" [style.align-self]="innerDivVAlign">
+    <ng-container [ngTemplateOutlet]="controlRenderTemplate"></ng-container>
+  </div>
+</div>
+
+<ng-template #defaultRender>
+  <span>{{model}}</span>
+</ng-template>
+
+<ng-template #editRender>
+  <ng-select
+    [name]="id"
+    [ngModel]="model"
+    (ngModelChange)="onChange($event)"
+    [items]="itemSource"
+    [bindValue]="valueName"
+    [bindLabel]="displayName"
+    [editableSearchTerm]="editable"
+    [groupBy]="groupBy"
+    [addTag]="addIfNotInList"
+  >
+    <ng-template *ngIf="controlItemRenderTemplate" ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+      <ng-container [ngTemplateOutlet]="controlItemRenderTemplate" [ngTemplateOutletContext]="{$implicit:item,index:index,searchTerm:search}"></ng-container>
+    </ng-template>
+
+    <ng-template *ngIf="controlItemLabelRenderTemplate" ng-label-tmp let-item="item">
+      <ng-container [ngTemplateOutlet]="controlItemLabelRenderTemplate" [ngTemplateOutletContext]="{$implicit:item}"></ng-container>
+    </ng-template>
+
+  </ng-select>
+
+</ng-template>
+
+<ng-template #editEnumRender>
+  <ng-select
+    [name]="id"
+    [ngModel]="model"
+    (ngModelChange)="onChange($event)"
+    [items]="itemEnumSource"
+    bindLabel="name"
+    bindValue="name"
+    required
+  ></ng-select>
+</ng-template>
+

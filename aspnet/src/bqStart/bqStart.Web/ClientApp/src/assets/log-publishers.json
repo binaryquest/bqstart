@@ -1,0 +1,14 @@
+[
+  {
+    "loggerName": "console",
+    "loggerLocation": "",
+    "isActive":  true,
+    "enableBqAdminLog": true
+  },
+  {
+    "loggerName": "localstorage",
+    "loggerLocation": "logging",
+    "isActive": false,
+    "enableBqAdminLog": false
+  }
+]
