@@ -1,14 +1,14 @@
-﻿namespace bqStart.Web.Controllers
-{
-    using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
+namespace BinaryQuest.Framework.Core.Implementation
+{
     public class OidcConfigurationController : Controller
     {
         public OidcConfigurationController(IClientRequestParametersProvider clientRequestParametersProvider)
         {
-            ClientRequestParametersProvider = clientRequestParametersProvider;        
+            ClientRequestParametersProvider = clientRequestParametersProvider;
         }
 
         public IClientRequestParametersProvider ClientRequestParametersProvider { get; }

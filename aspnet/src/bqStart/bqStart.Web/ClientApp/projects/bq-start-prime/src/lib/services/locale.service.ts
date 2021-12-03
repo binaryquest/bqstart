@@ -76,6 +76,7 @@ export class LocaleService implements TranslateLoader {
   setLocale(localeId: string) {
     this.translate.use(localeId);
     moment.locale(localeId);
+    InternalLogService.logger().info(`setting locale to ${localeId}`);
   }
 
 }
