@@ -9,7 +9,7 @@ import { InternalLogService } from '../../services/log/log.service';
 import { BaseComponent } from '../base.component';
 import { BqForm } from '../controls/bq-form/bq-form';
 import { Message,MessageService } from 'primeng/api';
-import { MessageType } from 'projects/bq-start-prime/src/public-api';
+
 
 
 /**

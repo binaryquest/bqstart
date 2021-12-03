@@ -1,7 +1,7 @@
 import { Component, Injector } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { AuthorizeService, IUser } from "../api-authorization/authorize.service";
-import { BQConfigData, BQAdminConfigService } from "../config/bq-start-config";
+import { BQConfigData, BQConfigService } from "../config/bq-start-config";
 import { AppInitService } from "../services/app-init.service";
 import { AppInjector } from "../services/app-injector.service";
 import { DialogService } from "../services/dialog.service";
@@ -32,7 +32,7 @@ export class BaseComponent {
 
   constructor() {
     this.injector = AppInjector.getInjector();
-    this.config = this.injector.get(BQAdminConfigService);
+    this.config = this.injector.get(BQConfigService);
     this.appInitService = this.injector.get(AppInitService);
     this.authorizeService = this.injector.get(AuthorizeService);
     this.messageSvc = this.injector.get(MessageService);

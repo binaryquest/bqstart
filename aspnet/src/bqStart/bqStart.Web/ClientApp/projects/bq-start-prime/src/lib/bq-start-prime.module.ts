@@ -7,7 +7,7 @@ import { LoginMenuComponent } from './api-authorization/login-menu/login-menu.co
 import { LoginComponent } from './api-authorization/login/login.component';
 import { LogoutComponent } from './api-authorization/logout/logout.component';
 import { TopBar } from './ui/layout/top-bar/top-bar';
-import { BQAdminConfigService, BQConfigData } from './config/bq-start-config';
+import { BQConfigService, BQConfigData } from './config/bq-start-config';
 import { FooterBar } from './ui/layout/footer-bar/footer-bar';
 import { AppInjector } from './services/app-injector.service';
 import { AppLayout } from './ui/layout/app-layout/app-layout';
@@ -219,10 +219,13 @@ export class BQStartPrimeModule {
   constructor(injector: Injector) { AppInjector.setInjector(injector); }
 
   static forRoot(config: BQConfigData): ModuleWithProviders<BQStartPrimeModule> {
+
+    console.log("BQStartPrimeModule forRoot");
+
     return {
       ngModule: BQStartPrimeModule,
       providers: [
-        { provide: BQAdminConfigService, useValue: config },
+        { provide: BQConfigService, useValue: config },
         {
           provide:
             APP_INITIALIZER,

@@ -1,10 +1,11 @@
 import { AfterContentInit, AfterViewInit, Component, ContentChildren, Host, Inject, Input, OnInit, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';
-import { FormType } from 'projects/bq-start-prime/src/public-api';
+
 import { BaseFormView } from '../../core/base-form-view';
 import { BQTemplate } from '../../core/bq-template.directive';
 import { Router } from '@angular/router';
+import { FormType } from '../../../config/bq-start-config';
 
 @Component({
   selector: 'bq-form',

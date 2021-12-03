@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
-import { BaseComponent } from '../../base.component';
+import { AuthorizeService } from '../../../api-authorization/authorize.service';
+
 @Component({
   selector: 'bq-app-layout',
   templateUrl: './app-layout.html',
   styleUrls: ['./app-layout.scss']
 })
-export class AppLayout extends BaseComponent implements OnInit {
+export class AppLayout implements OnInit {
 
   title = 'app';
   menuActive: boolean;
+  isAuthenticated: boolean;
 
-  constructor(private primengConfig: PrimeNGConfig) {
-    super();
+  constructor(private primengConfig: PrimeNGConfig, private authorizeService: AuthorizeService) {
+    this.authorizeService.isAuthenticated().subscribe(x => this.isAuthenticated = x);
   }
 
   ngOnInit(): void {

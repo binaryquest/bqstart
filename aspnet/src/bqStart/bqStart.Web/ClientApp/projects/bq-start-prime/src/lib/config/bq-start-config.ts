@@ -117,4 +117,4 @@ export enum FormType {
  * This is not a real service, but it looks like it from the outside.
  * It's just an InjectionTToken used to import the config object, provided from the outside
  */
-export const BQAdminConfigService = new InjectionToken<BQConfigData>("BQAdminConfig");
+export const BQConfigService = new InjectionToken<BQConfigData>("BQConfig");

@@ -4,7 +4,7 @@ import { Router, Routes } from "@angular/router";
 import { ApplicationPaths } from "../api-authorization/api-authorization.constants";
 import { LoginComponent } from "../api-authorization/login/login.component";
 import { LogoutComponent } from "../api-authorization/logout/logout.component";
-import { BQConfigData, BQAdminConfigService, FormType, RunningConfigHelper, ViewData, ViewType } from "../config/bq-start-config";
+import { BQConfigData, BQConfigService, FormType, RunningConfigHelper, ViewData, ViewType } from "../config/bq-start-config";
 import { InternalLogService, LogPublishersService } from "./log/log.service";
 import { MetaDataResolver } from "./meta-data.resolver";
 
@@ -43,7 +43,7 @@ export class AppInitService {
   }
 
   constructor(private injector: Injector, private router: Router, private pageTitle: Title, private logSvc:LogPublishersService) {
-    this._config = this.injector.get(BQAdminConfigService);
+    this._config = this.injector.get(BQConfigService);
     this._runningConfig = new RunningConfigHelper(this._config);
   }
 
@@ -89,7 +89,7 @@ export class AppInitService {
         const newRoutes = [...this.router.config, ...routes, ...viewRoutes];
         this.router.resetConfig(newRoutes);
 
-        InternalLogService.logger().info("🛠️ BqAdmin Initialized 🛠️");
+        InternalLogService.logger().info("🛠️ BqStart Initialized 🛠️");
 
         resolve();
       }, 500);

@@ -1,12 +1,13 @@
 import { AfterContentInit, Component, ContentChildren, Directive, EventEmitter, Host, Input, OnInit, Optional, Output, QueryList, TemplateRef } from '@angular/core';
 import { BaseFormView } from '../core/base-form-view';
-import { FormType } from 'projects/bq-start-prime/src/public-api';
+
 import { MetadataField } from '../../models/meta-data';
 import { FormBlock } from '../controls/form-block/form-block';
 import { ViewWrapperService } from '../controls/view-wrapper/view-wrapper.service';
 import { ControlContainer, ControlValueAccessor, NgForm } from '@angular/forms';
 import { BQTemplate } from './bq-template.directive';
 import { Dictionary } from '../../models/meta-data';
+import { FormType } from '../../config/bq-start-config';
 @Component({
   selector: 'bq-form > base-field',
   template: ''
