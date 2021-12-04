@@ -40,6 +40,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { MenuModule } from 'primeng/menu';
 import { ChipsModule } from 'primeng/chips';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CalendarModule } from 'primeng/calendar';
@@ -71,6 +72,7 @@ import { CompareDirective } from './ui/controls/validators/compare.directive';
 import { BoolToYesNoPipe, PasswordPipe } from './ui/core/display.pipes';
 import { BqPasswordField } from './ui/controls/bq-password-field/bq-password-field';
 import { BqDropdownField } from './ui/controls/bq-dropdown-field/bq-dropdown-field';
+import { BqTextArea } from './ui/controls/bq-text-area/bq-text-area';
 export * from './models/meta-data';
 
 
@@ -105,6 +107,7 @@ export function initializeApp(appInitService: AppInitService) {
     MenuModule,
     ChipsModule,
     InputTextModule,
+    InputTextareaModule,
     DropdownModule,
     InputNumberModule,
     CalendarModule,
@@ -148,7 +151,8 @@ export function initializeApp(appInitService: AppInitService) {
     BoolToYesNoPipe,
     PasswordPipe,
     BqPasswordField,
-    BqDropdownField
+    BqDropdownField,
+    BqTextArea
   ],
   exports: [
     LoginMenuComponent,
@@ -196,7 +200,8 @@ export function initializeApp(appInitService: AppInitService) {
     BoolToYesNoPipe,
     PasswordPipe,
     BqPasswordField,
-    BqDropdownField
+    BqDropdownField,
+    BqTextArea
   ],
   providers: [
     AuthorizeService,

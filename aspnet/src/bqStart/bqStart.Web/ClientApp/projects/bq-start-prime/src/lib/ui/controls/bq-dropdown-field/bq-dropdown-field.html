@@ -10,17 +10,16 @@
 </ng-template>
 
 <ng-template #editRender>
-  <ng-select
-    [name]="id"
-    [ngModel]="model"
-    (ngModelChange)="onChange($event)"
-    [items]="itemSource"
-    [bindValue]="valueName"
-    [bindLabel]="displayName"
-    [editableSearchTerm]="editable"
-    [groupBy]="groupBy"
-    [addTag]="addIfNotInList"
-  >
+  <ng-select [name]="id"
+             [ngModel]="model"
+             (ngModelChange)="onChange($event)"
+             [items]="itemSource"
+             [bindValue]="valueName"
+             [bindLabel]="displayName"
+             [editableSearchTerm]="editable"
+             [groupBy]="groupBy"
+             [addTag]="addIfNotInList"
+             [required]="isRequired">
     <ng-template *ngIf="controlItemRenderTemplate" ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
       <ng-container [ngTemplateOutlet]="controlItemRenderTemplate" [ngTemplateOutletContext]="{$implicit:item,index:index,searchTerm:search}"></ng-container>
     </ng-template>
@@ -34,14 +33,12 @@
 </ng-template>
 
 <ng-template #editEnumRender>
-  <ng-select
-    [name]="id"
-    [ngModel]="model"
-    (ngModelChange)="onChange($event)"
-    [items]="itemEnumSource"
-    bindLabel="name"
-    bindValue="name"
-    required
-  ></ng-select>
+  <ng-select [name]="id"
+             [ngModel]="model"
+             (ngModelChange)="onChange($event)"
+             [items]="itemEnumSource"
+             bindLabel="name"
+             bindValue="name"
+             required></ng-select>
 </ng-template>
 

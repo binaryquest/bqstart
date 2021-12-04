@@ -1,0 +1,17 @@
+<bq-form>
+
+  <bq-text-field
+    [field]="metaData.fields.ClassName"
+    [(model)]="model.ClassName"
+  ></bq-text-field>
+
+  <bq-text-area
+    [field]="metaData.fields.ClassName"
+    [(model)]="model.ClassName"
+    [autoResize]="true"
+    [row]="5">
+  </bq-text-area>
+
+  <bq-dropdown-field [field]="metaData.fields.DepartmentId" [(model)]="model.DepartmentId" [itemSource]="lookupDataModel.departmentList" displayName="name" valueName="id"></bq-dropdown-field>
+
+</bq-form>

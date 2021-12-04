@@ -19,5 +19,8 @@ namespace bqStart.Data
         {
             base.OnModelCreating(builder);
         }
+
+        public DbSet<Department> Departments => Set<Department>();
+        public DbSet<ExampleClass> ExampleClasses => Set<ExampleClass>();
     }
 }

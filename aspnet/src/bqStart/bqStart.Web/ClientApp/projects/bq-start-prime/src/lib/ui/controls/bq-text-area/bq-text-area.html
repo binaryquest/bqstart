@@ -1,0 +1,49 @@
+<div [class]="mainCss" provide-parent-form>
+  <label [for]="id" [class]="labelCss">{{caption}}</label>
+  <div [class]="fieldCss" [style.align-self]="innerDivVAlign">
+    <ng-container [ngTemplateOutlet]="controlRenderTemplate"></ng-container>
+  </div>
+</div>
+
+<ng-template #defaultRender>
+  <span>{{model}}</span>
+</ng-template>
+
+<ng-template #errorBlock let-myField="value">
+  <div [hidden]="myField.valid || myField.pristine" class="mt-1">
+    <small class="p-error" *ngIf="myField.errors?.required">* required<br/></small>
+    <small class="p-error" *ngIf="myField.errors?.minlength"
+      >* minimum required length
+      {{myField.errors?.minlength?.requiredLength}}<br/></small
+    >
+    <small class="p-error" *ngIf="myField.errors?.maxlength"
+      >* maxium length allowed
+      {{myField.errors?.maxlength?.requiredLength}}<br/></small
+    >
+
+    <small class="p-error" *ngIf="myField.errors?.email">* invalid email<br/></small>
+
+  </div>
+</ng-template>
+
+<ng-template #stringRender>
+
+  <textarea
+        [id]="id"
+        [name]="id"
+        [rows]="row"
+        pInputTextarea [autoResize]="autoResize"
+        [(ngModel)]="model"
+    (ngModelChange)="onChange($event)"
+    class="inputfield w-full"
+    [required]="isRequired"
+    [disabled]="disabled ? true : field?.autoGen ? true : false"
+    [maxlength]="maxLength"
+    [minlength]="minLength"
+    #myField="ngModel"></textarea>
+
+  <ng-container
+    [ngTemplateOutlet]="errorBlock"
+    [ngTemplateOutletContext]="{value:myField}"
+  ></ng-container>
+</ng-template>

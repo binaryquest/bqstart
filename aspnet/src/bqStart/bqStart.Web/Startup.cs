@@ -1,26 +1,20 @@
-using BinaryQuest.Framework.Core;
-using BinaryQuest.Framework.Core.Model;
+using BinaryQuest.Framework.Core.Extensions;
 using BinaryQuest.Framework.Core.Security;
-using Microsoft.AspNetCore.OData;
-using Microsoft.AspNetCore.OData.Extensions;
+using bqStart.Data;
+using bqStart.Web.Controllers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.OData.Edm;
-using bqStart.Data;
 //using bqStart.Web.Controllers;
 using Serilog;
-using System;
 using TimeZoneConverter;
-using BinaryQuest.Framework.Core.Extensions;
 
 namespace bqStart.Web
 {
@@ -69,17 +63,9 @@ namespace bqStart.Web
                 .SetDefaultTimeZone(TZConvert.GetTimeZoneInfo("Asia/Dhaka"))
                 .SetDefaultLanguage("en_US")
                 .SetSecurityRulesProvider(new FileBasedSecurityRulesProvider("config"))
-                //.RegisterController<Customer, CustomerController>()
-                //.RegisterController<Patient, PatientController>()
-                //.RegisterController<Product, ProductController>()
-                //.RegisterController<Order, OrderController>()
-                //.RegisterController<OrderLine, OrderLineController>()
-                //.RegisterController<ConsultantDepartment, ConsultantDepartmentController>()
-                //.RegisterController<Consultant, ConsultantController>()
-                //.RegisterController<Appointment, AppointmentController>()
-                //.RegisterController<AppointmentStatus, AppointmentStatusController>()
-                );
-            //opt => opt.EntityType.HasKey(c => new { c.OrderId, c.ProductId })
+                .RegisterController<Department, DepartmentController>()
+                .RegisterController<ExampleClass, ExampleClassController>()
+                );            
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
 

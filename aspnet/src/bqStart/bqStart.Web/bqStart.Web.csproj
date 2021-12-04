@@ -43,13 +43,10 @@
 		<ProjectReference Include="..\bqStart.Data\bqStart.Data.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Controllers\" />
-	</ItemGroup>
-
 	<PropertyGroup>
 		<!-- Makes the TypeScript compilation task a no-op -->
 		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+		<Nullable>disable</Nullable>
 	</PropertyGroup>
 	
 </Project>

@@ -1,0 +1,15 @@
+<bq-table [model]='models'
+          [metaData]='metaData'
+          [tableParams]='tableParams'
+          (loadTableData)='onRefreshData()'
+          [resizableColumns]='true'
+          [loading]='isLoading'
+          [showGrid]='true'
+          [showStripedGrid]='true'
+          [showAddButton]="showAddButton">
+
+  <bq-table-column [field]='metaData.fields.DepartmentName'></bq-table-column>
+
+  <bq-table-filter [field]='metaData.fields.DepartmentName'></bq-table-filter>
+</bq-table>
+

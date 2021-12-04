@@ -1,0 +1,21 @@
+<bq-table [model]='models'
+          [metaData]='metaData'
+          [tableParams]='tableParams'
+          (loadTableData)='onRefreshData()'
+          [resizableColumns]='true'
+          [loading]='isLoading'
+          [showGrid]='true'
+          [showStripedGrid]='true'
+          [showAddButton]="showAddButton">
+
+  <bq-table-column [field]='metaData.fields.ClassName'></bq-table-column>
+  <bq-table-column [field]='metaData.fields.DepartmentId' [cellTemplate]="cellTemplate">
+    <ng-template #cellTemplate let-row="row">
+      {{row.Department.DepartmentName}}
+    </ng-template>
+  </bq-table-column>
+
+  <bq-table-filter [field]='metaData.fields.ClassName'></bq-table-filter>
+  <bq-table-filter [field]='metaData.fields.DepartmentId'></bq-table-filter>
+</bq-table>
+

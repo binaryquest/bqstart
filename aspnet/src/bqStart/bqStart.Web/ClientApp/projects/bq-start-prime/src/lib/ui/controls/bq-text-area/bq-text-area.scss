@@ -1,0 +1,11 @@
+:host {
+  width: 100%;
+}
+.field {
+   margin-bottom: 5px !important;
+}
+@media screen and (min-width: 960px) {
+  label::after {
+    content: ':';
+  }
+}
