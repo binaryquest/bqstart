@@ -85,7 +85,7 @@ export class GenericDataService implements OnDestroy {
 
   public get<T>(model:any[], metaData:ModelMetadata): Observable<ODataResponse<T>> {
 
-    let url = `/odata/${this.options.$type}(${metaData.getPrimaryKeyAsUrl(model)})`;
+    let url = `/odata/${this.options.$type}(${metaData.getPrimaryKeyAsUrl(model)})?`;
 
     if (this.options.$expandClause){
       url += `&$expand=${this.options.$expandClause}`;
