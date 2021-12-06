@@ -24,7 +24,7 @@
     "filters":{
       "title": "ফিল্টার",
       "customTitle": "কাস্টম ফিল্টার",
-      "search": "সার্চ...",
+      "search": "সার্চ",
       "contains": "আছে",
       "notContains": "নাই",
       "startsWith": "শুরু হয়",

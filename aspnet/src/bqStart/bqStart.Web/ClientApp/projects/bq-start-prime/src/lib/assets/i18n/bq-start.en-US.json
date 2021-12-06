@@ -24,9 +24,9 @@
     "filters":{
       "title": "Filters",
       "customTitle": "Custom Filters",
-      "search": "Search...",
-      "contains": "contains",
-      "notContains":"not contains",
+      "search": "Search",
+      "contains": "containing",
+      "notContains":"not containing",
       "startsWith":"starts with",
       "endsWith":"ends with",
       "between":"between",
@@ -36,7 +36,9 @@
       "lt":"<",
       "le":"<=",
       "isSet":"is set",
-      "isNotSet":"is not set"
+      "isNotSet":"is not set",
+      "term-error": "Search Term {{term}} is not valid for {{caption}}",
+      "term-error-title": "Input Error"
     }
   }
 }

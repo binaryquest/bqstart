@@ -8,6 +8,7 @@ import { DomHandler } from 'primeng/dom';
 //import { tap } from 'lodash';
 import { relativeTimeRounding } from 'moment';
 import { InternalLogService } from '../../../services/log/log.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'bq-table-filters',
@@ -57,7 +58,7 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
   documentClickListener: any;
   target: any;
 
-  constructor(private msgSvc: MessageService, public el: ElementRef, public renderer: Renderer2, private zone: NgZone) { }
+  constructor(private msgSvc: MessageService, public el: ElementRef, public renderer: Renderer2, private zone: NgZone, private translate:TranslateService) { }
 
   ngAfterViewInit(): void {
     this.container = this.el.nativeElement.getElementsByClassName("bq-filter-overlay")[0];
@@ -133,8 +134,10 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
           data.DataType = defFilter.field.dataType;
           this.tableParams.addFilter(data);
         } else {
-          const msg = `Search Term ${event.value} is not valid for ${defFilter.caption}`;
-          this.msgSvc.showMessage(msg, 'Input Error', MessageType.error);
+          const translatedMsg = this.translate.instant("bq-start.filters.term-error", {'term':event.value, 'caption':defFilter.caption});
+          //const msg = `Search Term ${event.value} is not valid for ${defFilter.caption}`;
+          const translatedTitle = this.translate.instant("bq-start.filters.term-error-title");
+          this.msgSvc.showMessage(translatedMsg, translatedTitle, MessageType.error);
           this.appliedFilters.pop();
         }
       } else {

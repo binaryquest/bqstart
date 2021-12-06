@@ -56,7 +56,7 @@
           (click)="menuClicked(filter, $event)"
         >
         <i class="pi pi-arrow-right" *ngIf="filter == selectedFilter"></i>
-          Search {{filter.caption}} {{filter.defaultPredicate.display}} {{typedText}}
+          {{'bq-start.filters.search' | translate}} {{filter.caption}} {{filter.defaultPredicate.display | translate}} {{typedText}}
         </ul>
       </li>
     </div>
