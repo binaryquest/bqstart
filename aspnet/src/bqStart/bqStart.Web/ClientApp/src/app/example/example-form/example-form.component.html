@@ -12,6 +12,11 @@
     [row]="5">
   </bq-text-area>
 
-  <bq-dropdown-field [field]="metaData.fields.DepartmentId" [(model)]="model.DepartmentId" [itemSource]="lookupDataModel.departmentList" displayName="name" valueName="id"></bq-dropdown-field>
+  <bq-dropdown-field [field]="metaData.fields.DepartmentId" [(model)]="model.DepartmentId" [itemSource]="lookupDataModel.departmentList" displayName="name" valueName="id">
+    //optional display template
+    <ng-template bqTemplate="displayLabel">
+        {{model.Department?.DepartmentName}}
+    </ng-template>
+  </bq-dropdown-field>
 
 </bq-form>

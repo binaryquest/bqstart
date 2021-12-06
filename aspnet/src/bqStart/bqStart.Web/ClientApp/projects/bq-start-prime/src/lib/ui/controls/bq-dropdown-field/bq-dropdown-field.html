@@ -6,7 +6,7 @@
 </div>
 
 <ng-template #defaultRender>
-  <span>{{model}}</span>
+  <span>{{displayModel$ | async}}</span>
 </ng-template>
 
 <ng-template #editRender>

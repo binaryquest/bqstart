@@ -30,6 +30,7 @@ export * from './lib/ui/core/base-form-view';
 export * from './lib/ui/core/bq-template.directive';
 export * from './lib/ui/controls/form-block/form-block';
 export * from './lib/ui/controls/bq-text-field/bq-text-field';
+export * from './lib/ui/controls/bq-text-area/bq-text-area';
 export * from './lib/ui/controls/bq-password-field/bq-password-field';
 export * from './lib/ui/controls/bq-form/bq-form';
 export * from './lib/ui/controls/bq-dropdown-field/bq-dropdown-field';

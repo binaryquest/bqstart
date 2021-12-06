@@ -8,6 +8,7 @@ import { ControlContainer, ControlValueAccessor, NgForm } from '@angular/forms';
 import { BQTemplate } from './bq-template.directive';
 import { Dictionary } from '../../models/meta-data';
 import { FormType } from '../../config/bq-start-config';
+import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 @Component({
   selector: 'bq-form > base-field',
   template: ''
@@ -34,10 +35,21 @@ export abstract class BaseField implements OnInit, AfterContentInit {
   name: string;
 
   @Input()
-  model: any;
+  get model(): any {
+    return this._model;
+  }
+  set model(value:any) {
+    this._model = value;
+    this.model$.next(value);
+  }
 
   @Input()
   disabled: boolean = false;
+
+  //models internal observable
+  readonly model$ = new ReplaySubject<any>();
+  //backing model store
+  _model: any;
 
   // Output prop name must be Input prop name + 'Change'
   // Use in your component to write an updated value back out to the parent

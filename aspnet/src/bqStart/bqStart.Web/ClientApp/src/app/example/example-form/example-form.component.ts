@@ -4,6 +4,9 @@ import { BaseFormView, ViewOptionalData } from 'projects/bq-start-prime/src/publ
 import { ExampleClass } from 'src/app/models/exampleClass';
 
 
+const OPTIONAL_DATA:ViewOptionalData = {
+  $expandClause: "Department"
+};
 
 @Component({
   selector: 'app-example-form',
@@ -13,7 +16,7 @@ import { ExampleClass } from 'src/app/models/exampleClass';
 export class ExampleFormComponent extends BaseFormView<ExampleClass> {
 
   constructor(protected route: ActivatedRoute, protected router:Router) {
-    super(route, router, {});
+    super(route, router, OPTIONAL_DATA);
   }
 
 }

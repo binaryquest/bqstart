@@ -7,6 +7,8 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { map, Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { EnumItem } from '../../../models/meta-data';
 import { BaseField } from '../../core/base-field';
 import { FormBlock } from '../form-block/form-block';
@@ -44,6 +46,8 @@ export class BqDropdownField extends BaseField {
   @Input()
   addIfNotInList: boolean;
 
+  displayModel$:Observable<any>|null = null;
+
   constructor(
     protected vwSvc: ViewWrapperService,
     @Optional() @Host() protected formBlock?: FormBlock
@@ -61,15 +65,38 @@ export class BqDropdownField extends BaseField {
         this.controlRenderTemplate = this.editEnumRender;
       } else {
         this.controlRenderTemplate = this.editRender;
-        if (this.optionalTemplates["item"] !== null){
+        if (this.optionalTemplates["item"] !== null && this.optionalTemplates["item"] !== undefined){
           this.controlItemRenderTemplate = this.optionalTemplates["item"];
         }
-        if (this.optionalTemplates["label"] !== null){
+        if (this.optionalTemplates["label"] !== null && this.optionalTemplates["item"] !== undefined){
           this.controlItemLabelRenderTemplate = this.optionalTemplates["label"];
         }
       }
     } else {
-      this.controlRenderTemplate = this.defaultRender;
+      if (this.optionalTemplates["displayLabel"] !== null && this.optionalTemplates["displayLabel"] !== undefined){
+        this.controlRenderTemplate = this.optionalTemplates["displayLabel"];
+      }else{
+        this.controlRenderTemplate = this.defaultRender;
+      }
     }
+
+    this.displayModel$ = this.model$.pipe(map((value,index) => {
+      if (value!=null){
+        if(this.showAsEnum){
+          if (this.itemEnumSource!=null){
+            const dp = this.itemEnumSource.filter((v) => v.id === value);
+            return dp.length>0 ? dp[0].name : "";
+          }
+        }else{
+          if (this.itemSource!=null){
+            const dp = this.itemSource.filter((v) => v[this.valueName] === value);
+            return dp.length>0 ? dp[0][this.displayName] : "";
+          }
+        }
+      }
+      return "-";
+    }));
+
+
   }
 }

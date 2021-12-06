@@ -5,5 +5,5 @@ export class ExampleClass extends BaseEntity<number>{
     ClassName: string;
     DepartmentId: number;
 
-    Department: Department;
+    Department: Department | undefined;
 }
