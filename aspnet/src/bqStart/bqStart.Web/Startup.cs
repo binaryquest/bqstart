@@ -60,9 +60,11 @@ namespace bqStart.Web
             services.AddBqAdminServices<ApplicationUser, MainDataContext>(options =>
                 options.SetApplicationName("PDCL MIS")
                 .SetAllowUserRegistration(false)
+                .SetDefaultAdminRole(Configuration["defaultAdminRole"])
                 .SetDefaultTimeZone(TZConvert.GetTimeZoneInfo("Asia/Dhaka"))
                 .SetDefaultLanguage("en_US")
                 .SetSecurityRulesProvider(new FileBasedSecurityRulesProvider("config"))
+                .RegisterController<IdentityRole, IdentityRoleController>()
                 .RegisterController<Department, DepartmentController>()
                 .RegisterController<ExampleClass, ExampleClassController>()
                 );            

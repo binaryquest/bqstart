@@ -45,6 +45,7 @@ namespace BinaryQuest.Framework.Core.Model
         public string ApplicationName { get; private set; }
         public bool AllowUserRegistration { get; private set; }
         public string DefaultLanguage { get; private set; }
+        public string DefaultAdminRole { get; private set; }
         public TimeZoneInfo DefaultTimeZone { get; private set; }
         public ISecurityRulesProvider SecurityRulesProvider { get; set; }
 
@@ -74,6 +75,12 @@ namespace BinaryQuest.Framework.Core.Model
         public AppConfigOptions SetDefaultTimeZone(TimeZoneInfo defaultTimeZone)
         {
             DefaultTimeZone = defaultTimeZone;
+            return this;
+        }
+
+        public AppConfigOptions SetDefaultAdminRole(string defaultAdminRole)
+        {
+            DefaultAdminRole = defaultAdminRole;
             return this;
         }
 

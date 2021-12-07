@@ -6,7 +6,7 @@ import { AppInitService } from "../services/app-init.service";
 import { AppInjector } from "../services/app-injector.service";
 import { DialogService } from "../services/dialog.service";
 import { LocaleService } from "../services/locale.service";
-import { LogService } from "../services/log/log.service";
+import { InternalLogService, LogService } from "../services/log/log.service";
 import { MessageService, MessageType } from "../services/message.service";
 import { NavigationService } from "../services/navigation.service";
 
@@ -89,12 +89,17 @@ export class BaseComponent {
   }
 
   errHandler(error:any) {
+    console.log("errHandler");
     setTimeout(() => this.isLoading = false, 100);
     let msg = "";
     if (error) {
       if (error.error) {
-        if (error.error.error)
+        if (error.error.error){
           msg = error.error.error.message ?? error.error.error;
+        }
+        else if (error.error.value){
+          msg = error.error.value;
+        }
         else
           msg = error.error;
       } else if (error.message) {

@@ -222,7 +222,7 @@ export class BaseFormView<TModel>
   }
 
   getKeyValue() {
-    console.log("get key value");
+    //console.log("get key value");
     if (this.model) {
       return this.metaData.getPrimaryKeyAsRouteParam(this.model);
     } else {

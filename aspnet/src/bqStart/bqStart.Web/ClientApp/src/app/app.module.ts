@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { RoleList, RoleForm } from './adminUI/roles/roles';
 
 import { BQStartPrimeModule, AuthorizeGuard, AuthorizeInterceptor, LocaleProvider, LocaleService } from 'projects/bq-start-prime/bq-start-module';
 import { APP_CONFIG } from './app.config';
@@ -28,6 +29,8 @@ import { DepartmentListComponent } from './example/department-list/department-li
 import { DepartmentFormComponent } from './example/department-form/department-form.component';
 import { ExampleFormComponent } from './example/example-form/example-form.component';
 import { ExampleListComponent } from './example/example-list/example-list.component';
+
+
 
 registerLocaleData(localeBn);
 registerLocaleData(localeSg);
@@ -46,7 +49,9 @@ registerLocaleData(localeSg);
     DepartmentListComponent,
     DepartmentFormComponent,
     ExampleFormComponent,
-    ExampleListComponent
+    ExampleListComponent,
+    RoleList,
+    RoleForm
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
