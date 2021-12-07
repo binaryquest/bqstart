@@ -8,6 +8,7 @@ export * from './lib/api-authorization/authorize.interceptor';
 export * from './lib/api-authorization/authorize.service';
 
 export * from './lib/models/base-model';
+export * from './lib/models/table-data';
 export * from './lib/api-authorization/login/login.component';
 export * from './lib/api-authorization/login-menu/login-menu.component';
 export * from './lib/api-authorization/logout/logout.component';

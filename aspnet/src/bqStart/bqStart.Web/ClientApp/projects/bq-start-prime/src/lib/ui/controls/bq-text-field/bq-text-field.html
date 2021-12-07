@@ -149,6 +149,7 @@
     [id]="id"
     [name]="id"
     [(ngModel)]="model"
+    (ngModelChange)="onChange($event)"
     [value]="true"
     [disabled]="disabled ? true : field?.autoGen ? true : false"
     #myField="ngModel"/>

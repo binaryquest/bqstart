@@ -19,4 +19,12 @@
     </ng-template>
   </bq-dropdown-field>
 
+  <bq-text-field
+    [field]="metaData.fields.IsActive"
+    [(model)]="model.IsActive"
+  ></bq-text-field>
+
 </bq-form>
+
+<hr/>
+{{model|json}}

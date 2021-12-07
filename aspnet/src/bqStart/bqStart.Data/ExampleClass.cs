@@ -20,5 +20,7 @@ namespace bqStart.Data
 
         [ForeignKey("DepartmentId")]
         public virtual Department? Department { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }

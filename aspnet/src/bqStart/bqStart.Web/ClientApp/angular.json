@@ -39,7 +39,7 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "validator"
-           ]
+            ]
           },
           "configurations": {
             "production": {
@@ -140,9 +140,15 @@
             "tsConfig": "projects/bq-start-prime/tsconfig.spec.json",
             "karmaConfig": "projects/bq-start-prime/karma.conf.js"
           }
+        },
+        "deploy": {
+          "builder": "ngx-deploy-npm:deploy",
+          "options": {
+            "access": "public",
+            "buildTarget": "production"
+          }
         }
       }
     }
-  },
-  "defaultProject": "ClientApp"
+  }
 }
