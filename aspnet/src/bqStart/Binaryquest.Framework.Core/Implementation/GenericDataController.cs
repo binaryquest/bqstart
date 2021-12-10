@@ -18,7 +18,7 @@ namespace BinaryQuest.Framework.Core.Implementation
 {
     public abstract class BaseGenericDataController<TEntity, TKey> : DataController<TEntity, TKey> where TEntity : class
     {
-        private readonly ILogger<BaseGenericDataController<TEntity, TKey>> logger;
+        protected readonly ILogger<BaseGenericDataController<TEntity, TKey>> logger;
         protected readonly IUnitOfWork unitOfWork;
 
         public BaseGenericDataController([NotNull]IApplicationService applicationService, [NotNull]ILogger<BaseGenericDataController<TEntity, TKey>> logger, [NotNull]IUnitOfWork unitOfWork) : base(applicationService)
@@ -27,8 +27,9 @@ namespace BinaryQuest.Framework.Core.Implementation
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }        
 
-        protected override IQueryable OnGetData()
+        protected override Task<IQueryable<TEntity>> OnGetData()
         {
+            
             var results = this.unitOfWork.GenericRepository<TEntity>().Get(includeProperties: ExpandedTables);
 
             if (SecurityWhereClause != null)
@@ -36,7 +37,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 results = results.Where(SecurityWhereClause);
             }
 
-            return results;
+            return Task.FromResult(results);
         }
 
 
@@ -45,8 +46,9 @@ namespace BinaryQuest.Framework.Core.Implementation
             throw new NotImplementedException();
         }
 
-        public override TEntity OnGetSingleData(object[] keyValues)
+        public override async Task<TEntity> OnGetSingleData(object[] keyValues)
         {
+            await Task.Delay(10);
             return this.unitOfWork.GenericRepository<TEntity>().GetByID(keyValues, ExpandedTablesForSingleEntity);            
         }        
 
@@ -283,7 +285,7 @@ namespace BinaryQuest.Framework.Core.Implementation
 
         [EnableQuery]
         [HttpGet()]        
-        public IActionResult Get([FromODataUri] TKey key)
+        public Task<IActionResult> Get([FromODataUri] TKey key)
         {
             return GetInternal(new object[] { key });
         }
@@ -300,7 +302,7 @@ namespace BinaryQuest.Framework.Core.Implementation
 
         [EnableQuery]
         [HttpGet]
-        public IActionResult Get([FromODataUri] TKey1 key1, [FromODataUri] TKey2 key2)
+        public Task<IActionResult> Get([FromODataUri] TKey1 key1, [FromODataUri] TKey2 key2)
         {
             return GetInternal(new object[] { key1, key2 });
         }
@@ -313,7 +315,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 return Unauthorized();
             }
 
-            TEntity entity = OnGetSingleData(new object[] { key1, key2 });
+            TEntity entity = await OnGetSingleData(new object[] { key1, key2 });
 
             return await OnDelete(entity);
         }
@@ -327,7 +329,7 @@ namespace BinaryQuest.Framework.Core.Implementation
 
         [EnableQuery]
         [HttpGet]
-        public IActionResult Get([FromODataUri] TKey1 key1, [FromODataUri] TKey2 key2, [FromODataUri] TKey3 key3)
+        public Task<IActionResult> Get([FromODataUri] TKey1 key1, [FromODataUri] TKey2 key2, [FromODataUri] TKey3 key3)
         {
             return GetInternal(new object[] { key1, key2, key3 });
         }
@@ -340,7 +342,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 return Unauthorized();
             }
 
-            TEntity entity = OnGetSingleData(new object[] { key1, key2, key3 });
+            TEntity entity = await OnGetSingleData(new object[] { key1, key2, key3 });
 
             return await OnDelete(entity);
         }

@@ -18,6 +18,7 @@
       "primeng/dom": "dom",
       "primeng/dropdown": "dropdown",
       "primeng/inputtext": "inputtext",
+      "primeng/inputtextarea": "inputtextarea",
       "primeng/inputnumber": "inputnumber",
       "primeng/calendar": "calendar",
       "primeng/overlaypanel": "overlaypanel",
@@ -30,11 +31,14 @@
       "primeng/messages": "messages",
       "primeng/message": "message",
       "primeng/dialog": "dialog",
+      "primeng/avatar": "avatar",
       "lodash-es": "lodashEs",
+      "lodash": "lodash",
       "validator": "validator",
       "@ng-select/ng-select":"ngSelect",
       "primeng/password":"password",
       "primeng/progressbar":"progressbar",
+      "primeng/chip":"chip",
       "projects/bq-start-prime/src/public-api": "publicApi"
     }
   },

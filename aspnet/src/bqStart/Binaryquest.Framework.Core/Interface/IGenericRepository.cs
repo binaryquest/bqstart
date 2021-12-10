@@ -15,6 +15,7 @@ namespace BinaryQuest.Framework.Core.Interface
         TEntity GetByID(object[] keyValues, string includeProperties = "");
         IQueryable<TEntity> GetByIdQuery(object[] keyValues, string includeProperties = "");
         void Insert(TEntity entity);
-        void Update(TEntity entityToUpdate);        
+        void Update(TEntity entityToUpdate);
+        void Attach(TEntity entity);
     }
 }

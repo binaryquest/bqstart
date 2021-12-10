@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using bqStart.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace bqStart.Web.Areas.Identity.Pages.Account.Manage
 {
@@ -25,6 +26,8 @@ namespace bqStart.Web.Areas.Identity.Pages.Account.Manage
 
         public string Username { get; set; }
 
+        public List<SelectListItem> Options { get; set; }
+
         [TempData]
         public string StatusMessage { get; set; }
 
@@ -36,6 +39,15 @@ namespace bqStart.Web.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            
+            [Display(Name = "First Name")]
+            public string FirstName { get; set; }
+
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Display(Name = "Default Timezone")]
+            public string TimezoneId { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -47,8 +59,20 @@ namespace bqStart.Web.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                TimezoneId = user.TimeZoneId
             };
+
+            var tzs = TimeZoneInfo.GetSystemTimeZones();
+            Options = (from s in tzs
+                      orderby s.BaseUtcOffset
+                      select new SelectListItem
+                      {
+                          Value = s.Id,
+                          Text = s.DisplayName
+                      }).ToList();
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -77,6 +101,15 @@ namespace bqStart.Web.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
+            user.FirstName = Input.FirstName;
+            user.LastName = Input.LastName;
+            user.TimeZoneId = Input.TimezoneId;
+
+            var updateResult = await _userManager.UpdateAsync(user);
+
+            if (updateResult.Succeeded)
+            {
+
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             if (Input.PhoneNumber != phoneNumber)
             {
@@ -86,6 +119,12 @@ namespace bqStart.Web.Areas.Identity.Pages.Account.Manage
                     StatusMessage = "Unexpected error when trying to set phone number.";
                     return RedirectToPage();
                 }
+                }
+            }
+            else
+            {
+                StatusMessage = "Unexpected error when trying to update profile.";
+                return RedirectToPage();
             }
 
             await _signInManager.RefreshSignInAsync(user);

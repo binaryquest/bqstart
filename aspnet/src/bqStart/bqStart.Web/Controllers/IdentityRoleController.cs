@@ -2,6 +2,7 @@
 using BinaryQuest.Framework.Core.Interface;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+
 namespace bqStart.Web.Controllers
 {
     public class IdentityRoleController : BaseRoleController

@@ -58,13 +58,14 @@ namespace bqStart.Web
 
             //BQ Admin related
             services.AddBqAdminServices<ApplicationUser, MainDataContext>(options =>
-                options.SetApplicationName("PDCL MIS")
+                options.SetApplicationName("BQ Start")
                 .SetAllowUserRegistration(false)
                 .SetDefaultAdminRole(Configuration["defaultAdminRole"])
                 .SetDefaultTimeZone(TZConvert.GetTimeZoneInfo("Asia/Dhaka"))
                 .SetDefaultLanguage("en_US")
                 .SetSecurityRulesProvider(new FileBasedSecurityRulesProvider("config"))
                 .RegisterController<IdentityRole, IdentityRoleController>()
+                .RegisterController<ApplicationUser, ApplicationUserController>()
                 .RegisterController<Department, DepartmentController>()
                 .RegisterController<ExampleClass, ExampleClassController>()
                 );            
@@ -74,7 +75,7 @@ namespace bqStart.Web
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+                configuration.RootPath = "wwwroot";
             });
         }
 

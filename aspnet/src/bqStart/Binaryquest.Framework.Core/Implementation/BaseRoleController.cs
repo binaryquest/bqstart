@@ -17,7 +17,7 @@ namespace BinaryQuest.Framework.Core.Implementation
 {
     public abstract class BaseRoleController : DataController<IdentityRole, string>
     {
-        private readonly ILogger<BaseRoleController> logger;
+        protected readonly ILogger<BaseRoleController> logger;
         protected readonly RoleManager<IdentityRole> roleManager;
 
         public BaseRoleController(IApplicationService applicationService, RoleManager<IdentityRole> roleManager, ILogger<BaseRoleController> logger) :base(applicationService)
@@ -26,7 +26,7 @@ namespace BinaryQuest.Framework.Core.Implementation
             this.logger = logger;
         }
 
-        protected override IQueryable OnGetData()
+        protected override Task<IQueryable<IdentityRole>> OnGetData()
         {
             var results = roleManager.Roles.ToList().AsQueryable();
 
@@ -35,7 +35,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 results = results.Where(SecurityWhereClause);
             }
 
-            return results;
+            return Task.FromResult(results);
         }
 
         protected override dynamic OnGetLookupStageData()
@@ -43,8 +43,9 @@ namespace BinaryQuest.Framework.Core.Implementation
             throw new NotImplementedException();
         }
 
-        public override IdentityRole OnGetSingleData(object[] keyValues)
+        public override async Task<IdentityRole> OnGetSingleData(object[] keyValues)
         {
+            await Task.Delay(10);
             var allRoles = roleManager.Roles;
             return allRoles.Where(x => keyValues.Contains(x.Id)).FirstOrDefault();
         }
@@ -250,7 +251,7 @@ namespace BinaryQuest.Framework.Core.Implementation
 
         [EnableQuery]
         [HttpGet()]
-        public IActionResult Get([FromODataUri] string key)
+        public Task<IActionResult> Get([FromODataUri] string key)
         {
             return GetInternal(new object[] { key });
         }

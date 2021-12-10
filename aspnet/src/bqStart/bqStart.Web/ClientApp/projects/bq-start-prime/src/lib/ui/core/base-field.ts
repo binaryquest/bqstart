@@ -67,7 +67,10 @@ export abstract class BaseField implements OnInit, AfterContentInit {
   labelCss: string;
   editMode: boolean;
   parent: BaseFormView<any> | null;
+
+  @Input()
   isRequired: boolean = false;
+
   innerDivVAlign: string = "";
 
   constructor(protected vwSvc: ViewWrapperService, protected formBlock?: FormBlock) {
@@ -100,7 +103,10 @@ export abstract class BaseField implements OnInit, AfterContentInit {
     if (this.id === null || this.id === undefined){
       this.id = <string>this.field?.name;
     }
-    this.isRequired = !(this.field?.isNullable) && !(this.field?.autoGen);
+    //if not already set by user in the form
+    if (!this.isRequired){
+      this.isRequired = !(this.field?.isNullable) && !(this.field?.autoGen);
+    }
     if (this.editMode){
       this.innerDivVAlign = "center"
     }

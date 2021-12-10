@@ -51,6 +51,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { PasswordModule } from 'primeng/password';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { ChipModule } from 'primeng/chip';
+import { AvatarModule } from 'primeng/avatar';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -120,7 +122,9 @@ export function initializeApp(appInitService: AppInitService) {
     ProgressBarModule,
     NgSelectModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    ChipModule,
+    AvatarModule
   ],
   declarations: [
     LoginMenuComponent,
@@ -194,6 +198,8 @@ export function initializeApp(appInitService: AppInitService) {
     NgSelectModule,
     MessagesModule,
     MessageModule,
+    ChipModule,
+    AvatarModule,
     //bq
     BqForm,
     CompareDirective,

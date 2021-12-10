@@ -48,15 +48,31 @@ namespace BinaryQuest.Framework.Core.Data
         public TimeZoneInfo TimeZoneInfo
         {
             get { return _timeZoneInfo; }
-            set { _timeZoneInfo = value; }
+            set 
+            { 
+                _timeZoneInfo = value;
+                if (value != null)
+                {
+                    _timeZoneId = value.Id;
+                }
+            }
         }
 
 
         [NotMapped]
+        [StringLength(30)]
+        [MapInFrontend]
         public string Password { get; set; }
 
         [NotMapped]
-        public string RoleId { get; set; }
+        [StringLength(30)]
+        [MapInFrontend]
+        [Compare("Password")]
+        public string VerifyPassword { get; set; }
+
+        [NotMapped]
+        [MapInFrontend]
+        public List<string> AssignedRoles { get; set; }
 
         [NotMapped]        
         public string MailAddress { get; set; }

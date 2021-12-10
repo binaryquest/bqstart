@@ -17,6 +17,7 @@ import { BaseFormView, BaseListView } from 'projects/bq-start-prime/src/public-a
           [showAddButton]="showAddButton">
 
   <bq-table-column [field]='metaData.fields.Name'></bq-table-column>
+  <bq-table-filter [field]='metaData.fields.Name' [defaultSearchField]="true"></bq-table-filter>
 
 </bq-table>
   `,
@@ -35,11 +36,8 @@ export class RoleList extends BaseListView<any> {
   selector: 'app-role-form',
   template: `
     <bq-form>
-  <bq-text-field
-  [field]="metaData.fields.Name"
-  [(model)]="model.Name"
-></bq-text-field>
-
+      <bq-text-field [field]="metaData.fields.Name" [(model)]="model.Name"></bq-text-field>
+    </bq-form>
   `,
   styles: [
   ]

@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -28,19 +29,20 @@ namespace BinaryQuest.Framework.Core.Model
 {
     public class AppConfigOptions
     {
-        private AppConfigOptions(string applicationName, string defaultLanguage, TimeZoneInfo defaultTimeZone, bool allowUserRegistration)
+        private AppConfigOptions(string applicationName, string defaultLanguage, TimeZoneInfo defaultTimeZone, bool allowUserRegistration, string defaultAdminRole)
         {
+            this.DefaultAdminRole = defaultAdminRole ?? "Admin";
             this.DefaultTimeZone = defaultTimeZone;
             this.DefaultLanguage = defaultLanguage ?? "en_US";
             this.AllowUserRegistration = allowUserRegistration;
-            this.ApplicationName = applicationName ?? "BQ Framework App";
+            this.ApplicationName = applicationName ?? "BQ Start App";
             this.SecurityRulesProvider = new FileBasedSecurityRulesProvider("config");
             this.registeredControllers = new();
             this.modelBuilder = new ODataConventionModelBuilder();
             //this.modelBuilder.Namespace = "bq";
         }
 
-        public static AppConfigOptions Default => new("BQ Framework App", "en_US", TZConvert.GetTimeZoneInfo("UTC"), true);
+        public static AppConfigOptions Default => new("BQ Start", "en_US", TZConvert.GetTimeZoneInfo("UTC"), true, "Admin");
 
         public string ApplicationName { get; private set; }
         public bool AllowUserRegistration { get; private set; }
@@ -80,6 +82,10 @@ namespace BinaryQuest.Framework.Core.Model
 
         public AppConfigOptions SetDefaultAdminRole(string defaultAdminRole)
         {
+            if (string.IsNullOrEmpty(defaultAdminRole))
+            {
+                throw new ArgumentNullException(nameof(defaultAdminRole));
+            }
             DefaultAdminRole = defaultAdminRole;
             return this;
         }
@@ -100,8 +106,13 @@ namespace BinaryQuest.Framework.Core.Model
             var actionMethods = typeof(TController).GetMethods().Where(m => m.GetCustomAttributes(typeof(CustomActionAttribute), true).Length > 0).ToArray();
 
             foreach (var item in actionMethods)
-            {
-                entitySet.EntityType.Collection.Action(item.Name).Returns(item.ReturnType);
+            {                
+                var act = entitySet.EntityType.Collection.Action(item.Name).Returns(item.ReturnType);
+                var paras = item.GetParameters();
+                foreach (var pp in paras)
+                {
+                    act.Parameter(pp.ParameterType, pp.Name);
+                }
             }
 
             var functionMethods = typeof(TController).GetMethods().Where(m => m.GetCustomAttributes(typeof(CustomFunctionAttribute), true).Length > 0).ToArray();
@@ -129,6 +140,7 @@ namespace BinaryQuest.Framework.Core.Model
 
         internal IEdmModel GetEdmModel<TDb>(IServiceCollection services, ApplicationService appSvc) where TDb : DbContext
         {
+            //modelBuilder.AddComplexType(typeof(List<string>));
             //add the Not Mapped properties of BaseEntity types as the NotMapped is also ignored by
             //OData plus EF. SO need a way to include this in OData and ignore it in EF db.
             var structuralTypes = modelBuilder.StructuralTypes;
@@ -148,7 +160,16 @@ namespace BinaryQuest.Framework.Core.Model
                         }
                         else
                         {
-                            st.AddProperty(st.ClrType.GetProperty(mapPro.Name));
+                            var propToAdd = st.ClrType.GetProperty(mapPro.Name);
+                            if (propToAdd.PropertyType != typeof(string) && typeof(IEnumerable).IsAssignableFrom(propToAdd.PropertyType))
+                            {
+                                st.AddCollectionProperty(propToAdd);
+                            }
+                            else
+                            {
+                                st.AddProperty(propToAdd);
+                            }
+                            
                         }
                     }
                 }

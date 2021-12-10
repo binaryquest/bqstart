@@ -1,5 +1,6 @@
 import { BQConfigData, ViewType } from "projects/bq-start-prime/src/public-api";
 import { RoleForm, RoleList } from "./adminUI/roles/roles";
+import { UserForm, UserList } from "./adminUI/users/users";
 import { DepartmentFormComponent } from "./example/department-form/department-form.component";
 import { DepartmentListComponent } from "./example/department-list/department-list.component";
 import { ExampleFormComponent } from "./example/example-form/example-form.component";
@@ -29,6 +30,7 @@ export const APP_CONFIG: BQConfigData = {
     {
       label: "Setup", icon: "", allowedRoles: ["Admin"], childMenus: [
         { label: "Roles", viewId: "roles", icon: "pi-users", childMenus: [] },
+        { label: "Users", viewId: "users", icon: "pi-users", childMenus: [] },
       ]
     }
   ],
@@ -46,6 +48,20 @@ export const APP_CONFIG: BQConfigData = {
       title: "Role",
       viewType: ViewType.Form,
       component: RoleForm
+    },
+    {
+      viewId: "users",
+      typeName: "ApplicationUser",
+      title: "Users",
+      viewType: ViewType.List,
+      component: UserList
+    },
+    {
+      viewId: "user",
+      typeName: "ApplicationUser",
+      title: "User",
+      viewType: ViewType.Form,
+      component: UserForm
     },
     {
       viewId: "departments",

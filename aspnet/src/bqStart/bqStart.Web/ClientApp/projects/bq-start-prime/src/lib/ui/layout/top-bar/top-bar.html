@@ -6,15 +6,26 @@
     <img alt="logo" [src]="logo" />
   </a>
   <ul #topbarMenu class="topbar-menu">
-    <li>
-      <a [routerLink]="[logoutPath]" [state]='{ local: true }' *ngIf="isAuthenticated">
-        <i class="pi pi-sign-out"></i>
-        Logout
-      </a>
-      <a [routerLink]="[loginPath]" [state]='{ local: true }' *ngIf="!isAuthenticated">
-        <i class="pi pi-sign-in"></i>
-        Login
-      </a>
+    <li class="topbar-submenu">
+      <a tabindex="0" (click)="toggleMenu($event, 3)"><p-avatar icon="pi pi-user" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}"></p-avatar></a>
+      <ul [@overlayMenuAnimation]="'visible'" *ngIf="activeMenuIndex === 3" (@overlayMenuAnimation.start)="onOverlayMenuEnter($event)" style="width:100%">
+          <li>
+            <a href="/Identity/Account/Manage" *ngIf="isAuthenticated">
+              <i class="pi pi-user"></i>
+              &nbsp;Profile
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="[logoutPath]" [state]='{ local: true }' *ngIf="isAuthenticated">
+              <i class="pi pi-sign-out"></i>
+              &nbsp;Logout
+            </a>
+            <a [routerLink]="[loginPath]" [state]='{ local: true }' *ngIf="!isAuthenticated">
+              <i class="pi pi-sign-in"></i>
+              &nbsp;Login
+            </a>
+          </li>
+      </ul>
     </li>
   </ul>
 

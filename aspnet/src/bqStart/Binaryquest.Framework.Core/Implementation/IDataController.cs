@@ -15,12 +15,11 @@ namespace BinaryQuest.Framework.Core.Implementation
         Expression<Func<TEntity, bool>> SecurityWhereClause { get; }
 
         Task<IActionResult> Delete(TKey entity);
-        IActionResult Get();        
+        Task<IActionResult> Get();
 
         IActionResult ModelMetaData();
         IActionResult LookupData();
         Task<IActionResult> Post(TEntity entity);
-        Task<IActionResult> Patch(TEntity entity);
-        //IActionResult GetInternal(object[] keyValues);
+        Task<IActionResult> Patch(TEntity entity);        
     }    
 }

@@ -7,12 +7,14 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { isArray } from 'lodash';
 import { map, Observable, of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { EnumItem } from '../../../models/meta-data';
 import { BaseField } from '../../core/base-field';
 import { FormBlock } from '../form-block/form-block';
 import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';
+import { intersectionWith } from 'lodash-es';
 
 @Component({
   selector: 'bq-dropdown-field',
@@ -45,6 +47,8 @@ export class BqDropdownField extends BaseField {
   groupBy: string;
   @Input()
   addIfNotInList: boolean;
+  @Input()
+  allowMultiple: boolean;
 
   displayModel$:Observable<any>|null = null;
 
@@ -89,8 +93,15 @@ export class BqDropdownField extends BaseField {
           }
         }else{
           if (this.itemSource!=null){
-            const dp = this.itemSource.filter((v) => v[this.valueName] === value);
-            return dp.length>0 ? dp[0][this.displayName] : "";
+            console.log("check drop value");
+            const propName = this.valueName !== undefined ? this.valueName : this.displayName;
+            if (isArray(value)){
+              var result = intersectionWith(this.itemSource, value, (arrVal, othVal) => arrVal[propName] === othVal[propName]);
+              return result.map(m => m[propName]).join(", ");
+            }else{
+              const dp = this.itemSource.filter((v) => v[propName] === value);
+              return dp.length>0 ? dp[0][this.displayName] : "";
+            }
           }
         }
       }

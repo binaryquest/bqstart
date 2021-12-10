@@ -148,5 +148,10 @@ namespace BinaryQuest.Framework.Core.Implementation
 
             return query;
         }
+
+        public void Attach(TEntity entity)
+        {
+            dbSet.Attach(entity);
+        }
     }
 }

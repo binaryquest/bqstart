@@ -38,26 +38,26 @@ namespace BinaryQuest.Framework.Core.Implementation
         #region REST Functions
         [EnableQuery]
         [HttpGet()]
-        public IActionResult Get()
+        public virtual async Task<IActionResult> Get()
         {
             if (!AllowSelect())
             {
                 return Unauthorized();
             }
 
-            IQueryable results = OnGetData();
+            IQueryable results = await OnGetData();
 
             return Ok(results);
         }
 
-        protected virtual IActionResult GetInternal(object[] keyValues)
+        protected virtual async Task<IActionResult> GetInternal(object[] keyValues)
         {
             if (!AllowSelect())
             {
                 return null; //Unauthorized();
             }
 
-            var result = OnGetSingleData(keyValues);
+            var result = await OnGetSingleData(keyValues);
 
             return Ok(result);
         }
@@ -107,7 +107,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 return Unauthorized();
             }
 
-            TEntity entity = OnGetSingleData(new object[] { key });
+            TEntity entity = await OnGetSingleData(new object[] { key });
 
             return await OnDelete(entity);
         }
@@ -175,14 +175,14 @@ namespace BinaryQuest.Framework.Core.Implementation
 
         protected abstract dynamic OnGetLookupStageData();
 
-        public abstract TEntity OnGetSingleData(object[] keyValues);
+        public abstract Task<TEntity> OnGetSingleData(object[] keyValues);
 
         protected virtual TEntity OnUpdateStage(TKey key, string newId)
         {
             throw new NotImplementedException();
         }
 
-        protected abstract IQueryable OnGetData();
+        protected abstract Task<IQueryable<TEntity>> OnGetData();
 
         protected abstract Task<IActionResult> OnInsert(TEntity entity);
 

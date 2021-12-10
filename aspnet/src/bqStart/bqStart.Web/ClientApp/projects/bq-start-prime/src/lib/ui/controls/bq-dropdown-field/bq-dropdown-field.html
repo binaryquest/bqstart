@@ -19,6 +19,7 @@
              [editableSearchTerm]="editable"
              [groupBy]="groupBy"
              [addTag]="addIfNotInList"
+             [multiple]="allowMultiple"
              [required]="isRequired">
     <ng-template *ngIf="controlItemRenderTemplate" ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
       <ng-container [ngTemplateOutlet]="controlItemRenderTemplate" [ngTemplateOutletContext]="{$implicit:item,index:index,searchTerm:search}"></ng-container>
