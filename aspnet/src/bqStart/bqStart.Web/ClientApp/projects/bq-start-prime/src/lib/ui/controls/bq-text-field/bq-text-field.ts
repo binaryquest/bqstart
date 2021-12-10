@@ -2,10 +2,10 @@ import { Component, ContentChildren, forwardRef, Host, Input, OnInit, Optional, 
 import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';
 import { BaseField } from '../../core/base-field';
 import { FormBlock } from '../form-block/form-block';
-import * as moment_ from 'moment';
+import moment from 'moment';
 import { ValidationType } from '../../../models/meta-data';
 
-const moment = moment_;
+
 @Component({
   selector: 'bq-text-field',
   templateUrl: './bq-text-field.html',

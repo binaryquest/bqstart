@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { AppInjector } from '../app-injector.service';
-import * as moment_ from 'moment';
+import moment from 'moment';
 
-const moment = moment_;
 
 const PUBLISHERS_FILE = "/assets/log-publishers.json";
 

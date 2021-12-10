@@ -3,7 +3,7 @@ import { LOCALE_ID, Provider } from '@angular/core';
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { catchError, forkJoin, map, Observable, of, throwError, timeout } from 'rxjs';
-import { moment } from '../moment.constant';
+import moment from 'moment';
 import defaultTranslations from './../assets/i18n/bq-start.en-US.json';
 import { InternalLogService, LogService } from './log/log.service';
 import { merge, cloneDeep } from 'lodash-es';

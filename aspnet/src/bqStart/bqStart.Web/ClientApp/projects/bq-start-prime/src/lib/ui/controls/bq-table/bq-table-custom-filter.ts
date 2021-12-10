@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
 import { FilterByClause } from '../../../models/table-data';
 import { TableFilter } from './bq-table-filter';
-import * as moment_ from 'moment';
+import moment from 'moment';
 import { Predicate, PREDICATE_ISNOTNULL, PREDICATE_ISNULL } from '../../../models/meta-data';
 import { InternalLogService } from '../../../services/log/log.service';
-const moment = moment_;
+
 
 @Component({
   selector: 'bq-table-custom-filter',

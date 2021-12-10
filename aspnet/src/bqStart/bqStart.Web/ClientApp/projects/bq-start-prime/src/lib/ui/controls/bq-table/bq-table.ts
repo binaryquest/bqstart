@@ -9,8 +9,8 @@ import { OrderByClause, PredefinedFilter, TableParams } from '../../../models/ta
 import { AppInitService } from '../../../services/app-init.service';
 import { TableColumn } from './bq-table-column';
 import { TableFilter } from './bq-table-filter';
-import * as moment_ from 'moment';
-const moment = moment_;
+import moment from 'moment';
+
 
 /**
  * Table Density Enum to Control the Visual State of the Table

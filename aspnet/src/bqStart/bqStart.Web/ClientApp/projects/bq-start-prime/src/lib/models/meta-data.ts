@@ -1,6 +1,6 @@
 
 import validator from 'validator';
-import { moment } from '../moment.constant';
+import moment from 'moment';
 import { BaseEntity } from './base-model';
 
 export interface Dictionary<T> {
