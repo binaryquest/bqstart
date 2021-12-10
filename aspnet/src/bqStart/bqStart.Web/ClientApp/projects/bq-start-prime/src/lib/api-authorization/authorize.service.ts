@@ -91,7 +91,7 @@ export class AuthorizeService {
         user = await this.userManager.signinPopup(this.createArguments());
         this.userSubject.next(user.profile);
         return this.success(state);
-      } catch (popupError) {
+      } catch (popupError: any) {
         if (popupError.message === 'Popup window closed') {
           // The user explicitly cancelled the login action by closing an opened popup.
           return this.error('The user closed the window.');
@@ -103,7 +103,7 @@ export class AuthorizeService {
         try {
           await this.userManager.signinRedirect(this.createArguments(state));
           return this.redirect();
-        } catch (redirectError) {
+        } catch (redirectError: any) {
           InternalLogService.logger().error('Redirect authentication error: ', redirectError);
           return this.error(redirectError);
         }
@@ -138,7 +138,7 @@ export class AuthorizeService {
       try {
         await this.userManager.signoutRedirect(this.createArguments(state));
         return this.redirect();
-      } catch (redirectSignOutError) {
+      } catch (redirectSignOutError: any) {
         InternalLogService.logger().error('Redirect signout error: ', redirectSignOutError);
         return this.error(redirectSignOutError);
       }
@@ -151,7 +151,7 @@ export class AuthorizeService {
       const response = await this.userManager.signoutCallback(url);
       this.userSubject.next(null);
       return this.success(response && response.state);
-    } catch (error) {
+    } catch (error: any) {
       InternalLogService.logger().error(`There was an error trying to log out '${error}'.`);
       return this.error(error);
     }
