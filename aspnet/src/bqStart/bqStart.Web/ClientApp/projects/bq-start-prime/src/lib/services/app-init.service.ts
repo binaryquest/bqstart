@@ -2,6 +2,7 @@ import { Injectable, Injector } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { Router, Routes } from "@angular/router";
 import { ApplicationPaths } from "../api-authorization/api-authorization.constants";
+import { AuthorizeGuard } from "../api-authorization/authorize.guard";
 import { LoginComponent } from "../api-authorization/login/login.component";
 import { LogoutComponent } from "../api-authorization/logout/logout.component";
 import { BQConfigData, BQConfigService, FormType, RunningConfigHelper, ViewData, ViewType } from "../config/bq-start-config";
@@ -60,26 +61,30 @@ export class AppInitService {
           const newRoute = {
             path: `view/${viewDef.viewId}/list`,
             component: viewDef.component, data: { viewDef: viewDef, formType: FormType.List },
-            resolve: { metaData: MetaDataResolver }
+            resolve: { metaData: MetaDataResolver },
+            canActivate: [AuthorizeGuard]
           };
           viewRoutes.push(newRoute);
         }else{
           const newRoute = {
             path: `view/${viewDef.viewId}/form/:keys`,
             component: viewDef.component, data: { viewDef: viewDef, formType: FormType.Details },
-            resolve: { metaData: MetaDataResolver }
+            resolve: { metaData: MetaDataResolver },
+            canActivate: [AuthorizeGuard]
           };
           viewRoutes.push(newRoute);
           const newRouteEdit = {
             path: `view/${viewDef.viewId}/edit/:keys`,
             component: viewDef.component, data: { viewDef: viewDef, formType: FormType.Edit },
-            resolve: { metaData: MetaDataResolver }
+            resolve: { metaData: MetaDataResolver },
+            canActivate: [AuthorizeGuard]
           };
           viewRoutes.push(newRouteEdit);
           const newRouteAdd = {
             path: `view/${viewDef.viewId}/add/-1`,
             component: viewDef.component, data: { viewDef: viewDef, formType: FormType.New },
-            resolve: { metaData: MetaDataResolver }
+            resolve: { metaData: MetaDataResolver },
+            canActivate: [AuthorizeGuard]
           };
           viewRoutes.push(newRouteAdd);
         }
