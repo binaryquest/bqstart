@@ -4,6 +4,8 @@
 		<TypeScriptSourceMap>False</TypeScriptSourceMap>
 		<TypeScriptNoEmitOnError>False</TypeScriptNoEmitOnError>
 		<TypeScriptCompileOnSaveEnabled>False</TypeScriptCompileOnSaveEnabled>
+		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+		<TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
