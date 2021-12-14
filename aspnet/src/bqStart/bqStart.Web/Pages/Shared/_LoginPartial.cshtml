@@ -6,7 +6,7 @@
 @inject IApplicationService applicationService
 @inject IUserService<ApplicationUser, MainDataContext> userService
 @{
-    string returnUrl = null;
+    string? returnUrl = null;
     var query = ViewContext.HttpContext.Request.Query;
     if (query.ContainsKey("returnUrl"))
     {
