@@ -21,8 +21,8 @@ namespace BinaryQuest.Framework.Core.Implementation
         }
 
         public virtual IQueryable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Expression<Func<TEntity, bool>>? filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             string includeProperties = "")
         {
             IQueryable<TEntity> query = dbSet;
@@ -51,7 +51,7 @@ namespace BinaryQuest.Framework.Core.Implementation
             }
         }
 
-        public virtual TEntity GetByID(object[] id, string includeProperties = "")
+        public virtual TEntity? GetByID(object[] id, string includeProperties = "")
         {
 
             return GetByIdQuery(id, includeProperties).FirstOrDefault();
@@ -86,12 +86,15 @@ namespace BinaryQuest.Framework.Core.Implementation
 
         public virtual void Delete(object[] id)
         {
-            TEntity entityToDelete = dbSet.Find(id);
+            TEntity? entityToDelete = dbSet.Find(id);
             Delete(entityToDelete);
         }
 
-        public virtual void Delete(TEntity entityToDelete)
+        public virtual void Delete(TEntity? entityToDelete)
         {
+            if (entityToDelete == null)
+                return;
+
             if (context.Entry(entityToDelete).State == EntityState.Detached)
             {
                 dbSet.Attach(entityToDelete);
@@ -109,7 +112,7 @@ namespace BinaryQuest.Framework.Core.Implementation
         {
             IQueryable<TEntity> query = dbSet.AsNoTracking();            
 
-            var keys = context.Model.FindEntityType(typeof(TEntity)).FindPrimaryKey().Properties;
+            var keys = context.Model.FindEntityType(typeof(TEntity))!.FindPrimaryKey()!.Properties;
 
             if (keys.Count == 1)
             {

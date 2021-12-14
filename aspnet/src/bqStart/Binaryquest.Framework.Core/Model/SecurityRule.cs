@@ -12,9 +12,9 @@ namespace BinaryQuest.Framework.Core.Model
     public class SecurityRule
     {
         [XmlAttribute(AttributeName = "modelType")]
-        public string ModelType { get; set; }
+        public string? ModelType { get; set; }
         [XmlAttribute(AttributeName = "roleName")]
-        public string RoleName { get; set; }
+        public string? RoleName { get; set; }
         [XmlAttribute(AttributeName = "allowSelect")]
         public bool AllowSelect { get; set; }
         [XmlAttribute(AttributeName = "allowInsert")]
@@ -29,7 +29,7 @@ namespace BinaryQuest.Framework.Core.Model
     public class SecurityRules
     {
         [XmlElement(ElementName = "securityRule")]
-        public List<SecurityRule> SecurityRule { get; set; }
+        public List<SecurityRule> SecurityRule { get; set; } = new List<SecurityRule>();
 
 
         #region Serialize
@@ -51,15 +51,15 @@ namespace BinaryQuest.Framework.Core.Model
         /// <returns></returns>
         public static string Serialize(SecurityRules document, System.Text.Encoding encoding)
         {
-            StringBuilder xml = new StringBuilder();
+            StringBuilder xml = new();
 
-            using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms = new())
             {
-                StreamWriter sw = new StreamWriter(ms, encoding);
+                StreamWriter sw = new(ms, encoding);
 
-                XmlSerializer serializer = new XmlSerializer(typeof(SecurityRules));
+                XmlSerializer serializer = new(typeof(SecurityRules));
                 serializer.Serialize(sw, document);
-                StreamReader sr = new StreamReader(ms, encoding);
+                StreamReader sr = new(ms, encoding);
 
                 sw.Flush();
                 ms.Position = 0;
@@ -81,11 +81,11 @@ namespace BinaryQuest.Framework.Core.Model
         /// </summary>
         /// <param name="xmlData">The XML data.</param>
         /// <returns></returns>
-        public static SecurityRules Deserialize(string xmlData)
+        public static SecurityRules? Deserialize(string xmlData)
         {
-            StringReader sr = new StringReader(xmlData);
-            XmlSerializer serializer = new XmlSerializer(typeof(SecurityRules));
-            SecurityRules doc = (SecurityRules)serializer.Deserialize(sr);
+            StringReader sr = new(xmlData);
+            XmlSerializer serializer = new(typeof(SecurityRules));
+            SecurityRules? doc = serializer.Deserialize(sr) as SecurityRules;
             sr.Close();
             return doc;
         }

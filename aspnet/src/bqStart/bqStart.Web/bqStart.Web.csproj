@@ -46,7 +46,7 @@
 	<PropertyGroup>
 		<!-- Makes the TypeScript compilation task a no-op -->
 		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-		<Nullable>disable</Nullable>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	
 </Project>

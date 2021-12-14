@@ -62,13 +62,13 @@ namespace BinaryQuest.Framework.Core.OData
             string actionName = action.ActionMethod.Name;
 
             // We care about the action in this pattern: {HttpMethod}{EntityTypeName}
-            (string httpMethod, string castTypeName) = Split(actionName);
+            (string? httpMethod, string? castTypeName) = Split(actionName);
             if (httpMethod == null)
             {
                 return false;
             }
 
-            IEdmStructuredType castType = null;
+            IEdmStructuredType? castType = null;
             if (castTypeName != null)
             {
                 castType = FindTypeInInheritance(entityType, context.Model, castTypeName);
@@ -118,7 +118,7 @@ namespace BinaryQuest.Framework.Core.OData
             }
         }
 
-        private IEdmStructuredType FindTypeInInheritance(IEdmStructuredType structuralType, IEdmModel model, string typeName)
+        private static IEdmStructuredType? FindTypeInInheritance(IEdmStructuredType structuralType, IEdmModel model, string typeName)
         {
             IEdmStructuredType baseType = structuralType;
             while (baseType != null)
@@ -136,8 +136,7 @@ namespace BinaryQuest.Framework.Core.OData
 
         private static string GetName(IEdmStructuredType type)
         {
-            IEdmEntityType entityType = type as IEdmEntityType;
-            if (entityType != null)
+            if (type is IEdmEntityType entityType)
             {
                 return entityType.Name;
             }
@@ -145,28 +144,34 @@ namespace BinaryQuest.Framework.Core.OData
             return ((IEdmComplexType)type).Name;
         }
 
-        private static (string, string) Split(string actionName)
+        private static (string?, string?) Split(string? actionName)
         {
             string typeName;
             string methodName;
+
+            if (actionName == null)
+            {
+                return (null,null);
+            }
+
             if (actionName.StartsWith("Get", StringComparison.Ordinal))
             {
-                typeName = actionName.Substring(3);
+                typeName = actionName[3..];
                 methodName = "Get";
             }
             else if (actionName.StartsWith("Put", StringComparison.Ordinal))
             {
-                typeName = actionName.Substring(3);
+                typeName = actionName[3..];
                 methodName = "Put";
             }
             else if (actionName.StartsWith("Patch", StringComparison.Ordinal))
             {
-                typeName = actionName.Substring(5);
+                typeName = actionName[5..];
                 methodName = "Patch";
             }
             else if (actionName.StartsWith("Delete", StringComparison.Ordinal))
             {
-                typeName = actionName.Substring(6);
+                typeName = actionName[6..];
                 methodName = "Delete";
             }
             else
@@ -183,7 +188,7 @@ namespace BinaryQuest.Framework.Core.OData
         }
 
         private static void AddSelector(IEdmEntitySet entitySet, IEdmEntityType entityType,
-            IEdmStructuredType castType, string prefix, IEdmModel model, ActionModel action, string httpMethod, ODataRouteOptions options)
+            IEdmStructuredType? castType, string prefix, IEdmModel model, ActionModel action, string httpMethod, ODataRouteOptions? options)
         {
             IList<ODataSegmentTemplate> segments = new List<ODataSegmentTemplate>
             {
@@ -235,14 +240,17 @@ namespace BinaryQuest.Framework.Core.OData
             KeyMappings = BuildKeyMappings(keys.Select(kvp => new KeyValuePair<string, object>(kvp.Key, kvp.Value)), entityType);
 
             //int i = 1;
-            if (KeyMappings.Count == 1)
+            if (KeyMappings != null)
             {
-                Literal = $"{{{KeyMappings.First().Value}}}";
+                if (KeyMappings.Count == 1)
+                {
+                    Literal = $"{{{KeyMappings.First().Value}}}";
+                }
+                else
+                {
+                    Literal = string.Join(",", KeyMappings.Select(a => $"{a.Key}={{{a.Value}}}"));
+                }
             }
-            else
-            {
-                Literal = string.Join(",", KeyMappings.Select(a => $"{a.Key}={{{a.Value}}}"));
-            }            
         }
 
         public MyKeySegmentTemplate(KeySegment segment)
@@ -258,7 +266,7 @@ namespace BinaryQuest.Framework.Core.OData
             KeyMappings = BuildKeyMappings(segment.Keys, EntityType);
 
             int i = 1;
-            Literal = KeyMappings.Count == 1 ?
+            Literal = KeyMappings!.Count == 1 ?
                 $"{{{KeyMappings.First().Value}}}" :
                 string.Join(",", KeyMappings.Select(a => $"key{i++}={{{a.Value}}}"));
         }
@@ -269,10 +277,10 @@ namespace BinaryQuest.Framework.Core.OData
         /// the key in dict could be the string used in request
         /// the value in dict could be the string used in action of controller
         /// </summary>
-        public IDictionary<string, string> KeyMappings { get; }
+        public IDictionary<string, string>? KeyMappings { get; }
 
         /// <inheritdoc />
-        public string Literal { get; }
+        public string? Literal { get; }
 
         /// <inheritdoc />
         //public override IEdmType EdmType => EntityType;
@@ -283,12 +291,12 @@ namespace BinaryQuest.Framework.Core.OData
         /// <summary>
         /// Gets the entity type declaring this key.
         /// </summary>
-        public IEdmEntityType EntityType { get; }
+        public IEdmEntityType? EntityType { get; }
 
         /// <summary>
         /// Gets the key count
         /// </summary>
-        public int Count => KeyMappings.Count;
+        public int Count => KeyMappings!.Count;
 
         /// <inheritdoc />
         //public override ODataSegmentKind Kind => ODataSegmentKind.Key;
@@ -309,18 +317,18 @@ namespace BinaryQuest.Framework.Core.OData
 
             IDictionary<string, object> keysValues = new Dictionary<string, object>();
             int i = 1;
-            foreach (var key in KeyMappings)
+            foreach (var key in KeyMappings!)
             {
                 string keyName = key.Key;
                 string templateName = key.Value;
 
-                IEdmProperty keyProperty = EntityType.Key().FirstOrDefault(k => k.Name == keyName);
+                IEdmProperty keyProperty = EntityType!.Key().FirstOrDefault(k => k.Name == keyName)!;
                 Contract.Assert(keyProperty != null);
 
                 IEdmTypeReference edmType = keyProperty.Type;
-                if (routeValues.TryGetValue(templateName, out object rawValue))
+                if (routeValues.TryGetValue(templateName, out object? rawValue))
                 {
-                    string strValue = rawValue as string;
+                    string? strValue = rawValue as string;
                     string newStrValue = context.GetParameterAliasOrSelf(strValue);
                     if (newStrValue != strValue)
                     {
@@ -380,12 +388,15 @@ namespace BinaryQuest.Framework.Core.OData
             return new MyKeySegmentTemplate(keyTemplates, entityType, navigationSource);
         }
 
-        internal static IDictionary<string, string> BuildKeyMappings(IEnumerable<KeyValuePair<string, object>> keys, IEdmEntityType entityType)
+        internal static IDictionary<string, string>? BuildKeyMappings(IEnumerable<KeyValuePair<string, object>> keys, IEdmEntityType? entityType)
         {
             //Contract.Assert(keys != null);
             //Contract.Assert(entityType != null);
 
-            Dictionary<string, string> parameterMappings = new Dictionary<string, string>();
+            if (entityType == null || keys == null)
+                return null;
+
+            Dictionary<string, string> parameterMappings = new();
 
             int count = keys.Count();
             ISet<string> entityTypeKeys = entityType.Key().Select(c => c.Name).ToHashSet();
@@ -405,10 +416,9 @@ namespace BinaryQuest.Framework.Core.OData
                     throw new ODataException(Error.Format("%1 %2", keyName, entityType.FullName()));
                 }
 
-                string nameInRouteData;
+                string? nameInRouteData;
 
-                UriTemplateExpression uriTemplateExpression = key.Value as UriTemplateExpression;
-                if (uriTemplateExpression != null)
+                if (key.Value is UriTemplateExpression uriTemplateExpression)
                 {
                     nameInRouteData = uriTemplateExpression.LiteralText.Trim();
                 }
@@ -424,7 +434,7 @@ namespace BinaryQuest.Framework.Core.OData
                     throw new ODataException(Error.Format("%1 %2", key.Value, key.Key));
                 }
 
-                nameInRouteData = nameInRouteData.Substring(1, nameInRouteData.Length - 2);
+                nameInRouteData = nameInRouteData[1..^1];
                 if (string.IsNullOrEmpty(nameInRouteData))
                 {
                     throw new ODataException(Error.Format("%1 %2", key.Value, key.Key));

@@ -18,7 +18,7 @@ namespace BinaryQuest.Framework.Core.Implementation
     {
         protected readonly IApplicationService applicationService;
 #pragma warning disable IDE0044 // Add readonly modifier
-        private Expression<Func<TEntity, bool>> securityWhereClause = null;
+        private Expression<Func<TEntity, bool>>? securityWhereClause = null;
 #pragma warning restore IDE0044 // Add readonly modifier
 
 
@@ -27,13 +27,13 @@ namespace BinaryQuest.Framework.Core.Implementation
             this.applicationService = applicationService;
         }
 
-        public virtual Expression<Func<TEntity, bool>> SecurityWhereClause
+        public virtual Expression<Func<TEntity, bool>>? SecurityWhereClause
         {
             get { return securityWhereClause; }
         }
 
-        public string ExpandedTables { get; protected set; }
-        public string ExpandedTablesForSingleEntity { get; protected set; }
+        public string ExpandedTables { get; protected set; } = String.Empty;
+        public string ExpandedTablesForSingleEntity { get; protected set; } = String.Empty;
 
         #region REST Functions
         [EnableQuery]
@@ -54,7 +54,7 @@ namespace BinaryQuest.Framework.Core.Implementation
         {
             if (!AllowSelect())
             {
-                return null; //Unauthorized();
+                return Unauthorized();
             }
 
             var result = await OnGetSingleData(keyValues);
@@ -107,9 +107,13 @@ namespace BinaryQuest.Framework.Core.Implementation
                 return Unauthorized();
             }
 
-            TEntity entity = await OnGetSingleData(new object[] { key });
+            if (key == null)
+            {
+                return NotFound();
+            }
 
-            return await OnDelete(entity);
+            TEntity? entity = await OnGetSingleData(new object[] { key! });
+            return await OnDelete(entity);            
         }
 
         //[HttpGet()]
@@ -171,11 +175,11 @@ namespace BinaryQuest.Framework.Core.Implementation
             return new { };
         }
 
-        protected abstract ModelMetadata OnGetModelMetaData();
+        protected abstract ModelMetadata? OnGetModelMetaData();
 
         protected abstract dynamic OnGetLookupStageData();
 
-        public abstract Task<TEntity> OnGetSingleData(object[] keyValues);
+        public abstract Task<TEntity?> OnGetSingleData(object[] keyValues);
 
         protected virtual TEntity OnUpdateStage(TKey key, string newId)
         {
@@ -184,11 +188,11 @@ namespace BinaryQuest.Framework.Core.Implementation
 
         protected abstract Task<IQueryable<TEntity>> OnGetData();
 
-        protected abstract Task<IActionResult> OnInsert(TEntity entity);
+        protected abstract Task<IActionResult> OnInsert(TEntity? entity);
 
-        protected abstract Task<IActionResult> OnUpdate(TEntity entity);
+        protected abstract Task<IActionResult> OnUpdate(TEntity? entity);
 
-        protected abstract Task<IActionResult> OnDelete(TEntity entity);
+        protected abstract Task<IActionResult> OnDelete(TEntity? entity);
         #endregion
 
         #region Permssions Related

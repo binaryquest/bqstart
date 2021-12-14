@@ -74,7 +74,7 @@ namespace BinaryQuest.Framework.Core.Implementation
             }
         }
 
-        public T GetObject<T>(string key)
+        public T? GetObject<T>(string key)
         {
             key = "cache:" + "/" + key;
             if (cacheManager != null)
@@ -100,26 +100,31 @@ namespace BinaryQuest.Framework.Core.Implementation
             return false;
         }
 
-        public void SetObject<T>(string key, T obj)
+        public void SetObject<T>(string key, T? obj)
         {
             key = "cache:" + "/" + key;
-            if (cacheManager != null)
+            if (obj != null)
             {
-                lock (lockObject)
+                if (cacheManager != null)
                 {
-                    cacheManager.AddOrUpdate(key, obj, (x) => { return obj; });
+                    lock (lockObject)
+                    {
+                        cacheManager.AddOrUpdate(key, obj, (x) => { return obj; });
+                    }
                 }
             }
         }
 
-        public T TryToGetObject<T>(string key, Func<T> newObjectProvider)
+        public T? TryToGetObject<T>(string key, Func<T> newObjectProvider)
         {
             key = "cache:" + "/" + key;
             if (cacheManager != null)
             {
                 lock (lockObject)
                 {
+#pragma warning disable CS8603 // Possible null reference return.
                     return (T)cacheManager.GetOrAdd(key, (f) => { return newObjectProvider(); });
+#pragma warning restore CS8603 // Possible null reference return.
                 }
             }
             return default;

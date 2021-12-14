@@ -10,9 +10,9 @@ namespace BinaryQuest.Framework.Core.Data
     [ComplexType]
     public class Base64ImageType
     {
-        public string Base64 { get; set; }
-        public string Filename { get; set; }
+        public string Base64 { get; set; } = null!;
+        public string Filename { get; set; } = null!;
         public long? Filesize { get; set; }
-        public string Filetype { get; set; }
+        public string Filetype { get; set; } = null!;
     }
 }

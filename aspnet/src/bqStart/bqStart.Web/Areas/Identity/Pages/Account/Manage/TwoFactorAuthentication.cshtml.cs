@@ -12,11 +12,11 @@ namespace bqStart.Web.Areas.Identity.Pages.Account.Manage
 {
     public class TwoFactorAuthenticationModel : PageModel
     {
-        private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}";
-
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+#pragma warning disable IDE0052 // Remove unread private members
         private readonly ILogger<TwoFactorAuthenticationModel> _logger;
+#pragma warning restore IDE0052 // Remove unread private members
 
         public TwoFactorAuthenticationModel(
             UserManager<ApplicationUser> userManager,
@@ -38,7 +38,7 @@ namespace bqStart.Web.Areas.Identity.Pages.Account.Manage
         public bool IsMachineRemembered { get; set; }
 
         [TempData]
-        public string StatusMessage { get; set; }
+        public string? StatusMessage { get; set; }
 
         public async Task<IActionResult> OnGet()
         {

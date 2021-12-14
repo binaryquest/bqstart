@@ -12,32 +12,30 @@ namespace BinaryQuest.Framework.Core.Data
     {
         [Key]        
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string Key { get; set; }
+        public string? Key { get; set; }
 
         [Required]
         public Guid SystemSettingId { get; set; }
 
         [Required]
-        public string Value { get; set; }
+        public string? Value { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
 
         [ForeignKey("SystemSettingId")]
-        public virtual SystemSetting SystemSetting { get; set; }
+        public virtual SystemSetting? SystemSetting { get; set; }
 
         public int GetValueAsInt()
         {
-            int ret = 0;
-            int.TryParse(Value, out ret);
+            _ = int.TryParse(Value, out int ret);
             return ret;
         }
 
         public long GetValueAsLong()
         {
-            long ret = 0;
-            long.TryParse(Value, out ret);
+            _ = long.TryParse(Value, out long ret);
             return ret;
         }
 

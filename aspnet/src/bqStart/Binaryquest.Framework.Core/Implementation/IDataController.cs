@@ -12,7 +12,7 @@ namespace BinaryQuest.Framework.Core.Implementation
     {
         string ExpandedTables { get; }
         string ExpandedTablesForSingleEntity { get; }
-        Expression<Func<TEntity, bool>> SecurityWhereClause { get; }
+        Expression<Func<TEntity, bool>>? SecurityWhereClause { get; }
 
         Task<IActionResult> Delete(TKey entity);
         Task<IActionResult> Get();

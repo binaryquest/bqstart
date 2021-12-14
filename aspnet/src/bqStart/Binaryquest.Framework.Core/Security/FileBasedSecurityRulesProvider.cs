@@ -29,6 +29,7 @@ namespace BinaryQuest.Framework.Core.Security
                 {
                     var data = File.ReadAllText(ruleFiles[i]);
                     var modViews = SecurityRules.Deserialize(data);
+                    if (modViews!=null)
                     foreach (var rule in modViews.SecurityRule)
                     {
                         ret.Add(rule);

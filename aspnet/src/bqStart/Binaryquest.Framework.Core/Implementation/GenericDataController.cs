@@ -46,16 +46,19 @@ namespace BinaryQuest.Framework.Core.Implementation
             throw new NotImplementedException();
         }
 
-        public override async Task<TEntity> OnGetSingleData(object[] keyValues)
+        public override async Task<TEntity?> OnGetSingleData(object[] keyValues)
         {
             await Task.Delay(10);
             return this.unitOfWork.GenericRepository<TEntity>().GetByID(keyValues, ExpandedTablesForSingleEntity);            
         }        
 
-        protected override async Task<IActionResult> OnInsert(TEntity entity)
+        protected override async Task<IActionResult> OnInsert(TEntity? entity)
         {
             try
             {
+                if (entity == null)
+                    return BadRequest();
+
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
@@ -74,7 +77,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 if (entity is ILoggingEntity log)
                 {
                     log.CreatedOn = DateTime.UtcNow;
-                    log.CreatedBy = this.User.Identity.Name;
+                    log.CreatedBy = this.User?.Identity?.Name;
                 }
 
                 OnBeforeCreate(entity);
@@ -94,7 +97,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 {
                     msg += devexp.InnerException.Message;
                 }
-                logger.LogError("Error OnInsert {0}", msg);
+                logger.LogError("Error OnInsert {msg}", msg);
                 return BadRequest(msg);
             }
             catch (DbUpdateConcurrencyException ducexp)
@@ -104,7 +107,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 {
                     msg += ducexp.InnerException.Message;
                 }
-                logger.LogError("Error OnInsert {0}", msg);
+                logger.LogError("Error OnInsert {msg}", msg);
                 return UnprocessableEntity(msg);
             }
             catch (DbUpdateException duexp)
@@ -121,15 +124,18 @@ namespace BinaryQuest.Framework.Core.Implementation
                         msg += duexp.InnerException.Message;
                     }
                 }
-                logger.LogError("Error OnInsert {0}", msg);
+                logger.LogError("Error OnInsert {msg}", msg);
                 return UnprocessableEntity(msg);
             }
         }
 
-        protected override async Task<IActionResult> OnUpdate(TEntity entity)
+        protected override async Task<IActionResult> OnUpdate(TEntity? entity)
         {
             try
             {
+                if (entity == null)
+                    return BadRequest();
+
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
@@ -148,7 +154,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 if (entity is ILoggingEntity log)
                 {
                     log.ModifiedOn = DateTime.UtcNow;
-                    log.ModifiedBy = this.User.Identity.Name;
+                    log.ModifiedBy = this.User?.Identity?.Name;
                 }
 
                 OnBeforeEdit(entity);
@@ -168,7 +174,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 {
                     msg += devexp.InnerException.Message;
                 }
-                logger.LogError("Error OnUpdate {0}", msg);
+                logger.LogError("Error OnUpdate {msg}", msg);
                 return BadRequest(msg);
             }
             catch (DbUpdateConcurrencyException ducexp)
@@ -178,7 +184,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 {
                     msg += ducexp.InnerException.Message;
                 }
-                logger.LogError("Error OnUpdate {0}", msg);
+                logger.LogError("Error OnUpdate {msg}", msg);
                 return UnprocessableEntity(msg);
             }
             catch (DbUpdateException duexp)
@@ -195,15 +201,18 @@ namespace BinaryQuest.Framework.Core.Implementation
                         msg += duexp.InnerException.Message;
                     }
                 }
-                logger.LogError("Error OnUpdate {0}", msg);
+                logger.LogError("Error OnUpdate {msg}", msg);
                 return UnprocessableEntity(msg);
             }
         }
 
-        protected override async Task<IActionResult> OnDelete(TEntity entity)
+        protected override async Task<IActionResult> OnDelete(TEntity? entity)
         {
             try
             {
+                if (entity == null)
+                    return BadRequest();
+
                 OnBeforeDelete(entity);
 
                 this.unitOfWork.GenericRepository<TEntity>().Delete(entity);
@@ -221,7 +230,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 {
                     msg += devexp.InnerException.Message;
                 }
-                logger.LogError("Error OnDelete {0}", msg);
+                logger.LogError("Error OnDelete {msg}", msg);
                 return BadRequest(msg);
             }
             catch (DbUpdateConcurrencyException ducexp)
@@ -231,7 +240,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 {
                     msg += ducexp.InnerException.Message;
                 }
-                logger.LogError("Error OnDelete {0}", msg);
+                logger.LogError("Error OnDelete {msg}", msg);
                 return UnprocessableEntity(msg);
             }
             catch (DbUpdateException duexp)
@@ -252,12 +261,12 @@ namespace BinaryQuest.Framework.Core.Implementation
                 {
                     msg = "Can not delete this record as related records must be deleted first. ";
                 }
-                logger.LogError("Error OnDelete {0}", msg);
+                logger.LogError("Error OnDelete {msg}", msg);
                 return Conflict(msg);
             }
         }
 
-        protected override ModelMetadata OnGetModelMetaData()
+        protected override ModelMetadata? OnGetModelMetaData()
         {
             if (this.applicationService.Bootdata.MetaDataValues.ContainsKey(typeof(TEntity)))
             {
@@ -270,7 +279,7 @@ namespace BinaryQuest.Framework.Core.Implementation
             }
             else
             {
-                return new();
+                return null;
             }
         }
 
@@ -287,6 +296,10 @@ namespace BinaryQuest.Framework.Core.Implementation
         [HttpGet()]        
         public Task<IActionResult> Get([FromODataUri] TKey key)
         {
+            if (key == null)
+            {
+                return Task.FromResult<IActionResult>(NotFound());
+            }
             return GetInternal(new object[] { key });
         }
     }
@@ -304,7 +317,14 @@ namespace BinaryQuest.Framework.Core.Implementation
         [HttpGet]
         public Task<IActionResult> Get([FromODataUri] TKey1 key1, [FromODataUri] TKey2 key2)
         {
-            return GetInternal(new object[] { key1, key2 });
+            if (key1 != null && key2 != null)
+            {
+                return GetInternal(new object[] { key1, key2 });
+            }
+            else
+            {
+                return Task.FromResult<IActionResult>(NotFound());
+            }
         }
 
         [HttpDelete]
@@ -315,9 +335,15 @@ namespace BinaryQuest.Framework.Core.Implementation
                 return Unauthorized();
             }
 
-            TEntity entity = await OnGetSingleData(new object[] { key1, key2 });
-
-            return await OnDelete(entity);
+            if (key1 != null && key2 != null)
+            {
+                TEntity? entity = await OnGetSingleData(new object[] { key1, key2 });
+                return await OnDelete(entity);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 
@@ -331,7 +357,14 @@ namespace BinaryQuest.Framework.Core.Implementation
         [HttpGet]
         public Task<IActionResult> Get([FromODataUri] TKey1 key1, [FromODataUri] TKey2 key2, [FromODataUri] TKey3 key3)
         {
-            return GetInternal(new object[] { key1, key2, key3 });
+            if (key1 != null && key2 != null && key3 != null)
+            {
+                return GetInternal(new object[] { key1, key2, key3 });
+            }
+            else
+            {
+                return Task.FromResult<IActionResult>(NotFound());
+            }
         }
 
         [HttpDelete]
@@ -342,9 +375,15 @@ namespace BinaryQuest.Framework.Core.Implementation
                 return Unauthorized();
             }
 
-            TEntity entity = await OnGetSingleData(new object[] { key1, key2, key3 });
-
-            return await OnDelete(entity);
+            if (key1 != null && key2 != null && key3 != null)
+            {
+                TEntity? entity = await OnGetSingleData(new object[] { key1, key2, key3 });
+                return await OnDelete(entity);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }

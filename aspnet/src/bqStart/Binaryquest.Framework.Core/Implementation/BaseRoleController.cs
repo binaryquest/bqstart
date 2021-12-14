@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,11 +20,16 @@ namespace BinaryQuest.Framework.Core.Implementation
     {
         protected readonly ILogger<BaseRoleController> logger;
         protected readonly RoleManager<IdentityRole> roleManager;
+        protected readonly IUnitOfWork unitOfWork;
 
-        public BaseRoleController(IApplicationService applicationService, RoleManager<IdentityRole> roleManager, ILogger<BaseRoleController> logger) :base(applicationService)
+        public BaseRoleController(IApplicationService applicationService,
+            [NotNull] RoleManager<IdentityRole> roleManager,
+            [NotNull] ILogger<BaseRoleController> logger,
+            [NotNull] IUnitOfWork unitOfWork) :base(applicationService)
         {            
             this.roleManager = roleManager;
             this.logger = logger;
+            this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         protected override Task<IQueryable<IdentityRole>> OnGetData()
@@ -43,17 +49,20 @@ namespace BinaryQuest.Framework.Core.Implementation
             throw new NotImplementedException();
         }
 
-        public override async Task<IdentityRole> OnGetSingleData(object[] keyValues)
+        public override async Task<IdentityRole?> OnGetSingleData(object[] keyValues)
         {
             await Task.Delay(10);
             var allRoles = roleManager.Roles;
             return allRoles.Where(x => keyValues.Contains(x.Id)).FirstOrDefault();
         }
 
-        protected override async Task<IActionResult> OnInsert(IdentityRole entity)
+        protected override async Task<IActionResult> OnInsert(IdentityRole? entity)
         {
             try
             {
+                if (entity == null)
+                    return BadRequest();
+
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
@@ -114,15 +123,18 @@ namespace BinaryQuest.Framework.Core.Implementation
                         msg += duexp.InnerException.Message;
                     }
                 }
-                logger.LogError("Error OnInsert {0}", msg);
+                logger.LogError("Error OnInsert {msg}", msg);
                 return UnprocessableEntity(msg);
             }
         }
 
-        protected override async Task<IActionResult> OnUpdate(IdentityRole entity)
+        protected override async Task<IActionResult> OnUpdate(IdentityRole? entity)
         {
             try
             {
+                if (entity == null)
+                    return BadRequest();
+
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
@@ -144,6 +156,8 @@ namespace BinaryQuest.Framework.Core.Implementation
                         return UnprocessableEntity();
                     }
                 }
+
+                this.unitOfWork.GenericRepository<IdentityRole>().Attach(entity);
 
                 OnBeforeEdit(entity);
 
@@ -178,15 +192,18 @@ namespace BinaryQuest.Framework.Core.Implementation
                         msg += duexp.InnerException.Message;
                     }
                 }
-                logger.LogError("Error OnUpdate {0}", msg);
+                logger.LogError("Error OnUpdate {msg}", msg);
                 return UnprocessableEntity(msg);
             }
         }
 
-        protected override async Task<IActionResult> OnDelete(IdentityRole entity)
+        protected override async Task<IActionResult> OnDelete(IdentityRole? entity)
         {
             try
             {
+                if (entity == null)
+                    return BadRequest();
+
                 OnBeforeDelete(entity);
 
                 if (entity.Name == this.applicationService.ConfigOptions.DefaultAdminRole)
@@ -227,12 +244,12 @@ namespace BinaryQuest.Framework.Core.Implementation
                         msg += duexp.InnerException.Message;
                     }
                 }                
-                logger.LogError("Error OnDelete {0}", msg);
+                logger.LogError("Error OnDelete {msg}", msg);
                 return UnprocessableEntity(msg);
             }
         }
 
-        protected override ModelMetadata OnGetModelMetaData()
+        protected override ModelMetadata? OnGetModelMetaData()
         {
             if (this.applicationService.Bootdata.MetaDataValues.ContainsKey(typeof(IdentityRole)))
             {
@@ -245,7 +262,7 @@ namespace BinaryQuest.Framework.Core.Implementation
             }
             else
             {
-                return new();
+                return null;
             }
         }
 

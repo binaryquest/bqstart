@@ -11,10 +11,10 @@ namespace BinaryQuest.Framework.Core.Interface
         where TDb : BQDataContext<TUser> 
         where TUser : BaseUser
     {
-        TUser CurrentUser { get; }
-        IList<TUser> GetAllUsers();        
-        Task<TUser> EditAsync(TUser model);
+        TUser? CurrentUser { get; }
+        IList<TUser?> GetAllUsers();        
+        Task<TUser?> EditAsync(TUser model);
         Task DeleteAsync(string id);
-        Task<TUser> GetByIdAsync(string id);
+        Task<TUser?> GetByIdAsync(string id);
     }
 }

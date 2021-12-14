@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 //using bqStart.Web.Controllers;
 using Serilog;
 using TimeZoneConverter;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace bqStart.Web
 {
@@ -45,14 +46,13 @@ namespace bqStart.Web
                 .AddProfileService<ProfileService<ApplicationUser>>();
 
             services.AddAuthentication()
-                .AddIdentityServerJwt().AddGoogle(options =>
-                {
-                    //IConfigurationSection googleAuthNSection =
-                    //    Configuration.GetSection("Authentication:Google");
-
-                    options.ClientId = "sdfsdf";//googleAuthNSection["ClientId"];
-                    options.ClientSecret = "sdfsdf";// googleAuthNSection["ClientSecret"];
-                });
+                .AddIdentityServerJwt()
+                //.AddGoogle(options =>
+                //{                    
+                //    options.ClientId = Configuration["ExternalProviders:OAuth:GoogleClientId"];
+                //    options.ClientSecret = Configuration["ExternalProviders:OAuth:GoogleSecret"];
+                //});
+                ;
 
             //services.AddControllersWithViews().AddNewtonsoftJson();            
 
@@ -77,6 +77,10 @@ namespace bqStart.Web
             {
                 configuration.RootPath = "wwwroot";
             });
+
+            //Setup email sending services here
+            services.Configure<EmailSenderOptions>(options => Configuration.GetSection("ExternalProviders:SMTP").Bind(options));
+            services.AddTransient<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -17,21 +17,21 @@
                 </span>
                 <div asp-validation-summary="All" class="text-danger p-b-20"></div>
                 <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
-                    <input class="input100" asp-for="Input.Email">
+                    <input class="input100" asp-for="Input!.Email">
                     <span class="focus-input100" data-placeholder="Email"></span>
                 </div>
                 <div class="wrap-input100 validate-input" data-validate="Enter password">
                     <span class="btn-show-pass">
                         <i class="zmdi zmdi-eye"></i>
                     </span>
-                    <input class="input100" asp-for="Input.Password">
+                    <input class="input100" asp-for="Input!.Password">
                     <span class="focus-input100" data-placeholder="Password"></span>
                 </div>                
                 <div class="form-group">
                     <div class="checkbox">
-                        <label asp-for="Input.RememberMe">
-                            <input asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        <label asp-for="Input!.RememberMe">
+                            <input asp-for="Input!.RememberMe" />
+                            @Html.DisplayNameFor(m => m.Input!.RememberMe)
                         </label>
                     </div>
                 </div>
@@ -81,14 +81,15 @@
                 {
                         <div class="txt1 text-center p-t-54 p-b-20">
                             <span>
-                                Or Sign Up Using
+                                Or Login Using
                             </span>
                         </div>
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model!.ReturnUrl" method="post" class="form-horizontal">
                         <div>
                             <p>
                                 <div class="flex-c-m">
-                                    @foreach (var provider in Model.ExternalLogins)
+                                    @if (Model.ExternalLogins!=null)
+                                    foreach (var provider in Model.ExternalLogins)
                                     {
                                         
                                         @if (provider.Name == "Google")

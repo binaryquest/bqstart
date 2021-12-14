@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using BinaryQuest.Framework.Core.Interface;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -24,30 +25,30 @@ namespace bqStart.Web.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
-        public List<SelectListItem> Options { get; set; }
+        public List<SelectListItem>? Options { get; set; }
 
         [TempData]
-        public string StatusMessage { get; set; }
+        public string? StatusMessage { get; set; }
 
         [BindProperty]
-        public InputModel Input { get; set; }
+        public InputModel? Input { get; set; }
 
         public class InputModel
         {
             [Phone]
             [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+            public string? PhoneNumber { get; set; }
             
             [Display(Name = "First Name")]
-            public string FirstName { get; set; }
+            public string? FirstName { get; set; }
 
             [Display(Name = "Last Name")]
-            public string LastName { get; set; }
+            public string? LastName { get; set; }
 
             [Display(Name = "Default Timezone")]
-            public string TimezoneId { get; set; }
+            public string? TimezoneId { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -101,7 +102,7 @@ namespace bqStart.Web.Areas.Identity.Pages.Account.Manage
                 return Page();
             }
 
-            user.FirstName = Input.FirstName;
+            user.FirstName = Input!.FirstName;
             user.LastName = Input.LastName;
             user.TimeZoneId = Input.TimezoneId;
 

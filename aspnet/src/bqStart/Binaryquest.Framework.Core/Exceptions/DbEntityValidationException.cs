@@ -13,7 +13,7 @@ namespace BinaryQuest.Framework.Core.Exceptions
         public IEnumerable<ValidationResult> ValidationResults { get; set; }
         public DbEntityValidationException()
         {
-
+            ValidationResults = new List<ValidationResult>();
         }
 
         public DbEntityValidationException(IEnumerable<ValidationResult> validationResults)
@@ -23,21 +23,24 @@ namespace BinaryQuest.Framework.Core.Exceptions
 
         public DbEntityValidationException(string message) : base(message)
         {
+            ValidationResults = new List<ValidationResult>();
         }
 
         public DbEntityValidationException(string message, Exception innerException) : base(message, innerException)
         {
+            ValidationResults = new List<ValidationResult>();
         }
 
         protected DbEntityValidationException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
+            ValidationResults = new List<ValidationResult>();
         }
 
         public string ValidationResultsAsString()
         {
             if (ValidationResults == null)
                 return string.Empty;
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             foreach (var item in ValidationResults)
             {
                 if (item.ErrorMessage!=null)

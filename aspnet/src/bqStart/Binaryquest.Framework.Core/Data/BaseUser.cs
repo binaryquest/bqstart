@@ -11,7 +11,7 @@ namespace BinaryQuest.Framework.Core.Data
 {
     public abstract class BaseUser : IdentityUser
     {
-        protected string _timeZoneId;
+        protected string? _timeZoneId;
         protected TimeZoneInfo _timeZoneInfo;
 
         public BaseUser()
@@ -21,14 +21,14 @@ namespace BinaryQuest.Framework.Core.Data
 
         [StringLength(255)]
         [Required]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         [StringLength(255)]
         [Required]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [MaxLength(100)]
-        public string TimeZoneId
+        public string? TimeZoneId
         {
             get
             {
@@ -62,20 +62,17 @@ namespace BinaryQuest.Framework.Core.Data
         [NotMapped]
         [StringLength(30)]
         [MapInFrontend]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         [NotMapped]
         [StringLength(30)]
         [MapInFrontend]
         [Compare("Password")]
-        public string VerifyPassword { get; set; }
+        public string? VerifyPassword { get; set; }
 
         [NotMapped]
         [MapInFrontend]
-        public List<string> AssignedRoles { get; set; }
-
-        [NotMapped]        
-        public string MailAddress { get; set; }
+        public List<string>? AssignedRoles { get; set; }
         
         public string FullName()
         {

@@ -8,12 +8,9 @@ using System.Threading.Tasks;
 namespace BinaryQuest.Framework.Core.Model
 {
     public class Bootdata
-    {
-        private readonly AppConfigOptions configOptions;
-
+    {        
         public Bootdata(AppConfigOptions configOptions)
-        {
-            this.configOptions = configOptions;
+        {            
             this.SecurityRulesDictionary = new Dictionary<string, Dictionary<string, SecurityRule>>();
             this.MetaDataValues = new Dictionary<Type, ModelMetadata>();
             if (configOptions.SecurityRulesProvider != null)
@@ -27,6 +24,8 @@ namespace BinaryQuest.Framework.Core.Model
             var rules = securityRulesProvider.GetRules();
             foreach (var rule in rules)
             {
+                if (rule.ModelType == null || rule.RoleName == null)
+                    continue;
 
                 if (!SecurityRulesDictionary.ContainsKey(rule.ModelType))
                 {

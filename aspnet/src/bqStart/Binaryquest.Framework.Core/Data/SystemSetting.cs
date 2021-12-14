@@ -16,10 +16,10 @@ namespace BinaryQuest.Framework.Core.Data
 
         [Required]
         [StringLength(50)]
-        public string SettingsName { get; set; }
+        public string? SettingsName { get; set; }
 
         public bool IsActive { get; set; }
 
-        public virtual ICollection<SettingKey> Settings { get; set; }
+        public virtual ICollection<SettingKey>? Settings { get; set; }
     }
 }

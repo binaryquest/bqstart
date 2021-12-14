@@ -97,7 +97,7 @@ namespace BinaryQuest.Framework.Core.Model
         }
 
         
-        public AppConfigOptions RegisterController<TEntity, TController>(Action<EntitySetConfiguration<TEntity>> entityConfig = null) where TController : ODataController where TEntity : class
+        public AppConfigOptions RegisterController<TEntity, TController>(Action<EntitySetConfiguration<TEntity>>? entityConfig = null) where TController : ODataController where TEntity : class
         {
 
             var name = typeof(TController).Name.TrimEnd("Controller");
@@ -128,10 +128,7 @@ namespace BinaryQuest.Framework.Core.Model
                 throw new BootException($"Type {nameof(TEntity)} already registered");
             }
 
-            if (entityConfig != null)
-            {
-                entityConfig(entitySet);
-            }
+            entityConfig?.Invoke(entitySet);
 
             registeredControllers.Add(typeof(TEntity), typeof(TController));
 
@@ -161,7 +158,7 @@ namespace BinaryQuest.Framework.Core.Model
                         else
                         {
                             var propToAdd = st.ClrType.GetProperty(mapPro.Name);
-                            if (propToAdd.PropertyType != typeof(string) && typeof(IEnumerable).IsAssignableFrom(propToAdd.PropertyType))
+                            if (propToAdd?.PropertyType != typeof(string) && typeof(IEnumerable).IsAssignableFrom(propToAdd!.PropertyType))
                             {
                                 st.AddCollectionProperty(propToAdd);
                             }
@@ -194,7 +191,10 @@ namespace BinaryQuest.Framework.Core.Model
         {
             Dictionary<Type, IEntityType> efStructuralTypes = new();            
             var defContext = services.BuildServiceProvider().GetService<TDb>();
-            
+
+            if (defContext == null)
+                throw new Exception("Database Context not found");
+
             var edmxEntityTypes = defContext.Model.GetEntityTypes();
             foreach (var entType in edmxEntityTypes)
             {
@@ -227,7 +227,8 @@ namespace BinaryQuest.Framework.Core.Model
             bool isDefinedInContext = dbSets.ContainsKey(typeToReflect);
 
             Dictionary<string, MetadataField> fields = new();
-            efStructuralTypes.TryGetValue(typeToReflect, out IEntityType efEntityType);
+            IEntityType efEntityType;
+            efStructuralTypes.TryGetValue(typeToReflect, out efEntityType!);
 
             var props = typeToReflect.GetProperties();
 
@@ -252,7 +253,7 @@ namespace BinaryQuest.Framework.Core.Model
                 {
                     keyName = prop.Name;
                     keyType = prop.PropertyType.Name;
-                    keys.Add(new PrimaryKey() { KeyName = keyName, KeyType = keyType });
+                    keys.Add(new PrimaryKey(keyName, keyType));
                     field.IsPrimaryKey = true;
                 }
                 else if (efEntityType != null)
@@ -270,7 +271,7 @@ namespace BinaryQuest.Framework.Core.Model
                         {
                             keyName = efKey.Name;
                             keyType = efKey.ClrType.Name;
-                            keys.Add(new PrimaryKey() { KeyName = keyName, KeyType = keyType });
+                            keys.Add(new PrimaryKey(keyName, keyType));
                             field.IsPrimaryKey = true;
                         }
                     }
@@ -316,7 +317,7 @@ namespace BinaryQuest.Framework.Core.Model
                         field.Enums = new List<EnumItem>();
                         foreach (int value in Enum.GetValues(prop.PropertyType))
                         {
-                            EnumItem item = new() { Id = value, Name = Enum.GetName(prop.PropertyType, value) };
+                            EnumItem item = new() { Id = value, Name = Enum.GetName(prop.PropertyType, value)! };
                             field.Enums.Add(item);
                         }
                         field.DataType = "Enum";
@@ -340,14 +341,11 @@ namespace BinaryQuest.Framework.Core.Model
             }
 
 
-            var data = new ModelMetadata
+            var data = new ModelMetadata(typeToReflect.Name, keys, fields)
             {
                 AllowAdd = true, //default values, on api call core controller will update them from service
                 AllowEdit = true,
-                AllowDelete = true,
-                TypeName = typeToReflect.Name,
-                Keys = keys,
-                Fields = fields
+                AllowDelete = true                
             };
 
             appSvc.Bootdata.MetaDataValues[typeToReflect] = data;
@@ -368,7 +366,8 @@ namespace BinaryQuest.Framework.Core.Model
             Dictionary<string, MetadataField> fields = new();
 
             var props = typeToReflect.GetProperties();
-            efStructuralTypes.TryGetValue(typeToReflect, out IEntityType efEntityType);
+            IEntityType efEntityType;
+            efStructuralTypes.TryGetValue(typeToReflect, out efEntityType!);
 
             foreach (var prop in props)
             {
@@ -442,8 +441,8 @@ namespace BinaryQuest.Framework.Core.Model
             var atts = property.GetCustomAttributes(
                 typeof(DisplayNameAttribute), true);
             if (atts.Length == 0)
-                return property.Name.SplitCamelCase();
-            return (atts[0] as DisplayNameAttribute).DisplayName;
+                return property!.Name!.SplitCamelCase()!;
+            return (atts[0] as DisplayNameAttribute)!.DisplayName;
         }
 
         private static void ReadPropertyMetadata(PropertyInfo property, MetadataField field)
@@ -456,13 +455,13 @@ namespace BinaryQuest.Framework.Core.Model
                 for (int i = 0; i < atts.Length; i++)
                 {
                     ValidationData validationData = new();
-                    validationData.ErrorMessage = (atts[i] as ValidationAttribute).ErrorMessage;
+                    validationData.ErrorMessage = (atts[i] as ValidationAttribute)!.ErrorMessage!;
                     switch (atts[i])
                     {
                         case CompareAttribute ca:
                             validationData.ValidationType = ValidationType.Compare;
                             validationData.OtherProperty = ca.OtherProperty;
-                            validationData.OtherPropertyDisplayName = ca.OtherPropertyDisplayName;
+                            validationData.OtherPropertyDisplayName = ca.OtherPropertyDisplayName!;
                             break;
                         case MaxLengthAttribute ma:
                             validationData.ValidationType = ValidationType.MaxLength;

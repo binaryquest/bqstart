@@ -12,7 +12,7 @@ namespace BinaryQuest.Framework.Core.Data
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public T Id { get; set; }
+        public T Id { get; set; } = default!;
 
         /// <summary>
         /// when this entity was inserted
@@ -26,12 +26,12 @@ namespace BinaryQuest.Framework.Core.Data
         /// user name who created this identity
         /// </summary>
         [StringLength(256)]
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
         /// <summary>
         /// user name who modified this entity
         /// </summary>
         [StringLength(256)]
-        public string ModifiedBy { get; set; }
+        public string? ModifiedBy { get; set; }
 
         /// <summary>
         /// this is a place holder type for working out if the entity has been modified from
@@ -46,17 +46,19 @@ namespace BinaryQuest.Framework.Core.Data
 
     public abstract class BaseKeyStringEntity : ILoggingEntity
     {
-        [Key]        
+        [Key]
         [StringLength(128)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string Id { get; set; }
+        public string Id { get; set; } = null!;
 
         public DateTime? CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
+        
+        [StringLength(256)]        
+        public string? CreatedBy { get; set; }
+
         [StringLength(256)]
-        public string CreatedBy { get; set; }
-        [StringLength(256)]
-        public string ModifiedBy { get; set; }
+        public string? ModifiedBy { get; set; }
 
         [NotMapped]
         public RecordState RecordState { get; set; }

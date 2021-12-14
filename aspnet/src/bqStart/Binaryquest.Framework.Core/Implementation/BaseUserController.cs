@@ -34,7 +34,7 @@ namespace BinaryQuest.Framework.Core.Implementation
             this.unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public override async Task<TUser> OnGetSingleData(object[] keyValues)
+        public override async Task<TUser?> OnGetSingleData(object[] keyValues)
         {
             var all = userManager.Users;
             var entity =  all.Where(x => keyValues.Contains(x.Id)).FirstOrDefault();
@@ -49,10 +49,13 @@ namespace BinaryQuest.Framework.Core.Implementation
             return entity;
         }
 
-        protected override async Task<IActionResult> OnDelete(TUser entity)
+        protected override async Task<IActionResult> OnDelete(TUser? entity)
         {
             try
             {
+                if (entity == null)
+                    return BadRequest();
+
                 OnBeforeDelete(entity);
                 
                 IdentityResult result = await userManager.DeleteAsync(entity);
@@ -86,7 +89,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                         msg += duexp.InnerException.Message;
                     }
                 }
-                logger.LogError("Error OnDelete {0}", msg);
+                logger.LogError("Error OnDelete {msg}", msg);
                 return UnprocessableEntity(msg);
             }
         }
@@ -126,7 +129,7 @@ namespace BinaryQuest.Framework.Core.Implementation
             throw new NotImplementedException();
         }
 
-        protected override ModelMetadata OnGetModelMetaData()
+        protected override ModelMetadata? OnGetModelMetaData()
         {
             if (this.applicationService.Bootdata.MetaDataValues.ContainsKey(typeof(TUser)))
             {
@@ -139,14 +142,17 @@ namespace BinaryQuest.Framework.Core.Implementation
             }
             else
             {
-                return new();
+                return null;
             }
         }
 
-        protected async override Task<IActionResult> OnInsert(TUser entity)
+        protected async override Task<IActionResult> OnInsert(TUser? entity)
         {
             try
             {
+                if (entity == null)
+                    return BadRequest();
+
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
@@ -233,15 +239,18 @@ namespace BinaryQuest.Framework.Core.Implementation
                         msg += duexp.InnerException.Message;
                     }
                 }
-                logger.LogError("Error OnInsert {0}", msg);
+                logger.LogError("Error OnInsert {msg}", msg);
                 return UnprocessableEntity(msg);
             }
         }
 
-        protected async override Task<IActionResult> OnUpdate(TUser entity)
+        protected async override Task<IActionResult> OnUpdate(TUser? entity)
         {
             try
             {
+                if (entity == null)
+                    return BadRequest();
+
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
@@ -342,7 +351,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                         msg += duexp.InnerException.Message;
                     }
                 }
-                logger.LogError("Error OnUpdate {0}", msg);
+                logger.LogError("Error OnUpdate {msg}", msg);
                 return UnprocessableEntity(msg);
             }
         }
@@ -351,6 +360,10 @@ namespace BinaryQuest.Framework.Core.Implementation
         [HttpGet()]
         public Task<IActionResult> Get([FromODataUri] TKey key)
         {
+            if (key== null)
+            {
+                return Task.FromResult<IActionResult>(NotFound());
+            }
             return GetInternal(new object[] { key });
         }        
 
@@ -365,7 +378,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                             orderby s.BaseUtcOffset
                             select new
                             {
-                                Id = s.Id,
+                                s.Id,
                                 Name = s.DisplayName
                             },
                 Roles = roles

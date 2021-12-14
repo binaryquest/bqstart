@@ -45,7 +45,7 @@ namespace BinaryQuest.Framework.Core.Implementation
 
         public async Task SaveAsync()
         {
-            var validationErrors = context.ChangeTracker.Entries<IValidatableObject>().SelectMany(e => e.Entity.Validate(null)).Where(r => r != ValidationResult.Success);
+            var validationErrors = context.ChangeTracker.Entries<IValidatableObject>().SelectMany(e => e.Entity.Validate(null!)).Where(r => r != ValidationResult.Success);
 
             if (validationErrors.Any())
             {

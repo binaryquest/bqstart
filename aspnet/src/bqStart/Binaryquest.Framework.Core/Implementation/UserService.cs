@@ -29,14 +29,14 @@ namespace BinaryQuest.Framework.Core.Implementation
             this.userManager = userManager;
         }        
 
-        public TUser CurrentUser
+        public TUser? CurrentUser
         {
             get
             {
-                TUser ret = null;
+                TUser? ret = null;
                 try
                 {
-                    if (httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                    if (httpContextAccessor.HttpContext!.User!.Identity!.IsAuthenticated)
                     {
                         using var scope = serviceProvider.CreateScope();                        
                         using var ctx = scope.ServiceProvider.GetRequiredService<TDb>();
@@ -47,7 +47,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 }
                 catch (Exception ex)
                 {
-                    logger.LogError("unable to get Current User, exception " + ex.ToString());
+                    logger.LogError("unable to get Current User, exception {ex}",ex);
                     throw;
                 }
                 return ret;
@@ -55,17 +55,17 @@ namespace BinaryQuest.Framework.Core.Implementation
         }
 
 
-        public IList<TUser> GetAllUsers()
+        public IList<TUser?> GetAllUsers()
         {
             using var scope = serviceProvider.CreateScope();
             using var ctx = scope.ServiceProvider.GetRequiredService<TDb>();
             var list = (from u in ctx.Users
-                   where u.UserName == httpContextAccessor.HttpContext.User.Identity.Name
+                   where u.UserName == httpContextAccessor!.HttpContext!.User!.Identity!.Name
                    select u).ToList();
             return list;
         }
 
-        public async Task<TUser> EditAsync(TUser model)
+        public async Task<TUser?> EditAsync(TUser model)
         {
             var user = await userManager.FindByIdAsync(model.Id);
             if (user != null)
@@ -79,7 +79,7 @@ namespace BinaryQuest.Framework.Core.Implementation
             return user;
         }
 
-        public async Task<TUser> GetByIdAsync(string id)
+        public async Task<TUser?> GetByIdAsync(string id)
         {
             var user = await userManager.FindByIdAsync(id);
             if (user != null)

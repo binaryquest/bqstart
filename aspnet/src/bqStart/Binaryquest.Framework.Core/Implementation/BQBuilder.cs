@@ -27,7 +27,7 @@ namespace BinaryQuest.Framework.Core.Implementation
 {
     internal class BQBuilder<TContext> : IBQBuilder where TContext : DbContext
     {        
-        private Action<IEndpointRouteBuilder> customEndpoints;
+        private Action<IEndpointRouteBuilder>? customEndpoints;
         
         public BQBuilder(IApplicationBuilder builder)
         {

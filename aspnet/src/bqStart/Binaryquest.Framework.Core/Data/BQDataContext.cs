@@ -16,9 +16,9 @@ namespace BinaryQuest.Framework.Core.Data
         {
         }
 
-        public DbSet<SystemSetting> SystemSettings { get; set; }
+        public DbSet<SystemSetting> SystemSettings => Set<SystemSetting>();
 
-        public DbSet<SettingKey> SettingKeys { get; set; }
+        public DbSet<SettingKey> SettingKeys => Set<SettingKey>();
 
     }
 }

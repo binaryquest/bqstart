@@ -13,7 +13,7 @@ namespace BinaryQuest.Framework.Core.Extensions
         {
             if (suffixToRemove != null && input.EndsWith(suffixToRemove, comparisonType))
             {
-                return input.Substring(0, input.Length - suffixToRemove.Length);
+                return input[..^suffixToRemove.Length];
             }
 
             return input;
@@ -23,7 +23,7 @@ namespace BinaryQuest.Framework.Core.Extensions
         {
             if (!string.IsNullOrEmpty(str) && str.Length > 1)
             {
-                return char.ToLowerInvariant(str[0]) + str.Substring(1);
+                return char.ToLowerInvariant(str[0]) + str[1..];
             }
             return str;
         }
@@ -53,7 +53,7 @@ namespace BinaryQuest.Framework.Core.Extensions
         /// wordWordIDWord1WordWORDWord32Word2A
         /// Word Word ID Word 1 Word WORD Word 32 Word 2 A
         /// </example>
-        public static string SplitCamelCase(this string input)
+        public static string? SplitCamelCase(this string input)
         {
             if (input == null) return null;
             if (string.IsNullOrWhiteSpace(input)) return "";
@@ -70,12 +70,12 @@ namespace BinaryQuest.Framework.Core.Extensions
             //Capitalize first letter
             var firstChar = separated.First(); //NullOrWhiteSpace handled earlier
             if (char.IsLower(firstChar))
-                separated = char.ToUpper(firstChar) + separated.Substring(1);
+                separated = char.ToUpper(firstChar) + separated[1..];
 
             return separated;
         }
 
-        private static readonly Regex SplitCamelCaseRegex = new Regex(@"
+        private static readonly Regex SplitCamelCaseRegex = new(@"
             (
                 (?<=[a-z])[A-Z0-9] (?# lower-to-other boundaries )
                 |
@@ -86,29 +86,6 @@ namespace BinaryQuest.Framework.Core.Extensions
                 (?<=[A-Z])[A-Z](?=[a-z]) (?# handles longer strings of caps like ID or CMS by splitting off the last capital )
             )"
             , RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace
-        );
-
-        //private static readonly string[] _SplitCamelCase_AllCapsWords =
-        //    (WebConfigurationManager.AppSettings["SplitCamelCase_AllCapsWords"] ?? "")
-        //        .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-        //        .Select(a => a.ToLowerInvariant().Trim())
-        //        .ToArray()
-        //        ;
-
-        private static Dictionary<string, Regex> _SplitCamelCase_AllCapsWords_Regexes;
-        private static Dictionary<string, Regex> SplitCamelCase_AllCapsWords_Regexes
-        {
-            get
-            {
-                if (_SplitCamelCase_AllCapsWords_Regexes == null)
-                {
-                    _SplitCamelCase_AllCapsWords_Regexes = new Dictionary<string, Regex>();
-                    //foreach (var word in _SplitCamelCase_AllCapsWords)
-                    //                        _SplitCamelCase_AllCapsWords_Regexes.Add(word, new Regex(@"\b" + word + @"\b", RegexOptions.Compiled | RegexOptions.IgnoreCase));
-                }
-
-                return _SplitCamelCase_AllCapsWords_Regexes;
-            }
-        }
+        );        
     }
 }
