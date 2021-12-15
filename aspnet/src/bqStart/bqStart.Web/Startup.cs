@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using TimeZoneConverter;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using BinaryQuest.Framework.Identity;
 
 namespace bqStart.Web
 {
@@ -37,14 +38,14 @@ namespace bqStart.Web
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentityWithBQUI<ApplicationUser>(options =>  options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MainDataContext>();
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, MainDataContext>()
                 .AddProfileService<ProfileService<ApplicationUser>>();
-
+            
             services.AddAuthentication()
                 .AddIdentityServerJwt()
                 //.AddGoogle(options =>
@@ -52,10 +53,8 @@ namespace bqStart.Web
                 //    options.ClientId = Configuration["ExternalProviders:OAuth:GoogleClientId"];
                 //    options.ClientSecret = Configuration["ExternalProviders:OAuth:GoogleSecret"];
                 //});
-                ;
-
-            //services.AddControllersWithViews().AddNewtonsoftJson();            
-
+                ;            
+            
             //BQ Admin related
             services.AddBqAdminServices<ApplicationUser, MainDataContext>(options =>
                 options.SetApplicationName("BQ Start")

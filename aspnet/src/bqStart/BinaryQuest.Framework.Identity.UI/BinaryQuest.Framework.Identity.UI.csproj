@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Company>Binary Quest Software Pty Ltd</Company>
+		<Authors>Binary Quest</Authors>
+		<Description>bqStart - asp.net core starter templates core</Description>
+		<Copyright>Binary Quest Software Pty Ltd © 2021</Copyright>
+		<PackageProjectUrl>www.bqstart.com</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/binaryquest/bqstart</RepositoryUrl>
+		<PackageTags>aspnet core starter template</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Version>1.13.2</Version>
+		<Nullable>annotations</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Binaryquest.Framework.Core\BinaryQuest.Framework.Core.csproj" />
+	</ItemGroup>
+
+
+
+</Project>

@@ -42,6 +42,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Binaryquest.Framework.Core\BinaryQuest.Framework.Core.csproj" />
+		<ProjectReference Include="..\BinaryQuest.Framework.Identity.UI\BinaryQuest.Framework.Identity.UI.csproj" />
 		<ProjectReference Include="..\bqStart.Data\bqStart.Data.csproj" />
 	</ItemGroup>
 
