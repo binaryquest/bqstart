@@ -18,6 +18,8 @@ namespace bqStart.Data
         [Required]
         public int DepartmentId { get; set; }
 
+        public DateTime? ClassDate { get; set; }
+
         [ForeignKey("DepartmentId")]
         public virtual Department? Department { get; set; }
 

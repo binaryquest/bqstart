@@ -12,6 +12,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json.Serialization;
 using BinaryQuest.Framework.Core.OData;
+using Newtonsoft.Json.Converters;
+using System.Globalization;
 
 namespace BinaryQuest.Framework.Core.Extensions
 {
@@ -41,7 +43,7 @@ namespace BinaryQuest.Framework.Core.Extensions
                 //{
                 //    //options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 //    options.JsonSerializerOptions.MaxDepth = 32;
-                //    //options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+                //    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 //})
                 .AddOData(oData =>
                 {

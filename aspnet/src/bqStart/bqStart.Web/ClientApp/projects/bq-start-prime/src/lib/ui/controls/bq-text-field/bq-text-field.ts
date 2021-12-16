@@ -52,6 +52,7 @@ export class BqTextField extends BaseField {
     return  this._currency;
   }
 
+
   @Input()
   currencyCode: string = "USD";
 
@@ -87,9 +88,13 @@ export class BqTextField extends BaseField {
 
   public initializeRender(): void {
 
+
+
     if (this.dateFormat !== undefined && this.dateFormat !== null){
       this.localeFormat = this.dateFormat;
     }
+
+    console.log("localformat %s", this.localeFormat);
 
     if (this.editMode){
       if (this.optionalEditTemplate !== undefined && this.optionalEditTemplate != null){

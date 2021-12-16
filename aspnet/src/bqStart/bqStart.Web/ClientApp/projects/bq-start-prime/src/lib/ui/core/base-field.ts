@@ -40,6 +40,11 @@ export abstract class BaseField implements OnInit, AfterContentInit {
   }
   set model(value:any) {
     this._model = value;
+    if (this.field?.dataType === "DateTime" && value !== null && value !== undefined){
+      this.dateModel = new Date(value);
+    }else{
+      this.dateModel = null;
+    }
     this.model$.next(value);
   }
 
@@ -50,6 +55,7 @@ export abstract class BaseField implements OnInit, AfterContentInit {
   readonly model$ = new ReplaySubject<any>();
   //backing model store
   _model: any;
+  dateModel: Date|null;
 
   // Output prop name must be Input prop name + 'Change'
   // Use in your component to write an updated value back out to the parent

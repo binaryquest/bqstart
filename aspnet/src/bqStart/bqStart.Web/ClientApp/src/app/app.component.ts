@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   public isAuthenticated: Observable<boolean>;
 
   constructor(private primengConfig: PrimeNGConfig, private authorizeService: AuthorizeService, private localeService: LocaleService) {
-    this.localeService.initLocale('en-US', 'en-US');
+    this.localeService.initLocale('en-AU', 'en-US');
   }
 
   ngOnInit(): void {

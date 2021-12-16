@@ -6,4 +6,5 @@ export class ExampleClass extends BaseEntity<number>{
     DepartmentId: number;
     IsActive: boolean;
     Department: Department | undefined;
+    ClassDate: Date | null;
 }

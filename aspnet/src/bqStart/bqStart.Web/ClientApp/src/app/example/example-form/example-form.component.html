@@ -12,6 +12,17 @@
     [row]="5">
   </bq-text-area>
 
+  <bq-text-field
+    [field]="metaData.fields.ClassDate"
+    [(model)]="model.ClassDate"
+  ></bq-text-field>
+
+  <bq-text-field
+  [field]="metaData.fields.CreatedOn"
+  [(model)]="model.CreatedOn"
+></bq-text-field>
+
+
   <bq-dropdown-field [field]="metaData.fields.DepartmentId" [(model)]="model.DepartmentId" [itemSource]="lookupDataModel.departmentList" displayName="name" valueName="id">
     //optional display template
     <ng-template bqTemplate="displayLabel">
@@ -28,3 +39,5 @@
 
 <hr/>
 {{model|json}}
+
+<hr/>

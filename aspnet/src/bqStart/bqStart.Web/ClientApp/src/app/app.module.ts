@@ -26,6 +26,7 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import localeBn from '@angular/common/locales/bn';
 import localeSg from '@angular/common/locales/en-SG';
+import localeAu from '@angular/common/locales/en-AU';
 import { DepartmentListComponent } from './example/department-list/department-list.component';
 import { DepartmentFormComponent } from './example/department-form/department-form.component';
 import { ExampleFormComponent } from './example/example-form/example-form.component';
@@ -35,6 +36,7 @@ import { ExampleListComponent } from './example/example-list/example-list.compon
 
 registerLocaleData(localeBn);
 registerLocaleData(localeSg);
+registerLocaleData(localeAu);
 
 // // AoT requires an exported function for factories
 // export function HttpLoaderFactory(http: HttpClient) {
