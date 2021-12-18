@@ -31,5 +31,10 @@ namespace bqStart.Web.Controllers
             };
             return ret;
         }
+
+        protected override void OnBeforeCreate(ExampleClass entity)
+        {
+            
+        }
     }
 }

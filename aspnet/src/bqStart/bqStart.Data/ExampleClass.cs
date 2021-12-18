@@ -15,7 +15,7 @@ namespace bqStart.Data
         [Required]
         public string ClassName { get; set; } = null!;
 
-        [Required]
+        [Required]        
         public int DepartmentId { get; set; }
 
         public DateTime? ClassDate { get; set; }

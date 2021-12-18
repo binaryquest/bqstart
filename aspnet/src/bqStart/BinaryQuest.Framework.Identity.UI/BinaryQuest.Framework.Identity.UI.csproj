@@ -11,7 +11,7 @@
 		<PackageTags>aspnet core starter template</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Version>1.13.2</Version>
+		<Version>1.13.3</Version>
 		<Nullable>annotations</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>

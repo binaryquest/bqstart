@@ -1,5 +1,6 @@
 ﻿using BinaryQuest.Framework.Core.Interface;
 using BinaryQuest.Framework.Core.Model;
+using IdentityModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
@@ -194,6 +195,19 @@ namespace BinaryQuest.Framework.Core.Implementation
 
         protected abstract Task<IActionResult> OnDelete(TEntity? entity);
         #endregion
+
+        public UserClaimInfo CurrentUser
+        {
+            get
+            {
+                UserClaimInfo info = new(User.FindFirstValue(ClaimTypes.Name),
+                    User.FindFirstValue(ClaimTypes.GivenName),
+                    User.FindFirstValue(ClaimTypes.Surname),
+                    User.FindFirstValue(JwtClaimTypes.Locale),
+                    User.FindFirstValue("timezone"));
+                return info;
+            }
+        }
 
         #region Permssions Related
         protected bool AllowSelect()

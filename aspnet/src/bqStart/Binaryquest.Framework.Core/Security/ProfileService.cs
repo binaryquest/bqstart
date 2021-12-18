@@ -32,16 +32,25 @@ namespace BinaryQuest.Framework.Core.Security
             foreach (string role in roles)
             {
                 roleClaims.Add(new Claim(JwtClaimTypes.Role, role));
-                //roleClaims.Add(new Claim(JwtClaimTypes.Role, "user1"));
+                roleClaims.Add(new Claim(ClaimTypes.Role, role));                
             }
+
             roleClaims.Add(new Claim(JwtClaimTypes.FamilyName, user.LastName ?? string.Empty));
+            roleClaims.Add(new Claim(ClaimTypes.Surname, user.LastName ?? string.Empty));
+
             roleClaims.Add(new Claim(JwtClaimTypes.GivenName, user.FirstName ?? string.Empty));
+            roleClaims.Add(new Claim(ClaimTypes.GivenName, user.FirstName ?? string.Empty));
 
             roleClaims.Add(new Claim(JwtClaimTypes.Locale, "en-UK"));
+            roleClaims.Add(new Claim(ClaimTypes.Locality, "en-UK"));
 
             //add user claims
 
             roleClaims.Add(new Claim(JwtClaimTypes.Name, user.UserName));
+            roleClaims.Add(new Claim(ClaimTypes.Name, user.UserName));
+            roleClaims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
+            roleClaims.Add(new Claim("timezone", user.TimeZoneId ?? String.Empty));
+
             context.IssuedClaims.AddRange(roleClaims);
         }
 

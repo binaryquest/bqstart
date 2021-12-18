@@ -16,24 +16,76 @@ import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
 
 export abstract class BaseField implements OnInit, AfterContentInit {
 
+  /**
+   * the column block size for the display label for this field
+   *
+   * @type {number}
+   * @memberof BaseField
+   */
   @Input()
   labelSize: number = 3;
 
+  /**
+   * the field block size in column
+   *
+   * @type {number}
+   * @memberof BaseField
+   */
   @Input()
   fieldSize: number = 0;
 
+  /**
+   * The meta data field to get the details from
+   *
+   * @type {MetadataField}
+   * @memberof BaseField
+   */
   @Input()
   field?: MetadataField;
 
+  /**
+   * Caption to display. If Metadata field is set then caption will be used from that.
+   *
+   * @type {(string | null | undefined)}
+   * @memberof BaseField
+   */
   @Input()
   caption: string | null | undefined;
 
+  /**
+   * id of the field
+   *
+   * @type {string}
+   * @memberof BaseField
+   */
   @Input()
   id: string;
 
+  /**
+   * name of the field to be used when inside a form
+   *
+   * @type {string}
+   * @memberof BaseField
+   */
   @Input()
   name: string;
 
+  /**
+   * if true then in edit more it will still display value instead of showing the input field
+   *
+   * @type {boolean}
+   * @memberof BaseField
+   */
+  @Input()
+  readonly: boolean = false;
+
+  /**
+   * the model binding property
+   *
+   * @readonly
+   * @type {*}
+   * @memberof BaseField
+   */
   @Input()
   get model(): any {
     return this._model;
@@ -48,6 +100,12 @@ export abstract class BaseField implements OnInit, AfterContentInit {
     this.model$.next(value);
   }
 
+  /**
+   * show the input field but in readonly form. Similar to @member readonly but renders the input fields
+   *
+   * @type {boolean}
+   * @memberof BaseField
+   */
   @Input()
   disabled: boolean = false;
 
@@ -57,8 +115,11 @@ export abstract class BaseField implements OnInit, AfterContentInit {
   _model: any;
   dateModel: Date|null;
 
-  // Output prop name must be Input prop name + 'Change'
-  // Use in your component to write an updated value back out to the parent
+  /**
+   * when the model value changes this will be fired
+   *
+   * @memberof BaseField
+   */
   @Output()
   modelChange = new EventEmitter<any>();
 
@@ -74,6 +135,12 @@ export abstract class BaseField implements OnInit, AfterContentInit {
   editMode: boolean;
   parent: BaseFormView<any> | null;
 
+  /**
+   * if the value is required in edit mode
+   *
+   * @type {boolean}
+   * @memberof BaseField
+   */
   @Input()
   isRequired: boolean = false;
 

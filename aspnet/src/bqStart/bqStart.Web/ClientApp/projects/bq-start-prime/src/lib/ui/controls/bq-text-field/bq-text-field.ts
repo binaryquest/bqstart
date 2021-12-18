@@ -96,7 +96,7 @@ export class BqTextField extends BaseField {
 
     console.log("localformat %s", this.localeFormat);
 
-    if (this.editMode){
+    if (this.editMode===true && this.readonly===false){
       if (this.optionalEditTemplate !== undefined && this.optionalEditTemplate != null){
         this.controlRenderTemplate = this.optionalEditTemplate;
       }else{

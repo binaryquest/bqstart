@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BinaryQuest.Framework.Core.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Attributes;
@@ -13,13 +14,12 @@ namespace BinaryQuest.Framework.Core.Implementation
         string ExpandedTables { get; }
         string ExpandedTablesForSingleEntity { get; }
         Expression<Func<TEntity, bool>>? SecurityWhereClause { get; }
-
         Task<IActionResult> Delete(TKey entity);
         Task<IActionResult> Get();
-
         IActionResult ModelMetaData();
         IActionResult LookupData();
         Task<IActionResult> Post(TEntity entity);
-        Task<IActionResult> Patch(TEntity entity);        
+        Task<IActionResult> Patch(TEntity entity);      
+        UserClaimInfo CurrentUser { get; }
     }    
 }
