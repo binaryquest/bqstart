@@ -108,6 +108,7 @@
     [name]="id"
     hourFormat="12"
     [showSeconds]="true"
+    [showTime]="showTime"
     [(ngModel)]="dateModel"
     (ngModelChange)="onChange($event)"
     [required]="isRequired"
@@ -163,4 +164,8 @@
 
 <ng-template #booleanDisplayRender>
   <span>{{model | boolToYesNo}}</span>
+</ng-template>
+
+<ng-template #defaultDateRender>
+  <span>{{dateModel | date:localePipeFormat}}</span>
 </ng-template>

@@ -21,9 +21,13 @@ export class BqTextField extends BaseField {
   @ViewChild("emailRender",{static: true}) emailRender: TemplateRef<any>;
   @ViewChild("boolRender",{static: true}) boolRender: TemplateRef<any>;
   @ViewChild("booleanDisplayRender",{static: true}) booleanDisplayRender: TemplateRef<any>;
+  @ViewChild("defaultDateRender",{static: true}) defaultDateRender: TemplateRef<any>;
 
   @Input()
   dateFormat: string | undefined | null;
+
+  @Input()
+  showTime: boolean = false;
 
   @Input()
   min: number;
@@ -69,6 +73,7 @@ export class BqTextField extends BaseField {
   regexMessage: any;
 
   localeFormat: string;
+  localePipeFormat: string;
 
   @Input()
   compareTo: any;
@@ -83,6 +88,7 @@ export class BqTextField extends BaseField {
     super(vwSvc, formBlock);
 
     this.localeFormat = moment.localeData().longDateFormat('L').toLowerCase().replace('yyyy', 'yy');
+    this.localePipeFormat = 'shortDate';
   }
 
 
@@ -94,6 +100,9 @@ export class BqTextField extends BaseField {
       this.localeFormat = this.dateFormat;
     }
 
+    if (this.showTime){
+      this.localePipeFormat = 'short';
+    }
     console.log("localformat %s", this.localeFormat);
 
     if (this.editMode===true && this.readonly===false){
@@ -118,6 +127,9 @@ export class BqTextField extends BaseField {
       case 'Boolean':
         this.controlRenderTemplate = this.booleanDisplayRender;
         break;
+      case 'DateTime':
+        this.controlRenderTemplate = this.defaultDateRender;
+        break;
       case 'Decimal':
       case 'Double':
       case 'Single':
@@ -127,7 +139,6 @@ export class BqTextField extends BaseField {
       case 'UInt64':
       case 'Char':
       case 'Guid':
-      case 'DateTime':
       case 'String':
       default:
         this.controlRenderTemplate = this.defaultRender;
