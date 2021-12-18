@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
 
@@ -11,10 +11,17 @@ export class AppLayout implements OnInit {
 
   title = 'app';
   menuActive: boolean;
+  showLeftMenu: boolean;
   isAuthenticated: boolean;
 
+  @Input()
+  showMenuOnTop: boolean = false;
+
   constructor(private primengConfig: PrimeNGConfig, private authorizeService: AuthorizeService) {
-    this.authorizeService.isAuthenticated().subscribe(x => this.isAuthenticated = x);
+    this.authorizeService.isAuthenticated().subscribe(x => {
+      this.showLeftMenu = x && !this.showMenuOnTop;
+      this.isAuthenticated = x;
+    });
   }
 
   ngOnInit(): void {

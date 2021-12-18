@@ -53,6 +53,8 @@ import { PasswordModule } from 'primeng/password';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ChipModule } from 'primeng/chip';
 import { AvatarModule } from 'primeng/avatar';
+import { MenubarModule } from 'primeng/menubar';
+import { SlideMenuModule } from 'primeng/slidemenu';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -75,6 +77,8 @@ import { BoolToYesNoPipe, PasswordPipe } from './ui/core/display.pipes';
 import { BqPasswordField } from './ui/controls/bq-password-field/bq-password-field';
 import { BqDropdownField } from './ui/controls/bq-dropdown-field/bq-dropdown-field';
 import { BqTextArea } from './ui/controls/bq-text-area/bq-text-area';
+import { TopMenuBar } from './ui/layout/top-menu-bar/top-menu-bar';
+
 export * from './models/meta-data';
 
 
@@ -124,7 +128,9 @@ export function initializeApp(appInitService: AppInitService) {
     MessagesModule,
     MessageModule,
     ChipModule,
-    AvatarModule
+    AvatarModule,
+    MenubarModule,
+    SlideMenuModule
   ],
   declarations: [
     LoginMenuComponent,
@@ -134,6 +140,7 @@ export function initializeApp(appInitService: AppInitService) {
     FooterBar,
     AppLayout,
     MenuBar,
+    TopMenuBar,
     BaseComponent,
     BaseListView,
     BaseFormView,
@@ -200,6 +207,8 @@ export function initializeApp(appInitService: AppInitService) {
     MessageModule,
     ChipModule,
     AvatarModule,
+    MenubarModule,
+    SlideMenuModule,
     //bq
     BqForm,
     CompareDirective,

@@ -23,6 +23,7 @@ export * from './lib/services/navigation.service';
 export * from './lib/services/dialog.service';
 
 export * from './lib/ui/layout/top-bar/top-bar';
+export * from './lib/ui/layout/top-menu-bar/top-menu-bar';
 export * from './lib/ui/layout/footer-bar/footer-bar';
 export * from './lib/ui/layout/app-layout/app-layout';
 export * from './lib/ui/layout/breadcrumb/breadcrumb';

@@ -14,7 +14,7 @@ export const APP_CONFIG: BQConfigData = {
   viewDefaults: { defaultPageSize: 50, otherPageSizes: [25, 50, 100] },
   menus: [
     {
-      label: "Home", icon: "",
+      label: "Home", icon: "pi pi-home",
       childMenus: [
         { label: "Counter", path: "/counter", icon: "", childMenus: [] }
       ]
@@ -23,14 +23,14 @@ export const APP_CONFIG: BQConfigData = {
     {
       label: "Example Menu", icon: "",
       childMenus: [
-        { label: "Department", viewId: "departments", icon: "pi-users", childMenus: [] },
-        { label: "Classes", viewId: "examples", icon: "pi-users", childMenus: [] },
+        { label: "Department", viewId: "departments", icon: "pi pi-users", childMenus: [] },
+        { label: "Classes", viewId: "examples", icon: "pi pi-users", childMenus: [] },
       ]
     },
     {
       label: "Setup", icon: "", allowedRoles: ["Admin"], childMenus: [
-        { label: "Roles", viewId: "roles", icon: "pi-users", childMenus: [] },
-        { label: "Users", viewId: "users", icon: "pi-users", childMenus: [] },
+        { label: "Roles", viewId: "roles", icon: "pi pi-users", childMenus: [] },
+        { label: "Users", viewId: "users", icon: "pi pi-users", childMenus: [] },
       ]
     }
   ],

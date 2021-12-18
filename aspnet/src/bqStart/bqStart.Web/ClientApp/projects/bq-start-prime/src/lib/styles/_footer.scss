@@ -1,12 +1,11 @@
 .layout-footer {
-  padding: 2rem;
+  padding: 0.5rem;
   font-size: 1rem;
   background-color: var(--surface-b);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: block;
+
   border-top: 1px solid #dee4e9;
-  height: 4rem;
+
 
   a {
     color: var(--text-color);
@@ -14,10 +13,21 @@
   }
 
   .layout-footer-right {
+    float: right;
     justify-content: right;
     a {
       color: var(--text-secondary-color);
       font-size: 1rem;
     }
   }
+  .layout-footer-left {
+    float: left;
+    justify-content: left;
+    a {
+      color: var(--text-secondary-color);
+      font-size: 1rem;
+    }
+  }
 }
+
+// height: 4rem;

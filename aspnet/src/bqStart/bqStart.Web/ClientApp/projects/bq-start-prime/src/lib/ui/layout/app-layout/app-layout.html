@@ -1,10 +1,11 @@
 <div class="layout-wrapper">
 
-  <bq-top-bar (menuButtonClick)="onMenuButtonClick()"></bq-top-bar>
-  <bq-menu-bar *ngIf="isAuthenticated" [active]="menuActive"></bq-menu-bar>
+  <bq-top-menu-bar *ngIf="showMenuOnTop"></bq-top-menu-bar>
+  <bq-top-bar *ngIf="!showMenuOnTop" (menuButtonClick)="onMenuButtonClick()"></bq-top-bar>
+  <bq-menu-bar *ngIf="showLeftMenu" [active]="menuActive"></bq-menu-bar>
 
   <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}" (click)="onMaskClick()"></div>
-  <div [ngClass]="isAuthenticated?'layout-content':'layout-content-inactive'">
+  <div [ngClass]="showMenuOnTop?'layout-content-inactive':'layout-content'">
 
 
     <breadcrumb></breadcrumb>
