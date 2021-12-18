@@ -1,4 +1,6 @@
 <bq-form>
+  <div class="grid">
+  <bq-form-block [labelSize]="2" class="col-12 md:col-6">
 
   <bq-text-field
     [field]="metaData.fields.ClassName"
@@ -36,6 +38,8 @@
     [(model)]="model.IsActive"
   ></bq-text-field>
 
+  </bq-form-block>
+</div>
 </bq-form>
 
 <hr/>

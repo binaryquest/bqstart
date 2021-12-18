@@ -23,7 +23,7 @@ export abstract class BaseField implements OnInit, AfterContentInit {
    * @memberof BaseField
    */
   @Input()
-  labelSize: number = 3;
+  labelSize: number;
 
   /**
    * the field block size in column
@@ -162,7 +162,7 @@ export abstract class BaseField implements OnInit, AfterContentInit {
 
   ngOnInit(): void {
     if (this.formBlock){
-      if (this.labelSize <= 0){
+      if (this.labelSize === undefined || this.labelSize <= 0){
         this.labelSize = this.formBlock.labelSize;
       }
     }
