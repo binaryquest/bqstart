@@ -9,6 +9,7 @@ export * from './lib/api-authorization/authorize.service';
 
 export * from './lib/models/base-model';
 export * from './lib/models/table-data';
+export * from './lib/models/odata-response';
 export * from './lib/api-authorization/login/login.component';
 export * from './lib/api-authorization/login-menu/login-menu.component';
 export * from './lib/api-authorization/logout/logout.component';
@@ -27,6 +28,7 @@ export * from './lib/ui/layout/top-menu-bar/top-menu-bar';
 export * from './lib/ui/layout/footer-bar/footer-bar';
 export * from './lib/ui/layout/app-layout/app-layout';
 export * from './lib/ui/layout/breadcrumb/breadcrumb';
+export * from './lib/ui/base.component';
 export * from './lib/ui/core/base-list-view';
 export * from './lib/ui/core/base-form-view';
 export * from './lib/ui/core/bq-template.directive';

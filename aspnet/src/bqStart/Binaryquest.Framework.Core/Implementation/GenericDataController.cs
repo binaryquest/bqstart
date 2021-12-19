@@ -77,7 +77,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 if (entity is ILoggingEntity log)
                 {
                     log.CreatedOn = DateTime.UtcNow;
-                    log.CreatedBy = this.User?.Identity?.Name;
+                    log.CreatedBy = this.CurrentUser?.UserId;
                 }
 
                 OnBeforeCreate(entity);

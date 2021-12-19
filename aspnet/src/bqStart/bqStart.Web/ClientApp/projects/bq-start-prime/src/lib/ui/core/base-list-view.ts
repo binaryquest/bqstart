@@ -77,6 +77,12 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
    */
   predefinedFilters: PredefinedFilter[];
 
+  /**
+   * Display the App New button inside the BQTable of it's child component
+   *
+   * @type {boolean}
+   * @memberof BaseListView
+   */
   showAddButton: boolean;
 
   protected dataSvc: GenericDataService | null;

@@ -88,7 +88,7 @@ export class BqDropdownField extends BaseField {
       if (value!=null){
         if(this.showAsEnum){
           if (this.itemEnumSource!=null){
-            const dp = this.itemEnumSource.filter((v) => v.id === value);
+            const dp = this.itemEnumSource.filter((v) => v.name === value);
             return dp.length>0 ? dp[0].name : "";
           }
         }else{
