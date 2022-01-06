@@ -22,5 +22,7 @@ namespace bqStart.Data
 
         public DbSet<Department> Departments => Set<Department>();
         public DbSet<ExampleClass> ExampleClasses => Set<ExampleClass>();
+        public DbSet<Order> Orders => Set<Order>();
+        public DbSet<OrderDetail> OrderDetails => Set<OrderDetail>();
     }
 }

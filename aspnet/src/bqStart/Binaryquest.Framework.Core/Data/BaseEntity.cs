@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BinaryQuest.Framework.Core.Interface;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BinaryQuest.Framework.Core.Data
 {
-    public abstract class BaseEntity<T> : ILoggingEntity
+    public abstract class BaseEntity<T> : ILoggingEntity, INotPersistingProperties
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -35,16 +36,12 @@ namespace BinaryQuest.Framework.Core.Data
 
         /// <summary>
         /// this is a place holder type for working out if the entity has been modified from
-        /// frontend. not mapped in EF. Since NotMapped attribute also used in OData mapping,
-        /// we will add this field manually later in OData meta data building time using the
-        /// <see cref="BinaryQuest.Framework.Core.MapInFrontend"/> marker attribute
-        /// </summary>
-        [NotMapped]
-        [MapInFrontend]
+        /// frontend. not mapped in EF. 
+        /// </summary>        
         public RecordState RecordState { get; set; }
     }
 
-    public abstract class BaseKeyStringEntity : ILoggingEntity
+    public abstract class BaseKeyStringEntity : ILoggingEntity, INotPersistingProperties
     {
         [Key]
         [StringLength(128)]
@@ -59,8 +56,7 @@ namespace BinaryQuest.Framework.Core.Data
 
         [StringLength(256)]
         public string? ModifiedBy { get; set; }
-
-        [NotMapped]
+        
         public RecordState RecordState { get; set; }
     }
 

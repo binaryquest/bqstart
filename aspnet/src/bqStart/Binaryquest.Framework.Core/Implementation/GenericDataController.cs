@@ -283,6 +283,55 @@ namespace BinaryQuest.Framework.Core.Implementation
             }
         }
 
+        /// <summary>
+        /// This function is a helper method to parse an objects child collection
+        /// to persist in database by using the recordState property to determine
+        /// if it's inserted or updated or deleted.        
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="objectLines"></param>
+        /// <example>
+        /// protected override void OnBeforeEdit(Order entity)
+        /// {
+        ///     UpdateChildObjectsTree<OrderDetails>(entity.Details);
+        /// }
+        /// </example>
+        protected void UpdateChildObjectsTree<T>(ICollection<T> objectLines) where T : BaseEntity<TKey>
+        {
+            if (objectLines.Count > 0)
+            {
+                List<T> deletedList = new List<T>();
+                // List<History> HistoryList = new List<History>();
+                foreach (var row in objectLines)
+                {
+                    if (row.RecordState == RecordState.Inserted)
+                    {
+                        if (row is ILoggingEntity loggingEntity)
+                        {
+                            loggingEntity.CreatedOn = DateTime.UtcNow;
+                            loggingEntity.CreatedBy = this.CurrentUser.UserId;
+                        }
+                        this.unitOfWork.GenericRepository<T>().Insert(row);
+                    }
+                    else if (row.RecordState == RecordState.Deleted)
+                    {
+                        this.unitOfWork.GenericRepository<T>().Delete(row);
+                        deletedList.Add(row);
+                    }
+                    else
+                    {
+                        this.unitOfWork.GenericRepository<T>().Update(row);
+                    }
+                }
+
+                //lets delete the child rows from collection as otherwise on update of
+                //main entity it will cause error
+                for (int i = 0; i < deletedList.Count; i++)
+                {
+                    objectLines.Remove(deletedList[i]);
+                }
+            }
+        }
     }
 
     public abstract class GenericDataController<TEntity, TKey> : BaseGenericDataController<TEntity, TKey> where TEntity : class

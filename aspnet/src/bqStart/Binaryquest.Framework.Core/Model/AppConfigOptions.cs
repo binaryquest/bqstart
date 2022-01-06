@@ -1,4 +1,5 @@
 ﻿using BinaryQuest.Framework.Core;
+using BinaryQuest.Framework.Core.Data;
 using BinaryQuest.Framework.Core.Exceptions;
 using BinaryQuest.Framework.Core.Extensions;
 using BinaryQuest.Framework.Core.Implementation;
@@ -140,6 +141,39 @@ namespace BinaryQuest.Framework.Core.Model
             //modelBuilder.AddComplexType(typeof(List<string>));
             //add the Not Mapped properties of BaseEntity types as the NotMapped is also ignored by
             //OData plus EF. SO need a way to include this in OData and ignore it in EF db.
+            modelBuilder.AddEnumType(typeof(RecordState));
+
+            var eSets = modelBuilder.EntitySets;
+            foreach (var eSet in eSets)
+            {
+                Type clrType = eSet.ClrType;
+                var mapInfrontend = clrType.GetProperties().Where(x => x.GetCustomAttribute<MapInFrontendAttribute>() != null && x.GetCustomAttribute<NotMappedAttribute>() != null).ToList();
+                foreach (var mapPro in mapInfrontend)
+                {
+                    var exists = eSet.EntityType.Properties.SingleOrDefault(x => x.Name == mapPro.Name);
+                    if (exists != null)
+                        continue;
+
+                    if (mapPro.PropertyType.IsEnum)
+                    {
+                        eSet.EntityType.AddEnumProperty(eSet.ClrType.GetProperty(mapPro.Name));
+                    }
+                    else
+                    {
+                        var propToAdd = eSet.ClrType.GetProperty(mapPro.Name);
+                        if (propToAdd?.PropertyType != typeof(string) && typeof(IEnumerable).IsAssignableFrom(propToAdd!.PropertyType))
+                        {
+                            eSet.EntityType.AddCollectionProperty(propToAdd);
+                        }
+                        else
+                        {
+                            eSet.EntityType.AddProperty(propToAdd);
+                        }
+
+                    }
+                }
+            }
+            
             var structuralTypes = modelBuilder.StructuralTypes;
 
             foreach (var st in structuralTypes)
@@ -151,6 +185,10 @@ namespace BinaryQuest.Framework.Core.Model
                 {
                     foreach (var mapPro in mapInfrontend)
                     {
+                        var exists = st.Properties.SingleOrDefault(x => x.Name == mapPro.Name);
+                        if (exists != null)
+                            continue;
+
                         if (mapPro.PropertyType.IsEnum)
                         {
                             st.AddEnumProperty(st.ClrType.GetProperty(mapPro.Name));

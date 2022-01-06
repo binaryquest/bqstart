@@ -67,6 +67,7 @@ namespace bqStart.Web
                 .RegisterController<ApplicationUser, ApplicationUserController>()
                 .RegisterController<Department, DepartmentController>()
                 .RegisterController<ExampleClass, ExampleClassController>()
+                .RegisterController<Order, OrderController>()
                 );            
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
