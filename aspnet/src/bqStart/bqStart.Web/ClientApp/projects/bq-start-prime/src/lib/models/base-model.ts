@@ -4,7 +4,7 @@ export class BaseEntity<T>{
   ModifiedOn: Date|null;
   CreatedBy: string|null;
   ModifiedBy: string|null;
-  RecordState: RecordState|null;
+  RecordState: RecordState;
 }
 
 export enum RecordState {

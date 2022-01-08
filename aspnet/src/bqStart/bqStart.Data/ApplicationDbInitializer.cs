@@ -78,6 +78,10 @@ namespace bqStart.Data
         public static async Task Initialize(IApplicationService applicationService, MainDataContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogger<ApplicationDbInitializer> dbInitializerLogger, IConfiguration configuration)
         {
             context.Database.Migrate();
+
+            //context.ExampleClasses.Add(new ExampleClass() { ClassName="Test1", ClassDate=DateTime.UtcNow.Date, DepartmentId = 1  });
+            //await context.SaveChangesAsync();
+
             var defaultPassword = configuration["defaultPassword"] ?? "QWERTY123";
             var defaultLogin = configuration["defaultLoginEmail"] ?? "info@binaryquest.com";
             var defaultRole = configuration["defaultAdminRole"] ?? "Admin";
