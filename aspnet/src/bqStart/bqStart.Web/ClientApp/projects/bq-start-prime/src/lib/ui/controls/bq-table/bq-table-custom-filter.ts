@@ -99,7 +99,7 @@ export class CustomFilter implements OnInit {
 
     if (this.selectedFilter.field.dataType == "DateTime") {
       if (!this.selectedFilter.showTime) {
-        this.filterCluase.Value = moment(newVal).startOf("date").date;
+        this.filterCluase.Value = moment(newVal).startOf("date").toDate();
         this.filterCluase.DisplayValue = moment(newVal).startOf("date").format("L");
       }else{
         this.filterCluase.DisplayValue = moment(newVal).format("LLL");
@@ -114,7 +114,7 @@ export class CustomFilter implements OnInit {
 
     if (this.selectedFilter.field.dataType == "DateTime") {
       if (!this.selectedFilter.showTime) {
-        this.filterCluase.ToValue = moment(newVal).startOf("date").date;
+        this.filterCluase.ToValue = moment(newVal).startOf("date").toDate();
         this.filterCluase.ToDisplayValue = moment(newVal).startOf("date").format("L");
       }else{
         this.filterCluase.ToDisplayValue = moment(newVal).startOf("date").format("LLL");

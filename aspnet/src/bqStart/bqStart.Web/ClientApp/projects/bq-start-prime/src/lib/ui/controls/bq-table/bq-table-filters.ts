@@ -168,6 +168,7 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
   apply() {
     const validFilterClauses: FilterByClause[] = this.customFilters.filter(f => f.IsValid());
     if (validFilterClauses.length > 0) {
+      console.log("set filter");
       this.tableParams.addFilters(validFilterClauses);
       this.showMenu = false;
     } else {
