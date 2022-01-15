@@ -9,6 +9,7 @@ import { InternalLogService } from '../../services/log/log.service';
 import { BaseComponent } from '../base.component';
 import { BqForm } from '../controls/bq-form/bq-form';
 import { Message,MessageService } from 'primeng/api';
+import { RouterService } from '../../services/router.service';
 
 
 
@@ -102,13 +103,13 @@ export class BaseFormView<TModel>
   protected dataSvc: GenericDataService;
 
 
-  constructor(protected route: ActivatedRoute, protected router: Router,
+  constructor(protected routerSvc: RouterService,
     @Inject('viewOptionalData') @Optional() private optionalData:ViewOptionalData) {
     super();
 
-    this.metaData = route.snapshot.data.metaData;
-    this.viewDef = route.snapshot.data.viewDef;
-    this.formType = route.snapshot.data.formType;
+    this.metaData = routerSvc.metaData;
+    this.viewDef = routerSvc.viewDef;
+    this.formType = routerSvc.formType;
 
     const dataServiceOptions: DataServiceOptions = {
       $type: this.metaData?.typeName
@@ -157,16 +158,7 @@ export class BaseFormView<TModel>
   ngOnInit(): void {
     InternalLogService.logger().debug(`BaseFormView::ngOnInit`);
 
-    this.route.paramMap.pipe(
-      map(param => {
-        InternalLogService.logger().debug("params", param);
-        if (param.has('keys')){
-          return this.metaData.parseRouteParamToKeys(param.get('keys'));
-        }else{
-          return [];
-        }
-      })
-    ).subscribe(primaryKeyValues => {
+    this.routerSvc.primaryKeyValues.subscribe(primaryKeyValues => {
       this.currentId = primaryKeyValues;
 
       if (this.autoLoadLookupData){
@@ -179,6 +171,28 @@ export class BaseFormView<TModel>
         this.model = this.createEmptyModel();
       }
     });
+    // this.route.paramMap.pipe(
+    //   map(param => {
+    //     InternalLogService.logger().debug("params", param);
+    //     if (param.has('keys')){
+    //       return this.metaData.parseRouteParamToKeys(param.get('keys'));
+    //     }else{
+    //       return [];
+    //     }
+    //   })
+    // ).subscribe(primaryKeyValues => {
+    //   this.currentId = primaryKeyValues;
+
+    //   if (this.autoLoadLookupData){
+    //     this.loadLookupData();
+    //   }
+
+    //   if (this.formType == FormType.Edit || this.formType == FormType.Details){
+    //     this.loadServerData();
+    //   }else{
+    //     this.model = this.createEmptyModel();
+    //   }
+    // });
 
     if (canCallAfterInitComplete(this)) {
       this.onAfterInitComplete();
@@ -304,8 +318,10 @@ export class BaseFormView<TModel>
     if (!this.allowDetails || !this.formViewId)
       return;
 
-    const path = `view/${this.formViewId}/form/${this.getKeyValue()}`;
-    this.router.navigate([path], { queryParamsHandling: 'merge' });
+      this.routerSvc.navigateToView(this.formViewId, this.getKeyValue());
+
+    // const path = `view/${this.formViewId}/form/${this.getKeyValue()}`;
+    // this.router.navigate([path], { queryParamsHandling: 'merge' });
   }
 
 

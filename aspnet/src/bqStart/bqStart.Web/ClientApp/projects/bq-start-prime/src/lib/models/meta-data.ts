@@ -386,4 +386,3 @@ export class ViewOptionalData {
   $expandClause?: string;
   $selectClause?: string;
 }
-

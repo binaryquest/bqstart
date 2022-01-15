@@ -78,6 +78,9 @@ import { BqPasswordField } from './ui/controls/bq-password-field/bq-password-fie
 import { BqDropdownField } from './ui/controls/bq-dropdown-field/bq-dropdown-field';
 import { BqTextArea } from './ui/controls/bq-text-area/bq-text-area';
 import { TopMenuBar } from './ui/layout/top-menu-bar/top-menu-bar';
+import { RouterService } from './services/router.service';
+import { DynamicHostDirective } from './ui/core/dynamic-host.directive';
+import { DynamicLoaderComponent } from './ui/core/dynamic.component';
 
 export * from './models/meta-data';
 
@@ -163,7 +166,9 @@ export function initializeApp(appInitService: AppInitService) {
     PasswordPipe,
     BqPasswordField,
     BqDropdownField,
-    BqTextArea
+    BqTextArea,
+    DynamicHostDirective,
+    DynamicLoaderComponent
   ],
   exports: [
     LoginMenuComponent,
@@ -231,7 +236,8 @@ export function initializeApp(appInitService: AppInitService) {
     NavigationService,
     ViewWrapperService,
     DialogService,
-    ConfirmationService
+    ConfirmationService,
+    RouterService
   ]
 })
 export class BQStartPrimeModule {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseFormView, BaseListView, IBaseFormViewEvents, IEditFormViewEvents } from 'projects/bq-start-prime/src/public-api';
+import { RouterService, BaseFormView, BaseListView, IBaseFormViewEvents, IEditFormViewEvents } from 'projects/bq-start-prime/src/public-api';
 
 
 export class ApplicationUser{
@@ -52,8 +52,8 @@ export class ApplicationUser{
 })
 export class UserList extends BaseListView<ApplicationUser> {
 
-  constructor(protected route: ActivatedRoute, protected router:Router) {
-    super(route, router, {});
+  constructor(protected routerSvc: RouterService) {
+    super(routerSvc, {});
   }
 
 }
@@ -90,8 +90,8 @@ export class UserForm extends BaseFormView<ApplicationUser> implements IBaseForm
 
   assignedRolesArray: {name:string}[];
 
-  constructor(protected route: ActivatedRoute, protected router:Router) {
-    super(route, router, {});
+  constructor(protected routerSvc: RouterService) {
+    super(routerSvc, {});
   }
 
   onBeforeSave(): boolean {

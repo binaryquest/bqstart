@@ -1,6 +1,7 @@
 import { Injectable, Injector } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { Router, Routes } from "@angular/router";
+import { ModelMetadata } from "../models/meta-data";
 import { ApplicationPaths } from "../api-authorization/api-authorization.constants";
 import { AuthorizeGuard } from "../api-authorization/authorize.guard";
 import { LoginComponent } from "../api-authorization/login/login.component";
@@ -8,6 +9,7 @@ import { LogoutComponent } from "../api-authorization/logout/logout.component";
 import { BQConfigData, BQConfigService, FormType, RunningConfigHelper, ViewData, ViewType } from "../config/bq-start-config";
 import { InternalLogService, LogPublishersService } from "./log/log.service";
 import { MetaDataResolver } from "./meta-data.resolver";
+import { DynamicLoaderComponent } from "../ui/core/dynamic.component";
 
 const routes: Routes = [
   { path: ApplicationPaths.Register, component: LoginComponent },
@@ -20,10 +22,12 @@ const routes: Routes = [
   { path: ApplicationPaths.LogOutCallback, component: LogoutComponent }
 ];
 
-export class RouteData{
+export class RouteData {
   viewDef: ViewData;
   formType: FormType;
-
+  metaData: ModelMetadata;
+  isModel: boolean = false;
+  key: any;
   constructor() {
 
   }
@@ -60,7 +64,7 @@ export class AppInitService {
         if (viewDef.viewType === ViewType.List){
           const newRoute = {
             path: `view/${viewDef.viewId}/list`,
-            component: viewDef.component, data: { viewDef: viewDef, formType: FormType.List },
+            component: DynamicLoaderComponent, data: { viewDef: viewDef, formType: FormType.List, componentType: viewDef.component },
             resolve: { metaData: MetaDataResolver },
             canActivate: [AuthorizeGuard]
           };
@@ -68,21 +72,21 @@ export class AppInitService {
         }else{
           const newRoute = {
             path: `view/${viewDef.viewId}/form/:keys`,
-            component: viewDef.component, data: { viewDef: viewDef, formType: FormType.Details },
+            component: DynamicLoaderComponent, data: { viewDef: viewDef, formType: FormType.Details, componentType: viewDef.component },
             resolve: { metaData: MetaDataResolver },
             canActivate: [AuthorizeGuard]
           };
           viewRoutes.push(newRoute);
           const newRouteEdit = {
             path: `view/${viewDef.viewId}/edit/:keys`,
-            component: viewDef.component, data: { viewDef: viewDef, formType: FormType.Edit },
+            component: DynamicLoaderComponent, data: { viewDef: viewDef, formType: FormType.Edit, componentType: viewDef.component },
             resolve: { metaData: MetaDataResolver },
             canActivate: [AuthorizeGuard]
           };
           viewRoutes.push(newRouteEdit);
           const newRouteAdd = {
             path: `view/${viewDef.viewId}/add/-1`,
-            component: viewDef.component, data: { viewDef: viewDef, formType: FormType.New },
+            component: DynamicLoaderComponent, data: { viewDef: viewDef, formType: FormType.New, componentType: viewDef.component },
             resolve: { metaData: MetaDataResolver },
             canActivate: [AuthorizeGuard]
           };

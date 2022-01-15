@@ -6,6 +6,7 @@ import { IBaseEvents, ModelMetadata, ViewOptionalData } from "../../models/meta-
 import { FilterByClause, PredefinedFilter, TableParams } from "../../models/table-data";
 import { DataServiceOptions, DataServiceToken, GenericDataService } from "../../services/generic-data.service";
 import { InternalLogService } from "../../services/log/log.service";
+import { RouterService } from "../../services/router.service";
 import { BaseComponent } from "../base.component";
 
 
@@ -87,13 +88,13 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
 
   protected dataSvc: GenericDataService | null;
 
-  constructor(protected route: ActivatedRoute, protected router: Router,
+  constructor(protected routerSvc: RouterService,
     @Inject('viewOptionalData') @Optional() private optionalData: ViewOptionalData) {
     super();
 
-    this.metaData = route.snapshot.data.metaData;
-    this.viewDef = route.snapshot.data.viewDef;
-    this.formType = route.snapshot.data.formType;
+    this.metaData = routerSvc.metaData;
+    this.viewDef = routerSvc.viewDef;
+    this.formType = routerSvc.formType;
 
     const dataServiceOptions: DataServiceOptions = {
       $type: this.metaData?.typeName
@@ -111,7 +112,7 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
     this.dataSvc = injector.get(GenericDataService);
 
     if (this.formType == FormType.List) {
-      this.tableParams = new TableParams(this.route, this.router, this.appInitService);
+      this.tableParams = new TableParams(this.routerSvc, this.appInitService);
     }else{
       throw new Error('Wrong View Form Type in View Defintions');
     }
