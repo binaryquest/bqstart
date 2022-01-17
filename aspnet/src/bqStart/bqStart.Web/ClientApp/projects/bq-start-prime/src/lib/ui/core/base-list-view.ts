@@ -8,8 +8,8 @@ import { DataServiceOptions, DataServiceToken, GenericDataService } from "../../
 import { InternalLogService } from "../../services/log/log.service";
 import { RouterService } from "../../services/router.service";
 import { BaseComponent } from "../base.component";
-
-
+import { IBaseView } from "./base-view";
+import { MessageBus, Connection } from 'ngx-message-bus';
 
 /**
  * Defines the base abstract functionality of a BQ View (List/Form)
@@ -50,7 +50,7 @@ function canCallAfterServerDataReceived(arg: Object): arg is IBaseListViewEvents
 @Component({
   template: '',
 })
-export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDestroy {
+export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDestroy, IBaseView {
 
   metaData: ModelMetadata;
   viewDef: ViewData;
@@ -87,6 +87,9 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
   showAddButton: boolean;
 
   protected dataSvc: GenericDataService | null;
+  protected msgBus: MessageBus;
+  protected msgBusCon: Connection;
+  protected msgSubscription: any;
 
   constructor(protected routerSvc: RouterService,
     @Inject('viewOptionalData') @Optional() private optionalData: ViewOptionalData) {
@@ -110,6 +113,9 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
       Injector.create({providers: [{provide: DataServiceToken, useValue:dataServiceOptions}], parent: this.injector},);
 
     this.dataSvc = injector.get(GenericDataService);
+    this.msgBus = injector.get(MessageBus);
+
+    console.log("form type " + this.formType);
 
     if (this.formType == FormType.List) {
       this.tableParams = new TableParams(this.routerSvc, this.appInitService);
@@ -127,8 +133,28 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
     }
   }
 
+  canClose(): boolean {
+    return true;
+  }
+
+  refresh(): void {
+    this.loadServerData();
+  }
+
+  canOpen(key: any): boolean {
+    return false;
+  }
+
   ngOnInit(): void {
     InternalLogService.logger().debug(`BaseListView::ngOnInit`);
+
+    //Message Bus related
+    this.msgBusCon = this.msgBus.connect("bqstart", this.runTimeId);
+    this.msgSubscription = {
+      groupId: this.viewDef.typeName,
+      callback: this.handleMessage.bind(this)
+    };
+    this.msgBusCon.on(this.msgSubscription);
 
     if (canCallAfterInitComplete(this)) {
       this.onAfterInitComplete();
@@ -139,6 +165,9 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
   ngOnDestroy(): void {
     InternalLogService.logger().debug("BaseListView::ngOnDestroy");
 
+    this.msgBusCon.off(this.msgSubscription);
+    this.msgBus.disconnect(this.msgBusCon);
+
     if (this.tableParams) {
       this.tableParams.destroy();
     }
@@ -147,7 +176,15 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
       this.dataSvc = null;
     }
   }
-
+/**
+ * Handle message from Message Bus to deal with other views updating related data
+ *
+ * @param {*} data
+ * @memberof BaseListView
+ */
+handleMessage(data:any){
+    this.onRefreshData();
+  }
 
   private loadServerData() {
     InternalLogService.logger().debug("BaseListView::loadServerData");

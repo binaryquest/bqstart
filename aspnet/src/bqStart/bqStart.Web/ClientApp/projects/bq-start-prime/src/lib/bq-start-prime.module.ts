@@ -55,6 +55,7 @@ import { ChipModule } from 'primeng/chip';
 import { AvatarModule } from 'primeng/avatar';
 import { MenubarModule } from 'primeng/menubar';
 import { SlideMenuModule } from 'primeng/slidemenu';
+import { TabViewModule } from 'primeng/tabview';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -80,7 +81,11 @@ import { BqTextArea } from './ui/controls/bq-text-area/bq-text-area';
 import { TopMenuBar } from './ui/layout/top-menu-bar/top-menu-bar';
 import { RouterService } from './services/router.service';
 import { DynamicHostDirective } from './ui/core/dynamic-host.directive';
-import { DynamicLoaderComponent } from './ui/core/dynamic.component';
+import { DynamicLoaderComponent, DynamicMDILoaderComponent } from './ui/core/dynamic.component';
+import { MainRegionAdapterService } from './services/mainRegionAdapter.service';
+import { MDIComponent } from './ui/layout/mdi/mdi.component';
+import { MDILayoutComponent } from './ui/layout/mdi/mdi-layout';
+import { MessageBus } from 'ngx-message-bus';
 
 export * from './models/meta-data';
 
@@ -133,7 +138,8 @@ export function initializeApp(appInitService: AppInitService) {
     ChipModule,
     AvatarModule,
     MenubarModule,
-    SlideMenuModule
+    SlideMenuModule,
+    TabViewModule
   ],
   declarations: [
     LoginMenuComponent,
@@ -168,7 +174,10 @@ export function initializeApp(appInitService: AppInitService) {
     BqDropdownField,
     BqTextArea,
     DynamicHostDirective,
-    DynamicLoaderComponent
+    DynamicLoaderComponent,
+    DynamicMDILoaderComponent,
+    MDIComponent,
+    MDILayoutComponent
   ],
   exports: [
     LoginMenuComponent,
@@ -187,6 +196,7 @@ export function initializeApp(appInitService: AppInitService) {
     FormBlock,
     BqTextField,
     ModelValuePipe,
+    MDILayoutComponent,
     //PrimeNG
     CardModule,
     ToastModule,
@@ -237,7 +247,9 @@ export function initializeApp(appInitService: AppInitService) {
     ViewWrapperService,
     DialogService,
     ConfirmationService,
-    RouterService
+    RouterService,
+    MainRegionAdapterService,
+    MessageBus
   ]
 })
 export class BQStartPrimeModule {

@@ -7,6 +7,13 @@ export enum MessageType {
   success = 2,
   error = 3
 }
+
+/**
+ * This service is responsible for showing warning messages in the UI using primeNG
+ *
+ * @export
+ * @class MessageService
+ */
 @Injectable({ providedIn: 'root' })
 export class MessageService {
   constructor(private messageServiceProvider: PrimeMS) { }

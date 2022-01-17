@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
+import { BQConfigService, BQConfigData } from '../../../config/bq-start-config';
+import { AppInjector } from '../../../services/app-injector.service';
+import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.service';
 
 @Component({
   selector: 'bq-app-layout',
@@ -16,12 +19,16 @@ export class AppLayout implements OnInit {
 
   @Input()
   showMenuOnTop: boolean = false;
+  injector: any;
+  config: BQConfigData;
 
   constructor(private primengConfig: PrimeNGConfig, private authorizeService: AuthorizeService) {
     this.authorizeService.isAuthenticated().subscribe(x => {
       this.showLeftMenu = x && !this.showMenuOnTop;
       this.isAuthenticated = x;
     });
+    this.injector = AppInjector.getInjector();
+    this.config = this.injector.get(BQConfigService);
   }
 
   ngOnInit(): void {

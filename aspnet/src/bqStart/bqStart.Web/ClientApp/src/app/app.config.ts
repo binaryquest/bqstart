@@ -12,6 +12,7 @@ export const APP_CONFIG: BQConfigData = {
   logoUrl: 'assets/images/logo.png',
   companyName: 'Binary Quest',
   viewDefaults: { defaultPageSize: 50, otherPageSizes: [25, 50, 100] },
+  tabbedUserInterface: true,
   menus: [
     {
       label: "Home", icon: "pi pi-home",
@@ -80,14 +81,14 @@ export const APP_CONFIG: BQConfigData = {
     {
       viewId: "examples",
       typeName: "ExampleClass",
-      title: "Departments",
+      title: "Example Class",
       viewType: ViewType.List,
       component: ExampleListComponent
     },
     {
       viewId: "example-form",
       typeName: "ExampleClass",
-      title: "Department",
+      title: "Example Class",
       viewType: ViewType.Form,
       component: ExampleFormComponent
     },

@@ -6,18 +6,13 @@
 
   <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}" (click)="onMaskClick()"></div>
   <div [ngClass]="showMenuOnTop?'layout-content-inactive':'layout-content'">
-
-
     <breadcrumb></breadcrumb>
-
     <div class="content-section">
       <p-toast></p-toast>
       <view-wrapper>
         <ng-content></ng-content>
       </view-wrapper>
     </div>
-
-
     <bq-footer-bar *ngIf="isAuthenticated"></bq-footer-bar>
   </div>
 </div>

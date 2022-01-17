@@ -6,6 +6,7 @@ import { BaseFormView } from '../../core/base-form-view';
 import { BQTemplate } from '../../core/bq-template.directive';
 import { Router } from '@angular/router';
 import { FormType } from '../../../config/bq-start-config';
+import { RouterService } from '../../../services/router.service';
 
 @Component({
   selector: 'bq-form',
@@ -34,7 +35,7 @@ export class BqForm implements AfterContentInit {
   @ContentChildren(BQTemplate) templates: QueryList<BQTemplate>;
   parentForm: BaseFormView<any>;
 
-  constructor(protected router: Router, protected vwService: ViewWrapperService, ) {
+  constructor(protected routerSvc: RouterService, protected vwService: ViewWrapperService, ) {
     if (vwService.currentView != null){
       this.parentForm = vwService.currentView;
       this.editMode = this.parentForm.formType == FormType.Edit || this.parentForm.formType === FormType.New;
@@ -55,20 +56,25 @@ export class BqForm implements AfterContentInit {
           break;
       }
     });
+
   }
 
   create(){
     if (!this.showNew)
       return;
-    const path = `view/${this.parentForm?.formViewId}/add/-1`;
-    this.router.navigate([path], { queryParamsHandling: 'merge' });
+    //const path = `view/${this.parentForm?.formViewId}/add/-1`;
+    const viewId = `${this.parentForm?.formViewId}`;
+    this.routerSvc.navigateToView(viewId, 'add', '-1', { queryParamsHandling: 'merge' });
+    //this.router.navigate([path], { queryParamsHandling: 'merge' });
   }
 
   edit(){
     if (!this.showEdit)
       return;
-    const path = `view/${this.parentForm?.formViewId}/edit/${this.parentForm?.getKeyValue()}`;
-    this.router.navigate([path], { queryParamsHandling: 'merge' });
+    //const path = `view/${this.parentForm?.formViewId}/edit/${this.parentForm?.getKeyValue()}`;
+    const viewId = `${this.parentForm?.formViewId}`;
+    //this.router.navigate([path], { queryParamsHandling: 'merge' });
+    this.routerSvc.navigateToView(viewId, 'edit', this.parentForm?.getKeyValue(), { queryParamsHandling: 'merge' });
   }
 
   delete(){

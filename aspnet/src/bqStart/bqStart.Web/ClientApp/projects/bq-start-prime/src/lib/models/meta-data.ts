@@ -386,3 +386,18 @@ export class ViewOptionalData {
   $expandClause?: string;
   $selectClause?: string;
 }
+
+export class MessageBusPayLoad {
+  operationType: OperationType;
+  key: any;
+  typeName: string;
+}
+
+export enum OperationType{
+  Added,
+  Updated,
+  Deleted,
+  ServerUpdated,
+  ServerAdded,
+  ServerDeleted
+}

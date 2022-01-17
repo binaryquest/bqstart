@@ -11,6 +11,15 @@ export class BQConfigData {
     defaultPageSize: number,
     otherPageSizes: number[]
   };
+  /**
+   * this option allows you to switch between router based or Multi Document Tabbed user interface in the main
+   * view area. With tabbed interface any view will be open as tabs inside the main view and will not use angular router
+   * links for navigation. Mainly useful for desktop/electron apps or enterprise apps.
+   *
+   * @type {boolean}
+   * @memberof BQConfigData
+   */
+  tabbedUserInterface: boolean;
 }
 
 export class RunningConfigHelper {
@@ -20,9 +29,11 @@ export class RunningConfigHelper {
   companyName: string;
   menus: MenuData[];
   views: ViewData[];
+  viewRoutes: any[];
   viewsById: Dictionary<ViewData>;
   formViewsByType: Dictionary<ViewData[]>;
   listViewsByType: Dictionary<ViewData[]>;
+  tabbedUserInterface: boolean;
   viewDefaults?: {
     defaultPageSize: number,
     otherPageSizes: number[]
@@ -37,6 +48,7 @@ export class RunningConfigHelper {
     this.viewsById = {};
     this.formViewsByType = {};
     this.listViewsByType = {};
+    this.tabbedUserInterface = config.tabbedUserInterface;
     if (config.viewDefaults)
       this.viewDefaults = { ...config.viewDefaults };
     if (config.views != null && config.views.length > 0) {

@@ -4,6 +4,7 @@ import { BehaviorSubject, map, Observable } from 'rxjs';
 import { FormType, ViewData } from '../config/bq-start-config';
 import { ModelMetadata } from '../models/meta-data';
 import { RouteData } from './app-init.service';
+import { MainRegionAdapterService } from './mainRegionAdapter.service';
 
 /**
  *
@@ -23,11 +24,11 @@ export class RouterService {
   private internalParams: Params = {};
 
 
-  constructor(protected route: ActivatedRoute, protected router: Router, @Inject('routeData') @Optional() protected routeData?: RouteData) {
+  constructor(protected route: ActivatedRoute, protected router: Router, protected regionSvc:MainRegionAdapterService, @Optional() protected routeData?: RouteData) {
 
     console.log("router service init");
 
-    if (route.snapshot.data !== null){
+    if (routeData === undefined){
       this.metaData = route.snapshot.data.metaData;
       this.viewDef = route.snapshot.data.viewDef;
       this.formType = route.snapshot.data.formType;
@@ -44,22 +45,27 @@ export class RouterService {
       })).subscribe(primaryKeyValues => {
         this.primaryKeyValues.next(primaryKeyValues);
       });
-    } else if (routeData !== null){
+    } else if (routeData !== undefined){
+      console.log(routeData);
       this.metaData = routeData!.metaData;
       this.viewDef = routeData!.viewDef;
       this.formType = routeData!.formType;
       this.isModal = routeData!.isModel;
-      this.queryParams.next(this.internalParams);
       if (routeData?.key){
+        console.log("next key is " + routeData?.key);
         this.primaryKeyValues.next(routeData.key);
       }
+      this.queryParams.next(this.internalParams);
+    }else{
+      console.log("route data is null");
     }
 
   }
 
   tableNavigate(queryParams: any){
     if (this.routeData !== null){
-      console.debug("TODO: update internal queryMap");
+      this.internalParams = {...this.internalParams, ...queryParams};
+      this.queryParams.next(this.internalParams);
     } else {
       this.router.navigate([],
         {
@@ -71,12 +77,12 @@ export class RouterService {
     }
   }
 
-  navigateToView(viewId:string, key:any){
+  navigateToView(viewId:string, viewType:string, key:any, options: any = {}){
     if (this.routeData !== null){
-      console.debug("TODO: open new dialog");
+      this.regionSvc.addToView(viewId, viewType, this.metaData.parseRouteParamToKeys(key), "");
     }else{
-      const path = `view/${viewId}/form/${key}`;
-      this.router.navigate([path], { queryParamsHandling: 'merge' });
+      const path = `view/${viewId}/${viewType}/${key}`;
+      this.router.navigate([path], options);
     }
   }
 }

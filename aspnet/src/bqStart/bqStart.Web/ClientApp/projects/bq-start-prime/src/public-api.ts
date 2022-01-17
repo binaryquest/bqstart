@@ -23,11 +23,13 @@ export * from './lib/services/locale.service';
 export * from './lib/services/navigation.service';
 export * from './lib/services/dialog.service';
 export * from './lib/services/router.service';
+export * from './lib/services/mainRegionAdapter.service';
 
 export * from './lib/ui/layout/top-bar/top-bar';
 export * from './lib/ui/layout/top-menu-bar/top-menu-bar';
 export * from './lib/ui/layout/footer-bar/footer-bar';
 export * from './lib/ui/layout/app-layout/app-layout';
+export * from './lib/ui/layout/mdi/mdi-layout';
 export * from './lib/ui/layout/breadcrumb/breadcrumb';
 export * from './lib/ui/base.component';
 export * from './lib/ui/core/base-list-view';

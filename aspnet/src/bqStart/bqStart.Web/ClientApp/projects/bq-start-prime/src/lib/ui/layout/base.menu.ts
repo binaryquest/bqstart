@@ -1,10 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuData } from '../../config/bq-start-config';
+import { MainRegionAdapterService } from '../../services/mainRegionAdapter.service';
 import { BaseComponent } from '../base.component';
 
 
 export class BaseMenu extends BaseComponent {
 
+  constructor(protected router: Router, protected regionSvc: MainRegionAdapterService){
+    super();
+  }
 
   protected recurseMapMenu(menus: MenuData[]){
     if (menus === undefined || menus === null){
@@ -41,4 +46,11 @@ export class BaseMenu extends BaseComponent {
     }
   }
 
+  handleMenuClick(menu:any, link:string,queryParams: any){
+    if (this.config.tabbedUserInterface){
+      this.regionSvc.addToView(menu.viewId, "list", null, menu.icon);
+    }else{
+      this.router.navigate([link],{queryParams: queryParams});
+    }
+  }
 }

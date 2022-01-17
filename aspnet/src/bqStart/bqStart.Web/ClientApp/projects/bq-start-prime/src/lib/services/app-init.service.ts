@@ -10,6 +10,8 @@ import { BQConfigData, BQConfigService, FormType, RunningConfigHelper, ViewData,
 import { InternalLogService, LogPublishersService } from "./log/log.service";
 import { MetaDataResolver } from "./meta-data.resolver";
 import { DynamicLoaderComponent } from "../ui/core/dynamic.component";
+import { MDIComponent } from "../ui/layout/mdi/mdi.component";
+import { IBaseView } from "../ui/core/base-view";
 
 const routes: Routes = [
   { path: ApplicationPaths.Register, component: LoginComponent },
@@ -28,6 +30,7 @@ export class RouteData {
   metaData: ModelMetadata;
   isModel: boolean = false;
   key: any;
+  instance?: any;
   constructor() {
 
   }
@@ -64,7 +67,8 @@ export class AppInitService {
         if (viewDef.viewType === ViewType.List){
           const newRoute = {
             path: `view/${viewDef.viewId}/list`,
-            component: DynamicLoaderComponent, data: { viewDef: viewDef, formType: FormType.List, componentType: viewDef.component },
+            component: DynamicLoaderComponent,
+            data: { viewDef: viewDef, formType: FormType.List, componentType: viewDef.component },
             resolve: { metaData: MetaDataResolver },
             canActivate: [AuthorizeGuard]
           };
@@ -72,26 +76,47 @@ export class AppInitService {
         }else{
           const newRoute = {
             path: `view/${viewDef.viewId}/form/:keys`,
-            component: DynamicLoaderComponent, data: { viewDef: viewDef, formType: FormType.Details, componentType: viewDef.component },
+            component: DynamicLoaderComponent,
+            data: { viewDef: viewDef, formType: FormType.Details, componentType: viewDef.component },
             resolve: { metaData: MetaDataResolver },
             canActivate: [AuthorizeGuard]
           };
           viewRoutes.push(newRoute);
           const newRouteEdit = {
             path: `view/${viewDef.viewId}/edit/:keys`,
-            component: DynamicLoaderComponent, data: { viewDef: viewDef, formType: FormType.Edit, componentType: viewDef.component },
+            component: DynamicLoaderComponent,
+            data: { viewDef: viewDef, formType: FormType.Edit, componentType: viewDef.component },
             resolve: { metaData: MetaDataResolver },
             canActivate: [AuthorizeGuard]
           };
           viewRoutes.push(newRouteEdit);
           const newRouteAdd = {
             path: `view/${viewDef.viewId}/add/-1`,
-            component: DynamicLoaderComponent, data: { viewDef: viewDef, formType: FormType.New, componentType: viewDef.component },
+            component: DynamicLoaderComponent,
+            data: { viewDef: viewDef, formType: FormType.New, componentType: viewDef.component },
             resolve: { metaData: MetaDataResolver },
             canActivate: [AuthorizeGuard]
           };
           viewRoutes.push(newRouteAdd);
         }
+      }
+
+      this._runningConfig.viewRoutes = viewRoutes;
+
+      if (this.config.tabbedUserInterface){
+        viewRoutes = [
+          {
+            path: `mdi`,
+            component: MDIComponent,
+            data: { },
+            canActivate: [AuthorizeGuard]
+          },
+          {
+            path: ``,
+            redirectTo: '/mdi',
+            pathMatch: 'full'
+          }
+        ];
       }
 
       setTimeout(() => {

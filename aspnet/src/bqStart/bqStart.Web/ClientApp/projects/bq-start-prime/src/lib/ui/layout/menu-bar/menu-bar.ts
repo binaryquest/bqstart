@@ -7,6 +7,8 @@ import { BaseComponent } from '../../base.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 import { BaseMenu } from '../base.menu';
+import { RouterService } from '../../../services/router.service';
+import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.service';
 
 @Component({
   selector: 'bq-menu-bar',
@@ -35,8 +37,8 @@ export class MenuBar extends BaseMenu implements OnInit {
   activeSubmenus: { [key: string]: boolean } = {};
   menus: MenuData[];
 
-  constructor(private router: Router, private pageTitle:Title) {
-    super();
+  constructor(protected router: Router, protected regionSvc: MainRegionAdapterService, private pageTitle:Title) {
+    super(router, regionSvc);
 
     this.menus = JSON.parse(JSON.stringify(this.config.menus));
 

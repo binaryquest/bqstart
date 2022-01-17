@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { AfterViewInit, Component, ContentChildren, EventEmitter, Inject, Input, LOCALE_ID, OnChanges, OnDestroy, OnInit, Optional, Output, QueryList, SimpleChanges, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, EventEmitter, Inject, Input, LOCALE_ID, OnChanges, OnDestroy, OnInit, Optional, Output, QueryList, SimpleChanges, SkipSelf, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
 import { Table as ngTable } from 'primeng/table';
@@ -10,6 +10,7 @@ import { AppInitService } from '../../../services/app-init.service';
 import { TableColumn } from './bq-table-column';
 import { TableFilter } from './bq-table-filter';
 import moment from 'moment';
+import { RouterService } from '../../../services/router.service';
 
 
 /**
@@ -163,7 +164,7 @@ export class Table implements OnInit, OnDestroy, OnChanges {
 
   constructor(@Inject(LOCALE_ID) private locale: string,
     private appInitService: AppInitService,
-    private router: Router
+    @SkipSelf() private routerSvc: RouterService
   ) {
     this.pageSizeOptions = appInitService.runningConfig.viewDefaults?.otherPageSizes ?? [25, 50, 100];
     this.pageSize = appInitService.runningConfig.viewDefaults?.defaultPageSize ?? 50;
@@ -301,26 +302,29 @@ export class Table implements OnInit, OnDestroy, OnChanges {
     if (!this.allowEdit || !this.formViewId)
       return;
 
-    const path = `view/${this.formViewId}/edit/${this.getKeyValue(row)}`;
+    //const path = `view/${this.formViewId}/edit/${this.getKeyValue(row)}`;
 
-    this.router.navigate([path], { queryParamsHandling: 'merge' });
+    this.routerSvc.navigateToView(this.formViewId, "edit", this.getKeyValue(row));
+    //this.router.navigate([path], { queryParamsHandling: 'merge' });
   }
 
   gotoDetails(row: any) {
     if (!this.allowDetails || !this.formViewId)
       return;
 
-    const path = `view/${this.formViewId}/form/${this.getKeyValue(row)}`;
+    //const path = `view/${this.formViewId}/form/${this.getKeyValue(row)}`;
 
-    this.router.navigate([path], { queryParamsHandling: 'merge' });
+    this.routerSvc.navigateToView(this.formViewId, "form", this.getKeyValue(row));
+    //this.router.navigate([path], { queryParamsHandling: 'merge' });
 
   }
 
   gotoAddNew(){
     if (!this.allowAdd || !this.formViewId)
     return;
-    const path = `view/${this.formViewId}/add/-1`;
-    this.router.navigate([path], { queryParamsHandling: 'merge' });
+    //const path = `view/${this.formViewId}/add/-1`;
+    this.routerSvc.navigateToView(this.formViewId, "add", "-1");
+    //this.router.navigate([path], { queryParamsHandling: 'merge' });
   }
 
   private isTableStateSyncedWithPrams() {
