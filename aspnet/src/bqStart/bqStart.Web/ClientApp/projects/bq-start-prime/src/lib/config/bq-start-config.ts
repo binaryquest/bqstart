@@ -1,5 +1,5 @@
 import { InjectionToken, Type } from '@angular/core';
-import { Dictionary } from '../models/meta-data';
+import { Dictionary, ModelMetadata } from '../models/meta-data';
 
 export class BQConfigData {
   logoUrl: string;
@@ -102,6 +102,13 @@ export interface MenuData {
   routerLink?: string;
   queryParams?: object;
   isVisible?: boolean;
+  /**
+   * If this Menu will display a generic Component in Tabbed MDI View.
+   *
+   * @type {*}
+   * @memberof MenuData
+   */
+  component?: Type<any>;
 }
 
 export interface ViewData {
@@ -124,6 +131,18 @@ export enum FormType {
   Edit,
   Details
 }
+
+export class RouteData {
+  viewDef: ViewData;
+  formType: FormType;
+  metaData: ModelMetadata;
+  isModel: boolean = false;
+  key: any;
+  instance?: any;
+  constructor() {
+  }
+}
+
 
 /**
  * This is not a real service, but it looks like it from the outside.

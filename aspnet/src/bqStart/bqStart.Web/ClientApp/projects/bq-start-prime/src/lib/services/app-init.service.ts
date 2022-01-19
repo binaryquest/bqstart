@@ -6,12 +6,10 @@ import { ApplicationPaths } from "../api-authorization/api-authorization.constan
 import { AuthorizeGuard } from "../api-authorization/authorize.guard";
 import { LoginComponent } from "../api-authorization/login/login.component";
 import { LogoutComponent } from "../api-authorization/logout/logout.component";
-import { BQConfigData, BQConfigService, FormType, RunningConfigHelper, ViewData, ViewType } from "../config/bq-start-config";
+import { BQConfigData, BQConfigService, FormType, RunningConfigHelper, ViewData, ViewType, RouteData } from "../config/bq-start-config";
 import { InternalLogService, LogPublishersService } from "./log/log.service";
 import { MetaDataResolver } from "./meta-data.resolver";
 import { DynamicLoaderComponent } from "../ui/core/dynamic.component";
-import { MDIComponent } from "../ui/layout/mdi/mdi.component";
-import { IBaseView } from "../ui/core/base-view";
 
 const routes: Routes = [
   { path: ApplicationPaths.Register, component: LoginComponent },
@@ -23,18 +21,6 @@ const routes: Routes = [
   { path: ApplicationPaths.LoggedOut, component: LogoutComponent },
   { path: ApplicationPaths.LogOutCallback, component: LogoutComponent }
 ];
-
-export class RouteData {
-  viewDef: ViewData;
-  formType: FormType;
-  metaData: ModelMetadata;
-  isModel: boolean = false;
-  key: any;
-  instance?: any;
-  constructor() {
-
-  }
-}
 
 @Injectable()
 export class AppInitService {
@@ -49,6 +35,8 @@ export class AppInitService {
   get runningConfig(): RunningConfigHelper {
     return this._runningConfig;
   }
+
+  tabbedMDIRoutes:any[];
 
   constructor(private injector: Injector, private router: Router, private pageTitle: Title, private logSvc:LogPublishersService) {
     this._config = this.injector.get(BQConfigService);
@@ -104,19 +92,7 @@ export class AppInitService {
       this._runningConfig.viewRoutes = viewRoutes;
 
       if (this.config.tabbedUserInterface){
-        viewRoutes = [
-          {
-            path: `mdi`,
-            component: MDIComponent,
-            data: { },
-            canActivate: [AuthorizeGuard]
-          },
-          {
-            path: ``,
-            redirectTo: '/mdi',
-            pathMatch: 'full'
-          }
-        ];
+        viewRoutes = this.tabbedMDIRoutes;
       }
 
       setTimeout(() => {

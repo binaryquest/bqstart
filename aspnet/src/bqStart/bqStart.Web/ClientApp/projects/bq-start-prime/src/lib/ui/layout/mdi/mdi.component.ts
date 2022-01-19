@@ -7,7 +7,7 @@ import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.se
 <p-tabView class="flex-grow-1 flex flex-column" [(activeIndex)]="regionSvc.activeIndex"
           (onClose)="handleClose($event)"
           [controlClose]="true"
-          [scrollable]="true">
+          >
   <p-tabPanel *ngFor="let item of regionSvc.currentStack;let i = index"
           [header]="item.viewDef.title"
           [leftIcon]="item.icon"

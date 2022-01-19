@@ -86,6 +86,7 @@ import { MainRegionAdapterService } from './services/mainRegionAdapter.service';
 import { MDIComponent } from './ui/layout/mdi/mdi.component';
 import { MDILayoutComponent } from './ui/layout/mdi/mdi-layout';
 import { MessageBus } from 'ngx-message-bus';
+import { AuthorizeGuard } from './api-authorization/authorize.guard';
 
 export * from './models/meta-data';
 
@@ -94,6 +95,19 @@ export * from './models/meta-data';
 
 export function initializeApp(appInitService: AppInitService) {
   const ret = (): Promise<any> => {
+    appInitService.tabbedMDIRoutes = [
+      {
+        path: `mdi`,
+        component: MDIComponent,
+        data: { },
+        canActivate: [AuthorizeGuard]
+      },
+      {
+        path: ``,
+        redirectTo: '/mdi',
+        pathMatch: 'full'
+      }
+    ]
     return appInitService.Init();
   }
   return ret;

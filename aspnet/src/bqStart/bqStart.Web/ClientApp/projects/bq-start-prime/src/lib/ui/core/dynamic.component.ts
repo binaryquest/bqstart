@@ -1,7 +1,6 @@
 import { AfterContentInit, AfterViewInit, Component, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuData } from '../../config/bq-start-config';
-import { RouteData } from '../../services/app-init.service';
+import { MenuData, RouteData } from '../../config/bq-start-config';
 import { AppInjector } from '../../services/app-injector.service';
 import { MainRegionAdapterService, ViewRunningData } from '../../services/mainRegionAdapter.service';
 import { RouterService } from '../../services/router.service';

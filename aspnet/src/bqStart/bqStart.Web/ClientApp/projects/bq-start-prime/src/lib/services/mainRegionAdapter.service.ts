@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { RouteData } from './app-init.service';
 import { AuthorizeService } from '../api-authorization/authorize.service';
-import { BQConfigData, BQConfigService, FormType, MenuData, ViewData } from '../config/bq-start-config';
-import { AppInitService } from './app-init.service';
+import { BQConfigData, BQConfigService, FormType, MenuData, ViewData, RouteData, ViewType } from '../config/bq-start-config';
 import { AppInjector } from './app-injector.service';
 import { LogService } from './log/log.service';
 import { MessageService } from './message.service';
@@ -25,13 +23,11 @@ export class MainRegionAdapterService {
   logger: LogService;
   messageSvc: MessageService;
   authorizeService: AuthorizeService;
-  appInitService: AppInitService;
   isAuthenticated: boolean;
 
   constructor(private router:Router, private metaDataService: MetaDataService) {
     this.injector = AppInjector.getInjector();
     this.config = this.injector.get(BQConfigService);
-    this.appInitService = this.injector.get(AppInitService);
     this.authorizeService = this.injector.get(AuthorizeService);
     this.messageSvc = this.injector.get(MessageService);
     this.logger = this.injector.get(LogService);
@@ -44,7 +40,7 @@ export class MainRegionAdapterService {
   addToView(viewId:string, viewType:string, key:any, icon: string){
     console.log("addToView called");
     if (this.isAuthenticated){
-      const view = this.appInitService.runningConfig.views.find(x => x.viewId === viewId);
+      const view = this.config.views.find(x => x.viewId === viewId);
       // let path = `view/${viewId}/${viewType}/${key}`;
       // if (key === undefined || key === null){
       //   path = `view/${viewId}/${viewType}`;
@@ -141,6 +137,25 @@ export class MainRegionAdapterService {
     }
   }
 
+  addGenericComponentToView(menuTitle: string, component: any, icon: string){
+
+    //check if the view is already open or not,
+    for (let index = 0; index < this.currentStack.length; index++) {
+      const ov = this.currentStack[index];
+      if (ov.viewDef.viewId === menuTitle && ov.routeData.instance){
+        this.activeIndex = index;
+        return;
+      }
+    }
+
+    const routeData = new RouteData();
+    routeData.formType = FormType.Details;
+    routeData.viewDef = {component: component, viewId: menuTitle, title:menuTitle, viewType:ViewType.Form, typeName: menuTitle};
+    this.currentStack.push({viewDef: routeData.viewDef, routeData: routeData, icon: icon});
+    if (this.currentStack.length>1){
+      this.activeIndex = this.currentStack.length - 1;
+    }
+  }
 
 }
 

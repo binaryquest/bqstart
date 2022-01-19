@@ -69,7 +69,6 @@ export class TopMenuBar extends BaseMenu {
       items: childMenu.length>0 ? childMenu : undefined,
       visible: menu.isVisible,
       command: (e)=>{
-        console.log("handle menu");
         const menu: MenuItem = e.item;
         if (menu.items === undefined){
           this.handleMenuClick(menu.state, menu.state!.routerLink, menu.state!.queryParams);
@@ -80,7 +79,7 @@ export class TopMenuBar extends BaseMenu {
 
   authenticationChanged(status: boolean): void {
 
-    this.menuData = JSON.parse(JSON.stringify(this.config.menus));
+    this.menuData = this.config.menus;
 
     if (this.menuData === undefined || this.menuData === null) {
       console.debug("Application Menus not defined");

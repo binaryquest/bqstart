@@ -46,9 +46,13 @@ export class BaseMenu extends BaseComponent {
     }
   }
 
-  handleMenuClick(menu:any, link:string,queryParams: any){
+  handleMenuClick(menu:any, link:string, queryParams: any){
     if (this.config.tabbedUserInterface){
-      this.regionSvc.addToView(menu.viewId, "list", null, menu.icon);
+      if (menu.viewId){
+        this.regionSvc.addToView(menu.viewId, "list", null, menu.icon);
+      }else if (menu.component){
+        this.regionSvc.addGenericComponentToView(menu.label, menu.component, menu.icon);
+      }
     }else{
       this.router.navigate([link],{queryParams: queryParams});
     }
