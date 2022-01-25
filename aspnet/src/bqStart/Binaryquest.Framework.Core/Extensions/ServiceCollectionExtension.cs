@@ -47,6 +47,7 @@ namespace BinaryQuest.Framework.Core.Extensions
                 //})
                 .AddOData(oData =>
                 {
+                    
                     oData.AddRouteComponents("odata", opt.GetEdmModel<TDb>(services, appSvc));
                     oData.EnableAttributeRouting = true;
                     oData.OrderBy().Filter().Select().Expand().Count().SetMaxTop(null);

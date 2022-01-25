@@ -7,6 +7,7 @@ import { LogService } from './log/log.service';
 import { MessageService } from './message.service';
 import { MetaDataService } from './meta-data.service';
 import { ApplicationPaths, QueryParameterNames } from '../api-authorization/api-authorization.constants';
+
 /**
  * This class is responsible for maintaining the MDI interface within the main view.
  * Borrowed from the idea of PRISM Region Adpaters in WPF

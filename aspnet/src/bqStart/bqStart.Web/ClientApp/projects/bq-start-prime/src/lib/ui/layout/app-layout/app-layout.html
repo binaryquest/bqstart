@@ -8,11 +8,13 @@
   <div [ngClass]="showMenuOnTop?'layout-content-inactive':'layout-content'">
     <breadcrumb></breadcrumb>
     <div class="content-section">
-      <p-toast></p-toast>
       <view-wrapper>
         <ng-content></ng-content>
       </view-wrapper>
     </div>
     <bq-footer-bar *ngIf="isAuthenticated"></bq-footer-bar>
   </div>
+
+  <p-toast></p-toast>
+
 </div>

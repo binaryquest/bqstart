@@ -1,12 +1,58 @@
 import { InjectionToken, Type } from '@angular/core';
 import { Dictionary, ModelMetadata } from '../models/meta-data';
 
+/**
+ * The startup class which will hold all the configuration details for
+ * this Application
+ *
+ * @export
+ * @class BQConfigData
+ */
 export class BQConfigData {
+  /**
+   * Logo URL of the App to display in Header
+   *
+   * @type {string}
+   * @memberof BQConfigData
+   */
   logoUrl: string;
+  /**
+   * The name of the application
+   *
+   * @type {string}
+   * @memberof BQConfigData
+   */
   applicationName: string;
+  /**
+   * Company Name used in Footer
+   *
+   * @type {string}
+   * @memberof BQConfigData
+   */
   companyName: string;
+  /**
+   * Menus to Display
+   *
+   * @type {MenuData[]}
+   * @memberof BQConfigData
+   */
   menus: MenuData[];
+  /**
+   * List of Views the application will have
+   *
+   * @type {ViewData[]}
+   * @memberof BQConfigData
+   */
   views: ViewData[];
+  /**
+   * Default View Data like page size
+   *
+   * @type {{
+   *     defaultPageSize: number,
+   *     otherPageSizes: number[]
+   *   }}
+   * @memberof BQConfigData
+   */
   viewDefaults?: {
     defaultPageSize: number,
     otherPageSizes: number[]
@@ -20,8 +66,32 @@ export class BQConfigData {
    * @memberof BQConfigData
    */
   tabbedUserInterface: boolean;
+
+  /**
+   * Specify OAuth Configuration Details Here. For SPA templates where BQStart backend is running on the same location
+   * do not need to set anything up as details can be found out from the server. If your STS server is running somewhere else
+   * or the app is running in a Deskto Electron environment you can specify the Server Urls here.
+   *
+   * @type {OAuthConfig}
+   * @memberof BQConfigData
+   */
+  oAuthConfig?: OAuthConfig;
+
+  /**
+   * Root API URL for the backend. If undefined then current base url is assumed.
+   *
+   * @type {string}
+   * @memberof BQConfigData
+   */
+  apiRootUrl?: string;
 }
 
+/**
+ * Runtime Configuration Class to hold various config data and helpers
+ *
+ * @export
+ * @class RunningConfigHelper
+ */
 export class RunningConfigHelper {
 
   logoUrl: string;
@@ -88,7 +158,12 @@ export class RunningConfigHelper {
   }
 
 }
-
+/**
+ * Define a Menu Item to display in the app
+ *
+ * @export
+ * @interface MenuData
+ */
 export interface MenuData {
   label: string;
   icon: string;
@@ -111,20 +186,74 @@ export interface MenuData {
   component?: Type<any>;
 }
 
+/**
+ * Define a view, i.e. metadata of the view
+ *
+ * @export
+ * @interface ViewData
+ */
 export interface ViewData {
+  /**
+   * Should be a unique Id
+   *
+   * @type {string}
+   * @memberof ViewData
+   */
   viewId: string;
+  /**
+   * The Entity Type from the Server which will constitute this View Data
+   *
+   * @type {string}
+   * @memberof ViewData
+   */
   typeName: string;
+  /**
+   * Title/Label of the View
+   *
+   * @type {string}
+   * @memberof ViewData
+   */
   title: string;
+  /**
+   * Is this a List or Detail Form view
+   *
+   * @type {ViewType}
+   * @memberof ViewData
+   */
   viewType: ViewType;
+  /**
+   * The component that is resposible for this View Display
+   *
+   * @type {Type<any>}
+   * @memberof ViewData
+   */
   component: Type<any>;
+  /**
+   * Do not show breadcrumb for this view in normal navigation mode
+   *
+   * @type {boolean}
+   * @memberof ViewData
+   */
   hideBreadCrumb?: boolean;
 }
 
+/**
+ * BQ Form can be either List or Form/Details View
+ *
+ * @export
+ * @enum {number}
+ */
 export enum ViewType {
   List,
   Form
 }
 
+/**
+ * Type of Form view
+ *
+ * @export
+ * @enum {number}
+ */
 export enum FormType {
   List,
   New,
@@ -132,6 +261,12 @@ export enum FormType {
   Details
 }
 
+/**
+ * Internal Route Data in Runtime
+ *
+ * @export
+ * @class RouteData
+ */
 export class RouteData {
   viewDef: ViewData;
   formType: FormType;
@@ -143,6 +278,56 @@ export class RouteData {
   }
 }
 
+
+/**
+ * OAuth Configuration Options for the app
+
+ * @export
+ * @class OAuthConfig
+ */
+export class OAuthConfig{
+  /**
+   * The Authority Url of the Server
+   * @type {string}
+   * @memberof OAuthConfig
+   */
+  authority: string;
+  /**
+   * Client id
+   *
+   * @type {string}
+   * @memberof OAuthConfig
+   */
+  client_id: string;
+  /**
+   * Redirect URL to handle to post login. This should be approved in the Server.
+   *
+   * @type {string}
+   * @memberof OAuthConfig
+   */
+   redirect_uri: string;
+  /**
+   * Post Logout URL
+   *
+   * @type {string}
+   * @memberof OAuthConfig
+   */
+   post_logout_redirect_uri: string;
+  /**
+   * Response Type to get. Typically "code"
+   *
+   * @type {string}
+   * @memberof OAuthConfig
+   */
+   response_type: string;
+  /**
+   * Scope to get from the Identity/STS server
+   *
+   * @type {string}
+   * @memberof OAuthConfig
+   */
+  scope: string;
+}
 
 /**
  * This is not a real service, but it looks like it from the outside.

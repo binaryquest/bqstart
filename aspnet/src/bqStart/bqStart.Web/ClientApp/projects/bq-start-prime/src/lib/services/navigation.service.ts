@@ -4,6 +4,13 @@ import { Router, NavigationEnd } from '@angular/router';
 import { AppInitService } from './app-init.service';
 import { MainRegionAdapterService } from './mainRegionAdapter.service';
 
+
+/**
+ * Wrapper service for Navigating between views or in tabbed MDI interface
+ *
+ * @export
+ * @class NavigationService
+ */
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
   private history: string[] = [];

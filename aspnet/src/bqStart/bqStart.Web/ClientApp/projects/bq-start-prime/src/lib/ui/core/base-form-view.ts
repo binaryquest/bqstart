@@ -11,7 +11,6 @@ import { BqForm } from '../controls/bq-form/bq-form';
 import { RouterService } from '../../services/router.service';
 import { IBaseView } from './base-view';
 import { isEqual } from 'lodash-es';
-import { Connection, Message, MessageBus } from 'ngx-message-bus';
 
 
 
@@ -102,8 +101,6 @@ export class BaseFormView<TModel>
   @ViewChild(BqForm) bqForm: BqForm;
 
   protected dataSvc: GenericDataService;
-  protected msgBus: MessageBus;
-  protected msgBusCon: Connection;
   protected msgSubscription: any;
 
 
@@ -130,7 +127,7 @@ export class BaseFormView<TModel>
 
     this.dataSvc = injector.get(GenericDataService);
     this.vwService = this.injector.get(ViewWrapperService);
-    this.msgBus = injector.get(MessageBus);
+
 
     if (this.formType == FormType.List) {
       throw new Error('Wrong View Form Type in View Defintions');
@@ -227,12 +224,11 @@ export class BaseFormView<TModel>
     // });
 
     //Message Bus related
-    this.msgBusCon = this.msgBus.connect("bqstart", this.runTimeId);
     this.msgSubscription = {
-      groupId: this.viewDef.typeName,
+      id: this.runTimeId,
       callback: this.handleMessage.bind(this)
     };
-    this.msgBusCon.on(this.msgSubscription);
+    this.messageSvc.subscribeToChannel(this.viewDef.typeName, this.msgSubscription);
 
 
     if (canCallAfterInitComplete(this)) {
@@ -242,19 +238,16 @@ export class BaseFormView<TModel>
 
   ngOnDestroy(): void {
     InternalLogService.logger().debug('BaseFormView::ngOnDestroy');
-    this.msgBusCon.off(this.msgSubscription);
-    this.msgBus.disconnect(this.msgBusCon);
+    this.messageSvc.unSubscribeToChannel(this.viewDef.typeName, this.msgSubscription.id);
   }
 
   handleMessage(data:any){
-    console.log("TODO: show warnign data is stale as it's updated1");
     if (data.operationType == OperationType.Updated || data.operationType == OperationType.ServerUpdated){
-      console.log("TODO: show warnign data is stale as it's updated2");
       if (isEqual(this.currentId, data.key)){
         if (this.formType == FormType.Details){
           this.refresh();
         }else{
-          console.log("TODO: show warnign data is stale as it's updated3");
+          console.log("TODO: show warning data as form data has been updated elsewhere");
         }
       }
     }
@@ -396,11 +389,10 @@ export class BaseFormView<TModel>
     payload.typeName = this.viewDef.typeName;
     const msg = {
       payload: payload,
-      groupId: this.viewDef.typeName
-    } as Message<MessageBusPayLoad>;
+    };
     console.log("posting message");
     console.log(msg);
-    this.msgBusCon.post(msg);
+    this.messageSvc.postToChannel(this.viewDef.typeName, msg);
   }
 
 }

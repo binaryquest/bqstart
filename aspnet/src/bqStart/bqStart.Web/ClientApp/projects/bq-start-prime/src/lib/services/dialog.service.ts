@@ -1,6 +1,12 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import {ConfirmationService} from 'primeng/api';
-import {DialogModule} from 'primeng/dialog';
+
+/**
+ * Dialog Service for showing Confirm and Error Dialogs
+ *
+ * @export
+ * @class DialogService
+ */
 @Injectable({providedIn: 'root'})
 export class DialogService {
   constructor(private confirmationService: ConfirmationService) { }

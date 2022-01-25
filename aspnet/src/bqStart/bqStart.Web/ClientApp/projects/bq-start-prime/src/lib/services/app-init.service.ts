@@ -22,6 +22,12 @@ const routes: Routes = [
   { path: ApplicationPaths.LogOutCallback, component: LogoutComponent }
 ];
 
+/**
+ * Bootstraper Service for setting up the bqStart application
+ *
+ * @export
+ * @class AppInitService
+ */
 @Injectable()
 export class AppInitService {
 

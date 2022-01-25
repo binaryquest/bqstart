@@ -13,7 +13,16 @@ export const APP_CONFIG: BQConfigData = {
   logoUrl: 'assets/images/logo.png',
   companyName: 'Binary Quest',
   viewDefaults: { defaultPageSize: 50, otherPageSizes: [25, 50, 100] },
-  tabbedUserInterface: true,
+  tabbedUserInterface: false,
+  //apiRootUrl: 'https://localhost:44301',
+  // oAuthConfig: {
+  //   authority: 'https://localhost:44301',
+  //   client_id:"electronapp",
+  //   redirect_uri:'app://localhost/authentication/login-callback',
+  //   post_logout_redirect_uri:'app://localhost/authentication/logout-callback',
+  //   response_type:"code",
+  //   scope:'bqStart.WebAPI openid profile'
+  // },
   menus: [
     {
       label: "Home", icon: "pi pi-home",

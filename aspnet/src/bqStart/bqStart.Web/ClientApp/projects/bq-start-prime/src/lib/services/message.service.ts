@@ -16,6 +16,9 @@ export enum MessageType {
  */
 @Injectable({ providedIn: 'root' })
 export class MessageService {
+
+  private channels:Channel[] = [];
+
   constructor(private messageServiceProvider: PrimeMS) { }
 
   showMessage(msg: string, title: string, type: MessageType) {
@@ -36,4 +39,71 @@ export class MessageService {
     }
     this.messageServiceProvider.add({severity: severity, summary: title, detail: msg});
   }
+
+  subscribeToChannel<T>(channelName:string, subscription: Subscription){
+    let ch = this.channels.find(x => x.channelName == channelName);
+    if (ch === undefined){
+      ch = new Channel(channelName);
+      this.channels.push(ch);
+    }
+    ch.addSubscription(subscription);
+  }
+
+  unSubscribeToChannel<T>(channelName:string, subscriptionId: string){
+    let ch = this.channels.find(x => x.channelName == channelName);
+    if (ch !== undefined){
+      ch.removeSubscription(subscriptionId);
+    }
+  }
+
+  postToChannel<T>(channelName:string, message: Message<T>){
+    let ch = this.channels.find(x => x.channelName == channelName);
+    if (ch !== undefined){
+      ch.post(message);
+    }
+  }
+}
+
+class Channel{
+
+  channelName: string;
+  subscriptions: Subscription[] = [];
+
+  constructor(name:string){
+    this.channelName = name;
+  }
+
+  addSubscription(subscription: Subscription){
+    let sub = this.subscriptions.find(x => x.id == subscription.id);
+    if (sub === undefined){
+      this.subscriptions.push(subscription);
+    }
+  }
+
+  removeSubscription(id:string){
+    let subIndex = this.subscriptions.findIndex(x => x.id == id);
+    if (subIndex > -1){
+      this.subscriptions.splice(subIndex, 1);
+    }
+  }
+
+  post<T>(message:Message<T>){
+    if (this.subscriptions.length>0){
+      this.subscriptions.forEach(x => {
+        try {
+          setTimeout(() => x.callback(message.payload));
+        } catch (error) {
+        }
+      });
+    }
+  }
+}
+
+export class Message<T>{
+  payload: T;
+}
+
+export class Subscription{
+  id: string;
+  callback: (payload: any) => void;
 }

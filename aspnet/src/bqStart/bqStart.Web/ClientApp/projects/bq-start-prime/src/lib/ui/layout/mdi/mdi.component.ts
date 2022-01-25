@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.service';
 
+/**
+ * This document is responsible for showing a view inside a tab in tabbed MDI view
+ *
+ * @export
+ * @class MDIComponent
+ */
 @Component({
   selector: 'bq-mdi',
   template: `

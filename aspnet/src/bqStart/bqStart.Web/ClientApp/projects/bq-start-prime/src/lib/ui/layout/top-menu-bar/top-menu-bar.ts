@@ -43,6 +43,8 @@ export class TopMenuBar extends BaseMenu {
   logoutPath: string;
   loginPath: string;
   menuData: MenuData[];
+  menuTarget: string = '_self';
+  profileUrl: string = '/Identity/Account/Manage';
 
   constructor(protected router: Router, protected regionSvc: MainRegionAdapterService) {
     super(router, regionSvc);
@@ -52,6 +54,12 @@ export class TopMenuBar extends BaseMenu {
     this.logoutPath = ApplicationPaths.LogOut;
     this.loginPath = ApplicationPaths.Login;
 
+    if (this.config.apiRootUrl){
+      if (this.config.apiRootUrl !== window.location.origin){
+        this.menuTarget = "_blank";
+        this.profileUrl = this.config.apiRootUrl + "/Identity/Account/Manage";
+      }
+    }
   }
 
   mapMenuDataToPrimeMenu(menu: MenuData):MenuItem{
@@ -92,7 +100,7 @@ export class TopMenuBar extends BaseMenu {
         this.items = this.menuData.map(md => this.mapMenuDataToPrimeMenu(md)).filter(x => x.visible);
 
         this.userMenus = [
-          {label: 'Manage', icon: 'pi pi-user', url: '/Identity/Account/Manage' },
+          {label: 'Manage', icon: 'pi pi-user', url: '/Identity/Account/Manage', target: this.menuTarget },
           {label: 'Sign Out', icon: 'pi pi-sign-out', routerLink: this.logoutPath, state: { local: true } },
         ];
       }else{

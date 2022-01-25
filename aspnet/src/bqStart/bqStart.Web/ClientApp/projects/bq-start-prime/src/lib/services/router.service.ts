@@ -6,7 +6,7 @@ import { ModelMetadata } from '../models/meta-data';
 import { MainRegionAdapterService } from './mainRegionAdapter.service';
 
 /**
- *
+ * Router Wrapper Service to encapsulate between router and mdi interface views
  *
  * @export
  * @class RouterService
@@ -62,7 +62,7 @@ export class RouterService {
   }
 
   tableNavigate(queryParams: any){
-    if (this.routeData !== null){
+    if (this.routeData !== undefined){
       this.internalParams = {...this.internalParams, ...queryParams};
       this.queryParams.next(this.internalParams);
     } else {
@@ -76,8 +76,18 @@ export class RouterService {
     }
   }
 
+  /**
+   * Navigate to a given URL. If inside MDI layout then it will open that route inside a tab window
+   *
+   * @param {string} viewId
+   * @param {string} viewType
+   * @param {*} key
+   * @param {*} [options={}]
+   * @memberof RouterService
+   */
   navigateToView(viewId:string, viewType:string, key:any, options: any = {}){
-    if (this.routeData !== null){
+
+    if (this.routeData !== undefined){
       this.regionSvc.addToView(viewId, viewType, this.metaData.parseRouteParamToKeys(key), "");
     }else{
       const path = `view/${viewId}/${viewType}/${key}`;

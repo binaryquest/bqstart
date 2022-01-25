@@ -17,6 +17,9 @@ using Serilog;
 using TimeZoneConverter;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BinaryQuest.Framework.Identity;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Duende.IdentityServer.Services;
 
 namespace bqStart.Web
 {
@@ -42,8 +45,77 @@ namespace bqStart.Web
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MainDataContext>();
 
+
+            services.AddSingleton<ICorsPolicyService>((container) => {
+                var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
+                return new DefaultCorsPolicyService(logger)
+                {
+                    //AllowedOrigins = { "https://localhost:44301", "app://localhost" },
+                    AllowAll = true
+                };
+            });
+
+            services.AddCors(opt => {
+                opt.AddDefaultPolicy(opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
+
             services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, MainDataContext>()
+            .AddApiAuthorization<ApplicationUser, MainDataContext>(opt => {
+
+                //// Clients
+                //var spaClient = ClientBuilder
+                //    .IdentityServerSPA("Default")
+                //    .WithRedirectUri("https://localhost:44301/authentication/login-callback")
+                //    .WithLogoutRedirectUri("https://localhost:44301/authentication/logout-callback")
+                //    .WithScopes("openid profile bqStart.WebAPI")
+                //    .Build();
+                //spaClient.AllowedCorsOrigins = new[]
+                //{
+                //    "https://localhost:44301"
+                //};
+
+                //opt.Clients.Add(spaClient);
+
+                var nativeClient = ClientBuilder
+                    .NativeApp("electronapp")
+                    .WithRedirectUri("app://localhost/authentication/login-callback")
+                    .WithRedirectUri("https://oauth.pstmn.io/v1/callback")
+                    .WithLogoutRedirectUri("app://localhost/authentication/logout-callback")
+                    .WithScopes("openid profile bqStart.WebAPI offline_access")
+                    .Build();
+
+                nativeClient.AllowedCorsOrigins = new[]
+                {
+                    "app://localhost"
+                };
+
+                opt.Clients.Add(nativeClient);
+
+                //var cc = opt.Clients.AddNativeApp("electronapp", act => {
+                //});
+
+                //cc.AllowedCorsOrigins.Clear();
+                //cc.RedirectUris.Clear();
+
+                //cc.RedirectUris.Add("https://oauth.pstmn.io/v1/callback");                    
+                //cc.RedirectUris.Add("app://localhost/authentication/login-callback");
+                ////cc.RedirectUris.Add("https://localhost:44301/authentication/login-callback");
+
+                //cc.AllowedScopes.Clear();
+                //cc.AllowedScopes.Add("openid");
+                //cc.AllowedScopes.Add("profile");                    
+                //cc.AllowedScopes.Add("bqStart.WebAPI");
+
+                ////very important not to end with /                    
+                //cc.AllowedCorsOrigins.Add("app://localhost");
+                ////cc.AllowedCorsOrigins.Add("https://localhost:44301");
+                //cc.AllowOfflineAccess = true;
+
+                //opt.Clients[0].AllowedCorsOrigins.Clear();
+                //opt.Clients[0].AllowedCorsOrigins.Add("app://localhost");
+                //opt.Clients[0].AllowedCorsOrigins.Add("https://localhost:44301");
+                
+            })
                 .AddProfileService<ProfileService<ApplicationUser>>();
             
             services.AddAuthentication()
@@ -108,9 +180,13 @@ namespace bqStart.Web
                 app.UseSpaStaticFiles();
             }
 
+            app.UseCors();
+
             //load all middlewares we need from the framework
             //and register the endpoints we will need for data
             app.UseBQAdmin<MainDataContext>().Build();
+
+            
 
             app.UseSpa(spa =>
             {
@@ -125,6 +201,15 @@ namespace bqStart.Web
                     //spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+        }
+
+        private CorsPolicy GenerateCorsPolicy()
+        {
+            var corsBuilder = new CorsPolicyBuilder();
+            corsBuilder.AllowAnyHeader();
+            corsBuilder.AllowAnyMethod();
+            corsBuilder.AllowAnyOrigin();// WithOrigins("app://-", "https://localhost:44301");
+            return corsBuilder.Build();
         }
     }
 }

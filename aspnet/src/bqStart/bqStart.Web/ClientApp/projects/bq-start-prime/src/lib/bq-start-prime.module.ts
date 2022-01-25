@@ -85,13 +85,9 @@ import { DynamicLoaderComponent, DynamicMDILoaderComponent } from './ui/core/dyn
 import { MainRegionAdapterService } from './services/mainRegionAdapter.service';
 import { MDIComponent } from './ui/layout/mdi/mdi.component';
 import { MDILayoutComponent } from './ui/layout/mdi/mdi-layout';
-import { MessageBus } from 'ngx-message-bus';
 import { AuthorizeGuard } from './api-authorization/authorize.guard';
 
 export * from './models/meta-data';
-
-
-
 
 export function initializeApp(appInitService: AppInitService) {
   const ret = (): Promise<any> => {
@@ -101,6 +97,11 @@ export function initializeApp(appInitService: AppInitService) {
         component: MDIComponent,
         data: { },
         canActivate: [AuthorizeGuard]
+      },
+      {
+        path: `Home`,
+        redirectTo: '/mdi',
+        pathMatch: 'full'
       },
       {
         path: ``,
@@ -113,6 +114,12 @@ export function initializeApp(appInitService: AppInitService) {
   return ret;
 }
 
+/**
+ *  Main Entry point Module for bqStart
+ *
+ * @export
+ * @class BQStartPrimeModule
+ */
 @NgModule({
   imports: [
     CommonModule,
@@ -262,8 +269,7 @@ export function initializeApp(appInitService: AppInitService) {
     DialogService,
     ConfirmationService,
     RouterService,
-    MainRegionAdapterService,
-    MessageBus
+    MainRegionAdapterService
   ]
 })
 export class BQStartPrimeModule {

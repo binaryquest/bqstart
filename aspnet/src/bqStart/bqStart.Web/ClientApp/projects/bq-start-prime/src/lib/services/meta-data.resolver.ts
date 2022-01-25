@@ -5,7 +5,13 @@ import { ModelMetadata } from '../models/meta-data';
 import { MetaDataService } from './meta-data.service';
 
 
-
+/**
+ * To load type related metadata from backend
+ *
+ * @export
+ * @class MetaDataResolver
+ * @implements {Resolve<ModelMetadata>}
+ */
 @Injectable({
   providedIn: 'root'
 })

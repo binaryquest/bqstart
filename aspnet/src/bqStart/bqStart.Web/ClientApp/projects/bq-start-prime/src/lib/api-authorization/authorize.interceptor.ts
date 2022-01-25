@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthorizeService } from './authorize.service';
 import { mergeMap } from 'rxjs/operators';
+import { BQConfigData, BQConfigService } from '../config/bq-start-config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizeInterceptor implements HttpInterceptor {
-  constructor(private authorize: AuthorizeService) { }
+  constructor(private authorize: AuthorizeService,@Inject(BQConfigService) private config:BQConfigData ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return this.authorize.getAccessToken()
@@ -45,6 +46,12 @@ export class AuthorizeInterceptor implements HttpInterceptor {
     // It's a relative url like /api/Products
     if (/^\/[^\/].*/.test(req.url)) {
       return true;
+    }
+
+    if (this.config.apiRootUrl){
+      if (req.url.startsWith(this.config.apiRootUrl)) {
+        return true;
+      }
     }
 
     // It's an absolute or protocol relative url that

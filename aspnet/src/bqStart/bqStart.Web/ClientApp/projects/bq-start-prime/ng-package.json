@@ -19,7 +19,6 @@
     "validator",
     "lodash",
     "@ng-select/ng-select",
-    "guid-typescript",
-    "ngx-message-bus"
+    "guid-typescript"
   ]
 }
