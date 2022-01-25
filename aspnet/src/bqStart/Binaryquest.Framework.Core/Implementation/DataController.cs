@@ -117,22 +117,16 @@ namespace BinaryQuest.Framework.Core.Implementation
             return await OnDelete(entity);            
         }
 
-        //[HttpGet()]
-        //[CustomFunction]
-        ////[Route("Default.GetModelMetaData")]
-        //public IActionResult GetModelMetaData()
-        //{
-        //    var result = OnGetModelMetaData();
-        //    return Ok(result);
-        //}
-
         [HttpPost()]
         [CustomAction]
         public IActionResult ModelMetaData()
-        {
+        {            
+            if (!IsAuthorized())
+                return Unauthorized();
+
             var result = OnGetModelMetaData();
             return Ok(result);
-        }
+        }        
         #endregion
 
         #region Abstract and Virtual Functions
@@ -209,7 +203,12 @@ namespace BinaryQuest.Framework.Core.Implementation
             }
         }
 
-        #region Permssions Related
+        #region Permissions Related
+        protected bool IsAuthorized()
+        {
+            return User.Identity?.IsAuthenticated == true;
+        }
+
         protected bool AllowSelect()
         {
             bool allow = false;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseFormView, BaseListView } from 'projects/bq-start-prime/src/public-api';
+import { RouterService, BaseFormView, BaseListView } from 'projects/bq-start-prime/src/public-api';
 
 
 @Component({
@@ -26,8 +26,8 @@ import { BaseFormView, BaseListView } from 'projects/bq-start-prime/src/public-a
 })
 export class RoleList extends BaseListView<any> {
 
-  constructor(protected route: ActivatedRoute, protected router:Router) {
-    super(route, router, {});
+  constructor(protected routerSvc: RouterService) {
+    super(routerSvc, {});
   }
 
 }
@@ -44,8 +44,8 @@ export class RoleList extends BaseListView<any> {
 })
 export class RoleForm extends BaseFormView<any> {
 
-  constructor(protected route: ActivatedRoute, protected router:Router) {
-    super(route, router, {});
+  constructor(protected routerSvc: RouterService) {
+    super(routerSvc, {});
   }
 
 }

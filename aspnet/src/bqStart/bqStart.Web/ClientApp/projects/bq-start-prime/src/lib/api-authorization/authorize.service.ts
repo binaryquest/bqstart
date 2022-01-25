@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
-import { User, UserManager, WebStorageStateStore } from 'oidc-client';
+import { Injectable, Injector } from '@angular/core';
+import { Log, User, UserManager, WebStorageStateStore } from 'oidc-client';
 import { BehaviorSubject, concat, from, Observable } from 'rxjs';
 import { filter, map, mergeMap, take, tap } from 'rxjs/operators';
 import { InternalLogService } from '../services/log/log.service';
 import { ApplicationPaths, ApplicationName } from './api-authorization.constants';
+import { BQConfigService, BQConfigData } from '../config/bq-start-config';
+import { inject } from '@angular/core/testing';
 
 export type IAuthenticationResult =
   SuccessAuthenticationResult |
@@ -47,6 +49,22 @@ export class AuthorizeService {
   private popUpDisabled = true;
   private userManager: UserManager;
   private userSubject: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(null);
+  private config:BQConfigData;
+
+  constructor(private injector: Injector){
+    this.config = this.injector.get(BQConfigService);
+    Log.level = Log.DEBUG;
+    // Log.logger = {
+    //   error: this.log.bind(this),
+    //   info: this.log.bind(this),
+    //   debug: this.log.bind(this),
+    //   warn: this.log.bind(this),
+    // };
+  }
+
+  private log(msg:any, ...args:any){
+    console.log(msg, args);
+  }
 
   public isAuthenticated(): Observable<boolean> {
     return this.getUser().pipe(map(u => !!u));
@@ -178,14 +196,20 @@ export class AuthorizeService {
       return;
     }
 
-    const response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
-    if (!response.ok) {
-      throw new Error(`Could not load settings for '${ApplicationName}'`);
+    let settings: any = {};
+
+    if (this.config.oAuthConfig === undefined){
+      const response = await fetch(ApplicationPaths.ApiAuthorizationClientConfigurationUrl);
+      if (!response.ok) {
+        throw new Error(`Could not load settings for '${ApplicationName}'`);
+      }
+      settings = await response.json();
+      settings.automaticSilentRenew = true;
+      settings.includeIdTokenInSilentRenew = true;
+    }else{
+      settings = this.config.oAuthConfig;
     }
 
-    const settings: any = await response.json();
-    settings.automaticSilentRenew = true;
-    settings.includeIdTokenInSilentRenew = true;
     this.userManager = new UserManager(settings);
 
     this.userManager.events.addUserSignedOut(async () => {

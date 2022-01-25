@@ -6,9 +6,9 @@ import { IBaseEvents, ModelMetadata, ViewOptionalData } from "../../models/meta-
 import { FilterByClause, PredefinedFilter, TableParams } from "../../models/table-data";
 import { DataServiceOptions, DataServiceToken, GenericDataService } from "../../services/generic-data.service";
 import { InternalLogService } from "../../services/log/log.service";
+import { RouterService } from "../../services/router.service";
 import { BaseComponent } from "../base.component";
-
-
+import { IBaseView } from "./base-view";
 
 /**
  * Defines the base abstract functionality of a BQ View (List/Form)
@@ -49,7 +49,7 @@ function canCallAfterServerDataReceived(arg: Object): arg is IBaseListViewEvents
 @Component({
   template: '',
 })
-export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDestroy {
+export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDestroy, IBaseView {
 
   metaData: ModelMetadata;
   viewDef: ViewData;
@@ -86,14 +86,15 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
   showAddButton: boolean;
 
   protected dataSvc: GenericDataService | null;
+  protected msgSubscription: any;
 
-  constructor(protected route: ActivatedRoute, protected router: Router,
+  constructor(protected routerSvc: RouterService,
     @Inject('viewOptionalData') @Optional() private optionalData: ViewOptionalData) {
     super();
 
-    this.metaData = route.snapshot.data.metaData;
-    this.viewDef = route.snapshot.data.viewDef;
-    this.formType = route.snapshot.data.formType;
+    this.metaData = routerSvc.metaData;
+    this.viewDef = routerSvc.viewDef;
+    this.formType = routerSvc.formType;
 
     const dataServiceOptions: DataServiceOptions = {
       $type: this.metaData?.typeName
@@ -110,8 +111,10 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
 
     this.dataSvc = injector.get(GenericDataService);
 
+    console.log("form type " + this.formType);
+
     if (this.formType == FormType.List) {
-      this.tableParams = new TableParams(this.route, this.router, this.appInitService);
+      this.tableParams = new TableParams(this.routerSvc, this.appInitService);
     }else{
       throw new Error('Wrong View Form Type in View Defintions');
     }
@@ -126,8 +129,27 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
     }
   }
 
+  canClose(): boolean {
+    return true;
+  }
+
+  refresh(): void {
+    this.loadServerData();
+  }
+
+  canOpen(key: any): boolean {
+    return false;
+  }
+
   ngOnInit(): void {
     InternalLogService.logger().debug(`BaseListView::ngOnInit`);
+
+    //Message Bus related
+    this.msgSubscription = {
+      id: this.runTimeId,
+      callback: this.handleMessage.bind(this)
+    };
+    this.messageSvc.subscribeToChannel(this.viewDef.typeName, this.msgSubscription);
 
     if (canCallAfterInitComplete(this)) {
       this.onAfterInitComplete();
@@ -138,6 +160,8 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
   ngOnDestroy(): void {
     InternalLogService.logger().debug("BaseListView::ngOnDestroy");
 
+    this.messageSvc.unSubscribeToChannel(this.viewDef.typeName, this.msgSubscription.id);
+
     if (this.tableParams) {
       this.tableParams.destroy();
     }
@@ -147,6 +171,15 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
     }
   }
 
+  /**
+   * Handle message from Message Bus to deal with other views updating related data
+   *
+   * @param {*} data
+   * @memberof BaseListView
+   */
+  handleMessage(data:any){
+    this.onRefreshData();
+  }
 
   private loadServerData() {
     InternalLogService.logger().debug("BaseListView::loadServerData");

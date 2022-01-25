@@ -9,7 +9,7 @@ import { LocaleService } from "../services/locale.service";
 import { InternalLogService, LogService } from "../services/log/log.service";
 import { MessageService, MessageType } from "../services/message.service";
 import { NavigationService } from "../services/navigation.service";
-
+import { Guid } from "guid-typescript";
 
 @Component({
   template: ''
@@ -29,8 +29,10 @@ export class BaseComponent {
   dialogService: DialogService;
   localeService: LocaleService;
   translate: TranslateService;
+  runTimeId: string;
 
   constructor() {
+    this.runTimeId = Guid.raw();
     this.injector = AppInjector.getInjector();
     this.config = this.injector.get(BQConfigService);
     this.appInitService = this.injector.get(AppInitService);

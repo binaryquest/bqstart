@@ -68,7 +68,9 @@ export class LoginComponent implements OnInit {
 
   private async processLoginCallback(): Promise<void> {
     const url = window.location.href;
+    console.log("process call back for " + url);
     const result = await this.authorizeService.completeSignIn(url);
+    console.log("call back result ", result);
     switch (result.status) {
       case AuthenticationResultStatus.Redirect:
         // There should not be any redirects as completeSignIn never redirects.

@@ -7,6 +7,7 @@ import { ODataResponse } from "../models/odata-response";
 import { map } from "rxjs/operators";
 import { InternalLogService } from "./log/log.service";
 import { ModelMetadata } from "../models/meta-data";
+import { BQConfigData, BQConfigService } from "../config/bq-start-config";
 
 export const DataServiceToken = new InjectionToken<DataServiceOptions>('GSvcDataOptions');
 export declare class DataServiceOptions {
@@ -14,6 +15,14 @@ export declare class DataServiceOptions {
   $selectClause?: string;
   $type: string;
 }
+
+/**
+ * Generic Data Service to fetch data from backend controllers using OData notations
+ *
+ * @export
+ * @class GenericDataService
+ * @implements {OnDestroy}
+ */
 @Injectable(
   {
     providedIn: 'any'
@@ -21,24 +30,35 @@ export declare class DataServiceOptions {
 )
 export class GenericDataService implements OnDestroy {
 
-  constructor(private http: HttpClient, @Inject(DataServiceToken) private options:DataServiceOptions) {
+  private rootUrl: string = '';
+
+  constructor(private http: HttpClient, @Inject(BQConfigService) private config:BQConfigData, @Inject(DataServiceToken) private options:DataServiceOptions) {
     InternalLogService.logger().debug(`Generic Data Svc Init`);
     if (!options){
       console.warn("options is undefined or null in GenericDataService");
     }
+    this.rootUrl = config.apiRootUrl ?? '';
+    this.rootUrl = this.rootUrl.endsWith('/') ? this.rootUrl.slice(0, -1) : this.rootUrl;
   }
 
   ngOnDestroy(): void {
   }
 
+  /**
+   * Fetch all Data for a Given Type
+   *
+   * @template T
+   * @param {TableParams} tableParams
+   * @return {*}  {Observable<ODataResponse<T>>}
+   * @memberof GenericDataService
+   */
   public getAll<T>(tableParams: TableParams): Observable<ODataResponse<T>> {
-
 
     if (tableParams === undefined || tableParams === null){
       throw new Error("tableParams is undefined or null");
     }
 
-    let url = `/odata/${this.options.$type}/?$count=true`;
+    let url = `${this.rootUrl}/odata/${this.options.$type}/?$count=true`;
 
     if (tableParams.top) {
         url = url + "&$top=" + tableParams.top;
@@ -81,9 +101,18 @@ export class GenericDataService implements OnDestroy {
     return this.http.get(url).pipe(map(x => new ODataResponse<T>(x)));
   }
 
+  /**
+   * Fetch a single instance of a data type
+   *
+   * @template T
+   * @param {any[]} model
+   * @param {ModelMetadata} metaData
+   * @return {*}  {Observable<ODataResponse<T>>}
+   * @memberof GenericDataService
+   */
   public get<T>(model:any[], metaData:ModelMetadata): Observable<ODataResponse<T>> {
 
-    let url = `/odata/${this.options.$type}(${metaData.getPrimaryKeyAsUrl(model)})?`;
+    let url = `${this.rootUrl}/odata/${this.options.$type}(${metaData.getPrimaryKeyAsUrl(model)})?`;
 
     if (this.options.$expandClause){
       url += `&$expand=${this.options.$expandClause}`;
@@ -95,15 +124,32 @@ export class GenericDataService implements OnDestroy {
     return this.http.get(url).pipe(map(x => new ODataResponse<T>(x)));
   }
 
+  /**
+   * Get Lookup/Dropdown records sources
+   *
+   * @template T
+   * @param {ModelMetadata} metaData
+   * @return {*}  {Observable<ODataResponse<T>>}
+   * @memberof GenericDataService
+   */
   public getLookupData<T>(metaData:ModelMetadata): Observable<ODataResponse<T>>{
-    let url = `/odata/${this.options.$type}/LookupData`;
+    let url = `${this.rootUrl}/odata/${this.options.$type}/LookupData`;
     return this.http.post(url, {}).pipe(map(x => new ODataResponse<T>(x)));
   }
 
+  /**
+   * Save Data/record
+   *
+   * @template T
+   * @param {T} model
+   * @param {Boolean} isAdd
+   * @return {*}  {Observable<ODataResponse<T>>}
+   * @memberof GenericDataService
+   */
   public save<T>(model:T, isAdd:Boolean): Observable<ODataResponse<T>>{
     let headers = new HttpHeaders();
     headers = headers.set('Prefer', 'return=representation');
-    let url = `/odata/${this.options.$type}`;
+    let url = `${this.rootUrl}/odata/${this.options.$type}`;
     if (isAdd){
       return this.http.patch(url, model, {headers: headers}).pipe(map(x => new ODataResponse<T>(x)));
     }else{
@@ -111,10 +157,19 @@ export class GenericDataService implements OnDestroy {
     }
   }
 
+  /**
+   * Delete data/record
+   *
+   * @template T
+   * @param {any[]} model
+   * @param {ModelMetadata} metaData
+   * @return {*}  {Observable<ODataResponse<T>>}
+   * @memberof GenericDataService
+   */
   public delete<T>(model:any[], metaData:ModelMetadata): Observable<ODataResponse<T>>{
     let headers = new HttpHeaders();
     headers = headers.set('Prefer', 'return=representation');
-    let url = `/odata/${this.options.$type}(${metaData.getPrimaryKeyAsUrl(model)})`;
+    let url = `${this.rootUrl}/odata/${this.options.$type}(${metaData.getPrimaryKeyAsUrl(model)})`;
     return this.http.delete(url, {headers: headers}).pipe(map(x => new ODataResponse<T>(x)));
   }
 }

@@ -468,8 +468,8 @@ export class LogPublishersService {
 
     msg = "Status: " + error.status;
     msg += " - Status Text: " + error.statusText;
-    if (error.json()) {
-      msg += " - Exception Message: " + error.json().exceptionMessage;
+    if (error) {
+      msg += " - Exception Message: " + error;
     }
     errors.push(msg);
 

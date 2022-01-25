@@ -55,6 +55,7 @@ import { ChipModule } from 'primeng/chip';
 import { AvatarModule } from 'primeng/avatar';
 import { MenubarModule } from 'primeng/menubar';
 import { SlideMenuModule } from 'primeng/slidemenu';
+import { TabViewModule } from 'primeng/tabview';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 
@@ -78,19 +79,47 @@ import { BqPasswordField } from './ui/controls/bq-password-field/bq-password-fie
 import { BqDropdownField } from './ui/controls/bq-dropdown-field/bq-dropdown-field';
 import { BqTextArea } from './ui/controls/bq-text-area/bq-text-area';
 import { TopMenuBar } from './ui/layout/top-menu-bar/top-menu-bar';
+import { RouterService } from './services/router.service';
+import { DynamicHostDirective } from './ui/core/dynamic-host.directive';
+import { DynamicLoaderComponent, DynamicMDILoaderComponent } from './ui/core/dynamic.component';
+import { MainRegionAdapterService } from './services/mainRegionAdapter.service';
+import { MDIComponent } from './ui/layout/mdi/mdi.component';
+import { MDILayoutComponent } from './ui/layout/mdi/mdi-layout';
+import { AuthorizeGuard } from './api-authorization/authorize.guard';
 
 export * from './models/meta-data';
 
-
-
-
 export function initializeApp(appInitService: AppInitService) {
   const ret = (): Promise<any> => {
+    appInitService.tabbedMDIRoutes = [
+      {
+        path: `mdi`,
+        component: MDIComponent,
+        data: { },
+        canActivate: [AuthorizeGuard]
+      },
+      {
+        path: `Home`,
+        redirectTo: '/mdi',
+        pathMatch: 'full'
+      },
+      {
+        path: ``,
+        redirectTo: '/mdi',
+        pathMatch: 'full'
+      }
+    ]
     return appInitService.Init();
   }
   return ret;
 }
 
+/**
+ *  Main Entry point Module for bqStart
+ *
+ * @export
+ * @class BQStartPrimeModule
+ */
 @NgModule({
   imports: [
     CommonModule,
@@ -130,7 +159,8 @@ export function initializeApp(appInitService: AppInitService) {
     ChipModule,
     AvatarModule,
     MenubarModule,
-    SlideMenuModule
+    SlideMenuModule,
+    TabViewModule
   ],
   declarations: [
     LoginMenuComponent,
@@ -163,7 +193,12 @@ export function initializeApp(appInitService: AppInitService) {
     PasswordPipe,
     BqPasswordField,
     BqDropdownField,
-    BqTextArea
+    BqTextArea,
+    DynamicHostDirective,
+    DynamicLoaderComponent,
+    DynamicMDILoaderComponent,
+    MDIComponent,
+    MDILayoutComponent
   ],
   exports: [
     LoginMenuComponent,
@@ -182,6 +217,7 @@ export function initializeApp(appInitService: AppInitService) {
     FormBlock,
     BqTextField,
     ModelValuePipe,
+    MDILayoutComponent,
     //PrimeNG
     CardModule,
     ToastModule,
@@ -231,7 +267,9 @@ export function initializeApp(appInitService: AppInitService) {
     NavigationService,
     ViewWrapperService,
     DialogService,
-    ConfirmationService
+    ConfirmationService,
+    RouterService,
+    MainRegionAdapterService
   ]
 })
 export class BQStartPrimeModule {

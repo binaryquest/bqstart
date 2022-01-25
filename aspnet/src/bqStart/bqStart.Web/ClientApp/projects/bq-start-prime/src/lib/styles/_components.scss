@@ -125,3 +125,7 @@ p-calendar.ng-invalid{
     border-color: $errorBorderColor;
   }
 }
+
+.p-tabview-close{
+  z-index: unset !important;
+}

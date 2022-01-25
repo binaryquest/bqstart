@@ -1,6 +1,7 @@
 import { ActivatedRoute, Router } from "@angular/router";
 import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
 import { AppInitService } from "../services/app-init.service";
+import { RouterService } from "../services/router.service";
 import { ALL_PREDICATES, MetadataField, Predicate, PREDICATE_BETWEEN, TypeSystem, TYPE_SYSTEM } from "./meta-data";
 import { ODataResponse } from "./odata-response";
 
@@ -17,41 +18,41 @@ export class TableParams {
   private sub: any;
   private defaultPageSize: number = 50;
 
-  constructor(private route: ActivatedRoute, private router: Router, private appSvc: AppInitService) {
+  constructor(private routerSvc: RouterService, private appSvc: AppInitService) {
     this.orderByCollection = [];
     this.filterByCollection = [];
     if (appSvc.runningConfig.viewDefaults?.defaultPageSize) {
       this.defaultPageSize = appSvc.runningConfig.viewDefaults?.defaultPageSize;
     }
 
-    this.sub = this.route.queryParams.subscribe(params => {
-      if (params['top']) {
-        this.top = +params['top']; //+ converts to number
-      } else {
-        this.top = this.defaultPageSize;
+    this.sub = this.routerSvc.queryParams.subscribe(params => {
+      if (params!=null){
+        if (params['top']) {
+          this.top = +params['top']; //+ converts to number
+        } else {
+          this.top = this.defaultPageSize;
+        }
+        if (params['skip']) {
+          const skip = +params['skip'];
+          this.skip = skip;
+        } else {
+          this.skip = 0;
+        }
+        if (params['orderBy']) {
+          this.orderByCollection = this.uriToJSON(params['orderBy']);;
+        } else {
+          this.orderByCollection = [];
+        }
+        this.filterByCollection = [];
+        if (params['filter']) {
+          const tempCollection = this.uriToJSON<FilterByClause[]>(params['filter']);
+          tempCollection.forEach(jsonObj => {
+            const filter = Object.assign(new FilterByClause(), jsonObj);
+            this.filterByCollection.push(filter);
+          });
+        }
+        this.paramsChangedSubject.next(this);
       }
-      if (params['skip']) {
-        const skip = +params['skip'];
-        this.skip = skip;
-      } else {
-        this.skip = 0;
-      }
-
-      if (params['orderBy']) {
-        this.orderByCollection = this.uriToJSON(params['orderBy']);;
-      } else {
-        this.orderByCollection = [];
-      }
-      this.filterByCollection = [];
-      if (params['filter']) {
-        const tempCollection = this.uriToJSON<FilterByClause[]>(params['filter']);
-        tempCollection.forEach(jsonObj => {
-          const filter = Object.assign(new FilterByClause(), jsonObj);
-          this.filterByCollection.push(filter);
-        });
-      }
-
-      this.paramsChangedSubject.next(this);
     });
   }
 
@@ -68,14 +69,15 @@ export class TableParams {
 
     const formattedQueryParam = { top: param.top, skip: param.skip, orderBy: this.jsonToURI(orderByList) };
 
-    this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: formattedQueryParam,
-        queryParamsHandling: 'merge'
-      }
-    );
+    this.routerSvc.tableNavigate(formattedQueryParam);
+    // this.router.navigate(
+    //   [],
+    //   {
+    //     relativeTo: this.route,
+    //     queryParams: formattedQueryParam,
+    //     queryParamsHandling: 'merge'
+    //   }
+    // );
 
   }
 
@@ -97,14 +99,15 @@ export class TableParams {
 
   clearFilters() {
     const formattedQueryParam = { top: this.defaultPageSize, skip: 0, filter: this.jsonToURI([]) };
-    this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: formattedQueryParam,
-        queryParamsHandling: 'merge'
-      }
-    );
+    this.routerSvc.tableNavigate(formattedQueryParam);
+    // this.router.navigate(
+    //   [],
+    //   {
+    //     relativeTo: this.route,
+    //     queryParams: formattedQueryParam,
+    //     queryParamsHandling: 'merge'
+    //   }
+    // );
   }
 
   addFilter(filter: FilterByClause) {
@@ -113,15 +116,15 @@ export class TableParams {
     }
 
     const formattedQueryParam = { top: this.defaultPageSize, skip: 0, filter: this.jsonToURI(this.filterByCollection) };
-
-    this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: formattedQueryParam,
-        queryParamsHandling: 'merge'
-      }
-    );
+    this.routerSvc.tableNavigate(formattedQueryParam);
+    // this.router.navigate(
+    //   [],
+    //   {
+    //     relativeTo: this.route,
+    //     queryParams: formattedQueryParam,
+    //     queryParamsHandling: 'merge'
+    //   }
+    // );
   }
 
   addFilters(filters: FilterByClause[]) {
@@ -130,15 +133,15 @@ export class TableParams {
     }
 
     const formattedQueryParam = { top: this.defaultPageSize, skip: 0, filter: this.jsonToURI(this.filterByCollection) };
-
-    this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: formattedQueryParam,
-        queryParamsHandling: 'merge'
-      }
-    );
+    this.routerSvc.tableNavigate(formattedQueryParam);
+    // this.router.navigate(
+    //   [],
+    //   {
+    //     relativeTo: this.route,
+    //     queryParams: formattedQueryParam,
+    //     queryParamsHandling: 'merge'
+    //   }
+    // );
   }
 
   removeFilter(filter: FilterByClause) {
@@ -148,15 +151,15 @@ export class TableParams {
     }
 
     const formattedQueryParam = { top: this.defaultPageSize, skip: 0, filter: this.jsonToURI(this.filterByCollection) };
-
-    this.router.navigate(
-      [],
-      {
-        relativeTo: this.route,
-        queryParams: formattedQueryParam,
-        queryParamsHandling: 'merge'
-      }
-    );
+    this.routerSvc.tableNavigate(formattedQueryParam);
+    // this.router.navigate(
+    //   [],
+    //   {
+    //     relativeTo: this.route,
+    //     queryParams: formattedQueryParam,
+    //     queryParamsHandling: 'merge'
+    //   }
+    // );
   }
 
   private jsonToURI(json: any) { return encodeURIComponent(JSON.stringify(json)); }

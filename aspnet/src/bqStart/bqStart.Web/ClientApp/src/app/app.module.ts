@@ -70,11 +70,10 @@ registerLocaleData(localeAu);
     TranslateModule.forRoot(),
     BQStartPrimeModule.forRoot(APP_CONFIG),
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthorizeGuard] },
+      //{ path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthorizeGuard] },
       { path: 'counter', component: CounterComponent },
       //{ path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-    ]
-    )
+    ])
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },

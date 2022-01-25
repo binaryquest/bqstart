@@ -22,11 +22,14 @@ export * from './lib/services/message.service';
 export * from './lib/services/locale.service';
 export * from './lib/services/navigation.service';
 export * from './lib/services/dialog.service';
+export * from './lib/services/router.service';
+export * from './lib/services/mainRegionAdapter.service';
 
 export * from './lib/ui/layout/top-bar/top-bar';
 export * from './lib/ui/layout/top-menu-bar/top-menu-bar';
 export * from './lib/ui/layout/footer-bar/footer-bar';
 export * from './lib/ui/layout/app-layout/app-layout';
+export * from './lib/ui/layout/mdi/mdi-layout';
 export * from './lib/ui/layout/breadcrumb/breadcrumb';
 export * from './lib/ui/base.component';
 export * from './lib/ui/core/base-list-view';
@@ -43,6 +46,8 @@ export * from './lib/ui/controls/view-wrapper/view-wrapper.service';
 
 export * from './lib/ui/core/model-value.pipe';
 export * from './lib/ui/core/display.pipes';
+export * from './lib/ui/core/dynamic-host.directive';
+export * from './lib/ui/core/dynamic.component';
 
 export * from './lib/ui/controls/bq-chips-menu/bq-chips-menu';
 export * from './lib/ui/controls/bq-table/bq-table';

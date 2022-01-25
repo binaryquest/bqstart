@@ -1,6 +1,11 @@
 import { Injector } from '@angular/core';
 
-// @dynamic
+/**
+ * Dynamic Service Injector
+ *
+ * @export
+ * @class AppInjector
+ */
 export class AppInjector {
 
   private static injector: Injector;

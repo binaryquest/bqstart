@@ -8,6 +8,14 @@ import defaultTranslations from './../assets/i18n/bq-start.en-US.json';
 import { InternalLogService, LogService } from './log/log.service';
 import { merge, cloneDeep } from 'lodash-es';
 
+
+/**
+ * Locale/Translation Service
+ *
+ * @export
+ * @class LocaleService
+ * @implements {TranslateLoader}
+ */
 @Injectable({
   providedIn: 'root',
 })

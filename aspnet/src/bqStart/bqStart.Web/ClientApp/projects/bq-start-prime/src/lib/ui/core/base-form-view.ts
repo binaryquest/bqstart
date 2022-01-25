@@ -3,12 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ViewWrapperService } from '../controls/view-wrapper/view-wrapper.service';
 import { map } from 'rxjs/operators';
 import { FormType, ViewData } from '../../config/bq-start-config';
-import { IBaseEvents, ModelMetadata, PrimaryKey, ViewOptionalData } from '../../models/meta-data';
+import { IBaseEvents, MessageBusPayLoad, ModelMetadata, OperationType, PrimaryKey, ViewOptionalData } from '../../models/meta-data';
 import { DataServiceOptions, DataServiceToken, GenericDataService } from '../../services/generic-data.service';
 import { InternalLogService } from '../../services/log/log.service';
 import { BaseComponent } from '../base.component';
 import { BqForm } from '../controls/bq-form/bq-form';
-import { Message,MessageService } from 'primeng/api';
+import { RouterService } from '../../services/router.service';
+import { IBaseView } from './base-view';
+import { isEqual } from 'lodash-es';
 
 
 
@@ -80,7 +82,7 @@ function canCallBeforeDelete(
 })
 export class BaseFormView<TModel>
   extends BaseComponent
-  implements OnInit, OnDestroy, AfterViewInit, AfterContentInit {
+  implements OnInit, OnDestroy, AfterViewInit, AfterContentInit, IBaseView {
   metaData: ModelMetadata;
   viewDef: ViewData;
   formType: FormType;
@@ -94,21 +96,21 @@ export class BaseFormView<TModel>
   allowDetails: boolean;
   allowDelete: boolean;
   formViewId: string | undefined;
-  isDirty: boolean = false;
   autoLoadLookupData: boolean = true;
 
   @ViewChild(BqForm) bqForm: BqForm;
 
   protected dataSvc: GenericDataService;
+  protected msgSubscription: any;
 
 
-  constructor(protected route: ActivatedRoute, protected router: Router,
+  constructor(protected routerSvc: RouterService,
     @Inject('viewOptionalData') @Optional() private optionalData:ViewOptionalData) {
     super();
 
-    this.metaData = route.snapshot.data.metaData;
-    this.viewDef = route.snapshot.data.viewDef;
-    this.formType = route.snapshot.data.formType;
+    this.metaData = routerSvc.metaData;
+    this.viewDef = routerSvc.viewDef;
+    this.formType = routerSvc.formType;
 
     const dataServiceOptions: DataServiceOptions = {
       $type: this.metaData?.typeName
@@ -125,6 +127,7 @@ export class BaseFormView<TModel>
 
     this.dataSvc = injector.get(GenericDataService);
     this.vwService = this.injector.get(ViewWrapperService);
+
 
     if (this.formType == FormType.List) {
       throw new Error('Wrong View Form Type in View Defintions');
@@ -143,6 +146,31 @@ export class BaseFormView<TModel>
     }
   }
 
+  canClose(): boolean {
+    if (this.formType === FormType.Edit || this.formType === FormType.New){
+      if (this.bqForm?.form.touched){
+        return this.discard();
+      }
+    }
+    return true;
+  }
+
+  refresh(): void {
+    if (this.formType == FormType.Details){
+      this.loadServerData();
+    }
+  }
+
+  canOpen(key: any): boolean {
+    if (key){
+      if (isEqual(this.currentId, key)){
+        return false;
+      }
+    }
+      return true;
+
+  }
+
   ngAfterContentInit(): void {
 
   }
@@ -157,16 +185,9 @@ export class BaseFormView<TModel>
   ngOnInit(): void {
     InternalLogService.logger().debug(`BaseFormView::ngOnInit`);
 
-    this.route.paramMap.pipe(
-      map(param => {
-        InternalLogService.logger().debug("params", param);
-        if (param.has('keys')){
-          return this.metaData.parseRouteParamToKeys(param.get('keys'));
-        }else{
-          return [];
-        }
-      })
-    ).subscribe(primaryKeyValues => {
+    this.routerSvc.primaryKeyValues.subscribe(primaryKeyValues => {
+
+      console.log("current key is" + primaryKeyValues);
       this.currentId = primaryKeyValues;
 
       if (this.autoLoadLookupData){
@@ -179,6 +200,36 @@ export class BaseFormView<TModel>
         this.model = this.createEmptyModel();
       }
     });
+    // this.route.paramMap.pipe(
+    //   map(param => {
+    //     InternalLogService.logger().debug("params", param);
+    //     if (param.has('keys')){
+    //       return this.metaData.parseRouteParamToKeys(param.get('keys'));
+    //     }else{
+    //       return [];
+    //     }
+    //   })
+    // ).subscribe(primaryKeyValues => {
+    //   this.currentId = primaryKeyValues;
+
+    //   if (this.autoLoadLookupData){
+    //     this.loadLookupData();
+    //   }
+
+    //   if (this.formType == FormType.Edit || this.formType == FormType.Details){
+    //     this.loadServerData();
+    //   }else{
+    //     this.model = this.createEmptyModel();
+    //   }
+    // });
+
+    //Message Bus related
+    this.msgSubscription = {
+      id: this.runTimeId,
+      callback: this.handleMessage.bind(this)
+    };
+    this.messageSvc.subscribeToChannel(this.viewDef.typeName, this.msgSubscription);
+
 
     if (canCallAfterInitComplete(this)) {
       this.onAfterInitComplete();
@@ -187,6 +238,19 @@ export class BaseFormView<TModel>
 
   ngOnDestroy(): void {
     InternalLogService.logger().debug('BaseFormView::ngOnDestroy');
+    this.messageSvc.unSubscribeToChannel(this.viewDef.typeName, this.msgSubscription.id);
+  }
+
+  handleMessage(data:any){
+    if (data.operationType == OperationType.Updated || data.operationType == OperationType.ServerUpdated){
+      if (isEqual(this.currentId, data.key)){
+        if (this.formType == FormType.Details){
+          this.refresh();
+        }else{
+          console.log("TODO: show warning data as form data has been updated elsewhere");
+        }
+      }
+    }
   }
 
   private loadServerData() {
@@ -248,9 +312,11 @@ export class BaseFormView<TModel>
             if (value.entity != null){
               this.model = value.entity;
             }
+            this.postMessage(OperationType.Added);
             this.gotoDetails();
           }else{
-            this.navigationService.back();
+            this.postMessage(OperationType.Updated);
+            this.navigationService.back(true);
           }
         },
         error: (value) => {
@@ -276,6 +342,7 @@ export class BaseFormView<TModel>
         this.dataSvc.delete(this.currentId, this.metaData).subscribe({
           next: (value)=>{
             this.showSuccess(this.i18("bq-start.messages.recordDeleted"));
+            this.postMessage(OperationType.Deleted);
             this.navigationService.back();
           },
           error: (value)=>{
@@ -290,23 +357,42 @@ export class BaseFormView<TModel>
     }
   }
 
-  discard(){
-    if (this.isDirty){
+  discard():boolean{
+    if (this.bqForm?.form.touched){
       this.dialogService.confirm(this.i18("bq-start.messages.discardConfirm"),this.i18("bq-start.messages.confirmation"), () => {
-        this.navigationService.back();
+        this.navigationService.back(true);
       });
+      return false;
     } else {
-      this.navigationService.back();
+      this.navigationService.back(true);
+      return true;
     }
   }
 
   gotoDetails() {
     if (!this.allowDetails || !this.formViewId)
       return;
+      if (this.appInitService.runningConfig.tabbedUserInterface) {
+        this.navigationService.back(true);
+      }else{
+        this.routerSvc.navigateToView(this.formViewId, "form", this.getKeyValue(), { queryParamsHandling: 'merge' });
+      }
 
-    const path = `view/${this.formViewId}/form/${this.getKeyValue()}`;
-    this.router.navigate([path], { queryParamsHandling: 'merge' });
+    // const path = `view/${this.formViewId}/form/${this.getKeyValue()}`;
+    // this.router.navigate([path], { queryParamsHandling: 'merge' });
   }
 
+  postMessage(operationType:OperationType){
+    const payload = new MessageBusPayLoad();
+    payload.operationType = operationType;
+    payload.key = this.currentId;
+    payload.typeName = this.viewDef.typeName;
+    const msg = {
+      payload: payload,
+    };
+    console.log("posting message");
+    console.log(msg);
+    this.messageSvc.postToChannel(this.viewDef.typeName, msg);
+  }
 
 }

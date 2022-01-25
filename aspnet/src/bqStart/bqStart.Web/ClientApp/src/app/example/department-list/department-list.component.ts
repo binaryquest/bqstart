@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseListView } from 'projects/bq-start-prime/src/public-api';
+import { BaseListView, RouterService } from 'projects/bq-start-prime/src/public-api';
 import { Department } from 'src/app/models/department';
 
 @Component({
@@ -10,8 +10,8 @@ import { Department } from 'src/app/models/department';
 })
 export class DepartmentListComponent extends BaseListView<Department> {
 
-  constructor(protected route: ActivatedRoute, protected router:Router) {
-    super(route, router, {});
+  constructor(protected routerSvc: RouterService) {
+    super(routerSvc, {});
   }
 
 }
