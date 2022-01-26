@@ -45,10 +45,11 @@ class Build : NukeBuild
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
-        {
-            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+        {            
+            //SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
             TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
             EnsureCleanDirectory(OutputDirectory);
+            EnsureCleanDirectory(PackagesDirectory);
         });
 
     Target Restore => _ => _
