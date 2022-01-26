@@ -47,17 +47,16 @@ class Build : NukeBuild
         .Executes(() =>
         {            
             //SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+            //TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
             SourceDirectory.GlobFiles("**/bin/**/*.nupkg").ForEach(DeleteFile);
             EnsureCleanDirectory(OutputDirectory);
             EnsureCleanDirectory(PackagesDirectory);
         });
 
     Target Restore => _ => _
+        .DependsOn(Clean)
         .Executes(() =>
-        {
-            SourceDirectory.GlobFiles("**/bin/**/*.nupkg").ForEach(DeleteFile);
-            EnsureCleanDirectory(PackagesDirectory);
+        {            
             DotNetRestore(s => s
                 .SetProjectFile(Solution));
         });
