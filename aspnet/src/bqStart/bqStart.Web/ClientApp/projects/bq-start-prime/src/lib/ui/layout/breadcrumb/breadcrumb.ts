@@ -38,13 +38,10 @@ export class Breadcrumb extends BaseComponent implements OnInit {
 
       this.routeData$.subscribe({
       next: (e) => {
-
-        console.log("route chaning");
-
-        if (e!=null && e.viewDef!=null){
+        if (e && e.viewDef){
           this.viewDef = e.viewDef;
           this.title = e.viewDef.title;
-          if (this.viewDef?.hideBreadCrumb != undefined){
+          if (this.viewDef?.hideBreadCrumb !== undefined){
             this.showSelf = !this.viewDef?.hideBreadCrumb;
           }else{
             this.showSelf = true; //by default we show it
@@ -57,7 +54,6 @@ export class Breadcrumb extends BaseComponent implements OnInit {
           this.title = "";
           this.showSelf = false;
         }
-
       },
       error: (e) => {},
       complete: () => {}
