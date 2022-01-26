@@ -44,7 +44,7 @@ export class Breadcrumb extends BaseComponent implements OnInit {
         if (e!=null && e.viewDef!=null){
           this.viewDef = e.viewDef;
           this.title = e.viewDef.title;
-          if (this.viewDef?.hideBreadCrumb != null){
+          if (this.viewDef?.hideBreadCrumb != undefined){
             this.showSelf = !this.viewDef?.hideBreadCrumb;
           }else{
             this.showSelf = true; //by default we show it

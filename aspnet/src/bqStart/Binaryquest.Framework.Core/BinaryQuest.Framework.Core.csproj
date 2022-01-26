@@ -10,11 +10,10 @@
 		<RepositoryUrl>https://github.com/binaryquest/bqstart</RepositoryUrl>
 		<PackageTags>aspnet core starter template</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<GenerateDocumentationFile>False</GenerateDocumentationFile>
 		<SignAssembly>False</SignAssembly>
-		<DelaySign>True</DelaySign>
-		<Version>1.13.6</Version>
+		<DelaySign>True</DelaySign>		
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 

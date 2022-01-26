@@ -10,8 +10,7 @@
 		<RepositoryUrl>https://github.com/binaryquest/bqstart</RepositoryUrl>
 		<PackageTags>aspnet core starter template</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-		<Version>1.13.6</Version>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>		
 		<Nullable>annotations</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>

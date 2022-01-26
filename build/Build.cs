@@ -48,6 +48,7 @@ class Build : NukeBuild
         {            
             //SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
             TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+            SourceDirectory.GlobFiles("**/bin/**/*.nupkg").ForEach(DeleteFile);
             EnsureCleanDirectory(OutputDirectory);
             EnsureCleanDirectory(PackagesDirectory);
         });
@@ -55,6 +56,8 @@ class Build : NukeBuild
     Target Restore => _ => _
         .Executes(() =>
         {
+            SourceDirectory.GlobFiles("**/bin/**/*.nupkg").ForEach(DeleteFile);
+            EnsureCleanDirectory(PackagesDirectory);
             DotNetRestore(s => s
                 .SetProjectFile(Solution));
         });
@@ -69,6 +72,7 @@ class Build : NukeBuild
                 .SetConfiguration(Configuration)
                 .SetAssemblyVersion(GitVersion.AssemblySemVer)
                 .SetFileVersion(GitVersion.AssemblySemFileVer)
+                .SetVersion(GitVersion.NuGetVersionV2)
                 .SetInformationalVersion(GitVersion.InformationalVersion)
                 .EnableNoRestore());
         });
@@ -77,24 +81,8 @@ class Build : NukeBuild
         .DependsOn(Compile)
         .Produces(PackagesDirectory / "*.nupkg")
         .Executes(() =>
-        {            
-            DotNetPack(s => s
-              .SetProject(Solution.GetProject("BinaryQuest.Framework.Core"))
-              .SetConfiguration(Configuration)
-              .SetVersion(GitVersion.NuGetVersionV2)
-              .EnableNoBuild()
-              .EnableNoRestore()              
-              .SetNoDependencies(true)
-              .SetOutputDirectory(PackagesDirectory));
-
-            DotNetPack(s => s
-              .SetProject(Solution.GetProject("BinaryQuest.Framework.Identity.UI"))
-              .SetConfiguration(Configuration)
-              .SetVersion(GitVersion.NuGetVersionV2)
-              .EnableNoBuild()
-              .EnableNoRestore()
-              .SetNoDependencies(true)
-              .SetOutputDirectory(PackagesDirectory));
+        {
+            SourceDirectory.GlobFiles("**/bin/release/*.nupkg").ForEach(x => CopyFileToDirectory(x, PackagesDirectory));            
         });
 
     Target Push => _ => _
@@ -104,9 +92,8 @@ class Build : NukeBuild
        .Requires(() => Configuration.Equals(Configuration.Release))
        .Executes(() =>
        {
-           GlobFiles(PackagesDirectory, "*.nupkg")
+           GlobFiles(PackagesDirectory, "BinaryQuest.Framework.Core.*.nupkg", "BinaryQuest.Framework.Identity.UI.*.nupkg")
                .NotEmpty()
-               .Where(x => !x.EndsWith("symbols.nupkg"))
                .ForEach(x =>
                {
                    DotNetNuGetPush(s => s

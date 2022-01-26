@@ -43,6 +43,7 @@ namespace BinaryQuest.Framework.Core.Implementation
         {
             if (!AllowSelect())
             {
+                
                 return Unauthorized();
             }
 

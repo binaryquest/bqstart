@@ -60,21 +60,7 @@ namespace bqStart.Web
             });
 
             services.AddIdentityServer()
-            .AddApiAuthorization<ApplicationUser, MainDataContext>(opt => {
-
-                //// Clients
-                //var spaClient = ClientBuilder
-                //    .IdentityServerSPA("Default")
-                //    .WithRedirectUri("https://localhost:44301/authentication/login-callback")
-                //    .WithLogoutRedirectUri("https://localhost:44301/authentication/logout-callback")
-                //    .WithScopes("openid profile bqStart.WebAPI")
-                //    .Build();
-                //spaClient.AllowedCorsOrigins = new[]
-                //{
-                //    "https://localhost:44301"
-                //};
-
-                //opt.Clients.Add(spaClient);
+            .AddApiAuthorization<ApplicationUser, MainDataContext>(opt => {                
 
                 var nativeClient = ClientBuilder
                     .NativeApp("electronapp")
@@ -90,31 +76,6 @@ namespace bqStart.Web
                 };
 
                 opt.Clients.Add(nativeClient);
-
-                //var cc = opt.Clients.AddNativeApp("electronapp", act => {
-                //});
-
-                //cc.AllowedCorsOrigins.Clear();
-                //cc.RedirectUris.Clear();
-
-                //cc.RedirectUris.Add("https://oauth.pstmn.io/v1/callback");                    
-                //cc.RedirectUris.Add("app://localhost/authentication/login-callback");
-                ////cc.RedirectUris.Add("https://localhost:44301/authentication/login-callback");
-
-                //cc.AllowedScopes.Clear();
-                //cc.AllowedScopes.Add("openid");
-                //cc.AllowedScopes.Add("profile");                    
-                //cc.AllowedScopes.Add("bqStart.WebAPI");
-
-                ////very important not to end with /                    
-                //cc.AllowedCorsOrigins.Add("app://localhost");
-                ////cc.AllowedCorsOrigins.Add("https://localhost:44301");
-                //cc.AllowOfflineAccess = true;
-
-                //opt.Clients[0].AllowedCorsOrigins.Clear();
-                //opt.Clients[0].AllowedCorsOrigins.Add("app://localhost");
-                //opt.Clients[0].AllowedCorsOrigins.Add("https://localhost:44301");
-                
             })
                 .AddProfileService<ProfileService<ApplicationUser>>();
             
@@ -201,15 +162,6 @@ namespace bqStart.Web
                     //spa.UseAngularCliServer(npmScript: "start");
                 }
             });
-        }
-
-        private CorsPolicy GenerateCorsPolicy()
-        {
-            var corsBuilder = new CorsPolicyBuilder();
-            corsBuilder.AllowAnyHeader();
-            corsBuilder.AllowAnyMethod();
-            corsBuilder.AllowAnyOrigin();// WithOrigins("app://-", "https://localhost:44301");
-            return corsBuilder.Build();
-        }
+        }        
     }
 }
