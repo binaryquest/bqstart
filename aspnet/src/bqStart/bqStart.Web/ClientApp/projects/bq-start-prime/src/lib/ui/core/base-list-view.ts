@@ -111,7 +111,7 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
 
     this.dataSvc = injector.get(GenericDataService);
 
-    console.log("form type " + this.formType);
+    //console.log("form type " + this.formType);
 
     if (this.formType == FormType.List) {
       this.tableParams = new TableParams(this.routerSvc, this.appInitService);

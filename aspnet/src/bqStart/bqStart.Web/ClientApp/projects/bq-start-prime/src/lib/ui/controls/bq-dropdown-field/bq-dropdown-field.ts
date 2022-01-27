@@ -93,7 +93,7 @@ export class BqDropdownField extends BaseField {
           }
         }else{
           if (this.itemSource!=null){
-            console.log("check drop value");
+            //console.log("check drop value");
             const propName = this.valueName !== undefined ? this.valueName : this.displayName;
             if (isArray(value)){
               var result = intersectionWith(this.itemSource, value, (arrVal, othVal) => arrVal[propName] === othVal[propName]);

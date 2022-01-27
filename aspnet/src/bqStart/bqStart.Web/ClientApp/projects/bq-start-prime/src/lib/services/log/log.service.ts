@@ -291,7 +291,7 @@ export class LogConsole extends LogPublisher {
 
   constructor(){
     super();
-    console.log("%c📜 BQ-Start Console Logger",'font-variant: small-caps;font-weight: bold; font-size: 25px;color: #4AA775; text-shadow: 1px 1px 0 rgb(217,31,38) , 3px 3px 0 rgb(226,91,14) , 6px 6px 0 rgb(245,221,8)');
+    console.log("%c📜 BQ-Start Console Logger",'font-variant: small-caps;font-weight: bold; font-size: 20px;color: #4AA775; text-shadow: 1px 1px 0 rgb(217,31,38) , 3px 3px 0 rgb(226,91,14) , 6px 6px 0 rgb(245,221,8)');
   }
 
   log(entry: LogEntry): Observable<boolean> {

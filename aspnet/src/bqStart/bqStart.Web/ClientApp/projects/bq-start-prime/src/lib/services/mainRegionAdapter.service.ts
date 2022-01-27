@@ -39,7 +39,7 @@ export class MainRegionAdapterService {
   }
 
   addToView(viewId:string, viewType:string, key:any, icon: string){
-    console.log("addToView called");
+    //console.log("addToView called");
     if (this.isAuthenticated){
       const view = this.config.views.find(x => x.viewId === viewId);
       // let path = `view/${viewId}/${viewType}/${key}`;

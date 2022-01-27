@@ -20,7 +20,7 @@ export class CompareDirective implements Validator  {
     if (this.comparer === undefined || this.comparer === null){
       return null;
     }
-    console.log(`comapre here parent: (${this.isParent})`);
+    //console.log(`comapre here parent: (${this.isParent})`);
     const e = c.root.get(this.comparer);
 
     if (e && nz(c.value) !== nz(e.value) && !this.isParent) {
@@ -29,7 +29,7 @@ export class CompareDirective implements Validator  {
 
     if (e && nz(c.value) === nz(e.value)  && this.isParent) {
       setTimeout(() => {
-        console.log('clear error');
+        //console.log('clear error');
         if (e.errors!=null){
           delete e.errors['compare'];
         }
@@ -49,7 +49,7 @@ export class CompareDirective implements Validator  {
         e.setErrors({ compare: true })
       }, 100);
     }
-    console.log('return null');
+    //console.log('return null');
     return null;
   }
 

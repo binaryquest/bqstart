@@ -25,8 +25,6 @@ export class RouterService {
 
   constructor(protected route: ActivatedRoute, protected router: Router, protected regionSvc:MainRegionAdapterService, @Optional() protected routeData?: RouteData) {
 
-    console.log("router service init");
-
     if (routeData === undefined){
       this.metaData = route.snapshot.data.metaData;
       this.viewDef = route.snapshot.data.viewDef;
@@ -45,18 +43,18 @@ export class RouterService {
         this.primaryKeyValues.next(primaryKeyValues);
       });
     } else if (routeData !== undefined){
-      console.log(routeData);
+      //console.log(routeData);
       this.metaData = routeData!.metaData;
       this.viewDef = routeData!.viewDef;
       this.formType = routeData!.formType;
       this.isModal = routeData!.isModel;
       if (routeData?.key){
-        console.log("next key is " + routeData?.key);
+        //console.log("next key is " + routeData?.key);
         this.primaryKeyValues.next(routeData.key);
       }
       this.queryParams.next(this.internalParams);
     }else{
-      console.log("route data is null");
+      //console.log("route data is null");
     }
 
   }

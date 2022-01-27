@@ -51,6 +51,7 @@ export declare interface IEditFormViewEvents{
     */
   onBeforeDelete(): boolean;
 }
+
 /**
  * Type Guard Functions for casting Interface Implementation Check runtime if
  * inherited classes has the events functions that can be called runtime
@@ -77,6 +78,19 @@ function canCallBeforeDelete(
   return (arg as IEditFormViewEvents).onBeforeDelete !== undefined;
 }
 
+/**
+ * This is the base class to implement a form view
+ *
+ * @export
+ * @class BaseFormView
+ * @extends {BaseComponent}
+ * @implements {OnInit}
+ * @implements {OnDestroy}
+ * @implements {AfterViewInit}
+ * @implements {AfterContentInit}
+ * @implements {IBaseView}
+ * @template TModel
+ */
 @Component({
   template: '',
 })
@@ -146,6 +160,12 @@ export class BaseFormView<TModel>
     }
   }
 
+  /**
+   * Controls if a form can be closed in MDI view
+   *
+   * @return {*}  {boolean}
+   * @memberof BaseFormView
+   */
   canClose(): boolean {
     if (this.formType === FormType.Edit || this.formType === FormType.New){
       if (this.bqForm?.form.touched){
@@ -155,12 +175,24 @@ export class BaseFormView<TModel>
     return true;
   }
 
+  /**
+   * Refresh the form data
+   *
+   * @memberof BaseFormView
+   */
   refresh(): void {
     if (this.formType == FormType.Details){
       this.loadServerData();
     }
   }
 
+  /**
+   * Controls whether a new instance of this form can be open in MDI view
+   *
+   * @param {*} key
+   * @return {*}  {boolean}
+   * @memberof BaseFormView
+   */
   canOpen(key: any): boolean {
     if (key){
       if (isEqual(this.currentId, key)){
@@ -187,7 +219,6 @@ export class BaseFormView<TModel>
 
     this.routerSvc.primaryKeyValues.subscribe(primaryKeyValues => {
 
-      console.log("current key is" + primaryKeyValues);
       this.currentId = primaryKeyValues;
 
       if (this.autoLoadLookupData){
@@ -200,28 +231,6 @@ export class BaseFormView<TModel>
         this.model = this.createEmptyModel();
       }
     });
-    // this.route.paramMap.pipe(
-    //   map(param => {
-    //     InternalLogService.logger().debug("params", param);
-    //     if (param.has('keys')){
-    //       return this.metaData.parseRouteParamToKeys(param.get('keys'));
-    //     }else{
-    //       return [];
-    //     }
-    //   })
-    // ).subscribe(primaryKeyValues => {
-    //   this.currentId = primaryKeyValues;
-
-    //   if (this.autoLoadLookupData){
-    //     this.loadLookupData();
-    //   }
-
-    //   if (this.formType == FormType.Edit || this.formType == FormType.Details){
-    //     this.loadServerData();
-    //   }else{
-    //     this.model = this.createEmptyModel();
-    //   }
-    // });
 
     //Message Bus related
     this.msgSubscription = {
@@ -241,7 +250,7 @@ export class BaseFormView<TModel>
     this.messageSvc.unSubscribeToChannel(this.viewDef.typeName, this.msgSubscription.id);
   }
 
-  handleMessage(data:any){
+  private handleMessage(data:any){
     if (data.operationType == OperationType.Updated || data.operationType == OperationType.ServerUpdated){
       if (isEqual(this.currentId, data.key)){
         if (this.formType == FormType.Details){
@@ -281,10 +290,23 @@ export class BaseFormView<TModel>
       error: this.errHandler.bind(this)
     });
   }
+
+  /**
+   * Get a new Empty Model for NEW form mode
+   *
+   * @return {*}  {TModel}
+   * @memberof BaseFormView
+   */
   createEmptyModel():TModel{
     return <TModel>{};
   }
 
+  /**
+   * Get the primary key of this entity
+   *
+   * @return {*}
+   * @memberof BaseFormView
+   */
   getKeyValue() {
     //console.log("get key value");
     if (this.model) {
@@ -294,6 +316,12 @@ export class BaseFormView<TModel>
     }
   }
 
+  /**
+   * Save the current record
+   *
+   * @return {*}
+   * @memberof BaseFormView
+   */
   save(){
     if (!this.bqForm.isValid)
       return;
@@ -331,6 +359,11 @@ export class BaseFormView<TModel>
     }
   }
 
+  /**
+   * Delete the current Record
+   *
+   * @memberof BaseFormView
+   */
   delete(){
     let canContinue: boolean = true;
     if (canCallBeforeDelete(this)){
@@ -357,6 +390,12 @@ export class BaseFormView<TModel>
     }
   }
 
+  /**
+   * Undo or Discard the changes
+   *
+   * @return {*}  {boolean}
+   * @memberof BaseFormView
+   */
   discard():boolean{
     if (this.bqForm?.form.touched){
       this.dialogService.confirm(this.i18("bq-start.messages.discardConfirm"),this.i18("bq-start.messages.confirmation"), () => {
@@ -369,20 +408,23 @@ export class BaseFormView<TModel>
     }
   }
 
+  /**
+   * Go to the details view for this record
+   *
+   * @return {*}
+   * @memberof BaseFormView
+   */
   gotoDetails() {
     if (!this.allowDetails || !this.formViewId)
       return;
-      if (this.appInitService.runningConfig.tabbedUserInterface) {
-        this.navigationService.back(true);
-      }else{
-        this.routerSvc.navigateToView(this.formViewId, "form", this.getKeyValue(), { queryParamsHandling: 'merge' });
-      }
-
-    // const path = `view/${this.formViewId}/form/${this.getKeyValue()}`;
-    // this.router.navigate([path], { queryParamsHandling: 'merge' });
+    if (this.appInitService.runningConfig.tabbedUserInterface) {
+      this.navigationService.back(true);
+    }else{
+      this.routerSvc.navigateToView(this.formViewId, "form", this.getKeyValue(), { queryParamsHandling: 'merge' });
+    }
   }
 
-  postMessage(operationType:OperationType){
+  private postMessage(operationType:OperationType){
     const payload = new MessageBusPayLoad();
     payload.operationType = operationType;
     payload.key = this.currentId;
@@ -390,8 +432,8 @@ export class BaseFormView<TModel>
     const msg = {
       payload: payload,
     };
-    console.log("posting message");
-    console.log(msg);
+    //console.log("posting message");
+    //console.log(msg);
     this.messageSvc.postToChannel(this.viewDef.typeName, msg);
   }
 

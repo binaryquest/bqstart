@@ -168,7 +168,7 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
   apply() {
     const validFilterClauses: FilterByClause[] = this.customFilters.filter(f => f.IsValid());
     if (validFilterClauses.length > 0) {
-      console.log("set filter");
+      //console.log("set filter");
       this.tableParams.addFilters(validFilterClauses);
       this.showMenu = false;
     } else {
@@ -177,7 +177,7 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
   }
 
   removeConditon(index: number) {
-    console.log("remove here " + index);
+    //console.log("remove here " + index);
     if (this.customFilters.length > index) {
       this.customFilters.splice(index, 1);
     }

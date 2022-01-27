@@ -91,7 +91,7 @@ export class BaseComponent {
   }
 
   errHandler(error:any) {
-    console.log("errHandler");
+    //console.log("errHandler");
     setTimeout(() => this.isLoading = false, 100);
     let msg = "";
     if (error) {
