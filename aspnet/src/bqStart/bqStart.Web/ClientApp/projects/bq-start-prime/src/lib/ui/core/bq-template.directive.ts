@@ -12,7 +12,7 @@ export class BQTemplate {
   @Input('bqTemplate') name: string;
 
   constructor(public template: TemplateRef<any>) {
-    console.log("ctor bqtemplate");
+    //console.log("ctor bqtemplate");
   }
 
   getType(): string {

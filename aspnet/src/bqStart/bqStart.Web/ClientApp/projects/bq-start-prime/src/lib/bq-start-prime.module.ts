@@ -274,11 +274,11 @@ export function initializeApp(appInitService: AppInitService) {
 })
 export class BQStartPrimeModule {
 
-  constructor(injector: Injector) { AppInjector.setInjector(injector); }
+  constructor(injector: Injector) {
+    AppInjector.setInjector(injector);
+  }
 
   static forRoot(config: BQConfigData): ModuleWithProviders<BQStartPrimeModule> {
-
-    console.log("BQStartPrimeModule forRoot");
 
     return {
       ngModule: BQStartPrimeModule,

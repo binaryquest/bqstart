@@ -53,17 +53,6 @@ export class AuthorizeService {
 
   constructor(private injector: Injector){
     this.config = this.injector.get(BQConfigService);
-    Log.level = Log.DEBUG;
-    // Log.logger = {
-    //   error: this.log.bind(this),
-    //   info: this.log.bind(this),
-    //   debug: this.log.bind(this),
-    //   warn: this.log.bind(this),
-    // };
-  }
-
-  private log(msg:any, ...args:any){
-    console.log(msg, args);
   }
 
   public isAuthenticated(): Observable<boolean> {

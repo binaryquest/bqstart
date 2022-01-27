@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "publish": "ng build bq-start-prime"
+    "publish": "ng build bq-start-prime",
+    "doc": "npx compodoc -p projects\\bq-start-prime\\tsconfig.doc.json --name \"BQ Start Prime Angular Documents\" --hideGenerator --disableSourceCode --disableTemplateTab --disableCoverage --disablePrivate"
   },
   "private": true,
   "dependencies": {

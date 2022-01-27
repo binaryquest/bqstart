@@ -103,7 +103,7 @@ export class BqTextField extends BaseField {
     if (this.showTime){
       this.localePipeFormat = 'short';
     }
-    console.log("localformat %s", this.localeFormat);
+    //console.log("localformat %s", this.localeFormat);
 
     if (this.editMode===true && this.readonly===false){
       if (this.optionalEditTemplate !== undefined && this.optionalEditTemplate != null){

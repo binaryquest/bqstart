@@ -19,7 +19,6 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
   private componentType: any;
   private injector: Injector;
   constructor(protected route: ActivatedRoute, protected router: Router, protected regionSvc:MainRegionAdapterService) {
-    console.log("DynamicLoaderComponent.init");
     this.componentType = route.snapshot.data.componentType;
     this.injector = AppInjector.getInjector();
   }
@@ -33,7 +32,6 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
 
   loadComponent() {
 
-    console.log("DynamicLoaderComponent.loadC");
     const routerSvc: RouterService = new RouterService(this.route, this.router, this.regionSvc);
 
     const injector =
@@ -66,7 +64,6 @@ export class DynamicMDILoaderComponent implements AfterContentInit, OnDestroy {
 
   private injector: Injector;
   constructor(protected route: ActivatedRoute, protected router: Router, protected regionSvc:MainRegionAdapterService) {
-    console.log("DynamicLoaderComponent.init");
     this.injector = AppInjector.getInjector();
   }
 
@@ -79,7 +76,6 @@ export class DynamicMDILoaderComponent implements AfterContentInit, OnDestroy {
 
   loadComponent() {
 
-    console.log("DynamicMDILoaderComponent.loadC");
     this.component = this.viewRunningData.viewDef.component;
     const routerSvc: RouterService = new RouterService(this.route, this.router, this.regionSvc, this.viewRunningData.routeData);
 
