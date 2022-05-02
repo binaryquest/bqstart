@@ -44,8 +44,10 @@ namespace BinaryQuest.Framework.Core.Implementation
             
             Builder.UseAuthentication();
             Builder.UseIdentityServer();
-            Builder.UseAuthorization();
+            Builder.UseAuthorization();            
             
+            
+
             Builder.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
