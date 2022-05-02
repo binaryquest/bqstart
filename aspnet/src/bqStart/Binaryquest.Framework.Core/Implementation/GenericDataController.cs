@@ -154,7 +154,7 @@ namespace BinaryQuest.Framework.Core.Implementation
                 if (entity is ILoggingEntity log)
                 {
                     log.ModifiedOn = DateTime.UtcNow;
-                    log.ModifiedBy = this.User?.Identity?.Name;
+                    log.ModifiedBy = this.CurrentUser?.UserId;
                 }
 
                 OnBeforeEdit(entity);

@@ -20,6 +20,7 @@ using BinaryQuest.Framework.Identity;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Duende.IdentityServer.Services;
+using Duende.IdentityServer.Models;
 
 namespace bqStart.Web
 {
@@ -76,6 +77,22 @@ namespace bqStart.Web
                 };
 
                 opt.Clients.Add(nativeClient);
+
+                var apiClient = new Client
+                {
+                    ClientId = "cmsclient",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    // secret for authentication
+                    ClientSecrets =
+                        {
+                            new Secret("secret".Sha256())
+                        },
+
+                    // scopes that client has access to
+                    AllowedScopes = { "bqStart.WebAPI" }
+                };
+
+                opt.Clients.Add(apiClient);
             })
                 .AddProfileService<ProfileService<ApplicationUser>>();
             
