@@ -34,6 +34,7 @@ namespace BinaryQuest.Framework.Core.Extensions
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(json =>
                 {
+                    json.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
                     json.SerializerSettings.MaxDepth = 32;
                     //json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
@@ -47,7 +48,7 @@ namespace BinaryQuest.Framework.Core.Extensions
                 //})
                 .AddOData(oData =>
                 {
-                    
+                    oData.TimeZone = TimeZoneInfo.Utc;
                     oData.AddRouteComponents("odata", opt.GetEdmModel<TDb>(services, appSvc));
                     oData.EnableAttributeRouting = true;
                     oData.OrderBy().Filter().Select().Expand().Count().SetMaxTop(null);
