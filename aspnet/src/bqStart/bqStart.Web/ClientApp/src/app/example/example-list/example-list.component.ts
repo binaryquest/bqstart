@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseListView, ViewOptionalData, RouterService } from 'projects/bq-start-prime/src/public-api';
-import { ExampleClass } from 'src/app/models/exampleClass';
+import { BaseListView, ViewOptionalData, RouterService, PREDICATE_EQUALS, PredefinedFilter, IBaseListViewEvents } from 'projects/bq-start-prime/src/public-api';
+import { ExampleClass, ExampleClassType } from 'src/app/models/exampleClass';
 
 const OPTIONAL_DATA:ViewOptionalData = {
   $expandClause: "Department"
@@ -12,10 +12,21 @@ const OPTIONAL_DATA:ViewOptionalData = {
   templateUrl: './example-list.component.html',
   styleUrls: ['./example-list.component.scss']
 })
-export class ExampleListComponent  extends BaseListView<ExampleClass> {
+export class ExampleListComponent  extends BaseListView<ExampleClass> implements IBaseListViewEvents {
 
   constructor(protected routerSvc: RouterService) {
     super(routerSvc, OPTIONAL_DATA);
+
+    this.predefinedFilters = [
+      new PredefinedFilter({field: this.metaData.fields.ClassType, filterName: 'Regular Class', predicate: PREDICATE_EQUALS.key, value: "RegularClass"}),
+      new PredefinedFilter({field: this.metaData.fields.ClassType, filterName: 'Prospective Class', predicate: PREDICATE_EQUALS.key, value: "NewClass"}),
+    ];
+  }
+  onAfterInitComplete(): void {
+
+  }
+  onAfterServerDataReceived(): void {
+
   }
 
 }

@@ -6,7 +6,8 @@
           [loading]='isLoading'
           [showGrid]='true'
           [showStripedGrid]='true'
-          [showAddButton]="showAddButton">
+          [showAddButton]="showAddButton"
+          [predefinedFilters]='predefinedFilters'>
 
   <bq-table-column [field]='metaData.fields.ClassName'></bq-table-column>
   <bq-table-column [field]='metaData.fields.DepartmentId' [cellTemplate]="cellTemplate">
@@ -15,9 +16,11 @@
     </ng-template>
   </bq-table-column>
   <bq-table-column [field]='metaData.fields.ClassDate'></bq-table-column>
+  <bq-table-column [field]='metaData.fields.ClassType'></bq-table-column>
 
   <bq-table-filter [field]='metaData.fields.ClassName' [defaultSearchField]="true"></bq-table-filter>
   <bq-table-filter [field]='metaData.fields.DepartmentId'></bq-table-filter>
   <bq-table-filter [field]='metaData.fields.ClassDate' [showTime]="true"></bq-table-filter>
+  <bq-table-filter [field]='metaData.fields.ClassType'></bq-table-filter>
 </bq-table>
 

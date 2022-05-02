@@ -24,5 +24,13 @@ namespace bqStart.Data
         public virtual Department? Department { get; set; }
 
         public bool IsActive { get; set; }
+
+        public ExampleClassType ClassType { get; set; }
+    }
+
+    public enum ExampleClassType
+    {
+        RegularClass = 0,
+        NewClass = 1
     }
 }
