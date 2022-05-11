@@ -38,6 +38,9 @@
     [(model)]="model.IsActive"
   ></bq-text-field>
 
+  <bq-dropdown-field [field]="metaData.fields.ClassType" [(model)]="model.ClassType" [showAsEnum]="true">
+  </bq-dropdown-field>
+
   </bq-form-block>
 </div>
 </bq-form>

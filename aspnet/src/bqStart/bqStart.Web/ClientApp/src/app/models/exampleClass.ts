@@ -7,4 +7,10 @@ export class ExampleClass extends BaseEntity<number>{
     IsActive: boolean;
     Department: Department | undefined;
     ClassDate: Date | null;
+    ClassType: ExampleClassType;
+}
+
+export enum ExampleClassType{
+  RegularClass = 0,
+  NewClass = 1
 }
