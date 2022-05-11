@@ -227,36 +227,47 @@ namespace BinaryQuest.Framework.Core.Model
 
         private void ParseMetaData<TDb>(IServiceCollection services, ApplicationService appSvc) where TDb : DbContext
         {
-            Dictionary<Type, IEntityType> efStructuralTypes = new();            
-            var defContext = services.BuildServiceProvider().GetService<TDb>();
+            var lastType = "";
 
-            if (defContext == null)
-                throw new Exception("Database Context not found");
-
-            var edmxEntityTypes = defContext.Model.GetEntityTypes();
-            foreach (var entType in edmxEntityTypes)
+            try
             {
-                efStructuralTypes.Add(entType.ClrType, entType);
-            }
+                Dictionary<Type, IEntityType> efStructuralTypes = new();
+                var defContext = services.BuildServiceProvider().GetService<TDb>();
 
+                if (defContext == null)
+                    throw new Exception("Database Context not found");
 
-            Dictionary<Type, Type> dbSets = new();
-            var dbTypes = typeof(TDb).GetProperties();
-            foreach (var dbType in dbTypes)
-            {
-                var pType = dbType.PropertyType;
-                var isDbSet = pType.IsGenericType && (typeof(DbSet<>).IsAssignableFrom(pType.GetGenericTypeDefinition()));
-                if (isDbSet)
+                var edmxEntityTypes = defContext.Model.GetEntityTypes();
+                foreach (var entType in edmxEntityTypes)
                 {
-                    var entityType = pType.GetGenericArguments()[0];
-                    dbSets.Add(entityType, entityType);
+                    lastType = entType.ClrType.FullName;
+                    efStructuralTypes.TryAdd(entType.ClrType, entType);
+                }
+
+
+                Dictionary<Type, Type> dbSets = new();
+                var dbTypes = typeof(TDb).GetProperties();
+                foreach (var dbType in dbTypes)
+                {
+                    var pType = dbType.PropertyType;
+                    var isDbSet = pType.IsGenericType && (typeof(DbSet<>).IsAssignableFrom(pType.GetGenericTypeDefinition()));
+                    if (isDbSet)
+                    {
+                        var entityType = pType.GetGenericArguments()[0];
+                        dbSets.Add(entityType, entityType);
+                    }
+                }
+
+                foreach (var typeToReflect in registeredControllers.Keys)
+                {
+                    ParseType(appSvc, efStructuralTypes, dbSets, typeToReflect);
                 }
             }
-
-            foreach (var typeToReflect in registeredControllers.Keys)
-            {
-                ParseType(appSvc, efStructuralTypes, dbSets, typeToReflect);
+            catch (Exception ex)
+            {                
+                throw new Exception($"Duplicate Type Detected {lastType}", ex);
             }
+            
         }
 
         private void ParseType(ApplicationService appSvc, Dictionary<Type, IEntityType> efStructuralTypes, Dictionary<Type, Type> dbSets, Type typeToReflect)
