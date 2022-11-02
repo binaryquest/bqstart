@@ -99,8 +99,13 @@ export class BqDropdownField extends BaseField {
               var result = intersectionWith(this.itemSource, value, (arrVal, othVal) => arrVal[propName] === othVal[propName]);
               return result.map(m => m[propName]).join(", ");
             }else{
-              const dp = this.itemSource.filter((v) => v[propName] === value);
-              return dp.length>0 ? dp[0][this.displayName] : "";
+              if (this.displayName !== undefined){
+                const dp = this.itemSource.filter((v) => v[propName] === value);
+                return dp.length>0 ? dp[0][this.displayName] : "";
+              }else{
+                const dp = this.itemSource.filter((v) => v[propName] === value);
+                return dp.length>0 ? dp[0] : value;
+              }
             }
           }
         }
