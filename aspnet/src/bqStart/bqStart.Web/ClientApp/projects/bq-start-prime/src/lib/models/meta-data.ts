@@ -1,7 +1,7 @@
 
 import validator from 'validator';
-import moment from 'moment';
-import { BaseEntity } from './base-model';
+import { DateTime } from 'luxon';
+
 
 export interface Dictionary<T> {
   [Key: string]: T;
@@ -61,7 +61,7 @@ export class TypeSystem {
         ret = `${value}`;
         break;
       case 'DateTime':
-        ret = moment(value).locale("en").toJSON();
+        ret = DateTime.fromISO(value).setLocale('en').toJSON();
         break;
       case 'String':
         ret = "'" + value.replace(/\'/g, '%27').replace(/\+/g, '%2B').replace(/\//g, '%2F').replace(/\?/g, '%3F').replace(/%/g, '%25').replace(/#/g, '%23').replace(/&/g, '%26') + "'";
@@ -280,9 +280,8 @@ export class MetadataField {
           return true;
         break;
       case 'DateTime':
-        const mom = moment(data, moment.localeData().longDateFormat('L'));
-        if (mom.isValid())
-          return true;
+        const mom = DateTime.fromISO(data);
+          return mom.isValid;
         break;
       case 'String':
         return true;

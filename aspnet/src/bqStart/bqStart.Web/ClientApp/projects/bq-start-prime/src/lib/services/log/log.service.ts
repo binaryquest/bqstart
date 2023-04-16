@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { AppInjector } from '../app-injector.service';
-import { format } from 'date-fns'
+import { DateTime } from 'luxon';
 
 const PUBLISHERS_FILE = "/assets/log-publishers.json";
 
@@ -47,7 +47,7 @@ export class LogEntry {
     let value:string = "";
 
     if (this.logWithDate) {
-      value = "[" +  format(new Date(), "hh:mm:ss") + "] - ";
+      value = "[" +  DateTime.now().toLocaleString(DateTime.TIME_SIMPLE) + "] - ";
     }
     value += "[" + LogLevel[this.level] + "]";
     value += " - " + this.message;
@@ -63,7 +63,7 @@ export class LogEntry {
     let value:string = "";
 
     if (this.logWithDate) {
-      value = "[" + format(new Date(), "hh:mm:ss") + "] - ";
+      value = "[" + DateTime.now().toLocaleString(DateTime.TIME_SIMPLE) + "] - ";
     }
     value += "[" + LogLevel[this.level] + "]";
     value += " - " + this.message;

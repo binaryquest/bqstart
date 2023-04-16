@@ -12,7 +12,6 @@
     "primeflex",
     "primeng",
     "primeicons",
-    "moment",
     "oidc-client",
     "@ngx-translate/core",
     "@ngx-translate/http-loader",
@@ -20,6 +19,6 @@
     "lodash-es",
     "@ng-select/ng-select",
     "uuid",
-    "date-fns"
+    "luxon"
   ]
 }
