@@ -25,9 +25,11 @@ import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.se
 <bq-top-menu-bar></bq-top-menu-bar>
 <div class="layout-content-inactive mdi-layout flex flex-column">
     <div class="flex-grow-1 flex flex-column" style="overflow-y: scroll;height:83vh;padding: 3px;">
+    <bq-mdi>
       <view-wrapper>
         <ng-content></ng-content>
       </view-wrapper>
+</bq-mdi>
     </div>
     <bq-footer-bar *ngIf="isAuthenticated" class="flex-shrink flex align-items-stretch"></bq-footer-bar>
 </div>
