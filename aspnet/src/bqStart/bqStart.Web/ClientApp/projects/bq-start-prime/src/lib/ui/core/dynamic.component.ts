@@ -19,7 +19,7 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
   private componentType: any;
   private injector: Injector;
   constructor(protected route: ActivatedRoute, protected router: Router, protected regionSvc:MainRegionAdapterService) {
-    this.componentType = route.snapshot.data.componentType;
+    this.componentType = route.snapshot.data['componentType'];
     this.injector = AppInjector.getInjector();
   }
 

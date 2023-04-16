@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { AppInjector } from '../app-injector.service';
-import moment from 'moment';
-
+import { DateTime } from 'luxon';
 
 const PUBLISHERS_FILE = "/assets/log-publishers.json";
 
@@ -48,7 +47,7 @@ export class LogEntry {
     let value:string = "";
 
     if (this.logWithDate) {
-      value = "[" +  moment().format("hh:mm:ss") + "] - ";
+      value = "[" +  DateTime.now().toLocaleString(DateTime.TIME_SIMPLE) + "] - ";
     }
     value += "[" + LogLevel[this.level] + "]";
     value += " - " + this.message;
@@ -64,7 +63,7 @@ export class LogEntry {
     let value:string = "";
 
     if (this.logWithDate) {
-      value = "[" +  moment().format("hh:mm:ss") + "] - ";
+      value = "[" + DateTime.now().toLocaleString(DateTime.TIME_SIMPLE) + "] - ";
     }
     value += "[" + LogLevel[this.level] + "]";
     value += " - " + this.message;
@@ -219,11 +218,11 @@ let _singleton: InternalLogService | null = null;
 @Injectable()
 export class InternalLogService extends LogService {
 
-  constructor(protected publishersService: LogPublishersService){
+  constructor(protected override publishersService: LogPublishersService){
     super(publishersService);
   }
 
-  protected writeToLog(msg: string, level: LogLevel, params: any[]) {
+  protected override writeToLog(msg: string, level: LogLevel, params: any[]) {
     if (this.shouldLog(level)) {
       // Declare variables
       let entry: LogEntry = new LogEntry();

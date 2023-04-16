@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable, InjectionToken, OnDestroy, Optional } from "@angular/core";
 import { Observable } from "rxjs";
 import { FilterByClause, TableParams } from "../models/table-data";
-import moment from 'moment';
 import { ODataResponse } from "../models/odata-response";
 import { map } from "rxjs/operators";
 import { InternalLogService } from "./log/log.service";

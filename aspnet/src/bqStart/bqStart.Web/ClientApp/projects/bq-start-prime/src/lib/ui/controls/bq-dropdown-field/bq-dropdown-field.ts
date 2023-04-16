@@ -7,14 +7,13 @@ import {
   TemplateRef,
   ViewChild,
 } from '@angular/core';
-import { isArray } from 'lodash';
 import { map, Observable, of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { EnumItem } from '../../../models/meta-data';
 import { BaseField } from '../../core/base-field';
 import { FormBlock } from '../form-block/form-block';
 import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';
-import { intersectionWith } from 'lodash-es';
+import { intersectionWith, isArray } from 'lodash-es';
 
 @Component({
   selector: 'bq-dropdown-field',
@@ -53,8 +52,8 @@ export class BqDropdownField extends BaseField {
   displayModel$:Observable<any>|null = null;
 
   constructor(
-    protected vwSvc: ViewWrapperService,
-    @Optional() @Host() protected formBlock?: FormBlock
+    protected override vwSvc: ViewWrapperService,
+    @Optional() @Host() protected override formBlock?: FormBlock
   ) {
     super(vwSvc, formBlock);
   }

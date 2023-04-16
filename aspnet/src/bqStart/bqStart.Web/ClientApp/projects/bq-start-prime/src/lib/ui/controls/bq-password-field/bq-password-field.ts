@@ -38,7 +38,7 @@ export class BqPasswordField extends BaseField {
   @Input()
   compareToMsg: any;
 
-  constructor(protected vwSvc: ViewWrapperService, @Optional() @Host() protected formBlock?: FormBlock) {
+  constructor(protected override vwSvc: ViewWrapperService, @Optional() @Host() protected override formBlock?: FormBlock) {
     super(vwSvc, formBlock);
     //this.localeFormat = moment.localeData().longDateFormat('L').toLowerCase().replace('yyyy', 'yy');
   }

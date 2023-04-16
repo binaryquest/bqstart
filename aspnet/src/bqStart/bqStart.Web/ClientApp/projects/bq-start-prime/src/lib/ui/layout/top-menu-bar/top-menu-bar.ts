@@ -46,7 +46,7 @@ export class TopMenuBar extends BaseMenu {
   menuTarget: string = '_self';
   profileUrl: string = '/Identity/Account/Manage';
 
-  constructor(protected router: Router, protected regionSvc: MainRegionAdapterService) {
+  constructor(protected override router: Router, protected override regionSvc: MainRegionAdapterService) {
     super(router, regionSvc);
 
     this.authorizeService.isAuthenticated().subscribe(x => this.authenticationChanged(x));
@@ -79,7 +79,7 @@ export class TopMenuBar extends BaseMenu {
       command: (e)=>{
         const menu: MenuItem = e.item;
         if (menu.items === undefined){
-          this.handleMenuClick(menu.state, menu.state!.routerLink, menu.state!.queryParams);
+          this.handleMenuClick(menu.state, menu.state!['routerLink'], menu.state!['queryParams']);
         }
       }
     };

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
 import { FilterByClause } from '../../../models/table-data';
 import { TableFilter } from './bq-table-filter';
-import moment from 'moment';
 import { Predicate, PREDICATE_ISNOTNULL, PREDICATE_ISNULL } from '../../../models/meta-data';
 import { InternalLogService } from '../../../services/log/log.service';
+import { DateTime } from 'luxon';
 
 
 @Component({
@@ -48,7 +48,7 @@ export class CustomFilter implements OnInit {
   localeFormat: string;
 
   constructor() {
-    this.localeFormat = moment.localeData().longDateFormat('L').toLowerCase().replace('yyyy', 'yy');
+    this.localeFormat = "dd-mm-yy"//moment.localeData().longDateFormat('L').toLowerCase().replace('yyyy', 'yy');
   }
 
   ngOnInit(): void {
@@ -99,10 +99,10 @@ export class CustomFilter implements OnInit {
 
     if (this.selectedFilter.field.dataType == "DateTime") {
       if (!this.selectedFilter.showTime) {
-        this.filterCluase.Value = moment(newVal).startOf("date").toDate();
-        this.filterCluase.DisplayValue = moment(newVal).startOf("date").format("L");
+        this.filterCluase.Value = DateTime.fromISO(newVal).startOf('day').toJSDate();
+        this.filterCluase.DisplayValue = DateTime.fromISO(newVal).startOf('day').toLocaleString(DateTime.DATETIME_MED);
       }else{
-        this.filterCluase.DisplayValue = moment(newVal).format("LLL");
+        this.filterCluase.DisplayValue = DateTime.fromISO(newVal).startOf('day').toLocaleString(DateTime.DATE_MED);
       }
     }
   }
@@ -114,10 +114,10 @@ export class CustomFilter implements OnInit {
 
     if (this.selectedFilter.field.dataType == "DateTime") {
       if (!this.selectedFilter.showTime) {
-        this.filterCluase.ToValue = moment(newVal).startOf("date").toDate();
-        this.filterCluase.ToDisplayValue = moment(newVal).startOf("date").format("L");
+        this.filterCluase.ToValue = DateTime.fromISO(newVal).startOf('day').toJSDate();
+        this.filterCluase.ToDisplayValue = DateTime.fromISO(newVal).startOf('day').toLocaleString(DateTime.DATETIME_MED);
       }else{
-        this.filterCluase.ToDisplayValue = moment(newVal).startOf("date").format("LLL");
+        this.filterCluase.ToDisplayValue = DateTime.fromISO(newVal).startOf('day').toLocaleString(DateTime.DATE_MED);
       }
     }
   }

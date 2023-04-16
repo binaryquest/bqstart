@@ -18,7 +18,8 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { RoleList, RoleForm } from './adminUI/roles/roles';
 import { UserList, UserForm } from './adminUI/users/users';
 
-import { BQStartPrimeModule, AuthorizeGuard, AuthorizeInterceptor, LocaleProvider, LocaleService } from 'projects/bq-start-prime/bq-start-module';
+//import { BQStartPrimeModule, AuthorizeGuard, AuthorizeInterceptor, LocaleProvider, LocaleService } from 'projects/bq-start-prime/bq-start-module';
+import { BQStartPrimeModule, AuthorizeGuard, AuthorizeInterceptor, LocaleProvider, LocaleService } from 'projects/bq-start-prime/src/public-api';
 import { APP_CONFIG } from './app.config';
 
 //language locals

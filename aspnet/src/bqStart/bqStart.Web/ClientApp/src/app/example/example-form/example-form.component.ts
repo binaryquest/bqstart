@@ -15,7 +15,7 @@ const OPTIONAL_DATA:ViewOptionalData = {
 })
 export class ExampleFormComponent extends BaseFormView<ExampleClass> implements IBaseFormViewEvents {
 
-  constructor(protected routerSvc: RouterService) {
+  constructor(protected override routerSvc: RouterService) {
     super(routerSvc, OPTIONAL_DATA);
   }
 
