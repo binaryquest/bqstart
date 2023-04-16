@@ -26,9 +26,9 @@ export class RouterService {
   constructor(protected route: ActivatedRoute, protected router: Router, protected regionSvc:MainRegionAdapterService, @Optional() protected routeData?: RouteData) {
 
     if (routeData === undefined){
-      this.metaData = route.snapshot.data.metaData;
-      this.viewDef = route.snapshot.data.viewDef;
-      this.formType = route.snapshot.data.formType;
+      this.metaData = route.snapshot.data['metaData'];
+      this.viewDef = route.snapshot.data['viewDef'];
+      this.formType = route.snapshot.data['formType'];
       this.isModal = false;
       this.route.queryParams.subscribe(params => {
         this.queryParams.next(params);

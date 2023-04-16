@@ -1,6 +1,6 @@
 {
   "name": "bq-start-prime",
-  "version": "1.16.5",
+  "version": "2.15.2",
   "homepage": "https://github.com/binaryquest/bqstart",
   "keywords": [
     "bqStart",
@@ -19,33 +19,35 @@
   "module": "bq-start-prime.js",
   "typings": "bq-start-prime.d.ts",
   "peerDependencies": {
-    "@angular/animations": "~13.1.0",
-    "@angular/cdk": "~13.1.0",
-    "@angular/common": "~13.1.0",
-    "@angular/core": "~13.1.0",
-    "@angular/forms": "^13.1.0",
-    "@angular/material": "^13.1.0",
-    "@angular/platform-browser": "^13.1.0",
-    "rxjs": "~7.4.0",
-    "zone.js": "~0.11.4"
+    "@angular/animations": "^15.2.7",
+    "@angular/cdk": "^15.2.7",
+    "@angular/common": "^15.2.0",
+    "@angular/core": "^15.2.0",
+    "@angular/forms": "^15.2.7",
+    "@angular/material": "^15.2.7",
+    "@angular/platform-browser": "^15.2.7",
+    "rxjs": "^7.8.0",
+    "zone.js": "^0.13.0"
   },
   "dependencies": {
-    "@ng-select/ng-select": "~8.1.1",
-    "@ngx-translate/core": "~14.0.0",
-    "@ngx-translate/http-loader": "~7.0.0",
-    "guid-typescript": "^1.0.9",
-    "lodash-es": "~4.17.21",
-    "moment": "~2.29.1",
-    "moment-timezone": "^0.5.34",
-    "oidc-client": "~1.11.5",
-    "primeflex": "~3.1.0",
-    "primeicons": "~5.0.0",
-    "primeng": "~13.0.2",
-    "tslib": "~2.3.1",
-    "validator": "~13.7.0"
+    "@ng-select/ng-select": "^10.0.4",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
+    "date-fns": "^2.29.3",
+    "lodash-es": "^4.17.21",
+    "moment": "^2.29.4",
+    "oidc-client": "^1.11.5",
+    "primeflex": "^3.3.0",
+    "primeicons": "^6.0.1",
+    "primeng": "^15.3.0",
+    "tslib": "^2.3.0",
+    "uuid": "^9.0.0",
+    "validator": "^13.9.0"
   },
   "devDependencies": {
-    "@types/lodash-es": "~4.17.5",
-    "@types/validator": "~13.7.0"
-  }
+    "@types/lodash-es": "~4.17.7",
+    "@types/uuid": "^9.0.1",
+    "@types/validator": "~13.7.15"
+  },
+  "sideEffects": false
 }

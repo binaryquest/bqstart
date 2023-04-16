@@ -6,8 +6,6 @@ import { MessageService, MessageType } from '../../../services/message.service';
 import { TableFilter } from './bq-table-filter';
 import { DomHandler } from 'primeng/dom';
 //import { tap } from 'lodash';
-import { relativeTimeRounding } from 'moment';
-import { InternalLogService } from '../../../services/log/log.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

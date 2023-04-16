@@ -96,11 +96,11 @@ export class LocaleId extends String {
     super();
   }
 
-  toString(): string {
+  override toString(): string {
     return this.localeService.currentLocale;
   }
 
-  valueOf(): string {
+  override valueOf(): string {
     return this.toString();
   }
 }

@@ -19,10 +19,10 @@ export class MetaDataResolver implements Resolve<ModelMetadata> {
   constructor(private metaDataService: MetaDataService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any>|Promise<any>|any {
-    if (route.data.viewDef === undefined){
+    if (route.data['viewDef'] === undefined){
       throw new Error('Route missing viewData');
     }
-    const typeName = route.data.viewDef.typeName;
+    const typeName = route.data['viewDef'].typeName;
     return this.metaDataService.getTypeMetaData(typeName);
   }
 }
