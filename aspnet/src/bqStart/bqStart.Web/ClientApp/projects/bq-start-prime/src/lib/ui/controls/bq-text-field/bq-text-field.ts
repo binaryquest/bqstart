@@ -2,7 +2,6 @@ import { Component, ContentChildren, forwardRef, Host, Input, OnInit, Optional, 
 import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';
 import { BaseField } from '../../core/base-field';
 import { FormBlock } from '../form-block/form-block';
-import moment from 'moment';
 import { ValidationType } from '../../../models/meta-data';
 
 
@@ -84,10 +83,10 @@ export class BqTextField extends BaseField {
   @Input()
   compareToMsg: any;
 
-  constructor(protected vwSvc: ViewWrapperService, @Optional() @Host() protected formBlock?: FormBlock) {
+  constructor(protected override vwSvc: ViewWrapperService, @Optional() @Host() protected override formBlock?: FormBlock) {
     super(vwSvc, formBlock);
 
-    this.localeFormat = moment.localeData().longDateFormat('L').toLowerCase().replace('yyyy', 'yy');
+    this.localeFormat = "dd-mm-yy";//moment.localeData().longDateFormat('L').toLowerCase().replace('yyyy', 'yy');
     this.localePipeFormat = 'shortDate';
   }
 

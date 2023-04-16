@@ -12,13 +12,13 @@
     "primeflex",
     "primeng",
     "primeicons",
-    "moment",
     "oidc-client",
     "@ngx-translate/core",
     "@ngx-translate/http-loader",
     "validator",
-    "lodash",
+    "lodash-es",
     "@ng-select/ng-select",
-    "guid-typescript"
+    "uuid",
+    "luxon"
   ]
 }

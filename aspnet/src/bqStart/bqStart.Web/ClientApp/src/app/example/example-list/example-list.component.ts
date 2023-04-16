@@ -14,7 +14,7 @@ const OPTIONAL_DATA:ViewOptionalData = {
 })
 export class ExampleListComponent  extends BaseListView<ExampleClass> implements IBaseListViewEvents {
 
-  constructor(protected routerSvc: RouterService) {
+  constructor(protected override routerSvc: RouterService) {
     super(routerSvc, OPTIONAL_DATA);
 
     this.predefinedFilters = [

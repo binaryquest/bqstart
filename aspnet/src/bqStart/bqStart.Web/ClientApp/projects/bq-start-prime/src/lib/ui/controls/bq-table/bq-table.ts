@@ -9,8 +9,8 @@ import { OrderByClause, PredefinedFilter, TableParams } from '../../../models/ta
 import { AppInitService } from '../../../services/app-init.service';
 import { TableColumn } from './bq-table-column';
 import { TableFilter } from './bq-table-filter';
-import moment from 'moment';
 import { RouterService } from '../../../services/router.service';
+import { DateTime } from 'luxon';
 
 
 /**
@@ -257,7 +257,7 @@ export class Table implements OnInit, OnDestroy, OnChanges {
       if (field.dataType === "DateTime") {
         //const pipe = new DatePipe(this.locale);
         //const formattedDate = pipe.transform(value, this.getDateFormatFromColumnTemplate(field));
-        const formattedDate = moment(value).format(field.dateFormat ?? 'L LTS');
+        const formattedDate = DateTime.fromISO(value).toLocaleString(DateTime.DATETIME_MED);
         return formattedDate;
       } else if (field.dataType === "Boolean") {
         return (value ? 'True' : 'False');

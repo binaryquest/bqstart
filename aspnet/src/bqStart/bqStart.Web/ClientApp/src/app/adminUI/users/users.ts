@@ -30,10 +30,10 @@ export class ApplicationUser{
           [showStripedGrid]='true'
           [showAddButton]="showAddButton">
 
-  <bq-table-column [field]='metaData.fields.Email' [caption]="'User Id'"></bq-table-column>
-  <bq-table-column [field]='metaData.fields.FirstName'></bq-table-column>
-  <bq-table-column [field]='metaData.fields.LastName'></bq-table-column>
-  <bq-table-column [field]='metaData.fields.AssignedRoles' [cellTemplate]="cellTemplate">
+  <bq-table-column [field]='metaData.fields["Email"]' [caption]="'User Id'"></bq-table-column>
+  <bq-table-column [field]='metaData.fields["FirstName"]'></bq-table-column>
+  <bq-table-column [field]='metaData.fields["LastName"]'></bq-table-column>
+  <bq-table-column [field]='metaData.fields["AssignedRoles"]' [cellTemplate]="cellTemplate">
   <ng-template #cellTemplate let-row="row">
       <span *ngFor="let item of row.AssignedRoles">
       <p-chip [label]="item" icon="pi pi-users"></p-chip>&nbsp;
@@ -41,9 +41,9 @@ export class ApplicationUser{
     </ng-template>
   </bq-table-column>
 
-  <bq-table-filter [field]='metaData.fields.Email'></bq-table-filter>
-  <bq-table-filter [field]='metaData.fields.FirstName' [defaultSearchField]="true"></bq-table-filter>
-  <bq-table-filter [field]='metaData.fields.LastName' [defaultSearchField]="true"></bq-table-filter>
+  <bq-table-filter [field]='metaData.fields["Email"]'></bq-table-filter>
+  <bq-table-filter [field]='metaData.fields["FirstName"]' [defaultSearchField]="true"></bq-table-filter>
+  <bq-table-filter [field]='metaData.fields["LastName"]' [defaultSearchField]="true"></bq-table-filter>
 
 </bq-table>
   `,
@@ -52,7 +52,7 @@ export class ApplicationUser{
 })
 export class UserList extends BaseListView<ApplicationUser> {
 
-  constructor(protected routerSvc: RouterService) {
+  constructor(protected override routerSvc: RouterService) {
     super(routerSvc, {});
   }
 
@@ -62,17 +62,17 @@ export class UserList extends BaseListView<ApplicationUser> {
   selector: 'app-user-form',
   template: `
     <bq-form>
-      <bq-text-field [field]="metaData.fields.Email" [(model)]="model.Email" [isRequired]="true" [regexPattern]="emailPattern" [regexMessage]="'Valid email address required'"></bq-text-field>
-      <bq-text-field [field]="metaData.fields.FirstName" [(model)]="model.FirstName"></bq-text-field>
-      <bq-text-field [field]="metaData.fields.LastName" [(model)]="model.LastName"></bq-text-field>
-      <bq-text-field [field]="metaData.fields.PhoneNumber" [(model)]="model.PhoneNumber"></bq-text-field>
+      <bq-text-field [field]='metaData.fields["Email"]' [(model)]="model.Email" [isRequired]="true" [regexPattern]="emailPattern" [regexMessage]="'Valid email address required'"></bq-text-field>
+      <bq-text-field [field]='metaData.fields["FirstName"]' [(model)]="model.FirstName"></bq-text-field>
+      <bq-text-field [field]='metaData.fields["LastName"]' [(model)]="model.LastName"></bq-text-field>
+      <bq-text-field [field]='metaData.fields["PhoneNumber"]' [(model)]="model.PhoneNumber"></bq-text-field>
 
-      <bq-password-field [field]="metaData.fields.Password" [regexPattern]="'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'" [regexMessage]="'Password should be min 8 char with Upper case and Numbers and Symbols'" [(model)]="model.Password"></bq-password-field>
-      <bq-password-field [field]="metaData.fields.VerifyPassword" [(model)]="model.VerifyPassword"></bq-password-field>
-      <bq-text-field [field]="metaData.fields.EmailConfirmed" [(model)]="model.EmailConfirmed"></bq-text-field>
+      <bq-password-field [field]='metaData.fields["Password"]' [regexPattern]="'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'" [regexMessage]="'Password should be min 8 char with Upper case and Numbers and Symbols'" [(model)]="model.Password"></bq-password-field>
+      <bq-password-field [field]='metaData.fields["VerifyPassword"]' [(model)]="model.VerifyPassword"></bq-password-field>
+      <bq-text-field [field]='metaData.fields["EmailConfirmed"]' [(model)]="model.EmailConfirmed"></bq-text-field>
 
-      <bq-dropdown-field [field]="metaData.fields.TimeZoneId" [(model)]="model.TimeZoneId" [itemSource]="lookupDataModel.timeZones" displayName="name" valueName="id"></bq-dropdown-field>
-      <bq-dropdown-field [field]="metaData.fields.AssignedRoles" [allowMultiple]="true" [(model)]="assignedRolesArray" [itemSource]="lookupDataModel.roles" displayName="name">
+      <bq-dropdown-field [field]='metaData.fields["TimeZoneId"]' [(model)]="model.TimeZoneId" [itemSource]="lookupDataModel.timeZones" displayName="name" valueName="id"></bq-dropdown-field>
+      <bq-dropdown-field [field]='metaData.fields["AssignedRoles"]' [allowMultiple]="true" [(model)]="assignedRolesArray" [itemSource]="lookupDataModel.roles" displayName="name">
         <ng-template bqTemplate="displayLabel">
           <span *ngFor="let item of model.AssignedRoles">
             <p-chip [label]="item" icon="pi pi-users"></p-chip>&nbsp;
@@ -90,7 +90,7 @@ export class UserForm extends BaseFormView<ApplicationUser> implements IBaseForm
 
   assignedRolesArray: {name:string}[];
 
-  constructor(protected routerSvc: RouterService) {
+  constructor(protected override routerSvc: RouterService) {
     super(routerSvc, {});
   }
 

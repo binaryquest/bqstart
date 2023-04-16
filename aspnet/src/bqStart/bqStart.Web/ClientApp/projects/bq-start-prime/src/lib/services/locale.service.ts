@@ -3,10 +3,10 @@ import { LOCALE_ID, Provider } from '@angular/core';
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { catchError, forkJoin, map, Observable, of, throwError, timeout } from 'rxjs';
-import moment from 'moment';
 import defaultTranslations from './../assets/i18n/bq-start.en-US.json';
 import { InternalLogService, LogService } from './log/log.service';
 import { merge, cloneDeep } from 'lodash-es';
+import { Settings } from 'luxon';
 
 
 /**
@@ -78,12 +78,12 @@ export class LocaleService implements TranslateLoader {
 
   setDefaultLocale(localeId: string) {
     this.translate.setDefaultLang(localeId);
-    moment.locale(localeId);
+    Settings.defaultLocale = localeId;
   }
 
   setLocale(localeId: string) {
     this.translate.use(localeId);
-    moment.locale(localeId);
+    Settings.defaultLocale = localeId;
     InternalLogService.logger().info(`setting locale to ${localeId}`);
   }
 
@@ -96,11 +96,11 @@ export class LocaleId extends String {
     super();
   }
 
-  toString(): string {
+  override toString(): string {
     return this.localeService.currentLocale;
   }
 
-  valueOf(): string {
+  override valueOf(): string {
     return this.toString();
   }
 }

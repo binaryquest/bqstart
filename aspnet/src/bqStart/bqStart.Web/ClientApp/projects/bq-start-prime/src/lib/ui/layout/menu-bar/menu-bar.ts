@@ -37,7 +37,7 @@ export class MenuBar extends BaseMenu implements OnInit {
   activeSubmenus: { [key: string]: boolean } = {};
   menus: MenuData[];
 
-  constructor(protected router: Router, protected regionSvc: MainRegionAdapterService, private pageTitle:Title) {
+  constructor(protected override router: Router, protected override regionSvc: MainRegionAdapterService, private pageTitle:Title) {
     super(router, regionSvc);
 
     this.menus = JSON.parse(JSON.stringify(this.config.menus));

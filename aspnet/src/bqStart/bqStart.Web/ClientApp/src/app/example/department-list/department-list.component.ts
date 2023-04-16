@@ -10,7 +10,7 @@ import { Department } from 'src/app/models/department';
 })
 export class DepartmentListComponent extends BaseListView<Department> {
 
-  constructor(protected routerSvc: RouterService) {
+  constructor(protected override routerSvc: RouterService) {
     super(routerSvc, {});
   }
 
