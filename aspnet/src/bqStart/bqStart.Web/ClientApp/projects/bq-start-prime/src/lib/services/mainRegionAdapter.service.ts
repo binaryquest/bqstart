@@ -112,9 +112,13 @@ export class MainRegionAdapterService {
           const ret = ov.routeData.instance.canClose();
           if (!ret){
             return;
+          }else{
+            console.log("not allowed to close view " + index);
           }
         }
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
 
       this.currentStack.splice(index, 1);
       if (this.currentStack.length>1){
