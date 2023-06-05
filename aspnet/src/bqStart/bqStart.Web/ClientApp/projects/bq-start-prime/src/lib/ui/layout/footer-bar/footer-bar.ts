@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BaseComponent } from '../../base.component';
 
 @Component({
@@ -11,6 +11,15 @@ export class FooterBar extends BaseComponent implements OnInit {
   applicationName: string;
   copyright: string;
   year: number;
+
+  /**
+   * Display the footer always on bottom if true.
+   *
+   * @type {boolean}
+   * @memberof AppLayout
+   */
+  @Input()
+  stickyFooter: boolean = false;
 
   constructor() {
     super();

@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
 import { BQConfigService, BQConfigData } from '../../../config/bq-start-config';
 import { AppInjector } from '../../../services/app-injector.service';
 import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.service';
+import { BQTemplate } from '../../core/bq-template.directive';
+import { Dictionary } from '../../../models/meta-data';
 
 /**
  * Main layout Component which is responsible for showing Menu bar footer etc
@@ -17,7 +19,7 @@ import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.se
   templateUrl: './app-layout.html',
   styleUrls: ['./app-layout.scss'],
 })
-export class AppLayout implements OnInit {
+export class AppLayout implements OnInit, AfterContentInit {
 
   title = 'app';
   menuActive: boolean;
@@ -27,6 +29,15 @@ export class AppLayout implements OnInit {
   config: BQConfigData;
 
   /**
+   * Display the footer always on bottom if true.
+   *
+   * @type {boolean}
+   * @memberof AppLayout
+   */
+  @Input()
+  stickyFooter: boolean = false;
+
+  /**
    * If the Menu bar will be shown horizontally on top or vertically of left sidebar
    *
    * @type {boolean}
@@ -34,6 +45,12 @@ export class AppLayout implements OnInit {
    */
   @Input()
   showMenuOnTop: boolean = false;
+
+  @ViewChild('defaultFooterTemplate', { static: true }) defaultFooterTemplate: TemplateRef<any>;
+  controlFooterTemplate: TemplateRef<any>;
+  customFooterTemplate: TemplateRef<any>;
+  @ContentChildren(BQTemplate) templates: QueryList<BQTemplate>;
+  optionalTemplates: Dictionary<TemplateRef<any>> = {};
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -45,6 +62,20 @@ export class AppLayout implements OnInit {
     });
     this.injector = AppInjector.getInjector();
     this.config = this.injector.get(BQConfigService);
+  }
+
+  ngAfterContentInit(): void {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
+        case "footer":
+          this.customFooterTemplate = item.template;
+          break;
+        default:
+          this.optionalTemplates[item.getType()] = item.template;
+          break;
+      }
+    });
+    this.controlFooterTemplate = this.customFooterTemplate ?? this.defaultFooterTemplate;
   }
 
   ngOnInit(): void {

@@ -11,10 +11,17 @@
       <view-wrapper>
         <ng-content></ng-content>
       </view-wrapper>
+      <div *ngIf="stickyFooter" style="height:30px">&nbsp;</div>
     </div>
-    <bq-footer-bar *ngIf="isAuthenticated"></bq-footer-bar>
+    <div class="layout-footer flex-grow-1 p-3" [ngClass]="{'stick-footer': stickyFooter}">
+      <ng-container [ngTemplateOutlet]="controlFooterTemplate" *ngIf="isAuthenticated"></ng-container>
+    </div>
   </div>
 
   <p-toast></p-toast>
+
+  <ng-template #defaultFooterTemplate>
+    <bq-footer-bar></bq-footer-bar>
+  </ng-template>
 
 </div>

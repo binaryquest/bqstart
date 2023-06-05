@@ -205,8 +205,10 @@ export function initializeApp(appInitService: AppInitService) {
     LoginComponent,
     LogoutComponent,
     TopBar,
+    TopMenuBar,
     FooterBar,
     AppLayout,
+    ViewWrapper,
     Breadcrumb,
     BaseListView,
     BaseFormView,
@@ -252,7 +254,12 @@ export function initializeApp(appInitService: AppInitService) {
     PasswordPipe,
     BqPasswordField,
     BqDropdownField,
-    BqTextArea
+    BqTextArea,
+    DynamicHostDirective,
+    DynamicLoaderComponent,
+    DynamicMDILoaderComponent,
+    MDIComponent,
+    MDILayoutComponent
   ],
   providers: [
     AuthorizeService,

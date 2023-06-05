@@ -1,6 +1,12 @@
-<bq-app-layout [showMenuOnTop]="true" *ngIf="!tabbedInterface">
+<bq-app-layout [showMenuOnTop]="true" *ngIf="!tabbedInterface" [stickyFooter]="true">
   <router-outlet></router-outlet>
+  <ng-template bqTemplate="footer">
+    Hello World
+  </ng-template>
 </bq-app-layout>
 <bq-mdi-app-layout *ngIf="tabbedInterface">
   <router-outlet></router-outlet>
+  <ng-template bqTemplate="footer">
+    Hello World
+  </ng-template>
 </bq-mdi-app-layout>
