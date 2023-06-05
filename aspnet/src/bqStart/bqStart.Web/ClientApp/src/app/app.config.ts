@@ -23,6 +23,7 @@ export const APP_CONFIG: BQConfigData = {
   //   response_type:"code",
   //   scope:'bqStart.WebAPI openid profile'
   // },
+  topRightMenus: [{icon:"pi pi-bell",eventName:"sidebar",buttonClass:"p-button-rounded p-button-warning"}],
   menus: [
     {
       label: "Home", icon: "pi pi-home",

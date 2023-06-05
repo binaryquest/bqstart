@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 
   tabbedInterface: boolean;
   isAuthenticated: Observable<boolean>;
+  sidebarVisible: boolean = false;
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -31,5 +32,11 @@ export class AppComponent implements OnInit {
     this.primengConfig.ripple = true;
     this.isAuthenticated = this.authorizeService.isAuthenticated();
     //tz.setDefault("Asia/Dhaka");
+  }
+
+  handleTopMenuClick(ev:any){
+    if (ev==="sidebar"){
+      this.sidebarVisible = !this.sidebarVisible;
+    }
   }
 }

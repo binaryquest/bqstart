@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
 import { BQConfigService, BQConfigData } from '../../../config/bq-start-config';
@@ -52,6 +52,8 @@ export class AppLayout implements OnInit, AfterContentInit {
   @ContentChildren(BQTemplate) templates: QueryList<BQTemplate>;
   optionalTemplates: Dictionary<TemplateRef<any>> = {};
 
+  @Output() onTopRightMenuClicked: EventEmitter<any> = new EventEmitter();
+
   constructor(
     private primengConfig: PrimeNGConfig,
     private authorizeService: AuthorizeService
@@ -76,6 +78,10 @@ export class AppLayout implements OnInit, AfterContentInit {
       }
     });
     this.controlFooterTemplate = this.customFooterTemplate ?? this.defaultFooterTemplate;
+  }
+
+  handleTopMenuClick(ev:any){
+    this.onTopRightMenuClicked.emit(ev);
   }
 
   ngOnInit(): void {

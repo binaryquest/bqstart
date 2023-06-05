@@ -1,6 +1,6 @@
 <div class="layout-wrapper">
 
-  <bq-top-menu-bar *ngIf="showMenuOnTop"></bq-top-menu-bar>
+  <bq-top-menu-bar *ngIf="showMenuOnTop" (onTopRightMenuClicked)="handleTopMenuClick($event)"></bq-top-menu-bar>
   <bq-top-bar *ngIf="!showMenuOnTop" (menuButtonClick)="onMenuButtonClick()"></bq-top-bar>
   <bq-menu-bar *ngIf="showLeftMenu" [active]="menuActive"></bq-menu-bar>
 

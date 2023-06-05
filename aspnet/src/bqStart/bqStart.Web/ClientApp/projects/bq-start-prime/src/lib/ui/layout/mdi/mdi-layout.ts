@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, Input, OnInit, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
 import { BQConfigData, BQConfigService } from '../../../config/bq-start-config';
@@ -26,7 +26,7 @@ import { Dictionary } from '../../../models/meta-data';
   ],
   template: `
     <div class="layout-wrapper">
-      <bq-top-menu-bar></bq-top-menu-bar>
+      <bq-top-menu-bar (onTopRightMenuClicked)="handleTopMenuClick($event)"></bq-top-menu-bar>
       <div class="layout-content-inactive mdi-layout flex flex-column">
         <div
           class="flex-grow-1 flex flex-column"
@@ -64,6 +64,8 @@ export class MDILayoutComponent implements OnInit, AfterContentInit {
   @ContentChildren(BQTemplate) templates: QueryList<BQTemplate>;
   optionalTemplates: Dictionary<TemplateRef<any>> = {};
 
+  @Output() onTopRightMenuClicked: EventEmitter<any> = new EventEmitter();
+
   constructor(
     private primengConfig: PrimeNGConfig,
     private authorizeService: AuthorizeService
@@ -89,5 +91,9 @@ export class MDILayoutComponent implements OnInit, AfterContentInit {
       }
     });
     this.controlFooterTemplate = this.customFooterTemplate ?? this.defaultFooterTemplate;
+  }
+
+  handleTopMenuClick(ev:any){
+    this.onTopRightMenuClicked.emit(ev);
   }
 }
