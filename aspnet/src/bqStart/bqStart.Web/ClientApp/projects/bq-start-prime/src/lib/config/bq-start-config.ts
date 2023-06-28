@@ -38,6 +38,13 @@ export class BQConfigData {
    */
   menus: MenuData[];
   /**
+   * Display optinal buttons on top right header menu bar next to Users menu
+   *
+   * @type {TopRightMenuData[]}
+   * @memberof BQConfigData
+   */
+  topRightMenus?: TopRightMenuData[];
+  /**
    * List of Views the application will have
    *
    * @type {ViewData[]}
@@ -184,6 +191,18 @@ export interface MenuData {
    * @memberof MenuData
    */
   component?: Type<any>;
+}
+
+/**
+ * Define a Menu Item to display in the app
+ *
+ * @export
+ * @interface TopRightMenuData
+ */
+export interface TopRightMenuData {
+  icon: string;
+  buttonClass: string;
+  eventName: string;
 }
 
 /**

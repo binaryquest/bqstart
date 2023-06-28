@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
 import { BQConfigData, BQConfigService } from '../../../config/bq-start-config';
 import { AppInjector } from '../../../services/app-injector.service';
 import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.service';
+import { BQTemplate } from '../../core/bq-template.directive';
+import { Dictionary } from '../../../models/meta-data';
 
 /**
  * Main layout component for showing views as a Tabbed MDI interface. The config option should
@@ -24,7 +26,7 @@ import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.se
   ],
   template: `
     <div class="layout-wrapper">
-      <bq-top-menu-bar></bq-top-menu-bar>
+      <bq-top-menu-bar (onTopRightMenuClicked)="handleTopMenuClick($event)"></bq-top-menu-bar>
       <div class="layout-content-inactive mdi-layout flex flex-column">
         <div
           class="flex-grow-1 flex flex-column"
@@ -36,21 +38,33 @@ import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.se
             </bq-mdi>
           </view-wrapper>
         </div>
-        <bq-footer-bar
-          *ngIf="isAuthenticated"
-          class="flex-shrink flex align-items-stretch"
-        ></bq-footer-bar>
+        <div class="flex-shrink flex align-items-stretch">
+          <div class="layout-footer flex-grow-1 p-3">
+            <ng-container [ngTemplateOutlet]="controlFooterTemplate" *ngIf="isAuthenticated"></ng-container>
+          </div>
+        </div>
       </div>
     </div>
     <p-toast class="flex-none"></p-toast>
+    <ng-template #defaultFooterTemplate>
+      <bq-footer-bar></bq-footer-bar>
+    </ng-template>
   `,
 })
-export class MDILayoutComponent implements OnInit {
+export class MDILayoutComponent implements OnInit, AfterContentInit {
   isAuthenticated: boolean;
 
   @Input()
   injector: any;
   config: BQConfigData;
+
+  @ViewChild('defaultFooterTemplate', { static: true }) defaultFooterTemplate: TemplateRef<any>;
+  controlFooterTemplate: TemplateRef<any>;
+  customFooterTemplate: TemplateRef<any>;
+  @ContentChildren(BQTemplate) templates: QueryList<BQTemplate>;
+  optionalTemplates: Dictionary<TemplateRef<any>> = {};
+
+  @Output() onTopRightMenuClicked: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -64,4 +78,22 @@ export class MDILayoutComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  ngAfterContentInit(): void {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
+        case "footer":
+          this.customFooterTemplate = item.template;
+          break;
+        default:
+          this.optionalTemplates[item.getType()] = item.template;
+          break;
+      }
+    });
+    this.controlFooterTemplate = this.customFooterTemplate ?? this.defaultFooterTemplate;
+  }
+
+  handleTopMenuClick(ev:any){
+    this.onTopRightMenuClicked.emit(ev);
+  }
 }

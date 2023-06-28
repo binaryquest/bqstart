@@ -10,6 +10,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
+import { SidebarModule } from 'primeng/sidebar';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -68,6 +69,7 @@ registerLocaleData(localeAu);
     RadioButtonModule,
     NgSelectModule,
     NgOptionHighlightModule,
+    SidebarModule,
     TranslateModule.forRoot(),
     BQStartPrimeModule.forRoot(APP_CONFIG),
     RouterModule.forRoot([

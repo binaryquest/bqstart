@@ -13,7 +13,7 @@ export const APP_CONFIG: BQConfigData = {
   logoUrl: 'assets/images/logo.png',
   companyName: 'Binary Quest',
   viewDefaults: { defaultPageSize: 50, otherPageSizes: [25, 50, 100] },
-  tabbedUserInterface: true,
+  tabbedUserInterface: false,
   //apiRootUrl: 'https://localhost:44301',
   // oAuthConfig: {
   //   authority: 'https://localhost:44301',
@@ -23,6 +23,7 @@ export const APP_CONFIG: BQConfigData = {
   //   response_type:"code",
   //   scope:'bqStart.WebAPI openid profile'
   // },
+  topRightMenus: [{icon:"pi pi-bell",eventName:"sidebar",buttonClass:"p-button-rounded p-button-warning"}],
   menus: [
     {
       label: "Home", icon: "pi pi-home",
