@@ -13,7 +13,7 @@
       </view-wrapper>
       <div *ngIf="stickyFooter" style="height:30px">&nbsp;</div>
     </div>
-    <div class="layout-footer flex-grow-1 p-3" [ngClass]="{'stick-footer': stickyFooter}">
+    <div class="layout-footer flex-grow-1" [ngClass]="{'stick-footer': stickyFooter}">
       <ng-container [ngTemplateOutlet]="controlFooterTemplate" *ngIf="isAuthenticated"></ng-container>
     </div>
   </div>
