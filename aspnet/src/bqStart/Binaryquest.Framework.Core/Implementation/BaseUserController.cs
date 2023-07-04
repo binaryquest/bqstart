@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -372,17 +373,16 @@ namespace BinaryQuest.Framework.Core.Implementation
             var tzs = TimeZoneInfo.GetSystemTimeZones();
             var roles = roleManager.Roles.OrderBy(r => r.Name).Select(r => new { r.Name }).ToList();
 
-            return new
-            {
-                TimeZones = from s in tzs
+            dynamic ret = new ExpandoObject();
+            ret.TimeZones = from s in tzs
                             orderby s.BaseUtcOffset
                             select new
                             {
                                 s.Id,
                                 Name = s.DisplayName
-                            },
-                Roles = roles
-            };
+                            };
+            ret.Roles = roles;
+            return ret;
         }
     }
 }
