@@ -221,14 +221,11 @@ export class BaseFormView<TModel>
 
       this.currentId = primaryKeyValues;
 
+      //we load lookup data first then chain loading server data
       if (this.autoLoadLookupData){
         this.loadLookupData();
-      }
-
-      if (this.formType == FormType.Edit || this.formType == FormType.Details){
-        this.loadServerData();
       }else{
-        this.model = this.createEmptyModel();
+        this.prepareLoadServerData();
       }
     });
 
@@ -242,6 +239,14 @@ export class BaseFormView<TModel>
 
     if (canCallAfterInitComplete(this)) {
       this.onAfterInitComplete();
+    }
+  }
+
+  prepareLoadServerData(){
+    if (this.formType == FormType.Edit || this.formType == FormType.Details){
+      this.loadServerData();
+    }else{
+      this.model = this.createEmptyModel();
     }
   }
 
@@ -277,8 +282,10 @@ export class BaseFormView<TModel>
   }
 
   private loadLookupData(){
+    setTimeout(() => (this.isLoading = true), 0);
     this.dataSvc.getLookupData(this.metaData).subscribe({
       next: (value) => {
+        setTimeout(() => this.isLoading = false, 100);
         if (value!==null){
           if (value.entities !== null && value.entities.length > 0){
             this.lookupDataModel = value.entities;
@@ -286,6 +293,8 @@ export class BaseFormView<TModel>
             this.lookupDataModel = value.entity;
           }
         }
+        //now continue to load server data
+        this.prepareLoadServerData();
       },
       error: this.errHandler.bind(this)
     });
