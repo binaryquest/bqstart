@@ -1,5 +1,6 @@
 ﻿using BinaryQuest.Framework.Core.Implementation;
 using BinaryQuest.Framework.Core.Interface;
+using BinaryQuest.Framework.Core.Model;
 using bqStart.Data;
 using Microsoft.Extensions.Logging;
 namespace bqStart.Web.Controllers
@@ -14,6 +15,7 @@ namespace bqStart.Web.Controllers
 
         protected override dynamic OnGetLookupData()
         {
+            var info = CurrentUser;
             var ret = new
             {
             };

@@ -9,5 +9,12 @@ namespace bqStart.Data
 {
     public class ApplicationUser : BaseUser
     {
+        public string TestName
+        {
+            get
+            {
+                return "Test";
+            }
+        }
     }
 }
