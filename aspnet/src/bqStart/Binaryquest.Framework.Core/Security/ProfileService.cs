@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,6 +52,17 @@ namespace BinaryQuest.Framework.Core.Security
             roleClaims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
             roleClaims.Add(new Claim("timezone", user.TimeZoneId ?? String.Empty));
 
+            //use reflection to insert all other properties of the user class which the
+            //user may introduce
+            PropertyInfo[] propInfos = user.GetType().GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly);
+            foreach (var pi in propInfos)
+            {
+                object? propValue = pi.GetValue(user, null);
+                if (propValue != null)
+                {
+                    roleClaims.Add(new Claim(pi.Name, propValue.ToString()!));
+                }
+            }
             context.IssuedClaims.AddRange(roleClaims);
         }
 
