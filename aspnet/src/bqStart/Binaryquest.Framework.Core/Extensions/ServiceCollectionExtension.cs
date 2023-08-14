@@ -34,9 +34,12 @@ namespace BinaryQuest.Framework.Core.Extensions
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(json =>
                 {
-                    json.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
+                    json.SerializerSettings.DateTimeZoneHandling = opt.TimeZoneHandling;
                     json.SerializerSettings.MaxDepth = 32;
-                    //json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    if (opt.JsonCamelCase)
+                    {
+                        json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    }
                     json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
                     json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 })
