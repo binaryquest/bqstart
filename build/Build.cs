@@ -15,7 +15,7 @@ using static Nuke.Common.IO.FileSystemTasks;
 using static Nuke.Common.IO.PathConstruction;
 using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
-[CheckBuildProjectConfigurations]
+//[CheckBuildProjectConfigurations]
 [ShutdownDotNetAfterServerBuild]
 class Build : NukeBuild
 {
@@ -35,7 +35,7 @@ class Build : NukeBuild
 
     [Solution] readonly Solution Solution;
     [GitRepository] readonly GitRepository GitRepository;
-    [GitVersion] readonly GitVersion GitVersion;
+    [GitVersion(Framework = "netcoreapp3.0", NoFetch = true)] readonly GitVersion GitVersion;
 
     AbsolutePath SourceDirectory => RootDirectory / "aspnet" / "src" / "bqStart";
     AbsolutePath TestsDirectory => RootDirectory / "aspnet" / "src" / "bqStart";
@@ -48,9 +48,9 @@ class Build : NukeBuild
         {            
             //SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
             //TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            SourceDirectory.GlobFiles("**/bin/**/*.nupkg").ForEach(DeleteFile);
-            EnsureCleanDirectory(OutputDirectory);
-            EnsureCleanDirectory(PackagesDirectory);
+            SourceDirectory.GlobFiles("**/bin/**/*.nupkg").DeleteFiles();            
+            OutputDirectory.CreateOrCleanDirectory();
+            PackagesDirectory.CreateOrCleanDirectory();
         });
 
     Target Restore => _ => _
@@ -65,7 +65,7 @@ class Build : NukeBuild
         .DependsOn(Restore)        
         .Executes(() =>
         {
-            Logger.Info($"Root Folder {RootDirectory}");
+            Serilog.Log.Information($"Root Folder {RootDirectory} {GitVersion}");
             DotNetBuild(s => s
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
@@ -91,8 +91,7 @@ class Build : NukeBuild
        .Requires(() => Configuration.Equals(Configuration.Release))
        .Executes(() =>
        {
-           GlobFiles(PackagesDirectory, "BinaryQuest.Framework.Core.*.nupkg", "BinaryQuest.Framework.Identity.UI.*.nupkg")
-               .NotEmpty()
+           PackagesDirectory.GlobFiles(PackagesDirectory, "BinaryQuest.Framework.Core.*.nupkg", "BinaryQuest.Framework.Identity.UI.*.nupkg")               
                .ForEach(x =>
                {
                    DotNetNuGetPush(s => s

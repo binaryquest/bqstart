@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -41,6 +42,7 @@ namespace BinaryQuest.Framework.Core.Model
             this.registeredControllers = new();
             this.modelBuilder = new ODataConventionModelBuilder();
             //this.modelBuilder.Namespace = "bq";
+            this.TimeZoneHandling = DateTimeZoneHandling.Utc;
         }
 
         public static AppConfigOptions Default => new("BQ Start", "en_US", TZConvert.GetTimeZoneInfo("UTC"), true, "Admin");
@@ -51,6 +53,8 @@ namespace BinaryQuest.Framework.Core.Model
         public string DefaultAdminRole { get; private set; }
         public TimeZoneInfo DefaultTimeZone { get; private set; }
         public ISecurityRulesProvider SecurityRulesProvider { get; set; }
+        public DateTimeZoneHandling TimeZoneHandling { get; set; }
+        public bool JsonCamelCase { get; set; }
 
         private readonly Dictionary<Type, Type> registeredControllers;
         private readonly ODataConventionModelBuilder modelBuilder;
@@ -97,7 +101,18 @@ namespace BinaryQuest.Framework.Core.Model
             return this;
         }
 
-        
+        public AppConfigOptions SetTimeZoneHandling(DateTimeZoneHandling timeZoneHandling)
+        {
+            TimeZoneHandling = timeZoneHandling;
+            return this;
+        }
+
+        public AppConfigOptions SetJsonCamelCase(bool isCamelCase)
+        {
+            JsonCamelCase = isCamelCase;
+            return this;
+        }
+
         public AppConfigOptions RegisterController<TEntity, TController>(Action<EntitySetConfiguration<TEntity>>? entityConfig = null) where TController : ODataController where TEntity : class
         {
 
