@@ -43,6 +43,7 @@ namespace BinaryQuest.Framework.Core.Model
             this.modelBuilder = new ODataConventionModelBuilder();
             //this.modelBuilder.Namespace = "bq";
             this.TimeZoneHandling = DateTimeZoneHandling.Utc;
+            //this.JsonCamelCase = true;
         }
 
         public static AppConfigOptions Default => new("BQ Start", "en_US", TZConvert.GetTimeZoneInfo("UTC"), true, "Admin");
@@ -54,7 +55,7 @@ namespace BinaryQuest.Framework.Core.Model
         public TimeZoneInfo DefaultTimeZone { get; private set; }
         public ISecurityRulesProvider SecurityRulesProvider { get; set; }
         public DateTimeZoneHandling TimeZoneHandling { get; set; }
-        public bool JsonCamelCase { get; set; }
+        //public bool JsonCamelCase { get; set; }
 
         private readonly Dictionary<Type, Type> registeredControllers;
         private readonly ODataConventionModelBuilder modelBuilder;
@@ -107,11 +108,11 @@ namespace BinaryQuest.Framework.Core.Model
             return this;
         }
 
-        public AppConfigOptions SetJsonCamelCase(bool isCamelCase)
-        {
-            JsonCamelCase = isCamelCase;
-            return this;
-        }
+        //public AppConfigOptions SetJsonCamelCase(bool isCamelCase)
+        //{
+        //    JsonCamelCase = isCamelCase;
+        //    return this;
+        //}
 
         public AppConfigOptions RegisterController<TEntity, TController>(Action<EntitySetConfiguration<TEntity>>? entityConfig = null) where TController : ODataController where TEntity : class
         {
