@@ -36,10 +36,14 @@ namespace BinaryQuest.Framework.Core.Extensions
                 {
                     json.SerializerSettings.DateTimeZoneHandling = opt.TimeZoneHandling;
                     json.SerializerSettings.MaxDepth = 32;
-                    if (opt.JsonCamelCase)
-                    {
-                        json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    }
+                    //if (opt.JsonCamelCase)
+                    //{
+                    //    json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    //}
+                    //else
+                    //{
+                    //    json.SerializerSettings.ContractResolver = null;
+                    //}
                     json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
                     json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 })
