@@ -150,6 +150,15 @@ export class Table implements OnInit, OnDestroy, OnChanges {
   @Input()
   showAddButton: boolean;
 
+  /**
+   * use this template for showing expanded row details
+   *
+   * @type {TemplateRef<any>}
+   * @memberof Table
+   */
+  @Input()
+  expandedRowTemplate: TemplateRef<any>;
+
   //the total record count, not just the current page. gets returned by odata query
   count: number = 0;
   countSub: Subscription;
@@ -239,6 +248,10 @@ export class Table implements OnInit, OnDestroy, OnChanges {
     } else {
       return '';
     }
+  }
+
+  getKeyName() {
+    return this.metaData.keys[0].keyName;
   }
 
   getCellValue(rowData: any, field: MetadataField) {

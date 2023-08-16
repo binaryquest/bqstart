@@ -1,3 +1,13 @@
+<ng-template #expRowTemplate let-row="row">
+  <tr>
+    <td colspan="5">
+      <div>
+      Full: {{row.ClassName}}
+      </div>
+    </td>
+  </tr>
+</ng-template>
+
 <bq-table [model]='models'
           [metaData]='metaData'
           [tableParams]='tableParams'
@@ -7,7 +17,8 @@
           [showGrid]='true'
           [showStripedGrid]='true'
           [showAddButton]="showAddButton"
-          [predefinedFilters]='predefinedFilters'>
+          [predefinedFilters]='predefinedFilters'
+          [expandedRowTemplate]="expRowTemplate">
 
   <bq-table-column [field]='metaData.fields.ClassName'></bq-table-column>
   <bq-table-column [field]='metaData.fields.DepartmentId' [cellTemplate]="cellTemplate">
@@ -22,5 +33,6 @@
   <bq-table-filter [field]='metaData.fields.DepartmentId'></bq-table-filter>
   <bq-table-filter [field]='metaData.fields.ClassDate' [showTime]="true"></bq-table-filter>
   <bq-table-filter [field]='metaData.fields.ClassType'></bq-table-filter>
+
 </bq-table>
 
