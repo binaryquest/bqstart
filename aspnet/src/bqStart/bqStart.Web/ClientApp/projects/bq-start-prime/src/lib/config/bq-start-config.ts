@@ -38,12 +38,19 @@ export class BQConfigData {
    */
   menus: MenuData[];
   /**
-   * Display optinal buttons on top right header menu bar next to Users menu
+   * Display optional buttons on top right header menu bar next to Users menu
    *
    * @type {TopRightMenuData[]}
    * @memberof BQConfigData
    */
   topRightMenus?: TopRightMenuData[];
+  /**
+   * Display optional user menus under Top Right User icon instead of default menus
+   *
+   * @type {CustomUserMenus[]}
+   * @memberof BQConfigData
+   */
+  userMenus?: CustomUserMenus[];
   /**
    * List of Views the application will have
    *
@@ -202,6 +209,21 @@ export interface MenuData {
 export interface TopRightMenuData {
   icon: string;
   buttonClass: string;
+  eventName: string;
+  title?: string;
+}
+/**
+ * Define a Custom Menu Item to display under Top Right User Menu
+ *
+ * @export
+ * @interface CustomUserMenus
+ */
+
+export interface CustomUserMenus {
+  label: string;
+  icon: string;
+  url?: string;
+  target?: string;
   eventName: string;
 }
 

@@ -35,6 +35,7 @@ export class AppComponent implements OnInit {
   }
 
   handleTopMenuClick(ev:any){
+    console.log("handleTopMenuClick", ev);
     if (ev==="sidebar"){
       this.sidebarVisible = !this.sidebarVisible;
     }
