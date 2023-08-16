@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -127,6 +128,7 @@ namespace BinaryQuest.Framework.Core.Implementation
 
             var result = OnGetModelMetaData();
             return Ok(result);
+            //return new JsonResult(result, new JsonSerializerSettings() {  });
         }        
         #endregion
 
