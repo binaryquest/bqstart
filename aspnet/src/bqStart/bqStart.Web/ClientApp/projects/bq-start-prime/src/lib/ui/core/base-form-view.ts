@@ -11,7 +11,8 @@ import { BqForm } from '../controls/bq-form/bq-form';
 import { RouterService } from '../../services/router.service';
 import { IBaseView } from './base-view';
 import { isEqual } from 'lodash-es';
-import { KeyboardShortcutsSelectService } from 'ng-keyboard-shortcuts';
+import { KeyboardShortcutsSelectService, ShortcutEventOutput } from 'ng-keyboard-shortcuts';
+import { Observable, Subscription } from 'rxjs';
 
 
 
@@ -118,6 +119,7 @@ export class BaseFormView<TModel>
 
   protected dataSvc: GenericDataService;
   protected msgSubscription: any;
+  protected keyboardSubscription: Subscription;
 
 
   constructor(protected routerSvc: RouterService,
@@ -147,9 +149,10 @@ export class BaseFormView<TModel>
     this.keyboardSvc = this.injector.get(KeyboardShortcutsSelectService);
 
     if (this.keyboardSvc){
-      this.keyboardSvc.select("ctl + s").subscribe(
+      this.keyboardSubscription = this.keyboardSvc.select("ctl + s").subscribe(
         {
           next:(e) => {
+            console.log("check current view");
             this.save();
           }
         }
@@ -266,6 +269,9 @@ export class BaseFormView<TModel>
   ngOnDestroy(): void {
     InternalLogService.logger().debug('BaseFormView::ngOnDestroy');
     this.messageSvc.unSubscribeToChannel(this.viewDef.typeName, this.msgSubscription.id);
+    if (this.keyboardSubscription){
+      this.keyboardSubscription.unsubscribe();
+    }
   }
 
   private handleMessage(data:any){
