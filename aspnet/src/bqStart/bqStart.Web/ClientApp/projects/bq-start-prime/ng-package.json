@@ -19,6 +19,7 @@
     "lodash-es",
     "@ng-select/ng-select",
     "uuid",
-    "luxon"
+    "luxon",
+    "ng-keyboard-shortcuts"
   ]
 }

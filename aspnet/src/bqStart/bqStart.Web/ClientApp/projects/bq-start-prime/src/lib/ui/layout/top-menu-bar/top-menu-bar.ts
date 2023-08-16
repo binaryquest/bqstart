@@ -20,45 +20,30 @@ import { TopBar } from '../top-bar/top-bar';
 @Component({
   selector: 'bq-top-menu-bar',
   template: `
-    <p-menubar [model]="items">
-      <ng-template pTemplate="start">
-        <img
-          alt="logo"
-          [src]="logo"
-          height="40"
-          class="pr-2 md:inline hidden"
-        />
-      </ng-template>
-      <ng-template pTemplate="end">
-        <span *ngFor="let mm of topRightMenus" class="pr-2">
-          <button
-            pButton
-            pRipple
-            type="button"
-            [icon]="mm.icon"
-            [title]="mm.title ?? ''"
-            [class]="mm.buttonClass"
-            (click)="handleTopMenuClick(mm.eventName)"
-          ></button>
-        </span>
-        <p-slideMenu
-          #menu
-          [model]="userMenus"
-          [popup]="true"
-          [viewportHeight]="115"
-        ></p-slideMenu>
-        <button
-          pButton
-          pRipple
-          #btn
+
+<p-menubar [model]="items">
+    <ng-template pTemplate="start">
+        <img alt="logo" [src]="logo" height="40" class="pr-2 md:inline hidden">
+    </ng-template>
+    <ng-template pTemplate="end">
+      <span *ngFor="let mm of topRightMenus" class="pr-2">
+        <button pButton pRipple
           type="button"
-          icon="pi pi-user"
-          class="p-button-rounded p-button-info"
-          (click)="menu.toggle($event)"
-        ></button>
-      </ng-template>
-    </p-menubar>
-  `,
+          [icon]="mm.icon"
+          [class]="mm.buttonClass"
+          (click)="handleTopMenuClick(mm.eventName)"></button>
+      </span>
+      <p-slideMenu #menu [model]="userMenus" [popup]="true" [viewportHeight]="115"></p-slideMenu>
+      <button pButton pRipple
+        #btn
+        type="button"
+        icon="pi pi-user"
+        class="p-button-rounded p-button-info"
+        (click)="menu.toggle($event)"></button>
+    </ng-template>
+</p-menubar>
+
+  `
 })
 export class TopMenuBar extends BaseMenu {
   items: MenuItem[];

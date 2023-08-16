@@ -58,6 +58,7 @@ import { SlideMenuModule } from 'primeng/slidemenu';
 import { TabViewModule } from 'primeng/tabview';
 
 import { NgSelectModule } from '@ng-select/ng-select';
+import { KeyboardShortcutsModule }     from 'ng-keyboard-shortcuts';
 
 import { ChipsMenu } from './ui/controls/bq-chips-menu/bq-chips-menu';
 import { CustomFilter } from './ui/controls/bq-table/bq-table-custom-filter';
@@ -129,6 +130,7 @@ export function initializeApp(appInitService: AppInitService) {
     CardModule,
     ToastModule,
     TableModule,
+    KeyboardShortcutsModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -160,7 +162,8 @@ export function initializeApp(appInitService: AppInitService) {
     AvatarModule,
     MenubarModule,
     SlideMenuModule,
-    TabViewModule
+    TabViewModule,
+
   ],
   declarations: [
     LoginMenuComponent,

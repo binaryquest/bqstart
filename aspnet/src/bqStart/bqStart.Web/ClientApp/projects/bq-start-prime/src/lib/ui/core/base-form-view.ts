@@ -11,6 +11,7 @@ import { BqForm } from '../controls/bq-form/bq-form';
 import { RouterService } from '../../services/router.service';
 import { IBaseView } from './base-view';
 import { isEqual } from 'lodash-es';
+import { KeyboardShortcutsSelectService } from 'ng-keyboard-shortcuts';
 
 
 
@@ -111,6 +112,7 @@ export class BaseFormView<TModel>
   allowDelete: boolean;
   formViewId: string | undefined;
   autoLoadLookupData: boolean = true;
+  keyboardSvc: KeyboardShortcutsSelectService;
 
   @ViewChild(BqForm) bqForm: BqForm;
 
@@ -142,6 +144,17 @@ export class BaseFormView<TModel>
     this.dataSvc = injector.get(GenericDataService);
     this.vwService = this.injector.get(ViewWrapperService);
 
+    this.keyboardSvc = this.injector.get(KeyboardShortcutsSelectService);
+
+    if (this.keyboardSvc){
+      this.keyboardSvc.select("ctl + s").subscribe(
+        {
+          next:(e) => {
+            this.save();
+          }
+        }
+      )
+    }
 
     if (this.formType == FormType.List) {
       throw new Error('Wrong View Form Type in View Defintions');

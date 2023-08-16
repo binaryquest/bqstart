@@ -6,6 +6,7 @@ import { AppInjector } from '../../../services/app-injector.service';
 import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.service';
 import { BQTemplate } from '../../core/bq-template.directive';
 import { Dictionary } from '../../../models/meta-data';
+import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts';
 
 /**
  * Main layout Component which is responsible for showing Menu bar footer etc
@@ -27,6 +28,35 @@ export class AppLayout implements OnInit, AfterContentInit {
   isAuthenticated: boolean;
   injector: any;
   config: BQConfigData;
+
+  @ViewChild(KeyboardShortcutsComponent) private keyboard: KeyboardShortcutsComponent;
+
+  private _shortcuts: ShortcutInput[] = [];
+  private _shortcutsDefault: ShortcutInput[] = [
+    {
+      key: "ctl + s",
+      label: "Save Command",
+      description: "Default Save Command for any form",
+      command: () => console.log('app ctl + s'),
+      preventDefault: true
+    }
+  ];
+
+  /**
+   * This is the list of shortcut keyboard hooks to patch to the module
+   *
+   * @type {ShortcutInput[]}
+   * @memberof AppLayout
+   */
+  @Input() set shortcuts(value: ShortcutInput[]) {
+    this._shortcuts = value;
+    let vv = value ?? [];
+    this.shortcutsInternal = [...vv, ...this._shortcutsDefault];
+  }
+  get shortcuts(): ShortcutInput[] {
+    // other logic
+    return this._shortcuts;
+  }
 
   /**
    * Display the footer always on bottom if true.
@@ -54,6 +84,8 @@ export class AppLayout implements OnInit, AfterContentInit {
 
   @Output() onTopRightMenuClicked: EventEmitter<any> = new EventEmitter();
 
+  shortcutsInternal: ShortcutInput[] = [];
+
   constructor(
     private primengConfig: PrimeNGConfig,
     private authorizeService: AuthorizeService
@@ -78,6 +110,8 @@ export class AppLayout implements OnInit, AfterContentInit {
       }
     });
     this.controlFooterTemplate = this.customFooterTemplate ?? this.defaultFooterTemplate;
+    let vv = this.shortcuts ?? [];
+    this.shortcutsInternal = [...vv, ...this._shortcutsDefault];
   }
 
   handleTopMenuClick(ev:any){
