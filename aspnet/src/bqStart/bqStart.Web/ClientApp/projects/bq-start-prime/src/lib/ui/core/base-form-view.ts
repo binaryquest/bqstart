@@ -11,6 +11,8 @@ import { BqForm } from '../controls/bq-form/bq-form';
 import { RouterService } from '../../services/router.service';
 import { IBaseView } from './base-view';
 import { isEqual } from 'lodash-es';
+import { KeyboardShortcutsSelectService, ShortcutEventOutput } from 'ng-keyboard-shortcuts';
+import { Observable, Subscription } from 'rxjs';
 
 
 
@@ -111,11 +113,13 @@ export class BaseFormView<TModel>
   allowDelete: boolean;
   formViewId: string | undefined;
   autoLoadLookupData: boolean = true;
+  keyboardSvc: KeyboardShortcutsSelectService;
 
   @ViewChild(BqForm) bqForm: BqForm;
 
   protected dataSvc: GenericDataService;
   protected msgSubscription: any;
+  protected keyboardSubscription: Subscription;
 
 
   constructor(protected routerSvc: RouterService,
@@ -142,6 +146,18 @@ export class BaseFormView<TModel>
     this.dataSvc = injector.get(GenericDataService);
     this.vwService = this.injector.get(ViewWrapperService);
 
+    this.keyboardSvc = this.injector.get(KeyboardShortcutsSelectService);
+
+    if (this.keyboardSvc){
+      this.keyboardSubscription = this.keyboardSvc.select("ctl + s").subscribe(
+        {
+          next:(e) => {
+            console.log("check current view");
+            this.save();
+          }
+        }
+      )
+    }
 
     if (this.formType == FormType.List) {
       throw new Error('Wrong View Form Type in View Defintions');
@@ -253,6 +269,9 @@ export class BaseFormView<TModel>
   ngOnDestroy(): void {
     InternalLogService.logger().debug('BaseFormView::ngOnDestroy');
     this.messageSvc.unSubscribeToChannel(this.viewDef.typeName, this.msgSubscription.id);
+    if (this.keyboardSubscription){
+      this.keyboardSubscription.unsubscribe();
+    }
   }
 
   private handleMessage(data:any){

@@ -12,6 +12,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 import { SidebarModule } from 'primeng/sidebar';
 
+import { KeyboardShortcutsModule }     from 'ng-keyboard-shortcuts';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
@@ -70,6 +72,7 @@ registerLocaleData(localeAu);
     NgSelectModule,
     NgOptionHighlightModule,
     SidebarModule,
+    KeyboardShortcutsModule.forRoot(),
     TranslateModule.forRoot(),
     BQStartPrimeModule.forRoot(APP_CONFIG),
     RouterModule.forRoot([

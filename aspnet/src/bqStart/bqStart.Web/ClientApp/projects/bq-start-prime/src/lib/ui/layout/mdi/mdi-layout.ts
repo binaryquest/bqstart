@@ -6,6 +6,7 @@ import { AppInjector } from '../../../services/app-injector.service';
 import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.service';
 import { BQTemplate } from '../../core/bq-template.directive';
 import { Dictionary } from '../../../models/meta-data';
+import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts';
 
 /**
  * Main layout component for showing views as a Tabbed MDI interface. The config option should
@@ -45,6 +46,8 @@ import { Dictionary } from '../../../models/meta-data';
         </div>
       </div>
     </div>
+    <ng-keyboard-shortcuts [shortcuts]="shortcutsInternal"></ng-keyboard-shortcuts>
+    <ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Keyboard Shotcuts'"></ng-keyboard-shortcuts-help>
     <p-toast class="flex-none"></p-toast>
     <ng-template #defaultFooterTemplate>
       <bq-footer-bar></bq-footer-bar>
@@ -65,6 +68,36 @@ export class MDILayoutComponent implements OnInit, AfterContentInit {
   optionalTemplates: Dictionary<TemplateRef<any>> = {};
 
   @Output() onTopRightMenuClicked: EventEmitter<any> = new EventEmitter();
+
+  @ViewChild(KeyboardShortcutsComponent) private keyboard: KeyboardShortcutsComponent;
+
+  shortcutsInternal: ShortcutInput[] = [];
+  private _shortcuts: ShortcutInput[] = [];
+  private _shortcutsDefault: ShortcutInput[] = [
+    {
+      key: "ctl + s",
+      label: "Save Command",
+      description: "Default Save Command for any form",
+      command: () => console.log('app ctl + s'),
+      preventDefault: true
+    }
+  ];
+
+  /**
+   * This is the list of shortcut keyboard hooks to patch to the module
+   *
+   * @type {ShortcutInput[]}
+   * @memberof AppLayout
+   */
+  @Input() set shortcuts(value: ShortcutInput[]) {
+    this._shortcuts = value;
+    let vv = value ?? [];
+    this.shortcutsInternal = [...vv, ...this._shortcutsDefault];
+  }
+  get shortcuts(): ShortcutInput[] {
+    // other logic
+    return this._shortcuts;
+  }
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -91,6 +124,8 @@ export class MDILayoutComponent implements OnInit, AfterContentInit {
       }
     });
     this.controlFooterTemplate = this.customFooterTemplate ?? this.defaultFooterTemplate;
+    let vv = this.shortcuts ?? [];
+    this.shortcutsInternal = [...vv, ...this._shortcutsDefault];
   }
 
   handleTopMenuClick(ev:any){

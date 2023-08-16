@@ -5,6 +5,7 @@
   <p-table #internalTable [value]='model' [styleClass]="styleClass" [ngClass]="{'bq-table-flex':!equalColumnWidth}"
     [resizableColumns]="resizableColumns" [loading]="loading" [lazy]="true" [lazyLoadOnInit]="false"
     (onLazyLoad)="lazyLoadData($event)" [paginator]="true" [rows]="pageSize" [totalRecords]="count"
+    [dataKey]="getKeyName()"
     [rowsPerPageOptions]="pageSizeOptions">
     <ng-template pTemplate="header">
       <tr>
@@ -25,7 +26,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-data>
-      <tr>
+      <tr (dblclick)="internalTable.toggleRow(data, $event)" >
         <td *ngFor="let col of columns" [style]="col.cellStyle">
           <ng-container *ngIf="col.cellTemplate; else defaultRender" [ngTemplateOutlet]="col.cellTemplate"
             [ngTemplateOutletContext]="{row:data}"></ng-container>
@@ -38,12 +39,16 @@
             [ngTemplateOutletContext]="{row:data}"></ng-container>
           <ng-template #defaultOptionRender>
             <span class="p-buttonset">
+              <button *ngIf="expandedRowTemplate" pButton icon="pi pi-arrow-down" aria-label="Expand" type="button" class="p-button-secondary p-button-sm" [pRowToggler]="data"></button>
               <button *ngIf="allowEdit" pButton icon="pi pi-pencil" aria-label="Edit" type="button" class="p-button-primary p-button-sm" (click)="gotoEdit(data)"></button>
               <button *ngIf="allowDetails" pButton icon="pi pi-file" aria-label="Details" type="button" class="p-button-secondary p-button-sm" (click)="gotoDetails(data)"></button>
             </span>
           </ng-template>
         </td>
       </tr>
+    </ng-template>
+    <ng-template pTemplate="rowexpansion" let-data>
+      <ng-container [ngTemplateOutlet]="expandedRowTemplate" [ngTemplateOutletContext]="{row:data}"></ng-container>
     </ng-template>
   </p-table>
 </div>

@@ -80,6 +80,13 @@ luxon@^3.3.0:
   resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.3.0.tgz#d73ab5b5d2b49a461c47cedbc7e73309b4805b48"
   integrity sha512-An0UCfG/rSiqtAIiBPO0Y9/zAnHUZxAMiCpTd5h2smgsj7GGmcenvrvww2cqNA8/4A5ZrD1gJpHN2mIHZQF+Mg==
 
+ng-keyboard-shortcuts@^13.0.8:
+  version "13.0.8"
+  resolved "https://registry.yarnpkg.com/ng-keyboard-shortcuts/-/ng-keyboard-shortcuts-13.0.8.tgz#33c6afa04b3eced3c9c96f3d33225660a7efadab"
+  integrity sha512-xmEFgmxfp+ssoLRAbDn/QJYyi5CmNm8AfCZiwEk6XlZGl8DN7uRuticEP3J0Nxop+HeoS9YSpQzPrrYo9h9juQ==
+  dependencies:
+    tslib "^2.3.0"
+
 oidc-client@^1.11.5:
   version "1.11.5"
   resolved "https://registry.yarnpkg.com/oidc-client/-/oidc-client-1.11.5.tgz#020aa193d68a3e1f87a24fcbf50073b738de92bb"
