@@ -18,7 +18,8 @@
           [showStripedGrid]='true'
           [showAddButton]="showAddButton"
           [predefinedFilters]='predefinedFilters'
-          [expandedRowTemplate]="expRowTemplate">
+          [expandedRowTemplate]="expRowTemplate"
+          (onRowExpandToggled)="onExpanded($event)">
 
   <bq-table-column [field]='metaData.fields.ClassName'></bq-table-column>
   <bq-table-column [field]='metaData.fields.DepartmentId' [cellTemplate]="cellTemplate">
