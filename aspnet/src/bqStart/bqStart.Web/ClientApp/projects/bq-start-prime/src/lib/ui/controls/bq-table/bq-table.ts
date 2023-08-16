@@ -12,6 +12,10 @@ import { TableFilter } from './bq-table-filter';
 import { RouterService } from '../../../services/router.service';
 import { DateTime } from 'luxon';
 
+export interface RowExpandedEventData{
+  row:any,
+  expanded:boolean
+}
 
 /**
  * Table Density Enum to Control the Visual State of the Table
@@ -158,6 +162,8 @@ export class Table implements OnInit, OnDestroy, OnChanges {
    */
   @Input()
   expandedRowTemplate: TemplateRef<any>;
+  @Output()
+  onRowExpandToggled = new EventEmitter<RowExpandedEventData>();
 
   //the total record count, not just the current page. gets returned by odata query
   count: number = 0;
@@ -338,6 +344,11 @@ export class Table implements OnInit, OnDestroy, OnChanges {
     //const path = `view/${this.formViewId}/add/-1`;
     this.routerSvc.navigateToView(this.formViewId, "add", "-1");
     //this.router.navigate([path], { queryParamsHandling: 'merge' });
+  }
+
+  expandRow(rowData:any, expanded:boolean, ev?:Event){
+    this.internalTable.toggleRow(rowData, ev);
+    this.onRowExpandToggled.emit({row: rowData, expanded: !expanded});
   }
 
   private isTableStateSyncedWithPrams() {

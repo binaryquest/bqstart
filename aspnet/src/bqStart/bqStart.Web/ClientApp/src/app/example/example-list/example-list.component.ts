@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseListView, ViewOptionalData, RouterService, PREDICATE_EQUALS, PredefinedFilter, IBaseListViewEvents } from 'projects/bq-start-prime/src/public-api';
+import { BaseListView, ViewOptionalData, RouterService, PREDICATE_EQUALS, PredefinedFilter, IBaseListViewEvents, RowExpandedEventData } from 'projects/bq-start-prime/src/public-api';
 import { ExampleClass, ExampleClassType } from 'src/app/models/exampleClass';
 
 const OPTIONAL_DATA:ViewOptionalData = {
@@ -27,6 +27,10 @@ export class ExampleListComponent  extends BaseListView<ExampleClass> implements
   }
   onAfterServerDataReceived(): void {
 
+  }
+
+  onExpanded(ev:RowExpandedEventData){
+    console.log(ev);
   }
 
 }
