@@ -138,6 +138,7 @@ export class BaseFormView<TModel>
     if (this.metaData && optionalData) {
       dataServiceOptions.$expandClause = optionalData.$expandClause;
       dataServiceOptions.$selectClause = optionalData.$selectClause;
+      dataServiceOptions.$filterClause = optionalData.$filterClause;
     }
 
     const injector =

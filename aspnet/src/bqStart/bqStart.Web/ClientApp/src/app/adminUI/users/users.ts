@@ -71,8 +71,8 @@ export class UserList extends BaseListView<ApplicationUser> {
       <bq-password-field [field]='metaData.fields["VerifyPassword"]' [(model)]="model.VerifyPassword"></bq-password-field>
       <bq-text-field [field]='metaData.fields["EmailConfirmed"]' [(model)]="model.EmailConfirmed"></bq-text-field>
 
-      <bq-dropdown-field [field]='metaData.fields["TimeZoneId"]' [(model)]="model.TimeZoneId" [itemSource]="lookupDataModel.timeZones" displayName="name" valueName="id"></bq-dropdown-field>
-      <bq-dropdown-field [field]='metaData.fields["AssignedRoles"]' [allowMultiple]="true" [(model)]="assignedRolesArray" [itemSource]="lookupDataModel.roles" displayName="name">
+      <bq-dropdown-field [field]='metaData.fields["TimeZoneId"]' [(model)]="model.TimeZoneId" [itemSource]="lookupDataModel.TimeZones" displayName="name" valueName="id"></bq-dropdown-field>
+      <bq-dropdown-field [field]='metaData.fields["AssignedRoles"]' [allowMultiple]="true" [(model)]="assignedRolesArray" [itemSource]="lookupDataModel.Roles" displayName="name">
         <ng-template bqTemplate="displayLabel">
           <span *ngFor="let item of model.AssignedRoles">
             <p-chip [label]="item" icon="pi pi-users"></p-chip>&nbsp;

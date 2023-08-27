@@ -384,6 +384,7 @@ export interface IBaseEvents {
 export class ViewOptionalData {
   $expandClause?: string;
   $selectClause?: string;
+  $filterClause?: string;
 }
 
 export class MessageBusPayLoad {

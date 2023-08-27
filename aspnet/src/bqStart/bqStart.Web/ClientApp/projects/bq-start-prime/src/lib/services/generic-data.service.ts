@@ -12,6 +12,8 @@ export const DataServiceToken = new InjectionToken<DataServiceOptions>('GSvcData
 export declare class DataServiceOptions {
   $expandClause?: string;
   $selectClause?: string;
+  //fixed filters from view backend
+  $filterClause?: string;
   $type: string;
 }
 
@@ -65,10 +67,14 @@ export class GenericDataService implements OnDestroy {
     if (tableParams.skip) {
         url = url + "&$skip=" + tableParams.skip;
     }
-    if (tableParams.filterByCollection.length > 0) {
+    if (tableParams.filterByCollection.length > 0 || this.options.$filterClause !== undefined) {
         var allfilters = "&$filter=";
+        if (this.options.$filterClause !== undefined){
+          if (this.options.$filterClause !== null)
+            allfilters = allfilters + this.options.$filterClause;
+        }
         for (var i = 0; i < tableParams.filterByCollection.length; i++) {
-            if (i > 0) {
+            if (i > 0 || this.options.$filterClause !== undefined) {
                 allfilters = allfilters + " and " + tableParams.filterByCollection[i].GetODataUrl();
             } else {
                 allfilters = allfilters + tableParams.filterByCollection[i].GetODataUrl();
