@@ -104,6 +104,7 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
     if (this.metaData && optionalData) {
       dataServiceOptions.$expandClause = optionalData.$expandClause;
       dataServiceOptions.$selectClause = optionalData.$selectClause;
+      dataServiceOptions.$filterClause = optionalData.$filterClause;
     }
 
     const injector =
