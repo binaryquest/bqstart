@@ -27,4 +27,12 @@
   <ng-keyboard-shortcuts [shortcuts]="shortcutsInternal"></ng-keyboard-shortcuts>
   <ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Keyboard Shotcuts'"></ng-keyboard-shortcuts-help>
 
+  <p-dialog [header]="dialogHeader" [(visible)]="dialogVisible" [modal]="true" [style]="{ minWidth: '30vw' }" [draggable]="false" [resizable]="false">
+    <div class="pb-2">
+        {{dialogMsg}}
+    </div>
+    <div class="flex justify-content-center">
+      <button pButton [autofocus]="true" pAutoFocus pRipple label="OK" (click)="dialogVisible=false"></button>
+    </div>
+</p-dialog>
 </div>
