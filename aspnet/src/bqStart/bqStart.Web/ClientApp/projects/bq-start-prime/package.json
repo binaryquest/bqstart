@@ -1,6 +1,6 @@
 {
   "name": "bq-start-prime",
-  "version": "2.16.1",
+  "version": "2.16.3",
   "homepage": "https://github.com/binaryquest/bqstart",
   "keywords": [
     "bqStart",
@@ -20,11 +20,11 @@
   "typings": "bq-start-prime.d.ts",
   "peerDependencies": {
     "@angular/animations": "^16.2.3",
-    "@angular/cdk": "^16.2.3",
-    "@angular/common": "^15.2.0",
-    "@angular/core": "^15.2.0",
+    "@angular/cdk": "^16.2.0",
+    "@angular/common": "^16.2.3",
+    "@angular/core": "^16.2.3",
     "@angular/forms": "^16.2.3",
-    "@angular/material": "^16.2.3",
+    "@angular/material": "^16.2.0",
     "@angular/platform-browser": "^16.2.3",
     "rxjs": "^7.8.1",
     "zone.js": "^0.13.1"
