@@ -20,30 +20,44 @@ import { TopBar } from '../top-bar/top-bar';
 @Component({
   selector: 'bq-top-menu-bar',
   template: `
-
-<p-menubar [model]="items">
-    <ng-template pTemplate="start">
-        <img alt="logo" [src]="logo" height="40" class="pr-2 md:inline hidden">
-    </ng-template>
-    <ng-template pTemplate="end">
-      <span *ngFor="let mm of topRightMenus" class="pr-2">
-        <button pButton pRipple
+    <p-menubar [model]="items">
+      <ng-template pTemplate="start">
+        <img
+          alt="logo"
+          [src]="logo"
+          height="40"
+          class="pr-2 md:inline hidden"
+        />
+      </ng-template>
+      <ng-template pTemplate="end">
+        <span *ngFor="let mm of topRightMenus" class="pr-2">
+          <button
+            pButton
+            pRipple
+            type="button"
+            [icon]="mm.icon"
+            [class]="mm.buttonClass"
+            (click)="handleTopMenuClick(mm.eventName)"
+          ></button>
+        </span>
+        <p-slideMenu
+          #menu
+          [model]="userMenus"
+          [popup]="true"
+          [viewportHeight]="115"
+        ></p-slideMenu>
+        <button
+          pButton
+          pRipple
+          #btn
           type="button"
-          [icon]="mm.icon"
-          [class]="mm.buttonClass"
-          (click)="handleTopMenuClick(mm.eventName)"></button>
-      </span>
-      <p-slideMenu #menu [model]="userMenus" [popup]="true" [viewportHeight]="115"></p-slideMenu>
-      <button pButton pRipple
-        #btn
-        type="button"
-        icon="pi pi-user"
-        class="p-button-rounded p-button-info"
-        (click)="menu.toggle($event)"></button>
-    </ng-template>
-</p-menubar>
-
-  `
+          icon="pi pi-user"
+          class="p-button-rounded p-button-info"
+          (click)="menu.toggle($event)"
+        ></button>
+      </ng-template>
+    </p-menubar>
+  `,
 })
 export class TopMenuBar extends BaseMenu {
   items: MenuItem[];
@@ -102,13 +116,15 @@ export class TopMenuBar extends BaseMenu {
       items: childMenu.length > 0 ? childMenu : undefined,
       visible: menu.isVisible,
       command: (e) => {
-        const menu: MenuItem = e.item;
-        if (menu.items === undefined) {
-          this.handleMenuClick(
-            menu.state,
-            menu.state!['routerLink'],
-            menu.state!['queryParams']
-          );
+        const menu = e.item;
+        if (menu !== undefined) {
+          if (menu.items === undefined) {
+            this.handleMenuClick(
+              menu.state,
+              menu.state!['routerLink'],
+              menu.state!['queryParams']
+            );
+          }
         }
       },
     };
@@ -129,20 +145,45 @@ export class TopMenuBar extends BaseMenu {
         .filter((x) => x.visible);
       this.topRightMenus = this.config.topRightMenus ?? [];
       if (this.config.userMenus && this.config.userMenus.length > 0) {
-        this.config.userMenus.filter(x=>x.url==undefined).every(x => (<MenuItem>x).command = (ev) => {
-          this.onTopRightMenuClicked.emit(ev.item.eventName);
-        });
+        this.config.userMenus
+          .filter((x) => x.url == undefined)
+          .every(
+            (x) =>
+              ((<MenuItem>x).command = (ev) => {
+                if (ev.item !== undefined){
+                  const evName:any = ev.item;
+                  this.onTopRightMenuClicked.emit(evName.eventName);
+                }
+              })
+          );
         this.userMenus = this.config.userMenus;
       } else {
         this.userMenus = [
-          { label: 'Manage', icon: 'pi pi-user', url: '/Identity/Account/Manage', target: this.menuTarget},
-          { label: 'Sign Out', icon: 'pi pi-sign-out', routerLink: this.logoutPath, state: { local: true }},
+          {
+            label: 'Manage',
+            icon: 'pi pi-user',
+            url: '/Identity/Account/Manage',
+            target: this.menuTarget,
+          },
+          {
+            label: 'Sign Out',
+            icon: 'pi pi-sign-out',
+            routerLink: this.logoutPath,
+            state: { local: true },
+          },
         ];
       }
     } else {
       this.items = [];
       this.topRightMenus = [];
-      this.userMenus = [{ label: 'Sign In', icon: 'pi pi-sign-in', routerLink: this.loginPath, state: { local: true }}];
+      this.userMenus = [
+        {
+          label: 'Sign In',
+          icon: 'pi pi-sign-in',
+          routerLink: this.loginPath,
+          state: { local: true },
+        },
+      ];
     }
   }
 }
