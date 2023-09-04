@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { AfterViewInit, Component, ContentChildren, EventEmitter, Inject, Input, LOCALE_ID, OnChanges, OnDestroy, OnInit, Optional, Output, QueryList, SimpleChanges, SkipSelf, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
-import { Table as ngTable } from 'primeng/table';
+import { TableLazyLoadEvent, Table as ngTable } from 'primeng/table';
 import { Subscription } from 'rxjs';
 import { MetadataField, ModelMetadata } from '../../../models/meta-data';
 import { OrderByClause, PredefinedFilter, TableParams } from '../../../models/table-data';
@@ -305,14 +305,14 @@ export class Table implements OnInit, OnDestroy, OnChanges {
     this.loadTableData.emit(this.tableParams);
   }
 
-  lazyLoadData(event: LazyLoadEvent) {
-    let param = { top: event.rows, skip: event.first, orderBy: <OrderByClause | null>null };
+  lazyLoadData(event: TableLazyLoadEvent) {
+    let param = { top: <number>event.rows, skip: event.first, orderBy: <OrderByClause | null>null };
 
     if (event.sortField) {
       param.orderBy = new OrderByClause();
-      param.orderBy.FieldName = event.sortField;
+      param.orderBy.FieldName = <string>event.sortField;
       param.orderBy.Dir = event.sortOrder === -1 ? "desc" : "";
-      param.orderBy.Caption = event.sortField; //TODO get proper caption
+      param.orderBy.Caption = <string>event.sortField; //TODO get proper caption
     }
     this.tableParams.gotoPage(param);
   }

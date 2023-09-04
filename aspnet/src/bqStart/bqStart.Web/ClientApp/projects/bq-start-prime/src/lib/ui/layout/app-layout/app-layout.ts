@@ -7,6 +7,7 @@ import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.se
 import { BQTemplate } from '../../core/bq-template.directive';
 import { Dictionary } from '../../../models/meta-data';
 import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts';
+import { DialogService } from '../../../services/dialog.service';
 
 /**
  * Main layout Component which is responsible for showing Menu bar footer etc
@@ -28,6 +29,9 @@ export class AppLayout implements OnInit, AfterContentInit {
   isAuthenticated: boolean;
   injector: any;
   config: BQConfigData;
+  dialogVisible: boolean = false;
+  dialogMsg: string = "";
+  dialogHeader: string = "";
 
   @ViewChild(KeyboardShortcutsComponent) private keyboard: KeyboardShortcutsComponent;
 
@@ -85,6 +89,7 @@ export class AppLayout implements OnInit, AfterContentInit {
   @Output() onTopRightMenuClicked: EventEmitter<any> = new EventEmitter();
 
   shortcutsInternal: ShortcutInput[] = [];
+  dialogService: DialogService;
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -96,6 +101,14 @@ export class AppLayout implements OnInit, AfterContentInit {
     });
     this.injector = AppInjector.getInjector();
     this.config = this.injector.get(BQConfigService);
+    this.dialogService = this.injector.get(DialogService);
+    this.dialogService.alertStore.subscribe({
+      next:(val) => {
+        this.dialogMsg = val.msg;
+        this.dialogHeader = val.heading;
+        this.dialogVisible = true;
+      }
+    });
   }
 
   ngAfterContentInit(): void {
