@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@ng-select/ng-select@^10.0.4":
-  version "10.0.4"
-  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-10.0.4.tgz#46ab5e7bfcf6473868d1584cf5d7f63291346217"
-  integrity sha512-Vc/JIgcFkSgf47cX7+pQQo9HYhDktfqrY7o/ZPGMvu63P7E9d1MibVipqmcLbgms6Ac9lu621CDZPGHdxag7hA==
+"@ng-select/ng-select@^11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-11.1.1.tgz#49fc89420bfc4022543833de5212214a1e00a0dd"
+  integrity sha512-Z5wV/u2HgaKl7CQSG3Sy1oF+BPQolmVV6jBuPqHa2+OWg0Nn2e9eXYdcZT8Q3BahfP5j5rHNIBrkkESg/m4YiQ==
   dependencies:
     tslib "^2.3.1"
 
@@ -35,10 +35,10 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.194.tgz#b71eb6f7a0ff11bff59fc987134a093029258a76"
   integrity sha512-r22s9tAS7imvBt2lyHC9B8AGwWnXaYb1tY09oyLkXDs4vArpYJzw09nj8MLx5VfciBPGIb+ZwG0ssYnEPJxn/g==
 
-"@types/luxon@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-3.3.0.tgz#a61043a62c0a72696c73a0a305c544c96501e006"
-  integrity sha512-uKRI5QORDnrGFYgcdAVnHvEIvEZ8noTpP/Bg+HeUzZghwinDlIS87DEenV5r1YoOF9G4x600YsUXLWZ19rmTmg==
+"@types/luxon@^3.3.2":
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-3.3.2.tgz#f6e3524c2486b949a4db445e85d93c8e9886dfe2"
+  integrity sha512-l5cpE57br4BIjK+9BSkFBOsWtwv6J9bJpC7gdXIzZyI0vuKvNTk0wZZrkQxMGsUAuGW9+WMNWF2IJMD7br2yeQ==
 
 "@types/uuid@^9.0.1":
   version "9.0.1"
@@ -75,10 +75,10 @@ lodash-es@^4.17.21:
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
   integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
-luxon@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.3.0.tgz#d73ab5b5d2b49a461c47cedbc7e73309b4805b48"
-  integrity sha512-An0UCfG/rSiqtAIiBPO0Y9/zAnHUZxAMiCpTd5h2smgsj7GGmcenvrvww2cqNA8/4A5ZrD1gJpHN2mIHZQF+Mg==
+luxon@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.4.2.tgz#f5bcab779f3d6a943ee7c8621c2b416bc10abd24"
+  integrity sha512-uBoAVCVcajsrqy3pv7eo5jEUz1oeLmCcnMv8n4AJpT5hbpN9lUssAXibNElpbLce3Mhm9dyBzwYLs9zctM/0tA==
 
 ng-keyboard-shortcuts@^13.0.8:
   version "13.0.8"
@@ -108,10 +108,10 @@ primeicons@^6.0.1:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-6.0.1.tgz#431fa7c79825934eefd62087d8e1faa6a9e376ad"
   integrity sha512-KDeO94CbWI4pKsPnYpA1FPjo79EsY9I+M8ywoPBSf9XMXoe/0crjbUK7jcQEDHuc0ZMRIZsxH3TYLv4TUtHmAA==
 
-primeng@^15.3.0:
-  version "15.3.0"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-15.3.0.tgz#ee98b52fd5ab3315f677260d0225cee3bc4423e6"
-  integrity sha512-vfNPk+KV5Bihu7vU+KYY4eTKmh3V+CPLt9l7kSuCqx02UAtDWHN579BS1AXrQleoUcg4G63/tvuI7JEuiRF0FQ==
+primeng@^16.3.1:
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-16.3.1.tgz#76f2042107426f436b9f69c4e32a1f49ecb4601b"
+  integrity sha512-7HdAhng5Kj1nJ4KaXZyQousw/0VCQMzq4AyVt4HD+2fl52Bl13WZPV5a+P7SpMKOXVTEDed3U6EeAxDRpbu7iw==
   dependencies:
     tslib "^2.3.0"
 

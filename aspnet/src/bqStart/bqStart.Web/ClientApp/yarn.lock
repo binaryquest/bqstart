@@ -1875,17 +1875,17 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@ng-select/ng-option-highlight@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@ng-select/ng-option-highlight/-/ng-option-highlight-0.0.7.tgz#827f268e216d703ab36587fedb0764d5c29bd1fb"
-  integrity sha512-5G6PLOQuuGbnxYSGHo+hup/Rwu7xhNNpuAE1h69OcRRrr9ltpihUIvEa4kfq22yPQz4/4Y5UGtIGLZtWCJ1tJg==
+"@ng-select/ng-option-highlight@^11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-option-highlight/-/ng-option-highlight-11.1.1.tgz#d4d48f44803e04471d16fb016f1e78adbb2b07e4"
+  integrity sha512-pjiHa/K5cl/XhpasCAFOZ4mEOY6nDr0YIAUiy9akz6N1rAnFivSpghXu32itg1BltU6Pw60H13/AHPttNh7k1g==
   dependencies:
     tslib "^2.3.0"
 
-"@ng-select/ng-select@^10.0.4":
-  version "10.0.4"
-  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-10.0.4.tgz#46ab5e7bfcf6473868d1584cf5d7f63291346217"
-  integrity sha512-Vc/JIgcFkSgf47cX7+pQQo9HYhDktfqrY7o/ZPGMvu63P7E9d1MibVipqmcLbgms6Ac9lu621CDZPGHdxag7hA==
+"@ng-select/ng-select@^11.1.1":
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-11.1.1.tgz#49fc89420bfc4022543833de5212214a1e00a0dd"
+  integrity sha512-Z5wV/u2HgaKl7CQSG3Sy1oF+BPQolmVV6jBuPqHa2+OWg0Nn2e9eXYdcZT8Q3BahfP5j5rHNIBrkkESg/m4YiQ==
   dependencies:
     tslib "^2.3.1"
 
@@ -5057,10 +5057,10 @@ lru-cache@^9.0.0:
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-9.0.3.tgz#8a04f282df5320227bb7215c55df2660d3e4e25b"
   integrity sha512-cyjNRew29d4kbgnz1sjDqxg7qg8NW4s+HQzCGjeon7DV5T2yDije16W9HaUFV1dhVEMh+SjrOcK0TomBmf3Egg==
 
-luxon@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.3.0.tgz#d73ab5b5d2b49a461c47cedbc7e73309b4805b48"
-  integrity sha512-An0UCfG/rSiqtAIiBPO0Y9/zAnHUZxAMiCpTd5h2smgsj7GGmcenvrvww2cqNA8/4A5ZrD1gJpHN2mIHZQF+Mg==
+luxon@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.4.2.tgz#f5bcab779f3d6a943ee7c8621c2b416bc10abd24"
+  integrity sha512-uBoAVCVcajsrqy3pv7eo5jEUz1oeLmCcnMv8n4AJpT5hbpN9lUssAXibNElpbLce3Mhm9dyBzwYLs9zctM/0tA==
 
 magic-string@0.30.1:
   version "0.30.1"
@@ -6080,10 +6080,10 @@ primeicons@^6.0.1:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-6.0.1.tgz#431fa7c79825934eefd62087d8e1faa6a9e376ad"
   integrity sha512-KDeO94CbWI4pKsPnYpA1FPjo79EsY9I+M8ywoPBSf9XMXoe/0crjbUK7jcQEDHuc0ZMRIZsxH3TYLv4TUtHmAA==
 
-primeng@^15.3.0:
-  version "15.3.0"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-15.3.0.tgz#ee98b52fd5ab3315f677260d0225cee3bc4423e6"
-  integrity sha512-vfNPk+KV5Bihu7vU+KYY4eTKmh3V+CPLt9l7kSuCqx02UAtDWHN579BS1AXrQleoUcg4G63/tvuI7JEuiRF0FQ==
+primeng@^16.3.1:
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-16.3.1.tgz#76f2042107426f436b9f69c4e32a1f49ecb4601b"
+  integrity sha512-7HdAhng5Kj1nJ4KaXZyQousw/0VCQMzq4AyVt4HD+2fl52Bl13WZPV5a+P7SpMKOXVTEDed3U6EeAxDRpbu7iw==
   dependencies:
     tslib "^2.3.0"
 
@@ -6407,14 +6407,14 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-rxjs@7.8.1:
+rxjs@7.8.1, rxjs@~7.8.1:
   version "7.8.1"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.8.1.tgz#6f6f3d99ea8044291efd92e7c7fcf562c4057543"
   integrity sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==
   dependencies:
     tslib "^2.1.0"
 
-rxjs@^7.5.5, rxjs@^7.5.6, rxjs@~7.8.0:
+rxjs@^7.5.5, rxjs@^7.5.6:
   version "7.8.0"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.8.0.tgz#90a938862a82888ff4c7359811a595e14e1e09a4"
   integrity sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==

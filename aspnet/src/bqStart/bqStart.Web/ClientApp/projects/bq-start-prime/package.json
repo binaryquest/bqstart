@@ -1,6 +1,6 @@
 {
   "name": "bq-start-prime",
-  "version": "2.15.16",
+  "version": "2.16.1",
   "homepage": "https://github.com/binaryquest/bqstart",
   "keywords": [
     "bqStart",
@@ -19,34 +19,34 @@
   "module": "bq-start-prime.js",
   "typings": "bq-start-prime.d.ts",
   "peerDependencies": {
-    "@angular/animations": "^15.2.7",
-    "@angular/cdk": "^15.2.7",
+    "@angular/animations": "^16.2.3",
+    "@angular/cdk": "^16.2.3",
     "@angular/common": "^15.2.0",
     "@angular/core": "^15.2.0",
-    "@angular/forms": "^15.2.7",
-    "@angular/material": "^15.2.7",
-    "@angular/platform-browser": "^15.2.7",
-    "rxjs": "^7.8.0",
-    "zone.js": "^0.13.0"
+    "@angular/forms": "^16.2.3",
+    "@angular/material": "^16.2.3",
+    "@angular/platform-browser": "^16.2.3",
+    "rxjs": "^7.8.1",
+    "zone.js": "^0.13.1"
   },
   "dependencies": {
-    "@ng-select/ng-select": "^10.0.4",
+    "@ng-select/ng-select": "^11.1.1",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "lodash-es": "^4.17.21",
-    "luxon": "^3.3.0",
+    "luxon": "^3.4.2",
     "ng-keyboard-shortcuts": "^13.0.8",
     "oidc-client": "^1.11.5",
     "primeflex": "^3.3.0",
     "primeicons": "^6.0.1",
-    "primeng": "^15.3.0",
+    "primeng": "^16.3.1",
     "tslib": "^2.3.0",
     "uuid": "^9.0.0",
     "validator": "^13.9.0"
   },
   "devDependencies": {
     "@types/lodash-es": "~4.17.7",
-    "@types/luxon": "^3.3.0",
+    "@types/luxon": "^3.3.2",
     "@types/uuid": "^9.0.1",
     "@types/validator": "~13.7.15"
   },
