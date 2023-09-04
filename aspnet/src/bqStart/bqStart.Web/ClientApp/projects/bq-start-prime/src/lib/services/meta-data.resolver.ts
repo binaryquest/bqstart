@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ModelMetadata } from '../models/meta-data';
 import { MetaDataService } from './meta-data.service';
@@ -15,7 +15,7 @@ import { MetaDataService } from './meta-data.service';
 @Injectable({
   providedIn: 'root'
 })
-export class MetaDataResolver implements Resolve<ModelMetadata> {
+export class MetaDataResolver  {
   constructor(private metaDataService: MetaDataService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any>|Promise<any>|any {
