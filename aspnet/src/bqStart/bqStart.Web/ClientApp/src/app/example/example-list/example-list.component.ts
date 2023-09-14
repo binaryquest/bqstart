@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ODataResponse } from 'bq-start-prime';
 import { BaseListView, ViewOptionalData, RouterService, PREDICATE_EQUALS, PredefinedFilter, IBaseListViewEvents, RowExpandedEventData } from 'projects/bq-start-prime/src/public-api';
+import { map } from 'rxjs';
 import { ExampleClass, ExampleClassType } from 'src/app/models/exampleClass';
 
 const OPTIONAL_DATA:ViewOptionalData = {
@@ -14,7 +17,9 @@ const OPTIONAL_DATA:ViewOptionalData = {
 })
 export class ExampleListComponent  extends BaseListView<ExampleClass> implements IBaseListViewEvents {
 
-  constructor(protected override routerSvc: RouterService) {
+  departmentList:any[] = [];
+
+  constructor(protected override routerSvc: RouterService, private http:HttpClient) {
     super(routerSvc, OPTIONAL_DATA);
 
     this.predefinedFilters = [
@@ -23,7 +28,12 @@ export class ExampleListComponent  extends BaseListView<ExampleClass> implements
     ];
   }
   onAfterInitComplete(): void {
-
+    var ob = this.http.get("/odata/Department/?$count=true").pipe(map(x => new ODataResponse<any>(x)));
+    ob.subscribe({
+      next: data => {
+        this.departmentList = data.entities;
+      }
+    });
   }
   onAfterServerDataReceived(): void {
 
