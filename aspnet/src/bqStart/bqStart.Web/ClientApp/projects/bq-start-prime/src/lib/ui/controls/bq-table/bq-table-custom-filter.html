@@ -6,7 +6,21 @@
   </p-dropdown>
 
   <!-- predicate -->
-  <p-dropdown class="p-pt-2" [options]="selectedFilter.field.typeSystem.predicates"
+  <p-dropdown class="p-pt-2" [options]="selectedFilter.field.typeSystem.predicates" *ngIf="!showDropDownValue"
+    [name]="'pd' + formName"
+    [(ngModel)]="selectedPredicate" (ngModelChange)="predicateUpdated($event, selectedFilter)">
+
+    <ng-template pTemplate="item" let-item>
+      {{item.display | translate}}
+    </ng-template>
+    <ng-template pTemplate="selectedItem" let-item>
+      {{item.display | translate}}
+    </ng-template>
+
+  </p-dropdown>
+
+  <!-- predicate -->
+  <p-dropdown class="p-pt-2" [options]="showEquals" *ngIf="showDropDownValue"
     [name]="'pd' + formName"
     [(ngModel)]="selectedPredicate" (ngModelChange)="predicateUpdated($event, selectedFilter)">
 
@@ -20,7 +34,7 @@
   </p-dropdown>
 
   <!-- first parameter -->
-  <ng-container *ngIf="showValue">
+  <ng-container *ngIf="showValue && !showDropDownValue">
     <div class="p-mt-2" *ngIf="selectedFilter.field.isString">
       <input [name]="formName" type="text" pInputText placeholder="Search Term" [(ngModel)]="value" (ngModelChange)="valueUpdated($event)" required>
     </div>
@@ -42,6 +56,17 @@
     <div class="p-mt-2" *ngIf="selectedFilter.field.isDate">
       <p-calendar [name]="formName" hourFormat="12" [showSeconds]="true" [(ngModel)]="value" placeholder="Search Date" [showTime]="selectedFilter.showTime"
         [dateFormat]="localeFormat" (ngModelChange)="valueUpdated($event)" [required]="true"></p-calendar>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="showDropDownValue">
+    <div class="p-mt-2">
+      <p-dropdown class="p-pt-2" [options]="selectedFilter.itemSource"
+                  [optionLabel]="selectedFilter.displayName"
+                  [optionValue]="selectedFilter.valueName"
+                  (ngModelChange)="valueUpdated($event)"
+                  [(ngModel)]="value" [name]="formName">
+      </p-dropdown>
     </div>
   </ng-container>
 

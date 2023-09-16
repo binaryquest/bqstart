@@ -3,11 +3,9 @@ import { MetadataField, Predicate } from '../../../models/meta-data';
 
 @Component({
   selector: 'bq-table>bq-table-filter',
-  template: ``
+  template: ``,
 })
-
 export class TableFilter implements OnInit {
-
   @Input()
   field: MetadataField;
 
@@ -20,13 +18,38 @@ export class TableFilter implements OnInit {
   @Input()
   showTime: boolean = false;
 
-  defaultPredicate:Predicate;
+  /**
+   * If this filter will display values from a predefined list, like a dropdown box
+   * then setup the source here
+   * @type {any[]}
+   * @memberof TableFilter
+   */
+  @Input()
+  itemSource: any[];
+  /**
+   * what display property to use for the dropdown values
+   *
+   * @type {string}
+   * @memberof TableFilter
+   */
+  @Input()
+  displayName: string;
+  /**
+   * value property to use for dropdown values
+   *
+   * @type {string}
+   * @memberof TableFilter
+   */
+  @Input()
+  valueName: string;
 
-  constructor() { }
+  defaultPredicate: Predicate;
+
+  constructor() {}
 
   ngOnInit() {
-    if (this.field){
-      if (!this.caption){
+    if (this.field) {
+      if (!this.caption) {
         this.caption = this.field.caption;
       }
       this.defaultPredicate = this.field.typeSystem?.predicates[0];

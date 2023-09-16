@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
 import { FilterByClause } from '../../../models/table-data';
 import { TableFilter } from './bq-table-filter';
-import { Predicate, PREDICATE_ISNOTNULL, PREDICATE_ISNULL } from '../../../models/meta-data';
+import { Predicate, PREDICATE_EQUALS, PREDICATE_ISNOTNULL, PREDICATE_ISNULL } from '../../../models/meta-data';
 import { InternalLogService } from '../../../services/log/log.service';
 import { DateTime } from 'luxon';
+import { DropdownChangeEvent } from 'primeng/dropdown';
 
 
 @Component({
@@ -36,6 +37,8 @@ export class CustomFilter implements OnInit {
   toValue: any;
   showValue: boolean = true;
   showToValue: boolean = false;
+  showDropDownValue: boolean = false;
+  showEquals = [PREDICATE_EQUALS];
 
   boolValues = [
     { display: 'is true', value: true },
@@ -62,7 +65,8 @@ export class CustomFilter implements OnInit {
     this.value = null;
     this.toValue = null;
     this.selectedPredicate = newVal.field.typeSystem.predicates[0];
-    this.showValue = this.selectedPredicate.key !== PREDICATE_ISNULL.key && this.selectedPredicate.key !== PREDICATE_ISNOTNULL.key;
+    this.showDropDownValue = (newVal.itemSource !== undefined);
+    this.showValue = this.selectedPredicate.key !== PREDICATE_ISNULL.key && this.selectedPredicate.key !== PREDICATE_ISNOTNULL.key && this.showDropDownValue === false;
     this.showToValue = this.selectedPredicate.hasSecondParam;
     this.filterCluase.Caption = newVal.caption ?? newVal.field.caption;
     this.filterCluase.DataType = newVal.field.dataType;
@@ -97,6 +101,14 @@ export class CustomFilter implements OnInit {
     this.filterCluase.Value = newVal;
     this.filterCluase.DisplayValue = newVal;
 
+    if (this.showDropDownValue){
+      //lets find display value from list
+      let item = this.selectedFilter.itemSource.find(x => x[this.selectedFilter.valueName]===newVal);
+      if (item){
+        this.filterCluase.DisplayValue = item[this.selectedFilter.displayName];
+      }
+    }
+
     if (this.selectedFilter.field.dataType == "DateTime") {
       if (!this.selectedFilter.showTime) {
         this.filterCluase.Value = DateTime.fromISO(newVal).startOf('day').toJSDate();
@@ -121,4 +133,5 @@ export class CustomFilter implements OnInit {
       }
     }
   }
+
 }
