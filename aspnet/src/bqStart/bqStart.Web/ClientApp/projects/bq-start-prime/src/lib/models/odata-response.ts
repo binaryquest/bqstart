@@ -1,3 +1,10 @@
+/**
+ * A generic class to model response from a OData API
+ *
+ * @export
+ * @class ODataResponse
+ * @template T
+ */
 export class ODataResponse<T> {
     private static getMetadata(data: any): Map<string, any> {
         const metadata = new Map<string, any>();
@@ -23,16 +30,50 @@ export class ODataResponse<T> {
         return [];
     }
 
+    /**
+     * The meta data information for a entity type
+     *
+     * @type {Map<string, any>}
+     * @memberof ODataResponse
+     */
     public readonly metadata: Map<string, any>;
+
+    /**
+     *  Single Entity Result
+     *
+     * @type {(T | null)}
+     * @memberof ODataResponse
+     */
     public readonly entity: T | null;
+
+
+    /**
+     * Return a list of entities
+     *
+     * @type {T[]}
+     * @memberof ODataResponse
+     */
     public readonly entities: T[];
 
+    /**
+     * Creates an instance of ODataResponse.
+     * @param {*} response
+     * @memberof ODataResponse
+     */
     constructor(response: any) {
         this.metadata = ODataResponse.getMetadata(response);
         this.entities = ODataResponse.getEntities(response);
         this.entity = this.entities.length === 0 ? ODataResponse.getEntity(response) : null;
     }
 
+
+    /**
+     * If contains multiple of single result
+     *
+     * @readonly
+     * @type {boolean}
+     * @memberof ODataResponse
+     */
     public get containsMultipleEntities(): boolean {
         return this.entities.length > 0;
     }

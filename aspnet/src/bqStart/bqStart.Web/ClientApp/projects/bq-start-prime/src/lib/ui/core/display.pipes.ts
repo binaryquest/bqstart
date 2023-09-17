@@ -1,5 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/**
+ * Converts a boolean value to yes/no string
+ *
+ * @export
+ * @class BoolToYesNoPipe
+ * @implements {PipeTransform}
+ */
 @Pipe({
   name: 'boolToYesNo'
 })
@@ -14,6 +21,13 @@ export class BoolToYesNoPipe implements PipeTransform {
   }
 }
 
+/**
+ * Masks a password string to **** string
+ *
+ * @export
+ * @class PasswordPipe
+ * @implements {PipeTransform}
+ */
 @Pipe({
   name: 'password'
 })

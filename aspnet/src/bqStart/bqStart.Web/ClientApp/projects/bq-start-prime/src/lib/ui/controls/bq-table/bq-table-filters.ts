@@ -8,6 +8,15 @@ import { DomHandler } from 'primeng/dom';
 //import { tap } from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
 
+/**
+ * Represent a filter component inside bq-table
+ *
+ * @export
+ * @class TableFilters
+ * @implements {AfterViewInit}
+ * @implements {OnInit}
+ * @implements {OnDestroy}
+ */
 @Component({
   selector: 'bq-table-filters',
   templateUrl: './bq-table-filters.html',
@@ -33,16 +42,40 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
   @Input()
   tableParams: TableParams;
 
+  /**
+   * List of filters
+   *
+   * @type {QueryList<TableFilter>}
+   * @memberof TableFilters
+   */
   @Input()
   filters: QueryList<TableFilter>;
 
+  /**
+   * Predefined filters list
+   *
+   * @type {PredefinedFilter[]}
+   * @memberof TableFilters
+   */
   @Input()
   predefinedFilters: PredefinedFilter[];
 
+  /**
+   * If it will show additional filter add option
+   *
+   * @type {boolean}
+   * @memberof TableFilters
+   */
   @Input()
   showAddButton: boolean;
 
-  @Output() addButtonClicked = new EventEmitter<boolean>();
+  /**
+   * When a add button is clicked
+   *
+   * @memberof TableFilters
+   */
+  @Output()
+  addButtonClicked = new EventEmitter<boolean>();
 
   tableParamsSub: Subscription;
   appliedFilters: FilterByClause[];

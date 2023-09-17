@@ -1,3 +1,9 @@
+/**
+ * base class for a view
+ *
+ * @export
+ * @interface IBaseView
+ */
 export interface IBaseView {
   canClose():boolean;
   refresh():void;

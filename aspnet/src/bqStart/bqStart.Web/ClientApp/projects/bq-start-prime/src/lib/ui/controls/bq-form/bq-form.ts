@@ -8,6 +8,13 @@ import { Router } from '@angular/router';
 import { FormType } from '../../../config/bq-start-config';
 import { RouterService } from '../../../services/router.service';
 
+/**
+ * This component is responsible for a UI layout of a generic form view.
+ *
+ * @export
+ * @class BqForm
+ * @implements {AfterContentInit}
+ */
 @Component({
   selector: 'bq-form',
   templateUrl: './bq-form.html',

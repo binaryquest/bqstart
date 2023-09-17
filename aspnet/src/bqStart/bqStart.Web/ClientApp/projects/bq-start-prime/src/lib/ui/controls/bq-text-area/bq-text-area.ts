@@ -4,6 +4,13 @@ import { BaseField } from '../../core/base-field';
 import { FormBlock } from '../form-block/form-block';
 import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';
 
+/**
+ * Display a input field as a text area, simialr to bq-text-field
+ *
+ * @export
+ * @class BqTextArea
+ * @extends {BaseField}
+ */
 @Component({
   selector: 'bq-text-area',
   templateUrl: './bq-text-area.html',
@@ -14,16 +21,39 @@ export class BqTextArea extends BaseField {
   @ViewChild("defaultRender",{static: true}) defaultRender: TemplateRef<any>;
   @ViewChild("stringRender",{static: true}) stringRender: TemplateRef<any>;
 
+  /**
+   * Min lenght allowed
+   *
+   * @type {number}
+   * @memberof BqTextArea
+   */
   @Input()
   minLength: number;
 
+  /**
+   * Max length allowed
+   *
+   * @type {number}
+   * @memberof BqTextArea
+   */
   @Input()
   maxLength: number;
 
+  /**
+   * Number of rows to display
+   *
+   * @type {number}
+   * @memberof BqTextArea
+   */
   @Input()
   row: number = 5;
 
-
+  /**
+   * Allow auto resize as users type
+   *
+   * @type {boolean}
+   * @memberof BqTextArea
+   */
   @Input()
   autoResize: boolean;
 

@@ -14,6 +14,13 @@ export class DialogService {
 
   alertStore: Subject<{msg:string,heading:string}> = new Subject<{msg:string,heading:string}>();
 
+  /**
+   * Show an Alert Dialog
+   *
+   * @param {string} msg
+   * @param {string} [heading]
+   * @memberof DialogService
+   */
   alert(msg:string, heading?:string){
     if (heading === null || heading === undefined){
       heading = "Confirmation";
@@ -21,6 +28,15 @@ export class DialogService {
     this.alertStore.next({msg: msg, heading: heading});
   }
 
+  /**
+   * Show Confirm dialog
+   *
+   * @param {string} msg
+   * @param {string} [heading]
+   * @param {Function} [accept]
+   * @param {Function} [cancel]
+   * @memberof DialogService
+   */
   confirm(msg:string, heading?:string, accept?:Function, cancel?:Function ){
 
     if (heading === null || heading === undefined){
@@ -36,6 +52,13 @@ export class DialogService {
     });
   }
 
+  /**
+   * Show an Error dialog
+   *
+   * @param {string} msg
+   * @param {string} [heading]
+   * @memberof DialogService
+   */
   errorDialog(msg:string, heading?:string){
 
     if (heading === null || heading === undefined){

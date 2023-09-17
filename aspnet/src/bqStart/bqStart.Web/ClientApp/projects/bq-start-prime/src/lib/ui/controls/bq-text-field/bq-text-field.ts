@@ -5,6 +5,13 @@ import { FormBlock } from '../form-block/form-block';
 import { ValidationType } from '../../../models/meta-data';
 
 
+/**
+ * Display a text-field. This component will know how to render information based on metadata and apply validation as needed.
+ *
+ * @export
+ * @class BqTextField
+ * @extends {BaseField}
+ */
 @Component({
   selector: 'bq-text-field',
   templateUrl: './bq-text-field.html',
@@ -22,27 +29,74 @@ export class BqTextField extends BaseField {
   @ViewChild("booleanDisplayRender",{static: true}) booleanDisplayRender: TemplateRef<any>;
   @ViewChild("defaultDateRender",{static: true}) defaultDateRender: TemplateRef<any>;
 
+  /**
+   * If field type is datetime then what format to display.
+   *
+   * @type {(string | undefined | null)}
+   * @memberof BqTextField
+   */
   @Input()
   dateFormat: string | undefined | null;
 
+  /**
+   * Also show time part if datetime
+   *
+   * @type {boolean}
+   * @memberof BqTextField
+   */
   @Input()
   showTime: boolean = false;
 
+  /**
+   * Min value to accept if number type
+   *
+   * @type {number}
+   * @memberof BqTextField
+   */
   @Input()
   min: number;
 
+  /**
+   * Max value to accept if number type
+   *
+   * @type {number}
+   * @memberof BqTextField
+   */
   @Input()
   max: number;
 
+  /**
+   * Min length of strings allowed
+   *
+   * @type {number}
+   * @memberof BqTextField
+   */
   @Input()
   minLength: number;
 
+  /**
+   * Max length of strings allowed
+   *
+   * @type {number}
+   * @memberof BqTextField
+   */
   @Input()
   maxLength: number;
 
+  /**
+   * If number/currency type, what digit seperator to show
+   *
+   * @type {boolean}
+   * @memberof BqTextField
+   */
   @Input()
   seperateDigits: boolean = false;
 
+  /**
+   * if Currency format type
+   *
+   * @memberof BqTextField
+   */
   @Input()
   set currency(value:boolean){
     this._currency = value;
@@ -55,7 +109,12 @@ export class BqTextField extends BaseField {
     return  this._currency;
   }
 
-
+  /**
+   * Currency Code to display
+   *
+   * @type {string}
+   * @memberof BqTextField
+   */
   @Input()
   currencyCode: string = "USD";
 
@@ -65,21 +124,51 @@ export class BqTextField extends BaseField {
   maxLengthInner: any;
   numberMode: any = "decimal";
 
+  /**
+   * Apply Regex validation
+   *
+   * @type {*}
+   * @memberof BqTextField
+   */
   @Input()
   regexPattern: any;
 
+  /**
+   * Error message to show if regex fails
+   *
+   * @type {*}
+   * @memberof BqTextField
+   */
   @Input()
   regexMessage: any;
 
   localeFormat: string;
   localePipeFormat: string;
 
+  /**
+   * If comapare value againts another field. Useful for password RE-TYPE.
+   *
+   * @type {*}
+   * @memberof BqTextField
+   */
   @Input()
   compareTo: any;
 
+  /**
+   * Compare to control
+   *
+   * @type {*}
+   * @memberof BqTextField
+   */
   @Input()
   compareParent: any;
 
+  /**
+   * Message to show if comparison fails
+   *
+   * @type {*}
+   * @memberof BqTextField
+   */
   @Input()
   compareToMsg: any;
 

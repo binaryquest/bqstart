@@ -1,6 +1,13 @@
 import { Directive, Attribute, Input  } from '@angular/core';
 import { Validator,  NG_VALIDATORS, AbstractControl, ValidationErrors } from '@angular/forms';
 
+/**
+ * This directive it used to compare values against two text fields
+ *
+ * @export
+ * @class CompareDirective
+ * @implements {Validator}
+ */
 @Directive({
   selector: '[compare]',
   providers: [{provide: NG_VALIDATORS, useExisting: CompareDirective, multi: true}]

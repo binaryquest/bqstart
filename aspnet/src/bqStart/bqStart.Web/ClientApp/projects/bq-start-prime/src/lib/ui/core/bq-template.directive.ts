@@ -1,5 +1,11 @@
 import { Directive, Input, TemplateRef } from "@angular/core";
 
+/**
+ * Defines a template placeholder
+ *
+ * @export
+ * @class BQTemplate
+ */
 @Directive({
   selector: '[bqTemplate]',
   host: {
