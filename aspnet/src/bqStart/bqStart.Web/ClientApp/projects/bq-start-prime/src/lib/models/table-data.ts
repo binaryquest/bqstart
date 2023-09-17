@@ -5,6 +5,12 @@ import { RouterService } from "../services/router.service";
 import { ALL_PREDICATES, MetadataField, Predicate, PREDICATE_BETWEEN, TypeSystem, TYPE_SYSTEM } from "./meta-data";
 import { ODataResponse } from "./odata-response";
 
+/**
+ * This class defines the table view runtime metadata information like filters and sort orders
+ *
+ * @export
+ * @class TableParams
+ */
 export class TableParams {
 
   public top: number;

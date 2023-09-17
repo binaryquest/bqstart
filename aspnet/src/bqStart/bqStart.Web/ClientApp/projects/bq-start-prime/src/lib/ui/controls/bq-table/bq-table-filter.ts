@@ -1,20 +1,51 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MetadataField, Predicate } from '../../../models/meta-data';
 
+/**
+ * Defines a filter in a bq-table component
+ *
+ * @export
+ * @class TableFilter
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'bq-table>bq-table-filter',
   template: ``,
 })
 export class TableFilter implements OnInit {
+  /**
+   * Field metadata
+   *
+   * @type {MetadataField}
+   * @memberof TableFilter
+   */
   @Input()
   field: MetadataField;
 
+  /**
+   * Optional, Caption of the field
+   *
+   * @type {string}
+   * @memberof TableFilter
+   */
   @Input()
   caption: string;
 
+  /**
+   * If true then appears under the default search text box as an option
+   *
+   * @type {boolean}
+   * @memberof TableFilter
+   */
   @Input()
   defaultSearchField: boolean = false;
 
+  /**
+   * If the value to display is a TIME type
+   *
+   * @type {boolean}
+   * @memberof TableFilter
+   */
   @Input()
   showTime: boolean = false;
 

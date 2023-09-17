@@ -7,6 +7,13 @@ import { DateTime } from 'luxon';
 import { DropdownChangeEvent } from 'primeng/dropdown';
 
 
+/**
+ * This component is used internally in bq-table
+ *
+ * @export
+ * @class CustomFilter
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'bq-table-custom-filter',
   templateUrl: './bq-table-custom-filter.html',

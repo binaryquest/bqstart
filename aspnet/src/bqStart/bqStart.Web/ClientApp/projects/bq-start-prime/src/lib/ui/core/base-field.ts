@@ -9,6 +9,16 @@ import { BQTemplate } from './bq-template.directive';
 import { Dictionary } from '../../models/meta-data';
 import { FormType } from '../../config/bq-start-config';
 import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
+
+/**
+ * Defines a base functionality for a form field
+ *
+ * @export
+ * @abstract
+ * @class BaseField
+ * @implements {OnInit}
+ * @implements {AfterContentInit}
+ */
 @Component({
   selector: 'bq-form > base-field',
   template: ''

@@ -4,6 +4,13 @@ import { BaseField } from '../../core/base-field';
 import { FormBlock } from '../form-block/form-block';
 import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';
 
+/**
+ * Show a password field either in edit or display mode depending on the current form view.
+ *
+ * @export
+ * @class BqPasswordField
+ * @extends {BaseField}
+ */
 @Component({
   selector: 'bq-password-field',
   templateUrl: './bq-password-field.html',
@@ -14,27 +21,69 @@ export class BqPasswordField extends BaseField {
   @ViewChild("passwordRender",{static: true}) passwordRender: TemplateRef<any>;
   @ViewChild("displayPasswordRender",{static: true}) displayPasswordRender: TemplateRef<any>;
 
+  /**
+   * Minimum length to accept for a password
+   *
+   * @type {number}
+   * @memberof BqPasswordField
+   */
   @Input()
   minLength: number;
 
+  /**
+   * Maximum length to accept for a password
+   *
+   * @type {number}
+   * @memberof BqPasswordField
+   */
   @Input()
   maxLength: number;
 
   minLengthInner: any;
   maxLengthInner: any;
 
+  /**
+   * A regex pattern for validation of the password
+   *
+   * @type {*}
+   * @memberof BqPasswordField
+   */
   @Input()
   regexPattern: any;
 
+  /**
+   * If regex fails, the message to display
+   *
+   * @type {*}
+   * @memberof BqPasswordField
+   */
   @Input()
   regexMessage: any;
 
+  /**
+   * Compare to value from another control/field
+   *
+   * @type {*}
+   * @memberof BqPasswordField
+   */
   @Input()
   compareTo: any;
 
+  /**
+   * UI Control to compare from
+   *
+   * @type {*}
+   * @memberof BqPasswordField
+   */
   @Input()
   compareParent: any;
 
+  /**
+   * if comapare fails, what message to display
+   *
+   * @type {*}
+   * @memberof BqPasswordField
+   */
   @Input()
   compareToMsg: any;
 

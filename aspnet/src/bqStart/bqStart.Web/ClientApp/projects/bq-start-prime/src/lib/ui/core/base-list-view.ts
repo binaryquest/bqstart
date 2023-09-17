@@ -46,6 +46,17 @@ function canCallAfterServerDataReceived(arg: Object): arg is IBaseListViewEvents
   return (arg as IBaseListViewEvents).onAfterServerDataReceived !== undefined;
 }
 
+/**
+ * This component defines the base list view
+ *
+ * @export
+ * @class BaseListView
+ * @extends {BaseComponent}
+ * @implements {OnInit}
+ * @implements {OnDestroy}
+ * @implements {IBaseView}
+ * @template TModel
+ */
 @Component({
   template: '',
 })

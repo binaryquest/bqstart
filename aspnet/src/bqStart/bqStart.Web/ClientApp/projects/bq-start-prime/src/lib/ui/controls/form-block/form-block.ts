@@ -2,6 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { BqForm } from '../bq-form/bq-form';
 
+/**
+ * Helper class to show form layout as bloks
+ *
+ * @export
+ * @class FormBlock
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'bq-form-block',
   templateUrl: './form-block.html',

@@ -25,8 +25,9 @@ export enum TableDensity {
   Compact = 1,
   Large = 2
 }
+
 /**
- * BQ Table Component
+ * BQ Table Component used in a list view
  *
  * @export
  * @class Table
@@ -95,6 +96,12 @@ export class Table implements OnInit, OnDestroy, OnChanges {
   @Input()
   equalColumnWidth: boolean = true;
 
+  /**
+   * if busy loading
+   *
+   * @type {boolean}
+   * @memberof Table
+   */
   @Input()
   loading: boolean = false;
 
@@ -148,9 +155,21 @@ export class Table implements OnInit, OnDestroy, OnChanges {
 
   @ContentChildren(TableFilter) filters: QueryList<TableFilter>;
 
+  /**
+   * You can define filters before hand, which will be show as it is without taking input from user.
+   *
+   * @type {PredefinedFilter[]}
+   * @memberof Table
+   */
   @Input()
   predefinedFilters: PredefinedFilter[];
 
+  /**
+   * Show Add record button the table
+   *
+   * @type {boolean}
+   * @memberof Table
+   */
   @Input()
   showAddButton: boolean;
 

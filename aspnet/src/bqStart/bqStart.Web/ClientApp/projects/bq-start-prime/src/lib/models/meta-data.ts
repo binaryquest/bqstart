@@ -20,6 +20,12 @@ export class Predicate {
 
 }
 
+/**
+ * Defines the type of a property in a entity and other related meta data
+ *
+ * @export
+ * @class TypeSystem
+ */
 export class TypeSystem {
   key: string;
   predicates: Predicate[];
@@ -126,6 +132,12 @@ export const TYPE_SYSTEM: Dictionary<TypeSystem> = {
   "Guid": new TypeSystem('Guid', onlyEuqals),
 };
 
+/**
+ * Various validation types
+ *
+ * @export
+ * @enum {number}
+ */
 export enum ValidationType {
   required = 0,
   maxLength = 1,
@@ -156,6 +168,12 @@ export interface EnumItem {
   name: string;
 }
 
+/**
+ * Defines a field with meta data information.
+ *
+ * @export
+ * @class MetadataField
+ */
 export class MetadataField {
   name: string;
   caption: string;
@@ -318,6 +336,12 @@ export class PrimaryKey {
 }
 
 
+/**
+ * Defines a entity level metadata
+ *
+ * @export
+ * @class ModelMetadata
+ */
 export class ModelMetadata {
   allowAdd: boolean;
   allowEdit: boolean;
