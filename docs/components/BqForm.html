@@ -75,6 +75,7 @@
     </p>
     <p class="comment">
                 <code>AfterContentInit</code>
+                <code>BlockableUI</code>
     </p>
 
 
@@ -151,6 +152,10 @@
                                 <a href="#additionalActionsOnRight" >additionalActionsOnRight</a>
                             </li>
                             <li>
+                                    <span class="modifier"></span>
+                                <a href="#blockableUI" >blockableUI</a>
+                            </li>
+                            <li>
                                 <a href="#editMode" >editMode</a>
                             </li>
                             <li>
@@ -198,6 +203,9 @@
                                 <a href="#edit" >edit</a>
                             </li>
                             <li>
+                                <a href="#getBlockableElement" >getBlockableElement</a>
+                            </li>
+                            <li>
                                 <a href="#ngAfterContentInit" >ngAfterContentInit</a>
                             </li>
                             <li>
@@ -210,6 +218,20 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
 
 
@@ -238,7 +260,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(routerSvc: <a href="../injectables/RouterService.html" target="_self">RouterService</a>, vwService: <a href="../injectables/ViewWrapperService.html" target="_self">ViewWrapperService</a>)</code>
+<code>constructor(el: ElementRef, routerSvc: <a href="../injectables/RouterService.html" target="_self">RouterService</a>, vwService: <a href="../injectables/ViewWrapperService.html" target="_self">ViewWrapperService</a>)</code>
                     </td>
                 </tr>
 
@@ -255,6 +277,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                                <tr>
+                                                        <td>el</td>
+                                                  
+                                                        <td>
+                                                                    <code>ElementRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                                 <tr>
                                                         <td>routerSvc</td>
                                                   
@@ -288,7 +322,36 @@
         </table>
 </section>
 
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isLoading"></a>
+                        <b>isLoading</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>this property will show a busy spinner icon if set to true inside the view</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
 
 
 
@@ -415,6 +478,37 @@
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getBlockableElement"></a>
+                    <span class="name">
+                        <span ><b>getBlockableElement</b></span>
+                        <a href="#getBlockableElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getBlockableElement()</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>HTMLElement</code>
 
                     </div>
                 </td>
@@ -556,6 +650,37 @@
                     <td class="col-md-4">
                         <i>Type : </i>    <code>TemplateRef&lt;any&gt;</code>
 
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="blockableUI"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>blockableUI</b></span>
+                        <a href="#blockableUI"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;blockableUI&#x27;)<br />
+                        </code>
                     </td>
                 </tr>
 
@@ -793,7 +918,7 @@
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><p-toolbar styleClass="mb-2">  <div class="p-toolbar-group-right">    <p-button *ngIf="showNew" label="{{\'bq-start.buttons.new\' | translate}}" icon="pi pi-plus" styleClass="mr-2" (onClick)="create()" ></p-button>    <p-button *ngIf="showEdit" label="{{\'bq-start.buttons.edit\' | translate}}" icon="pi pi-pencil" styleClass="mr-2 p-button-info" (onClick)="edit()"></p-button>    <p-button *ngIf="showDelete" label="{{\'bq-start.buttons.delete\' | translate}}" icon="pi pi-trash" styleClass="mr-2 p-button-warning" (onClick)="delete()"></p-button>    <button *ngIf="editMode" pButton type="submit" label="{{\'bq-start.buttons.save\' | translate}}" icon="pi pi-save"      class="mr-2 p-button-success" [disabled]="!form.form.valid"      (click)="save()"></button>    <p-button *ngIf="editMode" label="{{\'bq-start.buttons.discard\' | translate}}" icon="pi pi-times" styleClass="p-button-danger mr-2" (onClick)="discard()"></p-button>    <ng-container *ngIf="(!editMode && additionalActions) then additionalActions; else defaultRender" [ngTemplateOutlet]="additionalActions"></ng-container>  </div>  <div class="p-toolbar-group-right">    <ng-container *ngIf="(!editMode && additionalActionsOnRight) then additionalActionsOnRight else defaultRender" [ngTemplateOutlet]="additionalActionsOnRight"></ng-container>  </div></p-toolbar><div class="card">  <form #form="ngForm" (ngSubmit)="save()">    <ng-content></ng-content>  </form></div><ng-template #defaultRender></ng-template></div>'
+        var COMPONENT_TEMPLATE = '<div><p-toolbar styleClass="mb-2">  <div class="p-toolbar-group-right">    <p-button *ngIf="showNew" label="{{\'bq-start.buttons.new\' | translate}}" icon="pi pi-plus" styleClass="mr-2" (onClick)="create()" ></p-button>    <p-button *ngIf="showEdit" label="{{\'bq-start.buttons.edit\' | translate}}" icon="pi pi-pencil" styleClass="mr-2 p-button-info" (onClick)="edit()"></p-button>    <p-button *ngIf="showDelete" label="{{\'bq-start.buttons.delete\' | translate}}" icon="pi pi-trash" styleClass="mr-2 p-button-warning" (onClick)="delete()"></p-button>    <button *ngIf="editMode" pButton type="submit" label="{{\'bq-start.buttons.save\' | translate}}" icon="pi pi-save"      class="mr-2 p-button-success" [disabled]="!form.form.valid"      (click)="save()"></button>    <p-button *ngIf="editMode" label="{{\'bq-start.buttons.discard\' | translate}}" icon="pi pi-times" styleClass="p-button-danger mr-2" (onClick)="discard()"></p-button>    <ng-container *ngIf="(!editMode && additionalActions) then additionalActions; else defaultRender" [ngTemplateOutlet]="additionalActions"></ng-container>  </div>  <div class="p-toolbar-group-right">    <ng-container *ngIf="(!editMode && additionalActionsOnRight) then additionalActionsOnRight else defaultRender" [ngTemplateOutlet]="additionalActionsOnRight"></ng-container>  </div></p-toolbar><div class="card">  <form #form="ngForm" (ngSubmit)="save()">    <ng-content></ng-content>  </form></div><ng-template #defaultRender></ng-template><p-blockUI [target]="this" [blocked]="isLoading">  <i class="pi pi-spin pi-spinner" style="font-size: 3rem"></i></p-blockUI></div>'
     var COMPONENTS = [{'name': 'AppLayout', 'selector': 'bq-app-layout'},{'name': 'BaseComponent', 'selector': ''},{'name': 'BaseField', 'selector': 'bq-form &gt; base-field'},{'name': 'BaseFormView', 'selector': ''},{'name': 'BaseListView', 'selector': ''},{'name': 'BqDropdownField', 'selector': 'bq-dropdown-field'},{'name': 'BqForm', 'selector': 'bq-form'},{'name': 'BqPasswordField', 'selector': 'bq-password-field'},{'name': 'BqTextArea', 'selector': 'bq-text-area'},{'name': 'BqTextField', 'selector': 'bq-text-field'},{'name': 'Breadcrumb', 'selector': 'breadcrumb'},{'name': 'ChipsMenu', 'selector': 'bq-chips-menu'},{'name': 'CustomFilter', 'selector': 'bq-table-custom-filter'},{'name': 'DynamicLoaderComponent', 'selector': 'dyn-loader'},{'name': 'DynamicMDILoaderComponent', 'selector': 'dyn-mdi-loader'},{'name': 'FooterBar', 'selector': 'bq-footer-bar'},{'name': 'FormBlock', 'selector': 'bq-form-block'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'LoginMenuComponent', 'selector': 'app-login-menu'},{'name': 'LogoutComponent', 'selector': 'app-logout'},{'name': 'MDIComponent', 'selector': 'bq-mdi'},{'name': 'MDILayoutComponent', 'selector': 'bq-mdi-app-layout'},{'name': 'MenuBar', 'selector': 'bq-menu-bar'},{'name': 'Table', 'selector': 'bq-table'},{'name': 'TableColumn', 'selector': 'bq-table&gt;bq-table-column'},{'name': 'TableFilter', 'selector': 'bq-table&gt;bq-table-filter'},{'name': 'TableFilters', 'selector': 'bq-table-filters'},{'name': 'TopBar', 'selector': 'bq-top-bar'},{'name': 'TopMenuBar', 'selector': 'bq-top-menu-bar'},{'name': 'ViewWrapper', 'selector': 'view-wrapper'}];
     var DIRECTIVES = [{'name': 'BQTemplate', 'selector': '[bqTemplate]'},{'name': 'CompareDirective', 'selector': '[compare]'},{'name': 'ControlContainerDirective', 'selector': '[ngModel],[ngModelGroup]'},{'name': 'DynamicHostDirective', 'selector': '[dynHost]'}];
     var ACTUAL_COMPONENT = {'name': 'BqForm'};

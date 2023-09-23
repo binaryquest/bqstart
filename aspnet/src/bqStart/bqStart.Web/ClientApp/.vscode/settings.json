@@ -1,3 +1,13 @@
 {
-    "lingua.defaultLanguage": "en-US"
+    "lingua.defaultLanguage": "en-US",
+    "cSpell.words": [
+        "aspnet",
+        "Binaryquest",
+        "Blockable",
+        "luxon",
+        "oidc",
+        "primeflex",
+        "primeicons",
+        "primeng"
+    ]
 }

@@ -368,6 +368,20 @@ export class OAuthConfig{
    * @memberof OAuthConfig
    */
   scope: string;
+  /**
+   * Should refresh token be used, it will automatically renew tokens
+   *
+   * @type {boolean}
+   * @memberof OAuthConfig
+   */
+  automaticSilentRenew: boolean;
+  /**
+   * Send Id Token while performing auto renew
+   *
+   * @type {boolean}
+   * @memberof OAuthConfig
+   */
+  includeIdTokenInSilentRenew: boolean;
 }
 
 /**

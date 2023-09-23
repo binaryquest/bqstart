@@ -1,21 +1,21 @@
 {
   "name": "bq-start-prime",
-  "version": "2.16.4",
+  "version": "2.16.6",
   "homepage": "https://github.com/binaryquest/bqstart",
   "keywords": [
     "bqStart",
     "starter",
     "aspnet",
     "aspnet core",
-    "primeng",
-    "binaryquest"
+    "PrimeNG",
+    "Binaryquest"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/binaryquest/bqstart.git"
   },
   "license": "MIT",
-  "author": "Sazzad Hossain <sazzad@binaryquest.com> (http://bqstart.com)",
+  "author": "http://bqstart.com",
   "module": "bq-start-prime.js",
   "typings": "bq-start-prime.d.ts",
   "peerDependencies": {
