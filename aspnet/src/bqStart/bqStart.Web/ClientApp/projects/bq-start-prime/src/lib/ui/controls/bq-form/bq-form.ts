@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChildren, Host, Inject, Input, OnInit, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, Host, Inject, Input, OnInit, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';
 
@@ -7,6 +7,7 @@ import { BQTemplate } from '../../core/bq-template.directive';
 import { Router } from '@angular/router';
 import { FormType } from '../../../config/bq-start-config';
 import { RouterService } from '../../../services/router.service';
+import { BlockableUI } from 'primeng/api';
 
 /**
  * This component is responsible for a UI layout of a generic form view.
@@ -27,7 +28,7 @@ import { RouterService } from '../../../services/router.service';
     }
   ],
 })
-export class BqForm implements AfterContentInit {
+export class BqForm implements AfterContentInit, BlockableUI {
 
   @ViewChild(NgForm, { static: false }) form: NgForm;
 
@@ -39,10 +40,21 @@ export class BqForm implements AfterContentInit {
   additionalActions: TemplateRef<any>;
   additionalActionsOnRight: TemplateRef<any>;
 
+  /**
+   * this property will show a busy spinner icon if set to true inside the view
+   *
+   * @type {boolean}
+   * @memberof BqForm
+   */
+  @Input()
+  isLoading: boolean = false;
+
   @ContentChildren(BQTemplate) templates: QueryList<BQTemplate>;
+  @ViewChild('blockableUI') blockableUI:ElementRef;
+
   parentForm: BaseFormView<any>;
 
-  constructor(protected routerSvc: RouterService, protected vwService: ViewWrapperService, ) {
+  constructor(private el: ElementRef, protected routerSvc: RouterService, protected vwService: ViewWrapperService, ) {
     if (vwService.currentView != null){
       this.parentForm = vwService.currentView;
       this.editMode = this.parentForm.formType == FormType.Edit || this.parentForm.formType === FormType.New;
@@ -50,6 +62,10 @@ export class BqForm implements AfterContentInit {
       this.showEdit = this.parentForm.allowEdit && !this.editMode;
       this.showDelete = this.parentForm.allowDelete && !this.editMode;
     }
+  }
+
+  getBlockableElement(): HTMLElement {
+    return this.el.nativeElement;
   }
 
   ngAfterContentInit(): void {

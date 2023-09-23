@@ -87,6 +87,7 @@ import { MainRegionAdapterService } from './services/mainRegionAdapter.service';
 import { MDIComponent } from './ui/layout/mdi/mdi.component';
 import { MDILayoutComponent } from './ui/layout/mdi/mdi-layout';
 import { AuthorizeGuard } from './api-authorization/authorize.guard';
+import { BlockUIModule } from 'primeng/blockui';
 
 export * from './models/meta-data';
 
@@ -163,6 +164,7 @@ export function initializeApp(appInitService: AppInitService) {
     MenubarModule,
     SlideMenuModule,
     TabViewModule,
+    BlockUIModule
 
   ],
   declarations: [
