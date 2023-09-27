@@ -340,7 +340,7 @@ namespace BinaryQuest.Framework.Core.Model
                             field.IsPrimaryKey = true;
                         }
                     }
-                    var navigation = efEntityType.GetNavigations().Where(n => n.ClrType.Name == prop.Name).FirstOrDefault();
+                    var navigation = efEntityType.GetNavigations().Where(n => n.ClrType.Name == prop.PropertyType.Name).FirstOrDefault();
                     if (navigation!=null)
                     {
                         field.ForeignKeyName = navigation.Name;

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using bqStart.Data;
 
@@ -11,9 +12,10 @@ using bqStart.Data;
 namespace bqStart.Data.Migrations
 {
     [DbContext(typeof(MainDataContext))]
-    partial class MainDataContextModelSnapshot : ModelSnapshot
+    [Migration("20230927040517_address01")]
+    partial class address01
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,9 +188,6 @@ namespace bqStart.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -209,8 +208,6 @@ namespace bqStart.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.ToTable("Departments");
                 });
@@ -625,15 +622,6 @@ namespace bqStart.Data.Migrations
                     b.Navigation("SystemSetting");
                 });
 
-            modelBuilder.Entity("bqStart.Data.Department", b =>
-                {
-                    b.HasOne("bqStart.Data.Address", "AddressNavigation")
-                        .WithMany("DepartmentAddressNavigations")
-                        .HasForeignKey("AddressId");
-
-                    b.Navigation("AddressNavigation");
-                });
-
             modelBuilder.Entity("bqStart.Data.ExampleClass", b =>
                 {
                     b.HasOne("bqStart.Data.Department", "Department")
@@ -710,11 +698,6 @@ namespace bqStart.Data.Migrations
             modelBuilder.Entity("BinaryQuest.Framework.Core.Data.SystemSetting", b =>
                 {
                     b.Navigation("Settings");
-                });
-
-            modelBuilder.Entity("bqStart.Data.Address", b =>
-                {
-                    b.Navigation("DepartmentAddressNavigations");
                 });
 
             modelBuilder.Entity("bqStart.Data.Order", b =>

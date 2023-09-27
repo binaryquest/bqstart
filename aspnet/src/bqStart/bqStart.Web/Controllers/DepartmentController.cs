@@ -13,7 +13,7 @@ namespace bqStart.Web.Controllers
         public DepartmentController(IApplicationService applicationService, ILogger<DepartmentController> logger, MainDataContext context) :
         base(applicationService, logger, new UnitOfWork<ApplicationUser>(context))
         {
-
+            ExpandedTablesForSingleEntity = "AddressNavigation";
         }
 
         protected override dynamic OnGetLookupData()
