@@ -4,7 +4,8 @@ import { BaseListView, RouterService, ViewOptionalData } from 'projects/bq-start
 import { Department } from 'src/app/models/department';
 
 const OPTIONAL_DATA:ViewOptionalData = {
-  $filterClause: "contains(DepartmentName,'dd')"
+  //$filterClause: "contains(DepartmentName,'dd')",
+  //$expandClause: "AddressNavigation"
 };
 
 @Component({

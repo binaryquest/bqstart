@@ -260,6 +260,7 @@ export class MetadataField {
             cff.parent = cf;
           }
         }
+        ret.childFields[key] = MetadataField.fromObject(cf);
       }
     }
 
