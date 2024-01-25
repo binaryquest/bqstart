@@ -14,7 +14,9 @@
       {{item.display | translate}}
     </ng-template>
     <ng-template pTemplate="selectedItem" let-item>
+      <span *ngIf="item">
       {{item.display | translate}}
+      </span>
     </ng-template>
 
   </p-dropdown>
