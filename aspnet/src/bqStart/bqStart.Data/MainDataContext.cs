@@ -20,6 +20,11 @@ namespace bqStart.Data
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<Address>(entity =>
+            {
+                entity.Property(e => e.Country).HasDefaultValueSql("'N/A'");
+            });
+
             builder.Entity<Department>(entity =>
             {
                 entity.HasOne(d => d.AddressNavigation)

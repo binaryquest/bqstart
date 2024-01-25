@@ -2,26 +2,22 @@
 # yarn lockfile v1
 
 
-"@ng-select/ng-select@^11.1.1":
-  version "11.1.1"
-  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-11.1.1.tgz#49fc89420bfc4022543833de5212214a1e00a0dd"
-  integrity sha512-Z5wV/u2HgaKl7CQSG3Sy1oF+BPQolmVV6jBuPqHa2+OWg0Nn2e9eXYdcZT8Q3BahfP5j5rHNIBrkkESg/m4YiQ==
+"@ng-select/ng-select@^12.0.6":
+  version "12.0.6"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-12.0.6.tgz#fa0e7d6203a0c345f23d99a218b8010809ddedfe"
+  integrity sha512-Xn3r10hQ60hXbS8tOiuT412OLYQrsS6QfGojuJBNy2Ns0rFrsZVV2T3TlBq75ZKXBTUgL9ZMQvCilx6z0SxkDw==
   dependencies:
     tslib "^2.3.1"
 
-"@ngx-translate/core@^14.0.0":
-  version "14.0.0"
-  resolved "https://registry.yarnpkg.com/@ngx-translate/core/-/core-14.0.0.tgz#af421d0e1a28376843f0fed375cd2fae7630a5ff"
-  integrity sha512-UevdwNCXMRCdJv//0kC8h2eSfmi02r29xeE8E9gJ1Al4D4jEJ7eiLPdjslTMc21oJNGguqqWeEVjf64SFtvw2w==
-  dependencies:
-    tslib "^2.3.0"
+"@ngx-translate/core@^15.0.0":
+  version "15.0.0"
+  resolved "https://registry.yarnpkg.com/@ngx-translate/core/-/core-15.0.0.tgz#0fe55b9bd47e75b03d1123658f15fb7b5a534f3c"
+  integrity sha512-Am5uiuR0bOOxyoercDnAA3rJVizo4RRqJHo8N3RqJ+XfzVP/I845yEnMADykOHvM6HkVm4SZSnJBOiz0Anx5BA==
 
-"@ngx-translate/http-loader@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@ngx-translate/http-loader/-/http-loader-7.0.0.tgz#905f38d8d13342621516635bf480ff9a4f73e9fc"
-  integrity sha512-j+NpXXlcGVdyUNyY/qsJrqqeAdJdizCd+GKh3usXExSqy1aE9866jlAIL+xrfDU4w+LiMoma5pgE4emvFebZmA==
-  dependencies:
-    tslib "^2.3.0"
+"@ngx-translate/http-loader@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@ngx-translate/http-loader/-/http-loader-8.0.0.tgz#e02c25dbe33c6b1edee73e3654ab8a161572cdfb"
+  integrity sha512-SFMsdUcmHF5OdZkL1CHEoSAwbP5EbAOPTLLboOCRRoOg21P4GJx+51jxGdJeGve6LSKLf4Pay7BkTwmE6vxYlg==
 
 "@types/lodash-es@~4.17.7":
   version "4.17.7"
@@ -108,10 +104,10 @@ primeicons@^6.0.1:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-6.0.1.tgz#431fa7c79825934eefd62087d8e1faa6a9e376ad"
   integrity sha512-KDeO94CbWI4pKsPnYpA1FPjo79EsY9I+M8ywoPBSf9XMXoe/0crjbUK7jcQEDHuc0ZMRIZsxH3TYLv4TUtHmAA==
 
-primeng@^16.3.1:
-  version "16.3.1"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-16.3.1.tgz#76f2042107426f436b9f69c4e32a1f49ecb4601b"
-  integrity sha512-7HdAhng5Kj1nJ4KaXZyQousw/0VCQMzq4AyVt4HD+2fl52Bl13WZPV5a+P7SpMKOXVTEDed3U6EeAxDRpbu7iw==
+primeng@^17.4.1:
+  version "17.4.0"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-17.4.0.tgz#cfcb9c2819ae79be2618d58e8e8b02d861248d29"
+  integrity sha512-fqIFXORQjfTZFepg1MBz/vqheMjHy104ugxuTT1BCzEbVsjc2bjVyedEsS3u+N7bYag7TLMvv/FjzbTAq6hzOw==
   dependencies:
     tslib "^2.3.0"
 
