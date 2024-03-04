@@ -81,10 +81,12 @@ export class AppLayout implements OnInit, AfterContentInit {
   showMenuOnTop: boolean = false;
 
   @ViewChild('defaultFooterTemplate', { static: true }) defaultFooterTemplate: TemplateRef<any>;
+  @ViewChild('defaultTopRightTemplate', { static: true }) defaultTopRightTemplate: TemplateRef<any>;
   controlFooterTemplate: TemplateRef<any>;
   customFooterTemplate: TemplateRef<any>;
   @ContentChildren(BQTemplate) templates: QueryList<BQTemplate>;
   optionalTemplates: Dictionary<TemplateRef<any>> = {};
+  customTopRightMenuTemplate: TemplateRef<any>;
 
   @Output() onTopRightMenuClicked: EventEmitter<any> = new EventEmitter();
 
@@ -117,12 +119,16 @@ export class AppLayout implements OnInit, AfterContentInit {
         case "footer":
           this.customFooterTemplate = item.template;
           break;
+        case "topRight":
+          this.customTopRightMenuTemplate = item.template;
+          break;
         default:
           this.optionalTemplates[item.getType()] = item.template;
           break;
       }
     });
     this.controlFooterTemplate = this.customFooterTemplate ?? this.defaultFooterTemplate;
+    this.customTopRightMenuTemplate = this.customTopRightMenuTemplate ?? this.defaultTopRightTemplate;
     let vv = this.shortcuts ?? [];
     this.shortcutsInternal = [...vv, ...this._shortcutsDefault];
   }

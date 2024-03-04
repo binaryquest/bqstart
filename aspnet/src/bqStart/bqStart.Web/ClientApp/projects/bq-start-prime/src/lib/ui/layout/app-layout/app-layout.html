@@ -1,6 +1,6 @@
 <div class="layout-wrapper">
 
-  <bq-top-menu-bar *ngIf="showMenuOnTop" (onTopRightMenuClicked)="handleTopMenuClick($event)"></bq-top-menu-bar>
+  <bq-top-menu-bar *ngIf="showMenuOnTop" (onTopRightMenuClicked)="handleTopMenuClick($event)" [topRightMenuTemplate]="customTopRightMenuTemplate"></bq-top-menu-bar>
   <bq-top-bar *ngIf="!showMenuOnTop" (menuButtonClick)="onMenuButtonClick()"></bq-top-bar>
   <bq-menu-bar *ngIf="showLeftMenu" [active]="menuActive"></bq-menu-bar>
 
@@ -23,6 +23,10 @@
   <ng-template #defaultFooterTemplate>
     <bq-footer-bar></bq-footer-bar>
   </ng-template>
+
+  <ng-template #defaultTopRightTemplate>
+  </ng-template>
+
 
   <ng-keyboard-shortcuts [shortcuts]="shortcutsInternal"></ng-keyboard-shortcuts>
   <ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Keyboard Shotcuts'"></ng-keyboard-shortcuts-help>

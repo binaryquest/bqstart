@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { MenuItemContent } from 'primeng/menu';
@@ -30,6 +30,7 @@ import { TopBar } from '../top-bar/top-bar';
         />
       </ng-template>
       <ng-template pTemplate="end">
+      <ng-container [ngTemplateOutlet]="topRightMenuTemplate" *ngIf="isAuthenticated"></ng-container>
         <span *ngFor="let mm of topRightMenus" class="pr-2">
           <button
             pButton
@@ -71,6 +72,9 @@ export class TopMenuBar extends BaseMenu {
   topRightMenus: TopRightMenuData[];
 
   @Output() onTopRightMenuClicked: EventEmitter<any> = new EventEmitter();
+
+  @Input()
+  topRightMenuTemplate: TemplateRef<any>;
 
   constructor(
     protected override router: Router,
