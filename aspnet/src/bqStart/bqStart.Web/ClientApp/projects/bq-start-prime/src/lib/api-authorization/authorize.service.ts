@@ -205,6 +205,14 @@ export class AuthorizeService {
       await this.userManager.removeUser();
       this.userSubject.next(null);
     });
+
+    this.userManager.events.addAccessTokenExpiring(async () => {
+      console.log("Access Token Expiring")
+    });
+
+    this.userManager.events.addSilentRenewError(async () => {
+      console.log("Silent Renew Error")
+    });
   }
 
   private getUserFromStorage(): Observable<IUser | null> {
