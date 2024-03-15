@@ -1,6 +1,6 @@
 {
   "name": "bq-start-prime",
-  "version": "2.17.4",
+  "version": "2.17.5",
   "homepage": "https://github.com/binaryquest/bqstart",
   "keywords": [
     "bqStart",
@@ -39,7 +39,7 @@
     "oidc-client": "^1.11.5",
     "primeflex": "^3.3.0",
     "primeicons": "^6.0.1",
-    "primeng": "17.8.0",
+    "primeng": "17.11.0",
     "tslib": "^2.3.0",
     "uuid": "^9.0.0",
     "validator": "^13.9.0"
