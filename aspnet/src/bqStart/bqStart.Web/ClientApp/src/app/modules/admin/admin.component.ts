@@ -1,14 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseComponent } from 'projects/bq-start-prime/bq-start-module';
+import { Department } from 'src/app/models/department';
 
 @Component({
   selector: 'admin-test',
   template: `
-  test
+  <div>
+    test local name {{local}}
+  </div>
   `
 })
 
-export class AdminComponent implements OnInit {
-  constructor() { }
+export class AdminComponent extends BaseComponent {
 
-  ngOnInit() { }
+  local:string;
+  test:Department;
+
+  constructor() {
+    super();
+    this.local = this.localeService.currentLocale;
+   }
+
 }

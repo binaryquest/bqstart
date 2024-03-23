@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChildren, Inject, Injector, Input, OnDestroy, OnInit, Optional, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, Inject, Injector, Input, OnDestroy, OnInit, Optional, QueryList, TemplateRef, ViewChild, ViewChildren, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewWrapperService } from '../controls/view-wrapper/view-wrapper.service';
 import { map } from 'rxjs/operators';
@@ -13,6 +13,7 @@ import { IBaseView } from './base-view';
 import { isEqual } from 'lodash-es';
 import { KeyboardShortcutsSelectService, ShortcutEventOutput } from 'ng-keyboard-shortcuts';
 import { Observable, Subscription } from 'rxjs';
+import { AppInjector } from '../../services/app-injector.service';
 
 
 
@@ -25,13 +26,13 @@ import { Observable, Subscription } from 'rxjs';
 export declare interface IBaseFormViewEvents extends IBaseEvents {
   /**
    * This method is called when a view is done initializing it's internal details.
-   * Typically you can other initialiation functions here.
+   * Typically you can other initialization functions here.
    * @memberof IBaseFormViewEvents
    */
   onAfterInitComplete(): void;
 
   /**
-   * This method is called when the veiw receives the data from the service.
+   * This method is called when the view receives the data from the service.
    * The service populates the 'models' property.
    * @memberof IBaseFormViewEvents
    */
@@ -142,12 +143,11 @@ export class BaseFormView<TModel>
     }
 
     const injector =
-      Injector.create({providers: [{provide: DataServiceToken, useValue:dataServiceOptions}], parent: this.injector},);
+      Injector.create({providers: [{provide: DataServiceToken, useValue:dataServiceOptions}], parent: AppInjector.getInjector()},);
 
     this.dataSvc = injector.get(GenericDataService);
-    this.vwService = this.injector.get(ViewWrapperService);
-
-    this.keyboardSvc = this.injector.get(KeyboardShortcutsSelectService);
+    this.vwService = inject(ViewWrapperService);
+    this.keyboardSvc = inject(KeyboardShortcutsSelectService);
 
     if (this.keyboardSvc){
       this.keyboardSubscription = this.keyboardSvc.select("ctl + s").subscribe(

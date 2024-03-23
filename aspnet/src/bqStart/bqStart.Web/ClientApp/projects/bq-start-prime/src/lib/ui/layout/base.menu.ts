@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MenuData } from '../../config/bq-start-config';
 import { MainRegionAdapterService } from '../../services/mainRegionAdapter.service';
 import { BaseComponent } from '../base.component';
+import { AppInjector } from '../../services/app-injector.service';
 
 
 export class BaseMenu extends BaseComponent {
@@ -53,7 +54,7 @@ export class BaseMenu extends BaseComponent {
       }else if (menu.component){
         this.regionSvc.addGenericComponentToView(menu.label, menu.component, menu.icon);
       }else if (menu.componentFactory){
-        const dynCom = await menu.componentFactory(this.injector);
+        const dynCom = await menu.componentFactory(AppInjector.getInjector());
         this.regionSvc.addGenericComponentToView(menu.label, dynCom, menu.icon);
       }
     }else{
