@@ -155,7 +155,7 @@ export class MainRegionAdapterService {
 
     const routeData = new RouteData();
     routeData.formType = FormType.Details;
-    routeData.viewDef = {component: component, viewId: menuTitle, title:menuTitle, viewType:ViewType.Form, typeName: menuTitle};
+    routeData.viewDef = {component: component, viewId: menuTitle, title:menuTitle, viewType:ViewType.Form, typeName: menuTitle, componentFactory: undefined};
     this.currentStack.push({viewDef: routeData.viewDef, routeData: routeData, icon: icon});
     if (this.currentStack.length>1){
       this.activeIndex = this.currentStack.length - 1;

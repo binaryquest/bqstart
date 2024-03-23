@@ -35,6 +35,7 @@ import { DepartmentListComponent } from './example/department-list/department-li
 import { DepartmentFormComponent } from './example/department-form/department-form.component';
 import { ExampleFormComponent } from './example/example-form/example-form.component';
 import { ExampleListComponent } from './example/example-list/example-list.component';
+import { ADMIN_MODULE_ROUTES } from './modules/admin/admin.config';
 
 
 
@@ -78,7 +79,7 @@ registerLocaleData(localeAu);
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthorizeGuard] },
       { path: 'counter', component: CounterComponent },
-      //{ path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      ...ADMIN_MODULE_ROUTES
     ])
   ],
   providers: [

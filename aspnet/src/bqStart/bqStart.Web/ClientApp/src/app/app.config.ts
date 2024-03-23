@@ -6,6 +6,7 @@ import { DepartmentFormComponent } from "./example/department-form/department-fo
 import { DepartmentListComponent } from "./example/department-list/department-list.component";
 import { ExampleFormComponent } from "./example/example-form/example-form.component";
 import { ExampleListComponent } from "./example/example-list/example-list.component";
+import { ADMIN_MODULE_CONFIG } from "./modules/admin/admin.config";
 
 
 export const APP_CONFIG: BQConfigData = {
@@ -48,7 +49,8 @@ export const APP_CONFIG: BQConfigData = {
         { label: "Roles", viewId: "roles", icon: "pi pi-users", childMenus: [] },
         { label: "Users", viewId: "users", icon: "pi pi-users", childMenus: [] },
       ]
-    }
+    },
+    ...ADMIN_MODULE_CONFIG.menus
   ],
   views: [
     {
@@ -70,21 +72,21 @@ export const APP_CONFIG: BQConfigData = {
       typeName: "ApplicationUser",
       title: "Users",
       viewType: ViewType.List,
-      component: UserList
+      component: UserList,
     },
     {
       viewId: "user",
       typeName: "ApplicationUser",
       title: "User",
       viewType: ViewType.Form,
-      component: UserForm
+      component: UserForm,
     },
     {
       viewId: "departments",
       typeName: "Department",
       title: "Departments",
       viewType: ViewType.List,
-      component: DepartmentListComponent
+      component: DepartmentListComponent,
     },
     {
       viewId: "department-form",
@@ -107,5 +109,6 @@ export const APP_CONFIG: BQConfigData = {
       viewType: ViewType.Form,
       component: ExampleFormComponent
     },
+    ...ADMIN_MODULE_CONFIG.views
   ]
 }

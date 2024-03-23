@@ -23,7 +23,7 @@ const routes: Routes = [
 ];
 
 /**
- * Bootstraper Service for setting up the bqStart application
+ * Bootstrap Service for setting up the bqStart application
  *
  * @export
  * @class AppInitService
@@ -62,7 +62,7 @@ export class AppInitService {
           const newRoute = {
             path: `view/${viewDef.viewId}/list`,
             component: DynamicLoaderComponent,
-            data: { viewDef: viewDef, formType: FormType.List, componentType: viewDef.component },
+            data: { viewDef: viewDef, formType: FormType.List, componentType: viewDef.component, componentFactory: viewDef.componentFactory },
             resolve: { metaData: MetaDataResolver },
             canActivate: [AuthorizeGuard]
           };
@@ -71,7 +71,7 @@ export class AppInitService {
           const newRoute = {
             path: `view/${viewDef.viewId}/form/:keys`,
             component: DynamicLoaderComponent,
-            data: { viewDef: viewDef, formType: FormType.Details, componentType: viewDef.component },
+            data: { viewDef: viewDef, formType: FormType.Details, componentType: viewDef.component, componentFactory: viewDef.componentFactory },
             resolve: { metaData: MetaDataResolver },
             canActivate: [AuthorizeGuard]
           };
@@ -79,7 +79,7 @@ export class AppInitService {
           const newRouteEdit = {
             path: `view/${viewDef.viewId}/edit/:keys`,
             component: DynamicLoaderComponent,
-            data: { viewDef: viewDef, formType: FormType.Edit, componentType: viewDef.component },
+            data: { viewDef: viewDef, formType: FormType.Edit, componentType: viewDef.component, componentFactory: viewDef.componentFactory },
             resolve: { metaData: MetaDataResolver },
             canActivate: [AuthorizeGuard]
           };
@@ -87,7 +87,7 @@ export class AppInitService {
           const newRouteAdd = {
             path: `view/${viewDef.viewId}/add/-1`,
             component: DynamicLoaderComponent,
-            data: { viewDef: viewDef, formType: FormType.New, componentType: viewDef.component },
+            data: { viewDef: viewDef, formType: FormType.New, componentType: viewDef.component, componentFactory: viewDef.componentFactory },
             resolve: { metaData: MetaDataResolver },
             canActivate: [AuthorizeGuard]
           };

@@ -1,6 +1,6 @@
 import { AfterContentInit, AfterViewInit, Component, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuData, RouteData } from '../../config/bq-start-config';
+import { ComponentFactoryCallBack, MenuData, RouteData } from '../../config/bq-start-config';
 import { AppInjector } from '../../services/app-injector.service';
 import { MainRegionAdapterService, ViewRunningData } from '../../services/mainRegionAdapter.service';
 import { RouterService } from '../../services/router.service';
@@ -17,9 +17,13 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
 
   @ViewChild(DynamicHostDirective, {static: true}) adHost!: DynamicHostDirective;
   private componentType: any;
+  private componentFactory?: ComponentFactoryCallBack;
   private injector: Injector;
   constructor(protected route: ActivatedRoute, protected router: Router, protected regionSvc:MainRegionAdapterService) {
     this.componentType = route.snapshot.data['componentType'];
+    if (route.snapshot.data['componentFactory']){
+      this.componentFactory = route.snapshot.data['componentFactory'];
+    }
     this.injector = AppInjector.getInjector();
   }
 
@@ -30,7 +34,7 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  loadComponent() {
+  async loadComponent() {
 
     const routerSvc: RouterService = new RouterService(this.route, this.router, this.regionSvc);
 
@@ -41,6 +45,9 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
     const viewContainerRef = this.adHost.viewContainerRef;
     viewContainerRef.clear();
 
+    if (this.componentFactory){
+      this.componentType = await this.componentFactory(this.injector);
+    }
     const componentRef = viewContainerRef.createComponent(this.componentType, {injector: injector});
 
   }
@@ -74,9 +81,13 @@ export class DynamicMDILoaderComponent implements AfterContentInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  loadComponent() {
+  async loadComponent() {
 
-    this.component = this.viewRunningData.viewDef.component;
+    if (this.viewRunningData.viewDef.component){
+      this.component = this.viewRunningData.viewDef.component;
+    }else if (this.viewRunningData.viewDef.componentFactory){
+      this.component = await this.viewRunningData.viewDef.componentFactory(this.injector);
+    }
     const routerSvc: RouterService = new RouterService(this.route, this.router, this.regionSvc, this.viewRunningData.routeData);
 
     const injector =

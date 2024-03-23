@@ -7,7 +7,6 @@ import {
   BQConfigData,
 } from 'projects/bq-start-prime/src/public-api';
 import { Observable } from 'rxjs';
-import { tz } from 'moment-timezone';
 import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts';
 import { Router } from '@angular/router';
 
