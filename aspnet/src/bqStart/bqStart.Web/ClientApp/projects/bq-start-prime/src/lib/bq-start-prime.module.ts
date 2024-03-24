@@ -304,7 +304,9 @@ export class BQStartPrimeModule {
           multi: true
         },
         { provide: InternalLogService },
-        { provide: LocaleService }
+        LocaleService,
+        ConfirmationService,
+        DialogService
       ]
     }
   }
