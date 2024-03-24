@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "publish": "ng build bq-start-prime",
-    "doc": "compodoc -p projects\\bq-start-prime\\tsconfig.doc.json --name \"BQ Start Prime Angular Documents\" --hideGenerator --disableSourceCode --disableCoverage --disablePrivate --disableDomTree --disableTemplateTab --disableGraph --minimal --output .\\..\\..\\..\\..\\..\\Docs"
+    "doc": "compodoc -p projects\\bq-start-prime\\tsconfig.doc.json --name \"BQ Start Prime Angular Documents\" --hideGenerator --disableSourceCode --disableCoverage --disableGraph --output .\\..\\..\\..\\..\\..\\Docs"
   },
   "private": true,
   "dependencies": {

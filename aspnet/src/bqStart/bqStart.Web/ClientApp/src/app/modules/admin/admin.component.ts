@@ -18,7 +18,7 @@ export class AdminComponent extends BaseComponent {
 
   constructor() {
     super();
-    this.local = this.localeService.currentLocale;
+    this.local = this.i18("bq-start.messages.error");
    }
 
 }

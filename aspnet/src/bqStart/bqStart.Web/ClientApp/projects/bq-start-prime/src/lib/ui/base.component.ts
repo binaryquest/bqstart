@@ -10,6 +10,7 @@ import { InternalLogService, LogService } from "../services/log/log.service";
 import { MessageService, MessageType } from "../services/message.service";
 import { NavigationService } from "../services/navigation.service";
 import { v4 as uuidv4 } from 'uuid';
+import { Settings } from "luxon";
 
 @Component({
   template: ''
@@ -45,6 +46,9 @@ export class BaseComponent {
     this.dialogService = inject(DialogService);
     this.localeService = inject(LocaleService);
     this.translate = inject(TranslateService);
+    if (!this.localeService.isInitialized()){
+      this.localeService.initLocale(Settings.defaultLocale, Settings.defaultLocale);
+    }
   }
 
   isInRole(role: string[]): boolean {

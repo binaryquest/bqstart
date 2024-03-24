@@ -303,7 +303,8 @@ export class BQStartPrimeModule {
           deps: [AppInitService, Router],
           multi: true
         },
-        { provide: InternalLogService }
+        { provide: InternalLogService },
+        { provide: LocaleService }
       ]
     }
   }
