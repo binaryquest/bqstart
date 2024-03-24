@@ -5,6 +5,10 @@ import { AppInjector } from '../../services/app-injector.service';
 import { MainRegionAdapterService, ViewRunningData } from '../../services/mainRegionAdapter.service';
 import { RouterService } from '../../services/router.service';
 import { DynamicHostDirective } from './dynamic-host.directive';
+import { DialogService } from '../../services/dialog.service';
+import { ConfirmationService } from 'primeng/api';
+import { LocaleService } from '../../services/locale.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'dyn-loader',
@@ -19,7 +23,13 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
   private componentType: any;
   private componentFactory?: ComponentFactoryCallBack;
   private injector: Injector;
-  constructor(protected route: ActivatedRoute, protected router: Router, protected regionSvc:MainRegionAdapterService) {
+  constructor(protected route: ActivatedRoute,
+    protected router: Router,
+    protected regionSvc:MainRegionAdapterService,
+    protected dialogSvc:DialogService,
+    protected confService:ConfirmationService,
+    protected localSvc: LocaleService,
+    protected tranSvc: TranslateService) {
     this.componentType = route.snapshot.data['componentType'];
     if (route.snapshot.data['componentFactory']){
       this.componentFactory = route.snapshot.data['componentFactory'];
@@ -39,7 +49,13 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
     const routerSvc: RouterService = new RouterService(this.route, this.router, this.regionSvc);
 
     const injector =
-    Injector.create({providers: [{provide: RouterService, useValue:routerSvc}], parent: this.injector},);
+    Injector.create({providers: [
+      {provide: RouterService, useValue:routerSvc},
+      {provide: DialogService, useValue:this.dialogSvc},
+      {provide: ConfirmationService, useValue:this.confService},
+      {provide: LocaleService, useValue:this.localSvc},
+      {provide: TranslateService, useValue:this.tranSvc},
+    ], parent: this.injector},);
 
 
     const viewContainerRef = this.adHost.viewContainerRef;
@@ -70,7 +86,12 @@ export class DynamicMDILoaderComponent implements AfterContentInit, OnDestroy {
   @ViewChild(DynamicHostDirective, {static: true}) adHost!: DynamicHostDirective;
 
   private injector: Injector;
-  constructor(protected route: ActivatedRoute, protected router: Router, protected regionSvc:MainRegionAdapterService) {
+  constructor(protected route: ActivatedRoute, protected router: Router,
+    protected regionSvc:MainRegionAdapterService,
+    protected dialogSvc:DialogService,
+    protected confService:ConfirmationService,
+    protected localSvc: LocaleService,
+    protected tranSvc: TranslateService) {
     this.injector = AppInjector.getInjector();
   }
 
@@ -91,7 +112,13 @@ export class DynamicMDILoaderComponent implements AfterContentInit, OnDestroy {
     const routerSvc: RouterService = new RouterService(this.route, this.router, this.regionSvc, this.viewRunningData.routeData);
 
     const injector =
-    Injector.create({providers: [{provide: RouterService, useValue:routerSvc}], parent: this.injector},);
+    Injector.create({providers: [
+      {provide: RouterService, useValue:routerSvc},
+      {provide: DialogService, useValue:this.dialogSvc},
+      {provide: ConfirmationService, useValue:this.confService},
+      {provide: LocaleService, useValue:this.localSvc},
+      {provide: TranslateService, useValue:this.tranSvc},
+    ], parent: this.injector},);
 
 
     const viewContainerRef = this.adHost.viewContainerRef;
