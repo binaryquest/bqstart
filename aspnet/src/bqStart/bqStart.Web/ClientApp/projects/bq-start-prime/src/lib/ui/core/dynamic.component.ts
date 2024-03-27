@@ -9,6 +9,7 @@ import { DialogService } from '../../services/dialog.service';
 import { ConfirmationService } from 'primeng/api';
 import { LocaleService } from '../../services/locale.service';
 import { TranslateService } from '@ngx-translate/core';
+import { NavigationService } from '../../services/navigation.service';
 
 @Component({
   selector: 'dyn-loader',
@@ -29,7 +30,8 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
     protected dialogSvc:DialogService,
     protected confService:ConfirmationService,
     protected localSvc: LocaleService,
-    protected tranSvc: TranslateService) {
+    protected tranSvc: TranslateService,
+    protected navSvc: NavigationService) {
     this.componentType = route.snapshot.data['componentType'];
     if (route.snapshot.data['componentFactory']){
       this.componentFactory = route.snapshot.data['componentFactory'];
@@ -55,6 +57,7 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
       {provide: ConfirmationService, useValue:this.confService},
       {provide: LocaleService, useValue:this.localSvc},
       {provide: TranslateService, useValue:this.tranSvc},
+      {provide: NavigationService, useValue:this.navSvc},
     ], parent: this.injector},);
 
 
@@ -91,7 +94,8 @@ export class DynamicMDILoaderComponent implements AfterContentInit, OnDestroy {
     protected dialogSvc:DialogService,
     protected confService:ConfirmationService,
     protected localSvc: LocaleService,
-    protected tranSvc: TranslateService) {
+    protected tranSvc: TranslateService,
+    protected navSvc: NavigationService) {
     this.injector = AppInjector.getInjector();
   }
 
@@ -118,6 +122,7 @@ export class DynamicMDILoaderComponent implements AfterContentInit, OnDestroy {
       {provide: ConfirmationService, useValue:this.confService},
       {provide: LocaleService, useValue:this.localSvc},
       {provide: TranslateService, useValue:this.tranSvc},
+      {provide: NavigationService, useValue:this.navSvc},
     ], parent: this.injector},);
 
 
