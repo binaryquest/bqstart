@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { APP_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -64,7 +64,7 @@ registerLocaleData(localeAu);
     UserForm
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
@@ -83,6 +83,7 @@ registerLocaleData(localeAu);
     ])
   ],
   providers: [
+    { provide: APP_ID, useValue: 'ng-cli-universal' },
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     LocaleProvider
   ],
