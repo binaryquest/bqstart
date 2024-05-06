@@ -389,8 +389,8 @@ export class ModelMetadata {
     return finalString;
   }
 
-  public parseRouteParamToKeys(url: string|null): any[] {
-    if (url!=null){
+  public parseRouteParamToKeys(url: string|null|undefined): any[] {
+    if (url){
       const ret = url.split("~");
       return ret;
     } else{

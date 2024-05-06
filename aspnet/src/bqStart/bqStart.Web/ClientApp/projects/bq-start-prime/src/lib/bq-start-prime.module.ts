@@ -287,6 +287,7 @@ export function initializeApp(appInitService: AppInitService) {
 export class BQStartPrimeModule {
 
   constructor(injector: Injector) {
+    console.log(">> bq start module init");
     AppInjector.setInjector(injector);
   }
 
@@ -306,7 +307,9 @@ export class BQStartPrimeModule {
         { provide: InternalLogService },
         LocaleService,
         ConfirmationService,
-        DialogService
+        DialogService,
+        PrimeMS,
+        MessageService
       ]
     }
   }

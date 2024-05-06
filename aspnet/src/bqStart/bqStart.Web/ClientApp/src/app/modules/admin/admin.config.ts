@@ -20,9 +20,9 @@ export const ADMIN_MODULE_CONFIG = {
   views: [
     {
       viewId: "admin-com",
-      typeName: "IdentityRole",
+      typeName: "~~admin-com",
       title: "Doctors",
-      viewType: ViewType.List,
+      viewType: ViewType.Custom,
       component: null,
       componentFactory: async (injector: Injector) => {
         const {AdminModule} = await import("./admin.module");

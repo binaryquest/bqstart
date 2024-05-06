@@ -158,7 +158,9 @@ export class RunningConfigHelper {
     if (this.viewsById != null) {
       const viewData = this.viewsById[viewId];
       if (viewData != null) {
-        if (viewData.viewType === ViewType.List) {
+        if (viewData.viewType === ViewType.Custom){
+          return `${viewData.viewId}`;
+        } else if (viewData.viewType === ViewType.List) {
           return `view/${viewData.viewId}/list`;
         } else {
           return `view/${viewData.viewId}/form/-1`;
@@ -293,7 +295,8 @@ export interface ViewData {
  */
 export enum ViewType {
   List,
-  Form
+  Form,
+  Custom
 }
 
 /**

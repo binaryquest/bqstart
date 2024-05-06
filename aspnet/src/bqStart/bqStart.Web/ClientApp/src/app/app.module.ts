@@ -36,6 +36,7 @@ import { DepartmentFormComponent } from './example/department-form/department-fo
 import { ExampleFormComponent } from './example/example-form/example-form.component';
 import { ExampleListComponent } from './example/example-list/example-list.component';
 import { ADMIN_MODULE_ROUTES } from './modules/admin/admin.config';
+import { SharedModule } from './modules/shared/shared.module';
 
 
 
@@ -76,6 +77,7 @@ registerLocaleData(localeAu);
     KeyboardShortcutsModule.forRoot(),
     TranslateModule.forRoot(),
     BQStartPrimeModule.forRoot(APP_CONFIG),
+    SharedModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthorizeGuard] },
       { path: 'counter', component: CounterComponent },

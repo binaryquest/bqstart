@@ -52,7 +52,7 @@ export class Breadcrumb extends BaseComponent implements OnInit {
 
     this.routeData$.subscribe({
       next: (e) => {
-        console.log('breadcrumb path', e);
+        //console.log('breadcrumb path', e);
         if (e && e.viewDef) {
           this.viewDef = e.viewDef;
           this.title = e.viewDef.title;

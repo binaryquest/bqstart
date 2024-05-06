@@ -58,6 +58,15 @@ export class AppInitService {
       let viewRoutes : any[] = [];
       for (let i = 0; i < this.config.views.length; i++) {
         const viewDef = this.config.views[i];
+        if (viewDef.viewType === ViewType.Custom){
+          const newRoute = {
+            path: `${viewDef.viewId}`,
+            component: DynamicLoaderComponent,
+            data: { viewDef: viewDef, componentType: viewDef.component, componentFactory: viewDef.componentFactory },
+            canActivate: [AuthorizeGuard]
+          };
+          viewRoutes.push(newRoute);
+        }
         if (viewDef.viewType === ViewType.List){
           const newRoute = {
             path: `view/${viewDef.viewId}/list`,

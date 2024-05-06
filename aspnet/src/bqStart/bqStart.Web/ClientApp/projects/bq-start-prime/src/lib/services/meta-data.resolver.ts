@@ -23,6 +23,8 @@ export class MetaDataResolver  {
       throw new Error('Route missing viewData');
     }
     const typeName = route.data['viewDef'].typeName;
+    if (typeName.startsWith("~~")) //dummy types
+      return Promise.resolve();
     return this.metaDataService.getTypeMetaData(typeName);
   }
 }
