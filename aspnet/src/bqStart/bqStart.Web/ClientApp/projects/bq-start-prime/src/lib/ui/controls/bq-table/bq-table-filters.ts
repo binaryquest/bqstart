@@ -162,6 +162,8 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
           }
           data.Value = event.value;
           data.DisplayValue = event.value;
+          console.log("filter adding", data.DisplayValue);
+
           data.DataType = defFilter.field.dataType;
           this.tableParams.addFilter(data);
         } else {

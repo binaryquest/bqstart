@@ -117,11 +117,12 @@ export class CustomFilter implements OnInit {
     }
 
     if (this.selectedFilter.field.dataType == "DateTime") {
-      if (!this.selectedFilter.showTime) {
-        this.filterCluase.Value = DateTime.fromISO(newVal).startOf('day').toJSDate();
-        this.filterCluase.DisplayValue = DateTime.fromISO(newVal).startOf('day').toLocaleString(DateTime.DATETIME_MED);
+      if (this.selectedFilter.showTime) {
+        const dt = DateTime.fromJSDate(newVal);
+        this.filterCluase.DisplayValue = dt.toLocaleString(DateTime.DATETIME_MED);
       }else{
-        this.filterCluase.DisplayValue = DateTime.fromISO(newVal).startOf('day').toLocaleString(DateTime.DATE_MED);
+        this.filterCluase.Value = DateTime.fromJSDate(newVal).startOf('day').toJSDate();
+        this.filterCluase.DisplayValue = this.filterCluase.Value.toLocaleString(DateTime.DATE_MED);
       }
     }
   }

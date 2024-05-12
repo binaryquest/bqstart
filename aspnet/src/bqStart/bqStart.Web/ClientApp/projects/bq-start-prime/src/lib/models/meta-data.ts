@@ -68,6 +68,8 @@ export class TypeSystem {
         break;
       case 'DateTime':
         ret = DateTime.fromISO(value).setLocale('en').toJSON();
+        ret = ret.replace(/\+/g, '%2b');
+        console.log("filter date value", ret);
         break;
       case 'String':
         ret = "'" + value.replace(/\'/g, '%27').replace(/\+/g, '%2B').replace(/\//g, '%2F').replace(/\?/g, '%3F').replace(/%/g, '%25').replace(/#/g, '%23').replace(/&/g, '%26') + "'";
