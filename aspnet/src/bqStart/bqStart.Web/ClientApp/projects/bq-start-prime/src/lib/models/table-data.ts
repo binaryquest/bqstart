@@ -244,6 +244,8 @@ export class FilterByClause {
     const toValue = typeSystem.escapeValue(this.ToValue);
     const predicate:Predicate = ALL_PREDICATES[this.Predicate as keyof {}];
 
+    //console.log("GetODataUrl", value, this.ToValue);
+
     switch (predicate.key) {
       case 'contains': return `contains(${fieldName},${value})`;
       case 'not contains': return `not contains(${fieldName},${value})`;
@@ -341,7 +343,7 @@ export class PredefinedFilter {
     }
   }
 
-  public GetFilterCluase():FilterByClause{
+  public GetFilterClause():FilterByClause{
     const fbc:FilterByClause = new FilterByClause();
     fbc.Caption = this.caption;
     fbc.CustomName = this.filterName;
