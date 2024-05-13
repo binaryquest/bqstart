@@ -41,12 +41,11 @@ import { TopBar } from '../top-bar/top-bar';
             (click)="handleTopMenuClick(mm.eventName)"
           ></button>
         </span>
-        <p-slideMenu
+        <p-menu
           #menu
           [model]="userMenus"
           [popup]="true"
-          [viewportHeight]="115"
-        ></p-slideMenu>
+        ></p-menu>
         <button
           pButton
           pRipple
