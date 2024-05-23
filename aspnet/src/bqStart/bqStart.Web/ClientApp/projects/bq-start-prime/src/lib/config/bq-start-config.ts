@@ -98,6 +98,14 @@ export class BQConfigData {
    * @memberof BQConfigData
    */
   apiRootUrl?: string;
+
+  /**
+   * If true then error messages are shown as modal dialog instead of toast messages
+   *
+   * @type {boolean}
+   * @memberof BQConfigData
+   */
+  showErrorMessagesAsDialog?: boolean = false;
 }
 
 /**

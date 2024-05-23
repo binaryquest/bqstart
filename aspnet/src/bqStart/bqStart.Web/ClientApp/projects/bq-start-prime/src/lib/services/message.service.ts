@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { MessageService as PrimeMS } from 'primeng/api';
+import { BQConfigData, BQConfigService } from '../config/bq-start-config';
+import { DialogService } from './dialog.service';
 
 export enum MessageType {
   info = 0,
@@ -19,7 +21,7 @@ export class MessageService {
 
   private channels:Channel[] = [];
 
-  constructor(private messageServiceProvider: PrimeMS) { }
+  constructor(private messageServiceProvider: PrimeMS, @Inject(BQConfigService) private config:BQConfigData, private dlgSvc:DialogService) { }
 
   /**
    * Show toast message on top right
@@ -43,6 +45,13 @@ export class MessageService {
         break;
       case MessageType.error:
         severity = "error";
+        if (this.config.showErrorMessagesAsDialog){
+          setTimeout(() => {
+            this.dlgSvc.errorDialog(msg, title);
+            console.log("show dialog error");
+          }, 1000);
+          return;
+        }
         break;
     }
     this.messageServiceProvider.add({severity: severity, summary: title, detail: msg});

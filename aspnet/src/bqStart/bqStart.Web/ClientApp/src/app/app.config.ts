@@ -15,6 +15,7 @@ export const APP_CONFIG: BQConfigData = {
   companyName: 'Binary Quest',
   viewDefaults: { defaultPageSize: 50, otherPageSizes: [25, 50, 100] },
   tabbedUserInterface: false,
+  showErrorMessagesAsDialog: true,
   //apiRootUrl: 'https://localhost:44301',
   // oAuthConfig: {
   //   authority: 'https://localhost:44301',
