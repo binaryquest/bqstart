@@ -19,7 +19,11 @@
           [showAddButton]="showAddButton"
           [predefinedFilters]='predefinedFilters'
           [expandedRowTemplate]="expRowTemplate"
-          (onRowExpandToggled)="onExpanded($event)">
+          (onRowExpandToggled)="onExpanded($event)"
+          [allowRowSelection]="true"
+          [expandOnSelection]="true"
+          (onRowSelected)="onRowSelected($event)"
+          >
 
   <bq-table-column [field]='metaData.fields.ClassName'></bq-table-column>
   <bq-table-column [field]='metaData.fields.DepartmentId' [cellTemplate]="cellTemplate">

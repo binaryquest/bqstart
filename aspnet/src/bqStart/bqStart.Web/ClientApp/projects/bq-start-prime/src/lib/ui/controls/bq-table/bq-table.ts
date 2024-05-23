@@ -1,8 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { AfterViewInit, Component, ContentChildren, EventEmitter, Inject, Input, LOCALE_ID, OnChanges, OnDestroy, OnInit, Optional, Output, QueryList, SimpleChanges, SkipSelf, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, EventEmitter, Inject, Input, LOCALE_ID, OnChanges, OnDestroy, OnInit, Optional, Output, QueryList, SimpleChanges, SkipSelf, TemplateRef, ViewChild, computed, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
-import { TableLazyLoadEvent, Table as ngTable } from 'primeng/table';
+import { TableLazyLoadEvent, TableRowSelectEvent, TableRowUnSelectEvent, Table as ngTable } from 'primeng/table';
 import { Subscription } from 'rxjs';
 import { MetadataField, ModelMetadata } from '../../../models/meta-data';
 import { OrderByClause, PredefinedFilter, TableParams } from '../../../models/table-data';
@@ -70,7 +70,7 @@ export class Table implements OnInit, OnDestroy, OnChanges {
   tableParams: TableParams;
 
   /**
-   * if you want to customise the options column supply ur own template here
+   * if you want to customize the options column supply ur own template here
    *
    * @type {TemplateRef<any>}
    * @memberof Table
@@ -184,7 +184,15 @@ export class Table implements OnInit, OnDestroy, OnChanges {
   @Output()
   onRowExpandToggled = new EventEmitter<RowExpandedEventData>();
 
-  //the total record count, not just the current page. gets returned by odata query
+  allowRowSelection = input<boolean>(false);
+  selectionMode = computed(() => this.allowRowSelection() ? 'single' : null);
+  selectedRow: any;
+  expandOnSelection = input<boolean>(false);
+
+  @Output()
+  onRowSelected = new EventEmitter<any>();
+
+  //the total record count, not just the current page. gets returned by OData query
   count: number = 0;
   countSub: Subscription;
   styleClass: string;
@@ -368,6 +376,31 @@ export class Table implements OnInit, OnDestroy, OnChanges {
   expandRow(rowData:any, expanded:boolean, ev?:Event){
     this.internalTable.toggleRow(rowData, ev);
     this.onRowExpandToggled.emit({row: rowData, expanded: !expanded});
+  }
+
+  lastSelection: any|null;
+
+  rowSelected(ev:TableRowSelectEvent){
+    if (ev && ev.data){
+      if (this.expandedRowTemplate && this.expandOnSelection()){
+        if (this.lastSelection){
+          this.internalTable.toggleRow(this.lastSelection);
+        }
+        this.internalTable.toggleRow(ev.data);
+        this.lastSelection = ev.data;
+      }
+      this.onRowSelected.emit(ev.data);
+    }
+  }
+
+  rowUnselected(ev:TableRowUnSelectEvent){
+    console.log("unSelected",ev);
+    if (ev && ev.data){
+      if (this.expandedRowTemplate && this.expandOnSelection()){
+        this.internalTable.toggleRow(ev.data);
+        this.lastSelection = null;
+      }
+    }
   }
 
   private isTableStateSyncedWithPrams() {

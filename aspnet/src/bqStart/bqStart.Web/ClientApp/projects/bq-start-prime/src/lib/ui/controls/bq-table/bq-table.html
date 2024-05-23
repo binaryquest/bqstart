@@ -6,6 +6,10 @@
     [resizableColumns]="resizableColumns" [loading]="loading" [lazy]="true" [lazyLoadOnInit]="false"
     (onLazyLoad)="lazyLoadData($event)" [paginator]="true" [rows]="pageSize" [totalRecords]="count"
     [dataKey]="getKeyName()"
+    [selectionMode]="selectionMode()"
+    [(selection)]="selectedRow"
+    (onRowSelect)="rowSelected($event)"
+    (onRowUnselect)="rowUnselected($event)"
     [rowsPerPageOptions]="pageSizeOptions">
     <ng-template pTemplate="header">
       <tr>
@@ -26,7 +30,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-data let-expanded="expanded">
-      <tr (dblclick)="expandRow(data, expanded, $event)" >
+      <tr (dblclick)="expandRow(data, expanded, $event)" [pSelectableRow]="data">
         <td *ngFor="let col of columns" [style]="col.cellStyle">
           <ng-container *ngIf="col.cellTemplate; else defaultRender" [ngTemplateOutlet]="col.cellTemplate"
             [ngTemplateOutletContext]="{row:data}"></ng-container>

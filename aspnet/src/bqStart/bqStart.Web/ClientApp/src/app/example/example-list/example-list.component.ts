@@ -43,4 +43,8 @@ export class ExampleListComponent  extends BaseListView<ExampleClass> implements
     console.log(ev);
   }
 
+  onRowSelected(row:any){
+    console.log("row selected", row);
+
+  }
 }

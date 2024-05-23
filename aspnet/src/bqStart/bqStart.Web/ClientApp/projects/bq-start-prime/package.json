@@ -1,6 +1,6 @@
 {
   "name": "bq-start-prime",
-  "version": "2.17.27",
+  "version": "2.17.29",
   "homepage": "https://github.com/binaryquest/bqstart",
   "keywords": [
     "bqStart",
@@ -24,7 +24,7 @@
     "@angular/common": "^17.1.1",
     "@angular/core": "^17.1.1",
     "@angular/forms": "^17.1.1",
-    "@angular/material": "^16.2.0",
+    "@angular/material": "^17.1.1",
     "@angular/platform-browser": "^17.1.1",
     "rxjs": "^7.8.1",
     "zone.js": "^0.14.3"
