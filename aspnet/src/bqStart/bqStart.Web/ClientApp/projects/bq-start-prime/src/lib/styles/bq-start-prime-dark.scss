@@ -1,0 +1,31 @@
+@import "~primeng/resources/themes/aura-dark-blue/theme.css";
+@import "~primeng/resources/primeng.css";
+@import './_core';
+@import './_topbar';
+@import './_menu';
+@import './_content';
+@import './_footer';
+@import './_responsive';
+@import './_components';
+@import './ng-select';
+
+:root {
+  --bq-border-color: #3f3f46;
+  --bq-background: #09090b;
+  --text-color: #cfd3d7;
+  --text-color-secondary: #aeb3b8;
+  --primary-color: #2196F3;
+  --primary-color-text: #2b2b2b;
+  --surface-ground: #272727;
+  --surface-section: #2b2b2b;
+  --surface-card: #393939;
+  --surface-overlay: #212121;
+  --surface-border: #1d1c1c;
+  --surface-hover: #313131;
+  --maskbg: rgba(0, 0, 0, 0.4);
+  --highlight-bg: #282a2c;
+  --highlight-text-color: #ffffff;
+  --focus-ring: 0 0 0 0.2rem #a6d5fa;
+}
+
+
