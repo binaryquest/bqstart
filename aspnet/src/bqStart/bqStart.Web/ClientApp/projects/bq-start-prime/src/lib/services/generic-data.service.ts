@@ -68,19 +68,19 @@ export class GenericDataService implements OnDestroy {
         url = url + "&$skip=" + tableParams.skip;
     }
     if (tableParams.filterByCollection.length > 0 || this.options.$filterClause !== undefined) {
-        var allfilters = "&$filter=";
+        var allFilters = "&$filter=";
         if (this.options.$filterClause !== undefined){
           if (this.options.$filterClause !== null)
-            allfilters = allfilters + this.options.$filterClause;
+            allFilters = allFilters + this.options.$filterClause;
         }
         for (var i = 0; i < tableParams.filterByCollection.length; i++) {
             if (i > 0 || this.options.$filterClause !== undefined) {
-                allfilters = allfilters + " and " + tableParams.filterByCollection[i].GetODataUrl();
+              allFilters = allFilters + " and " + tableParams.filterByCollection[i].GetODataUrl();
             } else {
-                allfilters = allfilters + tableParams.filterByCollection[i].GetODataUrl();
+              allFilters = allFilters + tableParams.filterByCollection[i].GetODataUrl();
             }
         }
-        url = url + allfilters;
+        url = url + allFilters;
     }
     if (tableParams.orderByCollection.length > 0) {
         var allOrderBy = "&$orderby=";

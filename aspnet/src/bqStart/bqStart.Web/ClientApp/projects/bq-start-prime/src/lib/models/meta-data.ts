@@ -72,7 +72,7 @@ export class TypeSystem {
         //console.log("filter date value", ret);
         break;
       case 'String':
-        ret = "'" + value.replace(/\'/g, '%27').replace(/\+/g, '%2B').replace(/\//g, '%2F').replace(/\?/g, '%3F').replace(/%/g, '%25').replace(/#/g, '%23').replace(/&/g, '%26') + "'";
+        ret = "'" + value.replace(/%/g, '%25').replace(/\'/g, '%27').replace(/\+/g, '%2B').replace(/\//g, '%2F').replace(/\?/g, '%3F').replace(/#/g, '%23').replace(/&/g, '%26') + "'";
         break;
       case 'Enum':
         ret = `'${value}'`;
