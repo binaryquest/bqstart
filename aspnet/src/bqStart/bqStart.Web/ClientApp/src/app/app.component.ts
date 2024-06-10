@@ -5,6 +5,7 @@ import {
   LocaleService,
   BQConfigService,
   BQConfigData,
+  KeyShortcutService,
 } from 'projects/bq-start-prime/src/public-api';
 import { Observable } from 'rxjs';
 import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts';
@@ -19,13 +20,13 @@ export class AppComponent implements OnInit {
   tabbedInterface: boolean;
   isAuthenticated: Observable<boolean>;
   sidebarVisible: boolean = false;
-  shortcuts: ShortcutInput[] = [];
 
   constructor(
     private primengConfig: PrimeNGConfig,
     private authorizeService: AuthorizeService,
     private localeService: LocaleService,
     private router: Router,
+    private keySv: KeyShortcutService,
     @Inject(BQConfigService) private config: BQConfigData
   ) {
     this.localeService.initLocale('en-AU', 'en-US');
@@ -36,17 +37,14 @@ export class AppComponent implements OnInit {
     this.primengConfig.ripple = true;
     this.isAuthenticated = this.authorizeService.isAuthenticated();
     //tz.setDefault("Asia/Dhaka");
-    this.shortcuts.push({
-        key: "f3",
-        label: "New Department",
-        description: "Create New Department Form",
-        command: (e) => {
-          console.log('app f3');
+    this.keySv.addShortcut({ key: "f3", label: "New Department", description: "Create New Department Form"});
+    this.keySv.keyPressed.subscribe(x => {
+      if (Array.isArray(x)){
+        if (x[0]==="f3"){
           this.router.navigate(['view/department-form/add/-1']);
-        },
-        preventDefault: true
-      });
-
+        }
+      }
+    });
   }
 
   handleTopMenuClick(ev:any){

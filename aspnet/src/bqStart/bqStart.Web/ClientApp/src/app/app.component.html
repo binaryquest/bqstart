@@ -1,6 +1,5 @@
 <bq-app-layout [showMenuOnTop]="true" *ngIf="!tabbedInterface"
-               [stickyFooter]="true" (onTopRightMenuClicked)="handleTopMenuClick($event)"
-               [shortcuts]="shortcuts">
+               [stickyFooter]="true" (onTopRightMenuClicked)="handleTopMenuClick($event)">
   <router-outlet></router-outlet>
   <ng-template bqTemplate="footer">
     Hello World

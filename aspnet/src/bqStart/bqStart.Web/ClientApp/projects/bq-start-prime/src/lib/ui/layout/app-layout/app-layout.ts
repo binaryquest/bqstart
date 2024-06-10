@@ -8,6 +8,7 @@ import { BQTemplate } from '../../core/bq-template.directive';
 import { Dictionary } from '../../../models/meta-data';
 import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts';
 import { DialogService } from '../../../services/dialog.service';
+import { KeyShortcutService } from '../../../services/keyShortcut.service';
 
 /**
  * Main layout Component which is responsible for showing Menu bar footer etc
@@ -34,33 +35,6 @@ export class AppLayout implements OnInit, AfterContentInit {
   dialogHeader: string = "";
 
   @ViewChild(KeyboardShortcutsComponent) private keyboard: KeyboardShortcutsComponent;
-
-  private _shortcuts: ShortcutInput[] = [];
-  private _shortcutsDefault: ShortcutInput[] = [
-    {
-      key: "ctl + s",
-      label: "Save Command",
-      description: "Default Save Command for any form",
-      command: () => console.log('app ctl + s'),
-      preventDefault: true
-    }
-  ];
-
-  /**
-   * This is the list of shortcut keyboard hooks to patch to the module
-   *
-   * @type {ShortcutInput[]}
-   * @memberof AppLayout
-   */
-  @Input() set shortcuts(value: ShortcutInput[]) {
-    this._shortcuts = value;
-    let vv = value ?? [];
-    this.shortcutsInternal = [...vv, ...this._shortcutsDefault];
-  }
-  get shortcuts(): ShortcutInput[] {
-    // other logic
-    return this._shortcuts;
-  }
 
   /**
    * Display the footer always on bottom if true.
@@ -90,12 +64,12 @@ export class AppLayout implements OnInit, AfterContentInit {
 
   @Output() onTopRightMenuClicked: EventEmitter<any> = new EventEmitter();
 
-  shortcutsInternal: ShortcutInput[] = [];
   dialogService: DialogService;
 
   constructor(
     private primengConfig: PrimeNGConfig,
-    private authorizeService: AuthorizeService
+    private authorizeService: AuthorizeService,
+    public keySvc:KeyShortcutService
   ) {
     this.authorizeService.isAuthenticated().subscribe((x) => {
       this.showLeftMenu = x && !this.showMenuOnTop;
@@ -129,8 +103,6 @@ export class AppLayout implements OnInit, AfterContentInit {
     });
     this.controlFooterTemplate = this.customFooterTemplate ?? this.defaultFooterTemplate;
     this.customTopRightMenuTemplate = this.customTopRightMenuTemplate ?? this.defaultTopRightTemplate;
-    let vv = this.shortcuts ?? [];
-    this.shortcutsInternal = [...vv, ...this._shortcutsDefault];
   }
 
   handleTopMenuClick(ev:any){

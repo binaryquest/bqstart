@@ -24,6 +24,7 @@ export * from './lib/services/navigation.service';
 export * from './lib/services/dialog.service';
 export * from './lib/services/router.service';
 export * from './lib/services/mainRegionAdapter.service';
+export * from './lib/services/keyShortcut.service';
 
 export * from './lib/ui/layout/top-bar/top-bar';
 export * from './lib/ui/layout/top-menu-bar/top-menu-bar';

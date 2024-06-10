@@ -17,7 +17,7 @@ export class BaseEntity<T>{
 
 /**
  * Enum to store the state of a record from frontend to backend if this was changed, inserted or deleted.
- * Used to syncronise the state with ef core.
+ * Used to synchronize the state with ef core.
  *
  * @export
  * @enum {number}
@@ -27,4 +27,11 @@ export enum RecordState {
   Inserted = "Inserted",
   Modified = "Modified",
   Deleted = "Deleted"
+}
+
+
+export class AppShortcutKey{
+  key: string;
+  label: string;
+  description: string;
 }

@@ -28,8 +28,8 @@
   </ng-template>
 
 
-  <ng-keyboard-shortcuts [shortcuts]="shortcutsInternal"></ng-keyboard-shortcuts>
-  <ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Keyboard Shotcuts'"></ng-keyboard-shortcuts-help>
+  <ng-keyboard-shortcuts [shortcuts]="keySvc.shortcuts()"></ng-keyboard-shortcuts>
+  <ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Keyboard Shortcuts'"></ng-keyboard-shortcuts-help>
 
   <p-dialog [header]="dialogHeader" [(visible)]="dialogVisible" [modal]="true" [style]="{ minWidth: '30vw' }" [draggable]="false" [resizable]="false">
     <div class="pb-2">

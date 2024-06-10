@@ -88,6 +88,7 @@ import { MDIComponent } from './ui/layout/mdi/mdi.component';
 import { MDILayoutComponent } from './ui/layout/mdi/mdi-layout';
 import { AuthorizeGuard } from './api-authorization/authorize.guard';
 import { BlockUIModule } from 'primeng/blockui';
+import { KeyShortcutService } from './services/keyShortcut.service';
 
 export * from './models/meta-data';
 
@@ -281,7 +282,8 @@ export function initializeApp(appInitService: AppInitService) {
     DialogService,
     ConfirmationService,
     RouterService,
-    MainRegionAdapterService
+    MainRegionAdapterService,
+    KeyShortcutService
   ]
 })
 export class BQStartPrimeModule {
@@ -309,7 +311,8 @@ export class BQStartPrimeModule {
         ConfirmationService,
         DialogService,
         PrimeMS,
-        MessageService
+        MessageService,
+        KeyShortcutService
       ]
     }
   }
