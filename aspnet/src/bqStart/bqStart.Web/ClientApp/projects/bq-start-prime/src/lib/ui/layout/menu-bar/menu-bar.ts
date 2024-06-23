@@ -2,7 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FilterService } from 'primeng/api';
-import { MenuData } from '../../../config/bq-start-config';
+import { MenuData } from 'bq-start-core';
 import { BaseComponent } from '../../base.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';

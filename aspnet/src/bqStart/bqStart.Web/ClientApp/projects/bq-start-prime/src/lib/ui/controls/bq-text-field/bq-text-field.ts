@@ -2,7 +2,7 @@ import { Component, ContentChildren, forwardRef, Host, Input, OnInit, Optional, 
 import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';
 import { BaseField } from '../../core/base-field';
 import { FormBlock } from '../form-block/form-block';
-import { ValidationType } from '../../../models/meta-data';
+import { ValidationType } from 'bq-start-core';
 
 
 /**

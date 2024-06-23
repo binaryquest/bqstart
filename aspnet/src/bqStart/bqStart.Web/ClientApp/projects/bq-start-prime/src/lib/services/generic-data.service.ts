@@ -5,8 +5,8 @@ import { FilterByClause, TableParams } from "../models/table-data";
 import { ODataResponse } from "../models/odata-response";
 import { map } from "rxjs/operators";
 import { InternalLogService } from "./log/log.service";
-import { ModelMetadata } from "../models/meta-data";
-import { BQConfigData, BQConfigService } from "../config/bq-start-config";
+import { ModelMetadata } from "bq-start-core";
+import { BQConfigData, BQConfigService } from "bq-start-core";
 
 export const DataServiceToken = new InjectionToken<DataServiceOptions>('GSvcDataOptions');
 export declare class DataServiceOptions {

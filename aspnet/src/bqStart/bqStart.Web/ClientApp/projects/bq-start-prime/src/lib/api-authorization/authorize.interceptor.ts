@@ -3,7 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 import { Observable } from 'rxjs';
 import { AuthorizeService } from './authorize.service';
 import { mergeMap } from 'rxjs/operators';
-import { BQConfigData, BQConfigService } from '../config/bq-start-config';
+import { BQConfigData, BQConfigService } from 'bq-start-core';
 
 @Injectable({
   providedIn: 'root'

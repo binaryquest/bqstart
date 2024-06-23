@@ -1,8 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, Injector, OnDestroy, OnInit, Optional } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { FormType, ViewData, ViewType } from "../../config/bq-start-config";
-import { IBaseEvents, ModelMetadata, ViewOptionalData } from "../../models/meta-data";
+import { FormType, ViewData, ViewType } from "bq-start-core";
+import { IBaseEvents, ModelMetadata, ViewOptionalData } from "bq-start-core";
 import { FilterByClause, PredefinedFilter, TableParams } from "../../models/table-data";
 import { DataServiceOptions, DataServiceToken, GenericDataService } from "../../services/generic-data.service";
 import { InternalLogService } from "../../services/log/log.service";

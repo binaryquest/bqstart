@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { BQConfigData, BQConfigService } from "../config/bq-start-config";
-import { ModelMetadata } from "../models/meta-data";
+import { BQConfigData, BQConfigService } from "bq-start-core";
+import { ModelMetadata } from "bq-start-core";
 
 /**
  * Responsible for fetching entity metadata from backend

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
 import { FilterByClause } from '../../../models/table-data';
 import { TableFilter } from './bq-table-filter';
-import { Predicate, PREDICATE_EQUALS, PREDICATE_ISNOTNULL, PREDICATE_ISNULL } from '../../../models/meta-data';
+import { Predicate, PREDICATE_EQUALS, PREDICATE_ISNOTNULL, PREDICATE_ISNULL } from 'bq-start-core';
 import { InternalLogService } from '../../../services/log/log.service';
 import { DateTime } from 'luxon';
 import { DropdownChangeEvent } from 'primeng/dropdown';

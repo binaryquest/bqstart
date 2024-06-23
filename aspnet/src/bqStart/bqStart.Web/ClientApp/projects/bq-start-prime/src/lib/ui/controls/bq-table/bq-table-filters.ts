@@ -1,6 +1,6 @@
 import { AfterContentInit, AfterViewInit, Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, QueryList, Renderer2, ViewChild } from '@angular/core';
 import { find, Subject, Subscription } from 'rxjs';
-import { MetadataField, ModelMetadata, PREDICATE_CONTAINS, PREDICATE_EQUALS } from '../../../models/meta-data';
+import { MetadataField, ModelMetadata, PREDICATE_CONTAINS, PREDICATE_EQUALS } from 'bq-start-core';
 import { FilterByClause, PredefinedFilter, TableParams } from '../../../models/table-data';
 import { MessageService, MessageType } from '../../../services/message.service';
 import { TableFilter } from './bq-table-filter';

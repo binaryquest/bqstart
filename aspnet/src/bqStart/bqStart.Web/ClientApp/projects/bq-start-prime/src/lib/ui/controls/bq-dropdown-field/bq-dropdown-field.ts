@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { map, Observable, of } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { EnumItem } from '../../../models/meta-data';
+import { EnumItem } from 'bq-start-core';
 import { BaseField } from '../../core/base-field';
 import { FormBlock } from '../form-block/form-block';
 import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';

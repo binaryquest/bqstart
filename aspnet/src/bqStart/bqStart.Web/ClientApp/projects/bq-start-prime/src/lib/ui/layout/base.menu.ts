@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuData } from '../../config/bq-start-config';
+import { MenuData } from 'bq-start-core';
 import { MainRegionAdapterService } from '../../services/mainRegionAdapter.service';
 import { BaseComponent } from '../base.component';
 import { AppInjector } from '../../services/app-injector.service';

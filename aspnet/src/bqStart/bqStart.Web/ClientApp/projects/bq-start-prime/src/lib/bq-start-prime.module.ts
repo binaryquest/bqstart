@@ -7,7 +7,6 @@ import { LoginMenuComponent } from './api-authorization/login-menu/login-menu.co
 import { LoginComponent } from './api-authorization/login/login.component';
 import { LogoutComponent } from './api-authorization/logout/logout.component';
 import { TopBar } from './ui/layout/top-bar/top-bar';
-import { BQConfigService, BQConfigData } from './config/bq-start-config';
 import { FooterBar } from './ui/layout/footer-bar/footer-bar';
 import { AppInjector } from './services/app-injector.service';
 import { AppLayout } from './ui/layout/app-layout/app-layout';
@@ -89,8 +88,7 @@ import { MDILayoutComponent } from './ui/layout/mdi/mdi-layout';
 import { AuthorizeGuard } from './api-authorization/authorize.guard';
 import { BlockUIModule } from 'primeng/blockui';
 import { KeyShortcutService } from './services/keyShortcut.service';
-
-export * from './models/meta-data';
+import { BQConfigData, BQConfigService } from 'bq-start-core';
 
 export function initializeApp(appInitService: AppInitService) {
   const ret = (): Promise<any> => {

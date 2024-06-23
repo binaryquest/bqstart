@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { MessageService as PrimeMS } from 'primeng/api';
-import { BQConfigData, BQConfigService } from '../config/bq-start-config';
+import { BQConfigData, BQConfigService } from 'bq-start-core';
 import { DialogService } from './dialog.service';
 
 export enum MessageType {

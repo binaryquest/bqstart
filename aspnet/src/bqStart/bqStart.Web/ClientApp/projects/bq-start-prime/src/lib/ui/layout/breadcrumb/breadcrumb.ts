@@ -2,17 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,
-  NavigationStart,
   Router,
-  RouterEvent,
 } from '@angular/router';
 import { filter, map, Observable, Observer, switchMap } from 'rxjs';
 import {
   FormType,
   MenuData,
-  ViewData,
-  RouteData,
-} from '../../../config/bq-start-config';
+  ViewData
+} from 'bq-start-core';
 import { BaseComponent } from '../../base.component';
 import { Location } from '@angular/common';
 

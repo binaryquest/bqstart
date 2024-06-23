@@ -1,21 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { MenuItemContent } from 'primeng/menu';
-import { Subscription } from 'rxjs';
 import { ApplicationPaths } from '../../../api-authorization/api-authorization.constants';
-import { AuthorizeService } from '../../../api-authorization/authorize.service';
 import {
-  BQConfigData,
-  BQConfigService,
   MenuData,
   TopRightMenuData,
-} from '../../../config/bq-start-config';
-import { AppInjector } from '../../../services/app-injector.service';
+} from 'bq-start-core';
 import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.service';
-import { RouterService } from '../../../services/router.service';
 import { BaseMenu } from '../base.menu';
-import { TopBar } from '../top-bar/top-bar';
+
 
 @Component({
   selector: 'bq-top-menu-bar',

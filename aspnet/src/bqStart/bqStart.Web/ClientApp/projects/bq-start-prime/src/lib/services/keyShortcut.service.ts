@@ -1,8 +1,9 @@
 import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
 import { AllowIn, ShortcutInput } from 'ng-keyboard-shortcuts';
-import { AppShortcutKey } from '../models/base-model';
 import { LogService } from './log/log.service';
 import { Subject } from 'rxjs';
+import { AppShortcutKey } from 'bq-start-core';
+
 
 @Injectable({providedIn: 'root'})
 export class KeyShortcutService {

@@ -1,11 +1,11 @@
 import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
-import { BQConfigData, BQConfigService } from '../../../config/bq-start-config';
+import { BQConfigData, BQConfigService } from 'bq-start-core';
 import { AppInjector } from '../../../services/app-injector.service';
 import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.service';
 import { BQTemplate } from '../../core/bq-template.directive';
-import { Dictionary } from '../../../models/meta-data';
+import { Dictionary } from 'bq-start-core';
 import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts';
 
 /**

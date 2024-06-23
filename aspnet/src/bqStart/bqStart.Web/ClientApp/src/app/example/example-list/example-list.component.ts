@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PREDICATE_EQUALS, ViewOptionalData } from 'bq-start-core';
 import { ODataResponse } from 'bq-start-prime';
-import { BaseListView, ViewOptionalData, RouterService, PREDICATE_EQUALS, PredefinedFilter, IBaseListViewEvents, RowExpandedEventData } from 'projects/bq-start-prime/src/public-api';
+import { BaseListView, RouterService, PredefinedFilter, IBaseListViewEvents, RowExpandedEventData } from 'projects/bq-start-prime/src/public-api';
 import { map } from 'rxjs';
 import { ExampleClass, ExampleClassType } from 'src/app/models/exampleClass';
 

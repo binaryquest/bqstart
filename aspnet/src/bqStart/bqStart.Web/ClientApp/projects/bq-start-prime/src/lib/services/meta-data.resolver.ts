@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ModelMetadata } from '../models/meta-data';
 import { MetaDataService } from './meta-data.service';
 
 

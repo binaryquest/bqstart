@@ -4,6 +4,9 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "bq-start-core": [
+        "./dist/bq-start-core"
+      ],
       "bq-start-prime": [
         "dist/bq-start-prime/bq-start-prime",
         "dist/bq-start-prime"

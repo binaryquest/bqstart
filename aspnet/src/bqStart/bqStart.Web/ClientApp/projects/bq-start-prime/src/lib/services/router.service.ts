@@ -1,8 +1,8 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { ActivatedRoute, ParamMap, Params, Router, RoutesRecognized } from '@angular/router';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { FormType, ViewData, RouteData } from '../config/bq-start-config';
-import { ModelMetadata } from '../models/meta-data';
+import { FormType, ViewData, RouteData } from 'bq-start-core';
+import { ModelMetadata } from 'bq-start-core';
 import { MainRegionAdapterService } from './mainRegionAdapter.service';
 
 /**

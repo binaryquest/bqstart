@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { BehaviorSubject, Observable, Subject, Subscription } from "rxjs";
 import { AppInitService } from "../services/app-init.service";
 import { RouterService } from "../services/router.service";
-import { ALL_PREDICATES, MetadataField, Predicate, PREDICATE_BETWEEN, TypeSystem, TYPE_SYSTEM } from "./meta-data";
+import { ALL_PREDICATES, MetadataField, Predicate, PREDICATE_BETWEEN, TypeSystem, TYPE_SYSTEM } from "bq-start-core";
 import { ODataResponse } from "./odata-response";
 
 /**

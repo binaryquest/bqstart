@@ -1,7 +1,7 @@
 import { Component, Injector, inject } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { AuthorizeService, IUser } from "../api-authorization/authorize.service";
-import { BQConfigData, BQConfigService } from "../config/bq-start-config";
+import { BQConfigData, BQConfigService } from "bq-start-core";
 import { AppInitService } from "../services/app-init.service";
 import { AppInjector } from "../services/app-injector.service";
 import { DialogService } from "../services/dialog.service";

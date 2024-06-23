@@ -3,12 +3,10 @@ import { PrimeNGConfig } from 'primeng/api';
 import {
   AuthorizeService,
   LocaleService,
-  BQConfigService,
-  BQConfigData,
   KeyShortcutService,
 } from 'projects/bq-start-prime/src/public-api';
+import { BQConfigService, BQConfigData } from 'bq-start-core';
 import { Observable } from 'rxjs';
-import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts';
 import { Router } from '@angular/router';
 
 @Component({

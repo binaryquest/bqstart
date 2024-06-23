@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseFormView, IBaseFormViewEvents, ViewOptionalData, RouterService } from 'projects/bq-start-prime/src/public-api';
+import { ViewOptionalData } from 'bq-start-core';
+import { BaseFormView, IBaseFormViewEvents, RouterService } from 'projects/bq-start-prime/src/public-api';
 import { ExampleClass } from 'src/app/models/exampleClass';
 
 

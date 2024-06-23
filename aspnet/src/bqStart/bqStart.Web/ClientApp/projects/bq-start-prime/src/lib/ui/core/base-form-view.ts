@@ -2,8 +2,8 @@ import { AfterContentInit, AfterViewInit, Component, ContentChildren, Inject, In
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewWrapperService } from '../controls/view-wrapper/view-wrapper.service';
 import { map } from 'rxjs/operators';
-import { FormType, ViewData } from '../../config/bq-start-config';
-import { IBaseEvents, MessageBusPayLoad, ModelMetadata, OperationType, PrimaryKey, ViewOptionalData } from '../../models/meta-data';
+import { FormType, ViewData } from 'bq-start-core';
+import { IBaseEvents, MessageBusPayLoad, ModelMetadata, OperationType, PrimaryKey, ViewOptionalData } from 'bq-start-core';
 import { DataServiceOptions, DataServiceToken, GenericDataService } from '../../services/generic-data.service';
 import { InternalLogService } from '../../services/log/log.service';
 import { BaseComponent } from '../base.component';

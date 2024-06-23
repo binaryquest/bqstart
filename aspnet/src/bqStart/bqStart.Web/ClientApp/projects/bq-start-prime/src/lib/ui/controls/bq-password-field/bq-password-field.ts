@@ -1,5 +1,5 @@
 import { Component, Host, Input, OnInit, Optional, TemplateRef, ViewChild } from '@angular/core';
-import { ValidationType } from '../../../models/meta-data';
+import { ValidationType } from 'bq-start-core';
 import { BaseField } from '../../core/base-field';
 import { FormBlock } from '../form-block/form-block';
 import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';

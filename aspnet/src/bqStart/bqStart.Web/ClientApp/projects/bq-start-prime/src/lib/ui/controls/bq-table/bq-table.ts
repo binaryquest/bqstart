@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { LazyLoadEvent } from 'primeng/api';
 import { TableLazyLoadEvent, TableRowSelectEvent, TableRowUnSelectEvent, Table as ngTable } from 'primeng/table';
 import { Subscription } from 'rxjs';
-import { MetadataField, ModelMetadata } from '../../../models/meta-data';
+import { MetadataField, ModelMetadata } from 'bq-start-core';
 import { OrderByClause, PredefinedFilter, TableParams } from '../../../models/table-data';
 import { AppInitService } from '../../../services/app-init.service';
 import { TableColumn } from './bq-table-column';

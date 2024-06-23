@@ -1,5 +1,5 @@
 
-import { ViewData, ViewType } from "projects/bq-start-prime/bq-start-module";
+import { ViewData, ViewType } from "bq-start-core";
 import { Injector, createNgModule } from "@angular/core";
 
 

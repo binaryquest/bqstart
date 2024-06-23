@@ -3,7 +3,7 @@ import { Component, ElementRef, EventEmitter, Injector, OnInit, Output, ViewChil
 import { Subscription } from 'rxjs';
 import { ApplicationPaths } from '../../../api-authorization/api-authorization.constants';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
-import { BQConfigData, BQConfigService } from '../../../config/bq-start-config';
+import { BQConfigData, BQConfigService } from 'bq-start-core';
 import { AppInjector } from '../../../services/app-injector.service';
 
 @Component({

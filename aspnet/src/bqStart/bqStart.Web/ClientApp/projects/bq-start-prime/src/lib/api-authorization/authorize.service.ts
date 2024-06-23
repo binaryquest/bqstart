@@ -4,7 +4,7 @@ import { BehaviorSubject, concat, from, Observable } from 'rxjs';
 import { filter, map, mergeMap, take, tap } from 'rxjs/operators';
 import { InternalLogService } from '../services/log/log.service';
 import { ApplicationPaths, ApplicationName } from './api-authorization.constants';
-import { BQConfigService, BQConfigData } from '../config/bq-start-config';
+import { BQConfigService, BQConfigData } from 'bq-start-core';
 import { inject } from '@angular/core/testing';
 import { MessageService } from 'primeng/api';
 

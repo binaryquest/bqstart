@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthorizeService } from '../api-authorization/authorize.service';
-import { BQConfigData, BQConfigService, FormType, MenuData, ViewData, RouteData, ViewType } from '../config/bq-start-config';
+import { BQConfigData, BQConfigService, FormType, MenuData, ViewData, RouteData, ViewType } from 'bq-start-core';
 import { AppInjector } from './app-injector.service';
 import { LogService } from './log/log.service';
 import { MessageService } from './message.service';

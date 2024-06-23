@@ -1,4 +1,4 @@
-import { BQConfigData, ViewType } from "projects/bq-start-prime/src/public-api";
+import { BQConfigData, ViewType } from "bq-start-core";
 import { RoleForm, RoleList } from "./adminUI/roles/roles";
 import { UserForm, UserList } from "./adminUI/users/users";
 import { CounterComponent } from "./counter/counter.component";

@@ -1,12 +1,11 @@
 import { Injectable, Injector } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { Router, Routes } from "@angular/router";
-import { ModelMetadata } from "../models/meta-data";
 import { ApplicationPaths } from "../api-authorization/api-authorization.constants";
 import { AuthorizeGuard } from "../api-authorization/authorize.guard";
 import { LoginComponent } from "../api-authorization/login/login.component";
 import { LogoutComponent } from "../api-authorization/logout/logout.component";
-import { BQConfigData, BQConfigService, FormType, RunningConfigHelper, ViewData, ViewType, RouteData } from "../config/bq-start-config";
+import { BQConfigData, BQConfigService, FormType, RunningConfigHelper, ViewData, ViewType, RouteData } from "bq-start-core";
 import { InternalLogService, LogPublishersService } from "./log/log.service";
 import { MetaDataResolver } from "./meta-data.resolver";
 import { DynamicLoaderComponent } from "../ui/core/dynamic.component";
