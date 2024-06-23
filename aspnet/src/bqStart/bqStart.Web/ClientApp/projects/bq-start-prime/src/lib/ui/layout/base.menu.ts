@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuData } from '../../config/bq-start-config';
+import { MenuData } from 'bq-start-core';
 import { MainRegionAdapterService } from '../../services/mainRegionAdapter.service';
 import { BaseComponent } from '../base.component';
+import { AppInjector } from '../../services/app-injector.service';
 
 
 export class BaseMenu extends BaseComponent {
@@ -46,12 +47,15 @@ export class BaseMenu extends BaseComponent {
     }
   }
 
-  handleMenuClick(menu:any, link:string, queryParams: any){
+  async handleMenuClick(menu:any, link:string, queryParams: any) {
     if (this.config.tabbedUserInterface){
       if (menu.viewId){
         this.regionSvc.addToView(menu.viewId, "list", null, menu.icon);
       }else if (menu.component){
         this.regionSvc.addGenericComponentToView(menu.label, menu.component, menu.icon);
+      }else if (menu.componentFactory){
+        const dynCom = await menu.componentFactory(AppInjector.getInjector());
+        this.regionSvc.addGenericComponentToView(menu.label, dynCom, menu.icon);
       }
     }else{
       this.router.navigate([link],{queryParams: queryParams});

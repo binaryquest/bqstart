@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { APP_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -35,6 +35,8 @@ import { DepartmentListComponent } from './example/department-list/department-li
 import { DepartmentFormComponent } from './example/department-form/department-form.component';
 import { ExampleFormComponent } from './example/example-form/example-form.component';
 import { ExampleListComponent } from './example/example-list/example-list.component';
+import { ADMIN_MODULE_ROUTES } from './modules/admin/admin.config';
+import { SharedModule } from './modules/shared/shared.module';
 
 
 
@@ -63,7 +65,7 @@ registerLocaleData(localeAu);
     UserForm
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
@@ -75,13 +77,15 @@ registerLocaleData(localeAu);
     KeyboardShortcutsModule.forRoot(),
     TranslateModule.forRoot(),
     BQStartPrimeModule.forRoot(APP_CONFIG),
+    SharedModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthorizeGuard] },
       { path: 'counter', component: CounterComponent },
-      //{ path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      ...ADMIN_MODULE_ROUTES
     ])
   ],
   providers: [
+    { provide: APP_ID, useValue: 'ng-cli-universal' },
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     LocaleProvider
   ],

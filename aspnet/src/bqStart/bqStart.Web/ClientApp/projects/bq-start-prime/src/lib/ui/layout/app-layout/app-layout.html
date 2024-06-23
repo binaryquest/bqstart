@@ -1,6 +1,6 @@
 <div class="layout-wrapper">
 
-  <bq-top-menu-bar *ngIf="showMenuOnTop" (onTopRightMenuClicked)="handleTopMenuClick($event)"></bq-top-menu-bar>
+  <bq-top-menu-bar *ngIf="showMenuOnTop" (onTopRightMenuClicked)="handleTopMenuClick($event)" [topRightMenuTemplate]="customTopRightMenuTemplate"></bq-top-menu-bar>
   <bq-top-bar *ngIf="!showMenuOnTop" (menuButtonClick)="onMenuButtonClick()"></bq-top-bar>
   <bq-menu-bar *ngIf="showLeftMenu" [active]="menuActive"></bq-menu-bar>
 
@@ -24,8 +24,12 @@
     <bq-footer-bar></bq-footer-bar>
   </ng-template>
 
-  <ng-keyboard-shortcuts [shortcuts]="shortcutsInternal"></ng-keyboard-shortcuts>
-  <ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Keyboard Shotcuts'"></ng-keyboard-shortcuts-help>
+  <ng-template #defaultTopRightTemplate>
+  </ng-template>
+
+
+  <ng-keyboard-shortcuts [shortcuts]="keySvc.shortcuts()"></ng-keyboard-shortcuts>
+  <ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Keyboard Shortcuts'"></ng-keyboard-shortcuts-help>
 
   <p-dialog [header]="dialogHeader" [(visible)]="dialogVisible" [modal]="true" [style]="{ minWidth: '30vw' }" [draggable]="false" [resizable]="false">
     <div class="pb-2">

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthorizeService } from '../api-authorization/authorize.service';
-import { BQConfigData, BQConfigService, FormType, MenuData, ViewData, RouteData, ViewType } from '../config/bq-start-config';
+import { BQConfigData, BQConfigService, FormType, MenuData, ViewData, RouteData, ViewType } from 'bq-start-core';
 import { AppInjector } from './app-injector.service';
 import { LogService } from './log/log.service';
 import { MessageService } from './message.service';
@@ -155,7 +155,7 @@ export class MainRegionAdapterService {
 
     const routeData = new RouteData();
     routeData.formType = FormType.Details;
-    routeData.viewDef = {component: component, viewId: menuTitle, title:menuTitle, viewType:ViewType.Form, typeName: menuTitle};
+    routeData.viewDef = {component: component, viewId: menuTitle, title:menuTitle, viewType:ViewType.Form, typeName: menuTitle, componentFactory: undefined};
     this.currentStack.push({viewDef: routeData.viewDef, routeData: routeData, icon: icon});
     if (this.currentStack.length>1){
       this.activeIndex = this.currentStack.length - 1;

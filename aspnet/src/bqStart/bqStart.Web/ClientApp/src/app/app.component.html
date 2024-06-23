@@ -1,9 +1,13 @@
 <bq-app-layout [showMenuOnTop]="true" *ngIf="!tabbedInterface"
-               [stickyFooter]="true" (onTopRightMenuClicked)="handleTopMenuClick($event)"
-               [shortcuts]="shortcuts">
+               [stickyFooter]="true" (onTopRightMenuClicked)="handleTopMenuClick($event)">
   <router-outlet></router-outlet>
   <ng-template bqTemplate="footer">
     Hello World
+  </ng-template>
+  <ng-template bqTemplate="topRight">
+    <span class="mr-2">
+      <input type="text" pInputText placeholder="View Order" />
+    </span>
   </ng-template>
 </bq-app-layout>
 <bq-mdi-app-layout *ngIf="tabbedInterface" (onTopRightMenuClicked)="handleTopMenuClick($event)">

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MetadataField, Predicate } from '../../../models/meta-data';
+import { MetadataField, Predicate } from 'bq-start-core';
 
 /**
  * Defines a filter in a bq-table component

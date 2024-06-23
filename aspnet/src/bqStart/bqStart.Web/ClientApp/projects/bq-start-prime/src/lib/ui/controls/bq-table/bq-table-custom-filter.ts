@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, QueryList } from '@angular/core';
 import { FilterByClause } from '../../../models/table-data';
 import { TableFilter } from './bq-table-filter';
-import { Predicate, PREDICATE_EQUALS, PREDICATE_ISNOTNULL, PREDICATE_ISNULL } from '../../../models/meta-data';
+import { Predicate, PREDICATE_EQUALS, PREDICATE_ISNOTNULL, PREDICATE_ISNULL } from 'bq-start-core';
 import { InternalLogService } from '../../../services/log/log.service';
 import { DateTime } from 'luxon';
 import { DropdownChangeEvent } from 'primeng/dropdown';
@@ -29,7 +29,7 @@ import { DropdownChangeEvent } from 'primeng/dropdown';
 export class CustomFilter implements OnInit {
 
   @Input()
-  filterCluase: FilterByClause;
+  filterClause: FilterByClause;
 
   @Input()
   filters: TableFilter[];
@@ -75,19 +75,18 @@ export class CustomFilter implements OnInit {
     this.showDropDownValue = (newVal.itemSource !== undefined);
     this.showValue = this.selectedPredicate.key !== PREDICATE_ISNULL.key && this.selectedPredicate.key !== PREDICATE_ISNOTNULL.key && this.showDropDownValue === false;
     this.showToValue = this.selectedPredicate.hasSecondParam;
-    this.filterCluase.Caption = newVal.caption ?? newVal.field.caption;
-    this.filterCluase.DataType = newVal.field.dataType;
-    this.filterCluase.FieldName = newVal.field.name;
-    this.filterCluase.Predicate = this.selectedPredicate.key;
+    this.filterClause.Caption = newVal.caption ?? newVal.field.caption;
+    this.filterClause.DataType = newVal.field.dataType;
+    this.filterClause.FieldName = newVal.field.name;
+    this.filterClause.Predicate = this.selectedPredicate.key;
     this.predicateUpdated(this.selectedPredicate, newVal);
-
   }
 
   predicateUpdated(newVal: Predicate, selFilter: TableFilter) {
     if (newVal) {
       this.showValue = newVal.key !== PREDICATE_ISNULL.key && newVal.key !== PREDICATE_ISNOTNULL.key;
       this.showToValue = newVal.hasSecondParam;
-      this.filterCluase.Predicate = newVal.key;
+      this.filterClause.Predicate = newVal.key;
       if (selFilter) {
         if (selFilter.field.dataType == "Boolean") {
           this.valueUpdated(this.boolValues[0].value);
@@ -105,38 +104,41 @@ export class CustomFilter implements OnInit {
 
   valueUpdated(newVal: any) {
     this.value = newVal;
-    this.filterCluase.Value = newVal;
-    this.filterCluase.DisplayValue = newVal;
+    this.filterClause.Value = newVal;
+    this.filterClause.DisplayValue = newVal;
 
     if (this.showDropDownValue){
       //lets find display value from list
       let item = this.selectedFilter.itemSource.find(x => x[this.selectedFilter.valueName]===newVal);
       if (item){
-        this.filterCluase.DisplayValue = item[this.selectedFilter.displayName];
+        this.filterClause.DisplayValue = item[this.selectedFilter.displayName];
       }
     }
 
     if (this.selectedFilter.field.dataType == "DateTime") {
-      if (!this.selectedFilter.showTime) {
-        this.filterCluase.Value = DateTime.fromISO(newVal).startOf('day').toJSDate();
-        this.filterCluase.DisplayValue = DateTime.fromISO(newVal).startOf('day').toLocaleString(DateTime.DATETIME_MED);
+      if (this.selectedFilter.showTime) {
+        const dt = DateTime.fromJSDate(newVal);
+        this.filterClause.DisplayValue = dt.toLocaleString(DateTime.DATETIME_MED);
       }else{
-        this.filterCluase.DisplayValue = DateTime.fromISO(newVal).startOf('day').toLocaleString(DateTime.DATE_MED);
+        this.filterClause.Value = DateTime.fromJSDate(newVal).startOf('day').toJSDate();
+        this.filterClause.DisplayValue = DateTime.fromJSDate(newVal).startOf('day').toLocaleString(DateTime.DATE_MED);
+        //console.log("filter updated", this.filterClause);
       }
     }
   }
 
   valueToUpdated(newVal: any) {
     this.toValue = newVal;
-    this.filterCluase.ToValue = newVal;
-    this.filterCluase.ToDisplayValue = newVal;
+    this.filterClause.ToValue = newVal;
+    this.filterClause.ToDisplayValue = newVal;
 
     if (this.selectedFilter.field.dataType == "DateTime") {
-      if (!this.selectedFilter.showTime) {
-        this.filterCluase.ToValue = DateTime.fromISO(newVal).startOf('day').toJSDate();
-        this.filterCluase.ToDisplayValue = DateTime.fromISO(newVal).startOf('day').toLocaleString(DateTime.DATETIME_MED);
+      if (this.selectedFilter.showTime) {
+        const dt = DateTime.fromJSDate(newVal);
+        this.filterClause.ToDisplayValue = dt.toLocaleString(DateTime.DATETIME_MED);
       }else{
-        this.filterCluase.ToDisplayValue = DateTime.fromISO(newVal).startOf('day').toLocaleString(DateTime.DATE_MED);
+        this.filterClause.ToValue = DateTime.fromJSDate(newVal).startOf('day').toJSDate();
+        this.filterClause.ToDisplayValue = DateTime.fromJSDate(newVal).startOf('day').toLocaleString(DateTime.DATE_MED);
       }
     }
   }

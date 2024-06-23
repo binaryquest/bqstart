@@ -46,10 +46,10 @@ export class LogoutComponent implements OnInit {
 
   private async logout(returnUrl: string): Promise<void> {
     const state: INavigationState = { returnUrl };
-    const isauthenticated = await this.authorizeService.isAuthenticated().pipe(
+    const isAuthenticated = await this.authorizeService.isAuthenticated().pipe(
       take(1)
     ).toPromise();
-    if (isauthenticated) {
+    if (isAuthenticated) {
       const result = await this.authorizeService.signOut(state);
       switch (result.status) {
         case AuthenticationResultStatus.Redirect:

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseListView, RouterService, ViewOptionalData } from 'projects/bq-start-prime/src/public-api';
+import { ViewOptionalData } from 'bq-start-core';
+import { BaseListView, RouterService } from 'projects/bq-start-prime/src/public-api';
 import { Department } from 'src/app/models/department';
 
 const OPTIONAL_DATA:ViewOptionalData = {

@@ -1,7 +1,7 @@
-import { Component, Injector } from "@angular/core";
+import { Component, Injector, inject } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { AuthorizeService, IUser } from "../api-authorization/authorize.service";
-import { BQConfigData, BQConfigService } from "../config/bq-start-config";
+import { BQConfigData, BQConfigService } from "bq-start-core";
 import { AppInitService } from "../services/app-init.service";
 import { AppInjector } from "../services/app-injector.service";
 import { DialogService } from "../services/dialog.service";
@@ -10,6 +10,7 @@ import { InternalLogService, LogService } from "../services/log/log.service";
 import { MessageService, MessageType } from "../services/message.service";
 import { NavigationService } from "../services/navigation.service";
 import { v4 as uuidv4 } from 'uuid';
+import { Settings } from "luxon";
 
 @Component({
   template: ''
@@ -23,7 +24,7 @@ export class BaseComponent {
   logger: LogService;
   user: IUser | null;
   isAuthenticated: boolean;
-  injector: Injector;
+  //injector: Injector;
   isLoading: boolean = false;
   navigationService: NavigationService;
   dialogService: DialogService;
@@ -33,18 +34,21 @@ export class BaseComponent {
 
   constructor() {
     this.runTimeId = uuidv4();
-    this.injector = AppInjector.getInjector();
-    this.config = this.injector.get(BQConfigService);
-    this.appInitService = this.injector.get(AppInitService);
-    this.authorizeService = this.injector.get(AuthorizeService);
-    this.messageSvc = this.injector.get(MessageService);
-    this.logger = this.injector.get(LogService);
+    //this.injector = AppInjector.getInjector();
+    this.config = inject(BQConfigService);
+    this.appInitService = inject(AppInitService);
+    this.authorizeService = inject(AuthorizeService);
+    this.messageSvc = inject(MessageService);
+    this.logger = inject(LogService);
     this.authorizeService.getUser().subscribe(x => this.user = x);
     this.authorizeService.isAuthenticated().subscribe(x => this.isAuthenticated = x);
-    this.navigationService = this.injector.get(NavigationService);
-    this.dialogService = this.injector.get(DialogService);
-    this.localeService = this.injector.get(LocaleService);
-    this.translate = this.injector.get(TranslateService);
+    this.navigationService = inject(NavigationService);
+    this.dialogService = inject(DialogService);
+    this.localeService = inject(LocaleService);
+    this.translate = inject(TranslateService);
+    if (!this.localeService.isInitialized()){
+      this.localeService.initLocale(Settings.defaultLocale, Settings.defaultLocale);
+    }
   }
 
   isInRole(role: string[]): boolean {

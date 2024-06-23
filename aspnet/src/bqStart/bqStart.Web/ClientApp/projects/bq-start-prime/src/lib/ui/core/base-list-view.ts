@@ -1,14 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, Injector, OnDestroy, OnInit, Optional } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { FormType, ViewData, ViewType } from "../../config/bq-start-config";
-import { IBaseEvents, ModelMetadata, ViewOptionalData } from "../../models/meta-data";
+import { FormType, ViewData, ViewType } from "bq-start-core";
+import { IBaseEvents, ModelMetadata, ViewOptionalData } from "bq-start-core";
 import { FilterByClause, PredefinedFilter, TableParams } from "../../models/table-data";
 import { DataServiceOptions, DataServiceToken, GenericDataService } from "../../services/generic-data.service";
 import { InternalLogService } from "../../services/log/log.service";
 import { RouterService } from "../../services/router.service";
 import { BaseComponent } from "../base.component";
 import { IBaseView } from "./base-view";
+import { AppInjector } from "../../services/app-injector.service";
 
 /**
  * Defines the base abstract functionality of a BQ View (List/Form)
@@ -19,14 +19,14 @@ import { IBaseView } from "./base-view";
 export declare interface IBaseListViewEvents extends IBaseEvents {
   /**
    * This method is called when a view is done initializing it's internal details.
-   * Typically you can other initialiation functions here.
+   * Typically you can other initialization functions here.
    * @memberof IBaseListViewEvents
    */
   onAfterInitComplete(): void;
 
 
   /**
-   * This method is called when the veiw receives the data from the service.
+   * This method is called when the view receives the data from the service.
    * The service populates the 'models' property.
    * @memberof IBaseListViewEvents
    */
@@ -119,7 +119,7 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
     }
 
     const injector =
-      Injector.create({providers: [{provide: DataServiceToken, useValue:dataServiceOptions}], parent: this.injector},);
+      Injector.create({providers: [{provide: DataServiceToken, useValue:dataServiceOptions}], parent: AppInjector.getInjector()},);
 
     this.dataSvc = injector.get(GenericDataService);
 
@@ -128,7 +128,7 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
     if (this.formType == FormType.List) {
       this.tableParams = new TableParams(this.routerSvc, this.appInitService);
     }else{
-      throw new Error('Wrong View Form Type in View Defintions');
+      throw new Error('Wrong View Form Type in View Definitions');
     }
 
     this.predefinedFilters = [];

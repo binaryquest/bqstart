@@ -4,8 +4,10 @@ import { BehaviorSubject, concat, from, Observable } from 'rxjs';
 import { filter, map, mergeMap, take, tap } from 'rxjs/operators';
 import { InternalLogService } from '../services/log/log.service';
 import { ApplicationPaths, ApplicationName } from './api-authorization.constants';
-import { BQConfigService, BQConfigData } from '../config/bq-start-config';
+import { BQConfigService, BQConfigData } from 'bq-start-core';
 import { inject } from '@angular/core/testing';
+import { MessageService } from 'primeng/api';
+
 
 export type IAuthenticationResult =
   SuccessAuthenticationResult |
@@ -51,7 +53,7 @@ export class AuthorizeService {
   private userSubject: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(null);
   private config:BQConfigData;
 
-  constructor(private injector: Injector){
+  constructor(private injector: Injector, private messageService: MessageService){
     this.config = this.injector.get(BQConfigService);
   }
 
@@ -141,12 +143,12 @@ export class AuthorizeService {
       this.userSubject.next(null);
       return this.success(state);
     } catch (popupSignOutError) {
-      InternalLogService.logger().error('Popup signout error: ', popupSignOutError);
+      InternalLogService.logger().error('Popup sign out error: ', popupSignOutError);
       try {
         await this.userManager.signoutRedirect(this.createArguments(state));
         return this.redirect();
       } catch (redirectSignOutError: any) {
-        InternalLogService.logger().error('Redirect signout error: ', redirectSignOutError);
+        InternalLogService.logger().error('Redirect sign out error: ', redirectSignOutError);
         return this.error(redirectSignOutError);
       }
     }
@@ -204,6 +206,24 @@ export class AuthorizeService {
     this.userManager.events.addUserSignedOut(async () => {
       await this.userManager.removeUser();
       this.userSubject.next(null);
+    });
+
+    this.userManager.events.addAccessTokenExpiring(async () => {
+      console.log("Access Token Expiring. Trying Silent Renew");
+    });
+
+    this.userManager.events.addSilentRenewError(async () => {
+      console.log("Silent Renew Error");
+      await this.userManager.removeUser();
+      this.userSubject.next(null);
+      this.messageService.add({ severity: 'error', summary: 'User Logged Out', detail: 'You have been automatically logged out due to inactivity.', sticky: true });
+      await this.signOut({});
+    });
+
+    this.userManager.events.addAccessTokenExpired(e => {
+      this.userSubject.next(null);
+      this.messageService.add({ severity: 'error', summary: 'User Logged Out', detail: 'You have been automatically logged out due to inactivity.', sticky: true });
+      this.userManager.signoutRedirect();
     });
   }
 

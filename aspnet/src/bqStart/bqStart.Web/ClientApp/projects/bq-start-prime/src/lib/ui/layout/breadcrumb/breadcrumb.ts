@@ -2,17 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {
   ActivatedRoute,
   NavigationEnd,
-  NavigationStart,
   Router,
-  RouterEvent,
 } from '@angular/router';
 import { filter, map, Observable, Observer, switchMap } from 'rxjs';
 import {
   FormType,
   MenuData,
-  ViewData,
-  RouteData,
-} from '../../../config/bq-start-config';
+  ViewData
+} from 'bq-start-core';
 import { BaseComponent } from '../../base.component';
 import { Location } from '@angular/common';
 
@@ -52,7 +49,7 @@ export class Breadcrumb extends BaseComponent implements OnInit {
 
     this.routeData$.subscribe({
       next: (e) => {
-        console.log('breadcrumb path', e);
+        //console.log('breadcrumb path', e);
         if (e && e.viewDef) {
           this.viewDef = e.viewDef;
           this.title = e.viewDef.title;

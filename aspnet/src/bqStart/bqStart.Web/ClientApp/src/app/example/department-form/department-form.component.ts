@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ViewOptionalData } from 'bq-start-core';
 import { IBaseFormViewEvents } from 'bq-start-prime';
-import { BaseFormView, IEditFormViewEvents, RouterService, ViewOptionalData } from 'projects/bq-start-prime/src/public-api';
+import { BaseFormView, IEditFormViewEvents, RouterService } from 'projects/bq-start-prime/src/public-api';
 import { Address, Department } from 'src/app/models/department';
 
 const OPTIONAL_DATA:ViewOptionalData = {

@@ -1,13 +1,14 @@
 import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
-import { BQConfigService, BQConfigData } from '../../../config/bq-start-config';
+import { BQConfigService, BQConfigData } from 'bq-start-core';
 import { AppInjector } from '../../../services/app-injector.service';
 import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.service';
 import { BQTemplate } from '../../core/bq-template.directive';
-import { Dictionary } from '../../../models/meta-data';
+import { Dictionary } from 'bq-start-core';
 import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts';
 import { DialogService } from '../../../services/dialog.service';
+import { KeyShortcutService } from '../../../services/keyShortcut.service';
 
 /**
  * Main layout Component which is responsible for showing Menu bar footer etc
@@ -35,33 +36,6 @@ export class AppLayout implements OnInit, AfterContentInit {
 
   @ViewChild(KeyboardShortcutsComponent) private keyboard: KeyboardShortcutsComponent;
 
-  private _shortcuts: ShortcutInput[] = [];
-  private _shortcutsDefault: ShortcutInput[] = [
-    {
-      key: "ctl + s",
-      label: "Save Command",
-      description: "Default Save Command for any form",
-      command: () => console.log('app ctl + s'),
-      preventDefault: true
-    }
-  ];
-
-  /**
-   * This is the list of shortcut keyboard hooks to patch to the module
-   *
-   * @type {ShortcutInput[]}
-   * @memberof AppLayout
-   */
-  @Input() set shortcuts(value: ShortcutInput[]) {
-    this._shortcuts = value;
-    let vv = value ?? [];
-    this.shortcutsInternal = [...vv, ...this._shortcutsDefault];
-  }
-  get shortcuts(): ShortcutInput[] {
-    // other logic
-    return this._shortcuts;
-  }
-
   /**
    * Display the footer always on bottom if true.
    *
@@ -81,19 +55,21 @@ export class AppLayout implements OnInit, AfterContentInit {
   showMenuOnTop: boolean = false;
 
   @ViewChild('defaultFooterTemplate', { static: true }) defaultFooterTemplate: TemplateRef<any>;
+  @ViewChild('defaultTopRightTemplate', { static: true }) defaultTopRightTemplate: TemplateRef<any>;
   controlFooterTemplate: TemplateRef<any>;
   customFooterTemplate: TemplateRef<any>;
   @ContentChildren(BQTemplate) templates: QueryList<BQTemplate>;
   optionalTemplates: Dictionary<TemplateRef<any>> = {};
+  customTopRightMenuTemplate: TemplateRef<any>;
 
   @Output() onTopRightMenuClicked: EventEmitter<any> = new EventEmitter();
 
-  shortcutsInternal: ShortcutInput[] = [];
   dialogService: DialogService;
 
   constructor(
     private primengConfig: PrimeNGConfig,
-    private authorizeService: AuthorizeService
+    private authorizeService: AuthorizeService,
+    public keySvc:KeyShortcutService
   ) {
     this.authorizeService.isAuthenticated().subscribe((x) => {
       this.showLeftMenu = x && !this.showMenuOnTop;
@@ -117,14 +93,16 @@ export class AppLayout implements OnInit, AfterContentInit {
         case "footer":
           this.customFooterTemplate = item.template;
           break;
+        case "topRight":
+          this.customTopRightMenuTemplate = item.template;
+          break;
         default:
           this.optionalTemplates[item.getType()] = item.template;
           break;
       }
     });
     this.controlFooterTemplate = this.customFooterTemplate ?? this.defaultFooterTemplate;
-    let vv = this.shortcuts ?? [];
-    this.shortcutsInternal = [...vv, ...this._shortcutsDefault];
+    this.customTopRightMenuTemplate = this.customTopRightMenuTemplate ?? this.defaultTopRightTemplate;
   }
 
   handleTopMenuClick(ev:any){

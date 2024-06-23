@@ -1,4 +1,4 @@
-import { InjectionToken, Type } from '@angular/core';
+import { InjectionToken, Injector, Type } from '@angular/core';
 import { Dictionary, ModelMetadata } from '../models/meta-data';
 
 /**
@@ -84,7 +84,7 @@ export class BQConfigData {
   /**
    * Specify OAuth Configuration Details Here. For SPA templates where BQStart backend is running on the same location
    * do not need to set anything up as details can be found out from the server. If your STS server is running somewhere else
-   * or the app is running in a Deskto Electron environment you can specify the Server Urls here.
+   * or the app is running in a Desktop Electron environment you can specify the Server Urls here.
    *
    * @type {OAuthConfig}
    * @memberof BQConfigData
@@ -98,6 +98,14 @@ export class BQConfigData {
    * @memberof BQConfigData
    */
   apiRootUrl?: string;
+
+  /**
+   * If true then error messages are shown as modal dialog instead of toast messages
+   *
+   * @type {boolean}
+   * @memberof BQConfigData
+   */
+  showErrorMessagesAsDialog?: boolean = false;
 }
 
 /**
@@ -158,7 +166,9 @@ export class RunningConfigHelper {
     if (this.viewsById != null) {
       const viewData = this.viewsById[viewId];
       if (viewData != null) {
-        if (viewData.viewType === ViewType.List) {
+        if (viewData.viewType === ViewType.Custom){
+          return `${viewData.viewId}`;
+        } else if (viewData.viewType === ViewType.List) {
           return `view/${viewData.viewId}/list`;
         } else {
           return `view/${viewData.viewId}/form/-1`;
@@ -198,6 +208,7 @@ export interface MenuData {
    * @memberof MenuData
    */
   component?: Type<any>;
+  componentFactory?: ComponentFactoryCallBack;
 }
 
 /**
@@ -226,6 +237,8 @@ export interface CustomUserMenus {
   target?: string;
   eventName: string;
 }
+
+export type ComponentFactoryCallBack = (injector: Injector) => Promise<any>;
 
 /**
  * Define a view, i.e. metadata of the view
@@ -263,12 +276,12 @@ export interface ViewData {
    */
   viewType: ViewType;
   /**
-   * The component that is resposible for this View Display
+   * The component that is responsible for this View Display
    *
    * @type {Type<any>}
    * @memberof ViewData
    */
-  component: Type<any>;
+  component: Type<any> | null;
   /**
    * Do not show breadcrumb for this view in normal navigation mode
    *
@@ -276,6 +289,10 @@ export interface ViewData {
    * @memberof ViewData
    */
   hideBreadCrumb?: boolean;
+  /**
+   * Used for dynamic loading of components
+   */
+  componentFactory?: ComponentFactoryCallBack;
 }
 
 /**
@@ -286,7 +303,8 @@ export interface ViewData {
  */
 export enum ViewType {
   List,
-  Form
+  Form,
+  Custom
 }
 
 /**

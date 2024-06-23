@@ -7,13 +7,11 @@ export * from './lib/api-authorization/authorize.guard';
 export * from './lib/api-authorization/authorize.interceptor';
 export * from './lib/api-authorization/authorize.service';
 
-export * from './lib/models/base-model';
 export * from './lib/models/table-data';
 export * from './lib/models/odata-response';
 export * from './lib/api-authorization/login/login.component';
 export * from './lib/api-authorization/login-menu/login-menu.component';
 export * from './lib/api-authorization/logout/logout.component';
-export * from './lib/config/bq-start-config';
 export * from './lib/services/app-injector.service';
 export * from './lib/services/meta-data.service';
 export * from './lib/services/meta-data.resolver';
@@ -24,6 +22,7 @@ export * from './lib/services/navigation.service';
 export * from './lib/services/dialog.service';
 export * from './lib/services/router.service';
 export * from './lib/services/mainRegionAdapter.service';
+export * from './lib/services/keyShortcut.service';
 
 export * from './lib/ui/layout/top-bar/top-bar';
 export * from './lib/ui/layout/top-menu-bar/top-menu-bar';

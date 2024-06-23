@@ -8,6 +8,8 @@
         "oidc",
         "primeflex",
         "primeicons",
-        "primeng"
+        "primeng",
+        "signin",
+        "signout"
     ]
 }

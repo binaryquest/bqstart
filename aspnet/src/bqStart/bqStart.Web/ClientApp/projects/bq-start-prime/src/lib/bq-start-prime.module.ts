@@ -7,7 +7,6 @@ import { LoginMenuComponent } from './api-authorization/login-menu/login-menu.co
 import { LoginComponent } from './api-authorization/login/login.component';
 import { LogoutComponent } from './api-authorization/logout/logout.component';
 import { TopBar } from './ui/layout/top-bar/top-bar';
-import { BQConfigService, BQConfigData } from './config/bq-start-config';
 import { FooterBar } from './ui/layout/footer-bar/footer-bar';
 import { AppInjector } from './services/app-injector.service';
 import { AppLayout } from './ui/layout/app-layout/app-layout';
@@ -88,8 +87,8 @@ import { MDIComponent } from './ui/layout/mdi/mdi.component';
 import { MDILayoutComponent } from './ui/layout/mdi/mdi-layout';
 import { AuthorizeGuard } from './api-authorization/authorize.guard';
 import { BlockUIModule } from 'primeng/blockui';
-
-export * from './models/meta-data';
+import { KeyShortcutService } from './services/keyShortcut.service';
+import { BQConfigData, BQConfigService } from 'bq-start-core';
 
 export function initializeApp(appInitService: AppInitService) {
   const ret = (): Promise<any> => {
@@ -281,12 +280,14 @@ export function initializeApp(appInitService: AppInitService) {
     DialogService,
     ConfirmationService,
     RouterService,
-    MainRegionAdapterService
+    MainRegionAdapterService,
+    KeyShortcutService
   ]
 })
 export class BQStartPrimeModule {
 
   constructor(injector: Injector) {
+    console.log(">> bq start module init");
     AppInjector.setInjector(injector);
   }
 
@@ -303,7 +304,13 @@ export class BQStartPrimeModule {
           deps: [AppInitService, Router],
           multi: true
         },
-        { provide: InternalLogService }
+        { provide: InternalLogService },
+        LocaleService,
+        ConfirmationService,
+        DialogService,
+        PrimeMS,
+        MessageService,
+        KeyShortcutService
       ]
     }
   }

@@ -1,0 +1,24 @@
+{
+  "name": "bq-start-core",
+  "version": "3.17.30",
+  "license": "MIT",
+  "author": "http://bqstart.com",
+  "peerDependencies": {
+    "@angular/common": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "lodash-es": "^4.17.21",
+    "luxon": "^3.4.2",
+    "uuid": "^9.0.0",
+    "validator": "^13.9.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "~4.17.7",
+    "@types/luxon": "^3.3.2",
+    "@types/uuid": "^9.0.1",
+    "@types/validator": "~13.7.15"
+  },
+  "sideEffects": false
+}

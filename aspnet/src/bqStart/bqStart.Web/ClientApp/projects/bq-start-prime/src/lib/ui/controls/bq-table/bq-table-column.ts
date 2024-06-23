@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, TemplateRef, ViewChild } from "@angular/core";
-import { MetadataField } from "../../../models/meta-data";
+import { MetadataField } from "bq-start-core";
 
 /**
  * Represents a column layout for the Table

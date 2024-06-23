@@ -33,9 +33,16 @@ export class LocaleService implements TranslateLoader {
     @SkipSelf()
     otherInstance: LocaleService,
   ) {
-    if (otherInstance) throw 'LocaleService should have only one instance.';
+    //if (otherInstance) throw 'LocaleService should have only one instance.';
+    if (otherInstance) {
+      console.log('LocaleService should have only one instance.');
+
+    }
   }
 
+  isInitialized():boolean{
+    return this.initialized;
+  }
 
   getTranslation(lang: string): Observable<any> {
     const $coreTranslation = this.getCoreTranslations(lang);

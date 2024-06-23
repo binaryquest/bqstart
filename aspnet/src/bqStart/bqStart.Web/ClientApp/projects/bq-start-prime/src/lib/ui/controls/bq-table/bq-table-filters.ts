@@ -1,6 +1,6 @@
 import { AfterContentInit, AfterViewInit, Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, QueryList, Renderer2, ViewChild } from '@angular/core';
 import { find, Subject, Subscription } from 'rxjs';
-import { MetadataField, ModelMetadata, PREDICATE_CONTAINS, PREDICATE_EQUALS } from '../../../models/meta-data';
+import { MetadataField, ModelMetadata, PREDICATE_CONTAINS, PREDICATE_EQUALS } from 'bq-start-core';
 import { FilterByClause, PredefinedFilter, TableParams } from '../../../models/table-data';
 import { MessageService, MessageType } from '../../../services/message.service';
 import { TableFilter } from './bq-table-filter';
@@ -162,6 +162,8 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
           }
           data.Value = event.value;
           data.DisplayValue = event.value;
+          console.log("adding filter", event);
+
           data.DataType = defFilter.field.dataType;
           this.tableParams.addFilter(data);
         } else {
@@ -189,7 +191,7 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
     this.showMenu = !this.showMenu;
   }
 
-  addCondtion() {
+  addCondition() {
     if (this.filters.length > 0) {
       const firstFilter: TableFilter = this.filters.first;
       this.customFilters.push(FilterByClause.GetDefault(firstFilter.caption, firstFilter.field));
@@ -199,7 +201,7 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
   apply() {
     const validFilterClauses: FilterByClause[] = this.customFilters.filter(f => f.IsValid());
     if (validFilterClauses.length > 0) {
-      //console.log("set filter");
+      //console.log("set filter",validFilterClauses);
       this.tableParams.addFilters(validFilterClauses);
       this.showMenu = false;
     } else {
@@ -207,7 +209,7 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
-  removeConditon(index: number) {
+  removeCondition(index: number) {
     //console.log("remove here " + index);
     if (this.customFilters.length > index) {
       this.customFilters.splice(index, 1);
@@ -254,7 +256,7 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
   }
 
   pfMenuClicked(filter: PredefinedFilter, event: MouseEvent) {
-    const pfc: FilterByClause = filter.GetFilterCluase();
+    const pfc: FilterByClause = filter.GetFilterClause();
     if (filter.isSelected) { //Remove
       const ef = this.appliedFilters.find(f => f.CustomName == filter.filterName);
       if (ef !== undefined){
