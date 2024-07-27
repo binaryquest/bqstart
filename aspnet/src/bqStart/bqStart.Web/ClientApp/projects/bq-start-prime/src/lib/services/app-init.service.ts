@@ -62,7 +62,8 @@ export class AppInitService {
             path: `${viewDef.viewId}`,
             component: DynamicLoaderComponent,
             data: { viewDef: viewDef, componentType: viewDef.component, componentFactory: viewDef.componentFactory },
-            canActivate: [AuthorizeGuard]
+            canActivate: [AuthorizeGuard],
+            title: viewDef.title
           };
           viewRoutes.push(newRoute);
         }
@@ -72,7 +73,8 @@ export class AppInitService {
             component: DynamicLoaderComponent,
             data: { viewDef: viewDef, formType: FormType.List, componentType: viewDef.component, componentFactory: viewDef.componentFactory },
             resolve: { metaData: MetaDataResolver },
-            canActivate: [AuthorizeGuard]
+            canActivate: [AuthorizeGuard],
+            title: viewDef.title
           };
           viewRoutes.push(newRoute);
         }else{
@@ -81,7 +83,8 @@ export class AppInitService {
             component: DynamicLoaderComponent,
             data: { viewDef: viewDef, formType: FormType.Details, componentType: viewDef.component, componentFactory: viewDef.componentFactory },
             resolve: { metaData: MetaDataResolver },
-            canActivate: [AuthorizeGuard]
+            canActivate: [AuthorizeGuard],
+            title: viewDef.title
           };
           viewRoutes.push(newRoute);
           const newRouteEdit = {
@@ -89,7 +92,8 @@ export class AppInitService {
             component: DynamicLoaderComponent,
             data: { viewDef: viewDef, formType: FormType.Edit, componentType: viewDef.component, componentFactory: viewDef.componentFactory },
             resolve: { metaData: MetaDataResolver },
-            canActivate: [AuthorizeGuard]
+            canActivate: [AuthorizeGuard],
+            title: viewDef.title
           };
           viewRoutes.push(newRouteEdit);
           const newRouteAdd = {
@@ -97,7 +101,8 @@ export class AppInitService {
             component: DynamicLoaderComponent,
             data: { viewDef: viewDef, formType: FormType.New, componentType: viewDef.component, componentFactory: viewDef.componentFactory },
             resolve: { metaData: MetaDataResolver },
-            canActivate: [AuthorizeGuard]
+            canActivate: [AuthorizeGuard],
+            title: viewDef.title
           };
           viewRoutes.push(newRouteAdd);
         }

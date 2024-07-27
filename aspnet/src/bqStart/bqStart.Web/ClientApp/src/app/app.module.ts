@@ -37,6 +37,7 @@ import { ExampleFormComponent } from './example/example-form/example-form.compon
 import { ExampleListComponent } from './example/example-list/example-list.component';
 import { ADMIN_MODULE_ROUTES } from './modules/admin/admin.config';
 import { SharedModule } from './modules/shared/shared.module';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -79,8 +80,8 @@ registerLocaleData(localeAu);
     BQStartPrimeModule.forRoot(APP_CONFIG),
     SharedModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthorizeGuard] },
-      { path: 'counter', component: CounterComponent },
+      { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthorizeGuard], title: "BQ Start" },
+      { path: 'counter', component: CounterComponent, title: 'Counter' },
       ...ADMIN_MODULE_ROUTES
     ])
   ],
