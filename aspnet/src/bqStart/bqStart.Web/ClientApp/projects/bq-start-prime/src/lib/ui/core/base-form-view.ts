@@ -140,6 +140,7 @@ export class BaseFormView<TModel>
       dataServiceOptions.$expandClause = optionalData.$expandClause;
       dataServiceOptions.$selectClause = optionalData.$selectClause;
       dataServiceOptions.$filterClause = optionalData.$filterClause;
+      dataServiceOptions.$rootApiUrl = optionalData.$rootApiUrl;
     }
 
     const injector =

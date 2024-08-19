@@ -412,6 +412,7 @@ export class ViewOptionalData {
   $expandClause?: string;
   $selectClause?: string;
   $filterClause?: string;
+  $rootApiUrl?: string;
 }
 
 export class MessageBusPayLoad {
