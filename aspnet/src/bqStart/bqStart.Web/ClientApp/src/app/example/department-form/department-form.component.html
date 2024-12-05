@@ -1,5 +1,7 @@
 <bq-form [isLoading]="isLoading">
-
+  <div class="grid">
+    <bq-form-block [labelSize]="2" class="col-12 md:col-6">
   <bq-text-field [field]="metaData.fields.DepartmentName" [(model)]="model.DepartmentName"></bq-text-field>
-
+  </bq-form-block>
+</div>
 </bq-form>

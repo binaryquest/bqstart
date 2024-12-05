@@ -322,6 +322,7 @@ export class ChipsMenu implements AfterContentInit,ControlValueAccessor, OnInit 
     }
 
     menuClicked(filter:TableFilter, event:MouseEvent){
+      console.log("menuClicked", this.inputViewChild.nativeElement.value);
       this.selectedFilter = filter;
       this.addItem(event, this.inputViewChild.nativeElement.value, true);
     }

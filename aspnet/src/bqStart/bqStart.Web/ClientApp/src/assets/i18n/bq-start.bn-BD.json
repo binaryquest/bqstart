@@ -10,7 +10,8 @@
       "discard": "ক্যান্সেল",
       "filter": "ফিল্টার",
       "applyFilter": "অ্যাপ্লাই",
-      "addCondition": "কন্ডিশন যোগ"
+      "addCondition": "কন্ডিশন যোগ",
+      "cancel": "বাতিল"
     },
     "messages":{
       "confirmation": "Confirmation",

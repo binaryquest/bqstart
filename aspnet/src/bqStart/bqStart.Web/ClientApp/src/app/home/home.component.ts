@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorizeService, IUser } from 'projects/bq-start-prime/src/public-api';
+import { AuthorizeService, IUser } from 'bq-start-prime';
 import { Observable } from 'rxjs';
 
 @Component({

@@ -1,10 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { ApplicationPaths } from '../../../api-authorization/api-authorization.constants';
 import {
   MenuData,
-  TopRightMenuData,
+  TopRightMenuData
 } from 'bq-start-core';
 import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.service';
 import { BaseMenu } from '../base.menu';
@@ -14,40 +14,43 @@ import { BaseMenu } from '../base.menu';
   selector: 'bq-top-menu-bar',
   template: `
     <p-menubar [model]="items">
-      <ng-template pTemplate="start">
+      <ng-template #start>
         <img
+          *ngIf="!config.hideLogoInTopMenuBar"
           alt="logo"
           [src]="logo"
-          height="40"
+          [style]="'height: 25px'"
           class="pr-2 md:inline hidden"
         />
       </ng-template>
-      <ng-template pTemplate="end">
+      <ng-template #end>
       <ng-container [ngTemplateOutlet]="topRightMenuTemplate" *ngIf="isAuthenticated"></ng-container>
         <span *ngFor="let mm of topRightMenus" class="pr-2">
-          <button
-            pButton
-            pRipple
-            type="button"
+          <p-button
             [icon]="mm.icon"
-            [class]="mm.buttonClass"
+            [severity]="mm.buttonClass"
             (click)="handleTopMenuClick(mm.eventName)"
-          ></button>
+          ></p-button>
         </span>
         <p-menu
           #menu
           [model]="userMenus"
           [popup]="true"
         ></p-menu>
-        <button
-          pButton
-          pRipple
+        <p-button
+          #btnColor
+          *ngIf="config.darkModeSwitchEnabled"
+          [icon]="isDarkMode ? 'pi pi-sun' : 'pi pi-moon'"
+          severity="secondary"
+          styleClass="mr-2"
+          (click)="toggleDarkMode()"
+        ></p-button>
+        <p-button
           #btn
-          type="button"
           icon="pi pi-user"
-          class="p-button-rounded p-button-info"
+          severity="info"
           (click)="menu.toggle($event)"
-        ></button>
+        ></p-button>
       </ng-template>
     </p-menubar>
   `,
@@ -62,6 +65,7 @@ export class TopMenuBar extends BaseMenu {
   menuTarget: string = '_self';
   profileUrl: string = '/Identity/Account/Manage';
   topRightMenus: TopRightMenuData[];
+  isDarkMode: boolean;
 
   @Output() onTopRightMenuClicked: EventEmitter<any> = new EventEmitter();
 
@@ -73,6 +77,16 @@ export class TopMenuBar extends BaseMenu {
     protected override regionSvc: MainRegionAdapterService
   ) {
     super(router, regionSvc);
+
+    //dark mode init if saved in local storage
+    this.isDarkMode = localStorage.getItem('isDarkMode') === 'true';
+    if (this.isDarkMode){
+      const element = document.querySelector('html');
+      if (element) {
+        element.classList.toggle('my-app-dark');
+        element.classList.toggle('dark');
+      }
+    }
 
     this.authorizeService
       .isAuthenticated()
@@ -180,6 +194,16 @@ export class TopMenuBar extends BaseMenu {
           state: { local: true },
         },
       ];
+    }
+  }
+
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
+    localStorage.setItem('isDarkMode', this.isDarkMode.toString());
+    const element = document.querySelector('html');
+    if (element) {
+      element.classList.toggle('my-app-dark');
+      element.classList.toggle('dark');
     }
   }
 }

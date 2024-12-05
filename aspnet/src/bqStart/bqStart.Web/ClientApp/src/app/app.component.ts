@@ -1,13 +1,15 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+//import { PrimeNGConfig } from 'primeng/api';
 import {
   AuthorizeService,
   LocaleService,
   KeyShortcutService,
-} from 'projects/bq-start-prime/src/public-api';
+} from 'bq-start-prime';
 import { BQConfigService, BQConfigData } from 'bq-start-core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { PrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
 
 @Component({
   selector: 'app-root',
@@ -19,20 +21,50 @@ export class AppComponent implements OnInit {
   isAuthenticated: Observable<boolean>;
   sidebarVisible: boolean = false;
 
+  smallInputFieldStyles = {
+    handle: {
+      borderRadius: '4px'
+    },
+    colorScheme: {
+      light: {
+        root: {
+          paddingX: '0.5rem',
+          paddingY: '0.25rem',
+        }
+      },
+      dark: {
+        root: {
+          paddingX: '0.5rem',
+          paddingY: '0.25rem',
+        }
+      }
+    }
+  };
+
   constructor(
-    private primengConfig: PrimeNGConfig,
+    private primeng: PrimeNG,
     private authorizeService: AuthorizeService,
     private localeService: LocaleService,
     private router: Router,
     private keySv: KeyShortcutService,
     @Inject(BQConfigService) private config: BQConfigData
   ) {
+    this.primeng.theme.set({
+      preset: Aura,
+      options: {
+        darkModeSelector: '.my-app-dark',
+        cssLayer: {
+          //name: 'primeng',
+          //order: 'tailwind-base, primeng, tailwind-utilities'
+        }
+      }
+    })
     this.localeService.initLocale('en-AU', 'en-US');
     this.tabbedInterface = this.config.tabbedUserInterface;
   }
 
   ngOnInit(): void {
-    this.primengConfig.ripple = true;
+    //this.primengConfig.ripple = true;
     this.isAuthenticated = this.authorizeService.isAuthenticated();
     //tz.setDefault("Asia/Dhaka");
     this.keySv.addShortcut({ key: "f3", label: "New Department", description: "Create New Department Form"});

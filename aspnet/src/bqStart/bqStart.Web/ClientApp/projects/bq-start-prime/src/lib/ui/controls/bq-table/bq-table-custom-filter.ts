@@ -20,8 +20,8 @@ import { DropdownChangeEvent } from 'primeng/dropdown';
   styles: [
     `:host ::ng-deep .ng-invalid { border-color: #f44336; }
      :host ::ng-deep .ng-invalid input { border-color: #f44336; }
-     :host ::ng-deep .ng-valid { border-color: #36F4C5; }
-     :host ::ng-deep .ng-valid input { border-color: #36F4C5; }
+     :host ::ng-deep .ng-valid { border-color: #7FF08EFF; }
+     :host ::ng-deep .ng-valid input { border-color: #7FF08EFF; }
     `
   ]
 })
@@ -56,6 +56,27 @@ export class CustomFilter implements OnInit {
   remove = new EventEmitter<CustomFilter>();
 
   localeFormat: string;
+
+
+  smallInputFieldStyles = {
+    handle: {
+      borderRadius: '4px'
+    },
+    colorScheme: {
+      light: {
+        root: {
+          paddingX: '0.5rem',
+          paddingY: '0.25rem',
+        }
+      },
+      dark: {
+        root: {
+          paddingX: '0.5rem',
+          paddingY: '0.25rem',
+        }
+      }
+    }
+  };
 
   constructor() {
     this.localeFormat = "dd-mm-yy"//moment.localeData().longDateFormat('L').toLowerCase().replace('yyyy', 'yy');

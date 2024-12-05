@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MessageService, MessageType } from 'projects/bq-start-prime/bq-start-module';
+import { MessageService, MessageType } from 'bq-start-prime';
 
 
 @Injectable({providedIn: 'root'})

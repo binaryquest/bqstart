@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterService, BaseFormView, BaseListView } from 'projects/bq-start-prime/src/public-api';
+import { Component } from '@angular/core';
+import { RouterService, BaseFormView, BaseListView } from 'bq-start-prime';
 
 
 @Component({

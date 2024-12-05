@@ -36,7 +36,8 @@ export class LocaleService implements TranslateLoader {
     //if (otherInstance) throw 'LocaleService should have only one instance.';
     if (otherInstance) {
       console.log('LocaleService should have only one instance.');
-
+    }else {
+      console.log('LocaleService instance created.');
     }
   }
 

@@ -1,5 +1,5 @@
-import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, inject, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { PrimeNG } from 'primeng/config';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
 import { BQConfigData, BQConfigService } from 'bq-start-core';
 import { AppInjector } from '../../../services/app-injector.service';
@@ -7,6 +7,7 @@ import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.se
 import { BQTemplate } from '../../core/bq-template.directive';
 import { Dictionary } from 'bq-start-core';
 import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts';
+import Aura from '@primeng/themes/aura';
 
 /**
  * Main layout component for showing views as a Tabbed MDI interface. The config option should
@@ -56,7 +57,7 @@ import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts
 })
 export class MDILayoutComponent implements OnInit, AfterContentInit {
   isAuthenticated: boolean;
-
+  prime: PrimeNG = inject(PrimeNG);
   @Input()
   injector: any;
   config: BQConfigData;
@@ -100,9 +101,18 @@ export class MDILayoutComponent implements OnInit, AfterContentInit {
   }
 
   constructor(
-    private primengConfig: PrimeNGConfig,
     private authorizeService: AuthorizeService
   ) {
+    this.prime.theme.set({
+      preset: Aura,
+      options: {
+        darkModeSelector: '.my-app-dark',
+        cssLayer: {
+          //name: 'primeng',
+          //order: 'tailwind-base, primeng, tailwind-utilities'
+        }
+      }
+    });
     this.authorizeService.isAuthenticated().subscribe((x) => {
       this.isAuthenticated = x;
     });

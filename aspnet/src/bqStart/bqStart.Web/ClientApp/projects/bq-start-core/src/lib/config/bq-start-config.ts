@@ -106,6 +106,22 @@ export class BQConfigData {
    * @memberof BQConfigData
    */
   showErrorMessagesAsDialog?: boolean = false;
+
+  /**
+   * If true then dark mode is enabled
+   *
+   * @type {boolean}
+   * @memberof BQConfigData
+   */
+  darkModeSwitchEnabled?: boolean = true;
+
+  /**
+   * If true then logo is hidden in top menu bar
+   *
+   * @type {boolean}
+   * @memberof BQConfigData
+   */
+  hideLogoInTopMenuBar?: boolean = false;
 }
 
 /**
@@ -219,7 +235,7 @@ export interface MenuData {
  */
 export interface TopRightMenuData {
   icon: string;
-  buttonClass: string;
+  buttonClass: "success" | "info" | "warn" | "danger" | "help" | "primary" | "secondary" | "contrast" | null | undefined;
   eventName: string;
   title?: string;
 }

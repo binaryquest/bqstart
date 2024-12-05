@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseComponent, MessageType } from 'projects/bq-start-prime/bq-start-module';
-import { Department } from 'src/app/models/department';
+import { BaseComponent, MessageType } from 'bq-start-prime';
+import { Department } from '../../models/department';
 import { SharedUtilityService } from '../shared/shared.service';
 
 @Component({

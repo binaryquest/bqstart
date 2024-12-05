@@ -1,16 +1,28 @@
 <p-toolbar styleClass="mb-2">
   <div class="p-toolbar-group-right">
 
-    <p-button *ngIf="showNew" label="{{'bq-start.buttons.new' | translate}}" icon="pi pi-plus" styleClass="mr-2" (onClick)="create()" ></p-button>
-    <p-button *ngIf="showEdit" label="{{'bq-start.buttons.edit' | translate}}" icon="pi pi-pencil" styleClass="mr-2 p-button-info" (onClick)="edit()"></p-button>
-    <p-button *ngIf="showDelete" label="{{'bq-start.buttons.delete' | translate}}" icon="pi pi-trash" styleClass="mr-2 p-button-warning" (onClick)="delete()"></p-button>
+    @if (showNew){
+      <p-button label="{{'bq-start.buttons.new' | translate}}" icon="pi pi-plus" styleClass="mr-2" (onClick)="create()" size="small"></p-button>
+    }
+    @if (showEdit){
+      <p-button label="{{'bq-start.buttons.edit' | translate}}" icon="pi pi-pencil" styleClass="mr-2" severity="info" (onClick)="edit()" size="small"></p-button>
+    }
+    @if (showDelete){
+      <p-button label="{{'bq-start.buttons.delete' | translate}}" icon="pi pi-trash" styleClass="mr-2" severity="warn" (onClick)="delete()" size="small"></p-button>
+    }
 
-    <button *ngIf="editMode" pButton type="submit" label="{{'bq-start.buttons.save' | translate}}" icon="pi pi-save"
-      class="mr-2 p-button-success" [disabled]="!form.form.valid"
-      (click)="save()"></button>
-    <p-button *ngIf="editMode" label="{{'bq-start.buttons.discard' | translate}}" icon="pi pi-times" styleClass="p-button-danger mr-2" (onClick)="discard()"></p-button>
+    @if (editMode){
+      <p-button type="submit" label="{{'bq-start.buttons.save' | translate}}" icon="pi pi-save"
+      class="mr-2" [disabled]="!form.form.valid"
+      (click)="save()" size="small"></p-button>
+    }
+    @if (editMode){
+      <p-button label="{{'bq-start.buttons.discard' | translate}}" icon="pi pi-times" styleClass="p-button-danger mr-2" (onClick)="discard()" size="small"></p-button>
+    }
 
-    <ng-container *ngIf="(!editMode && additionalActions) then additionalActions; else defaultRender" [ngTemplateOutlet]="additionalActions"></ng-container>
+    @if (additionalActions){
+      <ng-container *ngIf="(!editMode && additionalActions) then additionalActions; else defaultRender" [ngTemplateOutlet]="additionalActions"></ng-container>
+    }
 
   </div>
 

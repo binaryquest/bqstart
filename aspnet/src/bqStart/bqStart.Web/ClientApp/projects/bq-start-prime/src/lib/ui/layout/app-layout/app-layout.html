@@ -1,20 +1,30 @@
-<div class="layout-wrapper">
-
-  <bq-top-menu-bar *ngIf="showMenuOnTop" (onTopRightMenuClicked)="handleTopMenuClick($event)" [topRightMenuTemplate]="customTopRightMenuTemplate"></bq-top-menu-bar>
-  <bq-top-bar *ngIf="!showMenuOnTop" (menuButtonClick)="onMenuButtonClick()"></bq-top-bar>
+<div class="dock-app">
+  <bq-top-menu-bar
+    *ngIf="showMenuOnTop"
+    (onTopRightMenuClicked)="handleTopMenuClick($event)"
+    [topRightMenuTemplate]="customTopRightMenuTemplate"
+  ></bq-top-menu-bar>
+  <bq-top-bar
+    *ngIf="!showMenuOnTop"
+    (menuButtonClick)="onMenuButtonClick()"
+  ></bq-top-bar>
   <bq-menu-bar *ngIf="showLeftMenu" [active]="menuActive"></bq-menu-bar>
 
-  <div class="layout-mask" [ngClass]="{'layout-mask-active': menuActive}" (click)="onMaskClick()"></div>
-  <div [ngClass]="showMenuOnTop?'layout-content-inactive':'layout-content'">
-    <breadcrumb></breadcrumb>
-    <div class="content-section">
+  <div class="ml-2 mr-2 mt-0 pt-0">
+    <div class="flex flex-row justify-content-start pl-2">
+      <breadcrumb></breadcrumb>
+    </div>
+      <p-panel styleClass="dock-window">
       <view-wrapper>
         <ng-content></ng-content>
-      </view-wrapper>
-      <div *ngIf="stickyFooter" style="height:30px">&nbsp;</div>
-    </div>
-    <div class="layout-footer flex-grow-1" [ngClass]="{'stick-footer': stickyFooter}">
-      <ng-container [ngTemplateOutlet]="controlFooterTemplate" *ngIf="isAuthenticated"></ng-container>
+        </view-wrapper>
+      </p-panel>
+
+    <div [ngClass]="{'stick-footer': stickyFooter}">
+      <ng-container
+        [ngTemplateOutlet]="controlFooterTemplate"
+        *ngIf="isAuthenticated"
+      ></ng-container>
     </div>
   </div>
 
@@ -24,19 +34,35 @@
     <bq-footer-bar></bq-footer-bar>
   </ng-template>
 
-  <ng-template #defaultTopRightTemplate>
-  </ng-template>
+  <ng-template #defaultTopRightTemplate> </ng-template>
 
+  <ng-keyboard-shortcuts
+    [shortcuts]="keySvc.shortcuts()"
+  ></ng-keyboard-shortcuts>
+  <ng-keyboard-shortcuts-help
+    [key]="'f1'"
+    [closeKey]="'escape'"
+    [title]="'Keyboard Shortcuts'"
+  ></ng-keyboard-shortcuts-help>
 
-  <ng-keyboard-shortcuts [shortcuts]="keySvc.shortcuts()"></ng-keyboard-shortcuts>
-  <ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Keyboard Shortcuts'"></ng-keyboard-shortcuts-help>
-
-  <p-dialog [header]="dialogHeader" [(visible)]="dialogVisible" [modal]="true" [style]="{ minWidth: '30vw' }" [draggable]="false" [resizable]="false">
-    <div class="pb-2">
-        {{dialogMsg}}
-    </div>
+  <p-dialog
+    [header]="dialogHeader"
+    [(visible)]="dialogVisible"
+    [modal]="true"
+    [style]="{ minWidth: '30vw' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="pb-2">{{dialogMsg}}</div>
     <div class="flex justify-content-center">
-      <button pButton [autofocus]="true" pAutoFocus pRipple label="OK" (click)="dialogVisible=false"></button>
+      <button
+        pButton
+        [autofocus]="true"
+        pAutoFocus
+        pRipple
+        label="OK"
+        (click)="dialogVisible=false"
+      ></button>
     </div>
-</p-dialog>
+  </p-dialog>
 </div>

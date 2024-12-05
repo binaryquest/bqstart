@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterService, BaseFormView, BaseListView, IBaseFormViewEvents, IEditFormViewEvents } from 'projects/bq-start-prime/src/public-api';
+import { Component } from '@angular/core';
+import { RouterService, BaseFormView, BaseListView, IBaseFormViewEvents, IEditFormViewEvents } from 'bq-start-prime';
 
 
 export class ApplicationUser{

@@ -11,7 +11,7 @@ import { ViewWrapperService } from '../../controls/view-wrapper/view-wrapper.ser
 @Component({
   selector: 'bq-mdi',
   template: `
-<p-tabView class="flex-grow-1 flex flex-column" [(activeIndex)]="regionSvc.activeIndex"
+<!-- <p-tabView class="flex-grow-1 flex flex-column" [(activeIndex)]="regionSvc.activeIndex"
           (onClose)="handleClose($event)" (activeIndex)="handleTabChange()"
           [controlClose]="true"
           >
@@ -22,7 +22,7 @@ import { ViewWrapperService } from '../../controls/view-wrapper/view-wrapper.ser
           </ng-template>
     <dyn-mdi-loader [viewRunningData]="item"></dyn-mdi-loader>
   </p-tabPanel>
-</p-tabView>
+</p-tabView> -->
 `
 })
 

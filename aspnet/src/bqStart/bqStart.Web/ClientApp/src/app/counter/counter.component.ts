@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DialogService } from 'projects/bq-start-prime/src/public-api';
+import { DialogService } from 'bq-start-prime';
 
 @Component({
   selector: 'app-counter-component',

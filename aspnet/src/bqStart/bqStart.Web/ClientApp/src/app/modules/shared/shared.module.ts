@@ -9,7 +9,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
-import { BQStartPrimeModule } from 'projects/bq-start-prime/bq-start-module';
 
 @NgModule({
   imports: [CheckboxModule,
