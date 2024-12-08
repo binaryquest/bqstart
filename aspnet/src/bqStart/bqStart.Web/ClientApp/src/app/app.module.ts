@@ -93,13 +93,6 @@ registerLocaleData(localeAu);
     ])
   ],
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
-    provideAnimationsAsync(),
-    providePrimeNG({
-      theme: {
-        preset: Aura
-      }
-    }),
     { provide: APP_ID, useValue: 'ng-cli-universal' },
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
     LocaleProvider

@@ -85,7 +85,7 @@ import { NavigationService } from './services/navigation.service';
 import { RouterService } from './services/router.service';
 import { ViewWrapperService } from './ui/controls/view-wrapper/view-wrapper.service';
 import { MainRegionAdapterService } from './services/mainRegionAdapter.service';
-import { TableModule, SortIcon } from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { PanelModule } from 'primeng/panel';
 import { SplitButton } from 'primeng/splitbutton';
 import { Breadcrumb as PrimeBreadcrumb } from 'primeng/breadcrumb';
@@ -130,7 +130,6 @@ export function initializeApp(appInitService: AppInitService) {
     Toast,
     TableModule,
     SplitButton,
-    SortIcon,
     PanelModule,
     KeyboardShortcutsModule.forRoot(),
     TranslateModule.forRoot({

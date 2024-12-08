@@ -1,6 +1,8 @@
 {
   "name": "bq-start-prime",
-  "version": "4.0.0-rc.1",
+  "version": "4.0.0",
+  "license": "MIT",
+  "author": "http://bqstart.com",
   "peerDependencies": {
     "@angular/animations": "^18.0.0",
     "@angular/cdk": "^18.0.0",
@@ -14,8 +16,6 @@
     "@ng-select/ng-select": "^13.9.1",
     "@ngx-translate/core": "^16.0.3",
     "@ngx-translate/http-loader": "^16.0.0",
-    "@primeng/themes": "18.0.0-rc.2",
-    "primeng": "18.0.0-rc.2",
     "lodash-es": "^4.17.21",
     "luxon": "^3.4.2",
     "ng-keyboard-shortcuts": "^13.0.8",
@@ -25,7 +25,9 @@
     "rxjs": "^7.8.1",
     "uuid": "^9.0.0",
     "validator": "^13.9.0",
-    "zone.js": "^0.14.10"
+    "zone.js": "^0.14.10",
+    "@primeng/themes": "18.0.0",
+    "primeng": "18.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
