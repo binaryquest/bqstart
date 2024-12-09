@@ -56,8 +56,8 @@
       </p-select>
     </div>
     <div class="" *ngIf="selectedFilter.field.isDate">
-      <p-calendar [name]="formName" hourFormat="12" [showSeconds]="true" [(ngModel)]="value" placeholder="Search Date" [showTime]="selectedFilter.showTime"
-        [dateFormat]="localeFormat" (ngModelChange)="valueUpdated($event)" [required]="true"></p-calendar>
+      <p-datePicker [inputId]="formName" [name]="formName" hourFormat="12" [showSeconds]="true" [(ngModel)]="value" placeholder="Search Date" [showTime]="selectedFilter.showTime"
+        [dateFormat]="localeFormat" (ngModelChange)="valueUpdated($event)" [required]="true"></p-datePicker>
     </div>
   </ng-container>
 
@@ -82,8 +82,8 @@
       <p-inputNumber [name]="'to' + formName" [(ngModel)]="toValue" placeholder="To Number" (ngModelChange)="valueToUpdated($event)" [required]="true"></p-inputNumber>
     </div>
     <div class="" *ngIf="selectedFilter.field.isDate">
-      <p-calendar [name]="'to' + formName" hourFormat="12" [showSeconds]="true" [(ngModel)]="toValue" placeholder="To Date" [showTime]="selectedFilter.showTime"
-        [dateFormat]="localeFormat" (ngModelChange)="valueToUpdated($event)" [required]="true"></p-calendar>
+      <p-datepicker [inputId]="'to' + formName" [name]="'to' + formName" hourFormat="12" [showSeconds]="true" [(ngModel)]="toValue" placeholder="To Date" [showTime]="selectedFilter.showTime"
+        [dateFormat]="localeFormat" (ngModelChange)="valueToUpdated($event)" [required]="true"></p-datepicker>
     </div>
   </ng-container>
 </div>

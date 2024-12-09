@@ -63,9 +63,8 @@ import { Tooltip } from 'primeng/tooltip';
 import { Menu } from 'primeng/menu';
 import { Chip } from 'primeng/chip';
 import { InputText } from 'primeng/inputtext';
-import { InputTextarea } from 'primeng/inputtextarea';
+import { TextareaModule } from 'primeng/textarea';
 import { InputNumber } from 'primeng/inputnumber';
-import { Calendar } from 'primeng/calendar';
 import { Checkbox } from 'primeng/checkbox';
 import { Toolbar } from 'primeng/toolbar';
 import { RadioButton } from 'primeng/radiobutton';
@@ -89,6 +88,8 @@ import { TableModule } from 'primeng/table';
 import { PanelModule } from 'primeng/panel';
 import { SplitButton } from 'primeng/splitbutton';
 import { Breadcrumb as PrimeBreadcrumb } from 'primeng/breadcrumb';
+import { DatePicker } from 'primeng/datepicker';
+
 export function initializeApp(appInitService: AppInitService) {
   const ret = (): Promise<any> => {
     appInitService.tabbedMDIRoutes = [
@@ -145,10 +146,9 @@ export function initializeApp(appInitService: AppInitService) {
     Menu,
     Chip,
     InputText,
-    InputTextarea,
+    TextareaModule,
     Select,
     InputNumber,
-    Calendar,
     Checkbox,
     Toolbar,
     RadioButton,
@@ -165,7 +165,8 @@ export function initializeApp(appInitService: AppInitService) {
     BlockUI,
     MenubarModule,
     ConfirmDialogModule,
-    PrimeBreadcrumb
+    PrimeBreadcrumb,
+    DatePicker
   ],
   declarations: [
     LoginMenuComponent,
@@ -231,10 +232,9 @@ export function initializeApp(appInitService: AppInitService) {
     Menu,
     Chip,
     InputText,
-    InputTextarea,
+    TextareaModule,
     Select,
     InputNumber,
-    Calendar,
     Checkbox,
     Toolbar,
     RadioButton,

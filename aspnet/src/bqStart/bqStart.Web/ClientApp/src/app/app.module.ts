@@ -6,8 +6,6 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { RouterModule } from '@angular/router';
 import { registerLocaleData } from '@angular/common';
 
-import { CheckboxModule } from 'primeng/checkbox';
-import { RadioButtonModule } from 'primeng/radiobutton';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 
@@ -71,8 +69,6 @@ registerLocaleData(localeAu);
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    CheckboxModule,
-    RadioButtonModule,
     NgSelectModule,
     NgOptionHighlightModule,
     DrawerModule,

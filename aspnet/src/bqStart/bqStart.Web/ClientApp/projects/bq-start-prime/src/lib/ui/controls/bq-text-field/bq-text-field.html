@@ -104,7 +104,21 @@
 </ng-template>
 
 <ng-template #dateRender>
-  <p-calendar
+  <p-datepicker
+    [inputId]="id"
+    [name]="id"
+    showSeconds="true"
+    [showTime]="showTime"
+    [(ngModel)]="dateModel"
+    (ngModelChange)="onChange($event)"
+    hourFormat="12"
+    [required]="isRequired"
+    [dateFormat]="localeFormat"
+    [styleClass]="'w-full'"
+    [disabled]="disabled ? true : field?.autoGen ? true : false"
+    #myField="ngModel"
+  />
+  <!-- <p-calendar
     [name]="id"
     hourFormat="12"
     [showSeconds]="true"
@@ -116,7 +130,7 @@
     [styleClass]="'w-full'"
     [disabled]="disabled ? true : field?.autoGen ? true : false"
     #myField="ngModel"
-  ></p-calendar>
+  ></p-calendar> -->
 
   <ng-container
     [ngTemplateOutlet]="errorBlock"
