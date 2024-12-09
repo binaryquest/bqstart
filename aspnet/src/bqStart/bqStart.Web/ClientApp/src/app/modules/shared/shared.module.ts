@@ -12,7 +12,6 @@ import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   imports: [
-    RadioButton,
     NgSelectModule,
     NgOptionHighlightModule,
     SidebarModule,
