@@ -29,9 +29,9 @@ import Aura from '@primeng/themes/aura';
   template: `
     <div class="layout-wrapper">
       <bq-top-menu-bar (onTopRightMenuClicked)="handleTopMenuClick($event)"></bq-top-menu-bar>
-      <div class="layout-content-inactive mdi-layout flex flex-column">
+      <div class="layout-content-inactive mdi-layout flex flex-col">
         <div
-          class="flex-grow-1 flex flex-column"
+          class="grow flex flex-col"
           style="overflow-y: scroll;height:83vh;padding: 3px;"
         >
           <view-wrapper
@@ -40,8 +40,8 @@ import Aura from '@primeng/themes/aura';
             </bq-mdi>
           </view-wrapper>
         </div>
-        <div class="flex-shrink flex align-items-stretch">
-          <div class="layout-footer flex-grow-1 p-3">
+        <div class="flex-shrink flex items-stretch">
+          <div class="layout-footer grow p-4">
             <ng-container [ngTemplateOutlet]="controlFooterTemplate" *ngIf="isAuthenticated"></ng-container>
           </div>
         </div>

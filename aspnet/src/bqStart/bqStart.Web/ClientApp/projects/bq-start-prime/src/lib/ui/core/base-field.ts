@@ -176,10 +176,10 @@ export abstract class BaseField implements OnInit, AfterContentInit {
         this.labelSize = this.formBlock.labelSize;
       }
     }
-    this.labelCss = `col-12 md:col-${this.labelSize} flex justify-content-between`;
+    this.labelCss = `col-span-12 md:col-${this.labelSize} flex justify-between`;
     let fieldSizeFinal = (this.fieldSize > 0 ? this.fieldSize : (12 - this.labelSize));
-    this.fieldCss = `col-12 md:col-${fieldSizeFinal}`;
-    this.mainCss = `field grid`;
+    this.fieldCss = `col-span-12 md:col-${fieldSizeFinal}`;
+    this.mainCss = `field grid grid-cols-12 gap-4`;
     if (this.caption === null || this.caption === undefined){
       this.caption = this.field?.caption;
     }

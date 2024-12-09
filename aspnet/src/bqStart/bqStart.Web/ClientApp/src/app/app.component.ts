@@ -54,8 +54,8 @@ export class AppComponent implements OnInit {
       options: {
         darkModeSelector: '.my-app-dark',
         cssLayer: {
-          //name: 'primeng',
-          //order: 'tailwind-base, primeng, tailwind-utilities'
+          name: 'primeng',
+          order: 'tailwind-base, primeng, tailwind-utilities'
         }
       }
     })

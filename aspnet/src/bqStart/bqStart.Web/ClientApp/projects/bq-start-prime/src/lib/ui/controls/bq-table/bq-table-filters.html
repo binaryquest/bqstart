@@ -1,10 +1,10 @@
 <div>
-  <div class="flex md:justify-content-between flex-wrap gap-2 pb-3 justify-content-center">
+  <div class="flex md:justify-between flex-wrap gap-2 pb-4 justify-center">
     <div class="">
       <p-button *ngIf="showAddButton" label="{{'bq-start.buttons.new' | translate}}" icon="pi pi-plus" (onClick)="gotoAddView()"></p-button>
     </div>
 
-    <div class="flex justify-content-end" *ngIf="filters.length>0">
+    <div class="flex justify-end" *ngIf="filters.length>0">
       <bq-chips-menu
         placeholder="{{'bq-start.filters.search' | translate}}"
         [(ngModel)]="appliedFilters"
@@ -16,7 +16,7 @@
         </ng-template>
       </bq-chips-menu>
 
-      <div class="flex pl-1 align-items-center">
+      <div class="flex pl-1 items-center">
         <p-button
           icon="pi pi-filter"
           (click)="menu.toggle($event)"
@@ -43,7 +43,7 @@
     </div>
   </div>
   @if (customFilters.length>0){
-  <div class="flex flex-wrap gap-2 justify-content-center md:justify-content-end">
+  <div class="flex flex-wrap gap-2 justify-center md:justify-end">
     <form #customFiltersForm="ngForm" class="">
       <div class="flex flex-row gap-1" *ngFor="let cf of customFilters; let i = index">
         <div class="mb-2">
@@ -51,7 +51,7 @@
           </bq-table-custom-filter>
         </div>
       </div>
-      <div class="flex justify-content-center md:justify-content-end gap-2">
+      <div class="flex justify-center md:justify-end gap-2">
         <p-button icon="pi pi-check" label="{{'bq-start.buttons.applyFilter' | translate}}" (click)="apply()"></p-button>
         <p-button icon="pi pi-times" label="{{'bq-start.buttons.cancel' | translate}}" (click)="removeAllCondition()" severity="warn"></p-button>
       </div>

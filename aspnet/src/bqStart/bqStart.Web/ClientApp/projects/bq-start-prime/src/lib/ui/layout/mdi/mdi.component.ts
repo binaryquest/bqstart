@@ -11,7 +11,7 @@ import { ViewWrapperService } from '../../controls/view-wrapper/view-wrapper.ser
 @Component({
   selector: 'bq-mdi',
   template: `
-<!-- <p-tabView class="flex-grow-1 flex flex-column" [(activeIndex)]="regionSvc.activeIndex"
+<!-- <p-tabView class="grow flex flex-col" [(activeIndex)]="regionSvc.activeIndex"
           (onClose)="handleClose($event)" (activeIndex)="handleTabChange()"
           [controlClose]="true"
           >

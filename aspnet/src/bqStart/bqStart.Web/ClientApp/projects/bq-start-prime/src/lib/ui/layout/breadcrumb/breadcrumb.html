@@ -1,13 +1,13 @@
 
-<ol *ngIf="showSelf" class="p-breadcrumb-list  flex flex-row pr-2">
+<ol *ngIf="showSelf" class="flex flex-row pr-2">
 
-  <li class="p-breadcrumb-home-item"><a class="cursor-pointer" href="/"><i class="pi pi-home text-blue-500 font-medium"></i></a></li>
-  <li class="p-breadcrumb-separator"><i class="pi pi-angle-right text-500"></i></li>
+  <li class="flex flex-row"><a class="cursor-pointer" href="/"><i class="pi pi-home text-blue-500 font-medium"></i></a></li>
+  <li class="flex flex-row"><i class="pi pi-angle-right text-surface-500 dark:text-surface-300"></i></li>
 
   @for (mn of menuStack; track mn.label) {
-    <li class="p-breadcrumb-item"><a class="text-600 font-medium">{{mn.label}}</a></li>
-    <li class="p-breadcrumb-separator"><i class="pi pi-angle-right text-500"></i></li>
+    <li class="flex flex-row"><a class="text-surface-600 dark:text-surface-200 font-medium">{{mn.label}}</a></li>
+    <li class="flex flex-row"><i class="pi pi-angle-right text-surface-500 dark:text-surface-300"></i></li>
   }
 
-  <li class="p-breadcrumb-item"><a class="text-600 font-medium">{{title}}</a></li>
+  <li class="flex flex-row"><a class="text-surface-600 dark:text-surface-200 font-medium">{{title}}</a></li>
 </ol>

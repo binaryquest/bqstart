@@ -1,9 +1,19 @@
 @import '../projects/bq-start-prime/src/lib/styles/bq-start-prime.scss';
 
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
+
+@layer tailwind-base, primeng, tailwind-utilities;
+
+@layer tailwind-base {
 @tailwind base;
+}
+
+@layer tailwind-utilities {
 @tailwind components;
 @tailwind utilities;
-
+}
 
 :root {
   --glow-image: url('/pattern.png');
