@@ -37,7 +37,9 @@
       "lt": "<",
       "le": "<=",
       "isSet": "সেট আছে",
-      "isNotSet": "সেট করা নাই"
+      "isNotSet": "সেট করা নাই",
+      "term-error": "সার্চ টার্ম {{term}} সঠিক নয় {{caption}} এর জন্য",
+      "term-error-title": "ইনপুট ভুল"
     }
   }
 }
