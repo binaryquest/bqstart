@@ -3,13 +3,35 @@ module.exports = {
   darkMode: 'class',
   content: [
     "./src/**/*.{html,ts}",
-    "./projects/bq-start-prime/src/**/*.{html,ts}"
   ],
   safelist: [
     'grid',
     'grid-cols-12',
     {pattern: /col-span-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']},
-    {pattern: /gap-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']}
+    {pattern: /gap-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']},
+    'flex',
+    {pattern: /flex-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']},
+    {pattern: /justify-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']},
+    {pattern: /items-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']},
+    {pattern: /p-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']},
+    {pattern: /pl-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']},
+    {pattern: /pr-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']},
+    {pattern: /pt-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']},
+    {pattern: /pb-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']},
+    {pattern: /text-./},
+    'mr-2',
+    "ml-2",
+    'w-full',
+    'mb-2',
+    'mt-2',
+    'gap-2',
+    'gap-4',
+    'inline-block',
+    'md:inline-block',
+    'inline-flex',
+    'md:inline-flex',
+    'hidden',
+    'md:hidden',
   ],
   plugins: [require('tailwindcss-primeui')]
 };
