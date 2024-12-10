@@ -20,7 +20,7 @@ import { BaseMenu } from '../base.menu';
           alt="logo"
           [src]="logo"
           [style]="'height: 25px'"
-          class="pr-2 md:inline hidden"
+          class="pr-2 md:inline-block hidden"
         />
       </ng-template>
       <ng-template #end>

@@ -1,13 +1,15 @@
-// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
   content: [
     "./src/**/*.{html,ts}",
+    "./projects/bq-start-prime/src/**/*.{html,ts}"
   ],
-  // variants: {
-  //   extend: {
-  //     width: ['responsive'],
-  //   },
-  // },
+  safelist: [
+    'grid',
+    'grid-cols-12',
+    {pattern: /col-span-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']},
+    {pattern: /gap-./, variants: ['sm', 'md', 'lg', 'xl', '2xl']}
+  ],
   plugins: [require('tailwindcss-primeui')]
 };

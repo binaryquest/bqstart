@@ -53,10 +53,10 @@ export class AppComponent implements OnInit {
       preset: Aura,
       options: {
         darkModeSelector: '.my-app-dark',
-        cssLayer: {
-          name: 'primeng',
-          order: 'tailwind-base, primeng, tailwind-utilities'
-        }
+        // cssLayer: {
+        //   name: 'primeng',
+        //   order: 'tailwind-base, primeng, tailwind-utilities'
+        // }
       }
     })
     this.localeService.initLocale('en-AU', 'en-US');

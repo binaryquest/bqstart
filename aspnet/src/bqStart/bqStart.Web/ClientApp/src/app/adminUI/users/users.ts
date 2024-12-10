@@ -61,12 +61,14 @@ export class UserList extends BaseListView<ApplicationUser> {
   selector: 'app-user-form',
   template: `
     <bq-form>
+    <div class="grid grid-cols-12 gap-4">
+    <bq-form-block [labelSize]="3" class="col-span-12 md:col-span-6">
       <bq-text-field [field]='metaData.fields["Email"]' [(model)]="model.Email" [isRequired]="true" [regexPattern]="emailPattern" [regexMessage]="'Valid email address required'"></bq-text-field>
       <bq-text-field [field]='metaData.fields["FirstName"]' [(model)]="model.FirstName"></bq-text-field>
       <bq-text-field [field]='metaData.fields["LastName"]' [(model)]="model.LastName"></bq-text-field>
       <bq-text-field [field]='metaData.fields["PhoneNumber"]' [(model)]="model.PhoneNumber"></bq-text-field>
 
-      <bq-password-field [field]='metaData.fields["Password"]' [regexPattern]="'^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'" [regexMessage]="'Password should be min 8 char with Upper case and Numbers and Symbols'" [(model)]="model.Password"></bq-password-field>
+      <bq-password-field [field]='metaData.fields["Password"]' [minLength]="8" [maxLength]="16" [(model)]="model.Password"></bq-password-field>
       <bq-password-field [field]='metaData.fields["VerifyPassword"]' [(model)]="model.VerifyPassword"></bq-password-field>
       <bq-text-field [field]='metaData.fields["EmailConfirmed"]' [(model)]="model.EmailConfirmed"></bq-text-field>
 
@@ -78,6 +80,8 @@ export class UserList extends BaseListView<ApplicationUser> {
           </span>
         </ng-template>
       </bq-dropdown-field>
+    </bq-form-block>
+    </div>
     </bq-form>
   `,
   styles: [
