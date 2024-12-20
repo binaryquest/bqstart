@@ -9,8 +9,9 @@ import { Validator,  NG_VALIDATORS, AbstractControl, ValidationErrors } from '@a
  * @implements {Validator}
  */
 @Directive({
-  selector: '[compare]',
-  providers: [{provide: NG_VALIDATORS, useExisting: CompareDirective, multi: true}]
+    selector: '[compare]',
+    providers: [{ provide: NG_VALIDATORS, useExisting: CompareDirective, multi: true }],
+    standalone: false
 })
 export class CompareDirective implements Validator  {
 

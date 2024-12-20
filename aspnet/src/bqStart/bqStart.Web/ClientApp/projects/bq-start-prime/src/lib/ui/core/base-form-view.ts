@@ -95,7 +95,8 @@ function canCallBeforeDelete(
  * @template TModel
  */
 @Component({
-  template: '',
+    template: '',
+    standalone: false
 })
 export class BaseFormView<TModel>
   extends BaseComponent

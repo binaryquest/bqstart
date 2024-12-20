@@ -10,9 +10,10 @@ const OPTIONAL_DATA:ViewOptionalData = {
   $expandClause: "AddressNavigation"
 };
 @Component({
-  selector: 'app-department-form',
-  templateUrl: './department-form.component.html',
-  styleUrls: ['./department-form.component.scss']
+    selector: 'app-department-form',
+    templateUrl: './department-form.component.html',
+    styleUrls: ['./department-form.component.scss'],
+    standalone: false
 })
 export class DepartmentFormComponent extends BaseFormView<Department> implements IBaseFormViewEvents, IEditFormViewEvents {
 

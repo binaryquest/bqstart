@@ -9,8 +9,10 @@ import { MetadataField } from "bq-start-core";
  * @implements {OnInit}
  */
 @Component({
-  selector: 'bq-table>bq-table-column',
-  template: ``})
+    selector: 'bq-table>bq-table-column',
+    template: ``,
+    standalone: false
+})
 export class TableColumn implements OnInit {
 
   /**

@@ -17,16 +17,17 @@ import { BlockableUI } from 'primeng/api';
  * @implements {AfterContentInit}
  */
 @Component({
-  selector: 'bq-form',
-  templateUrl: './bq-form.html',
-  styleUrls: ['./bq-form.scss'],
-  providers: [
-    {
-      provide: ControlContainer,
-      useFactory: (comp:any) => <any>comp.form,
-      deps: [BqForm]
-    }
-  ],
+    selector: 'bq-form',
+    templateUrl: './bq-form.html',
+    styleUrls: ['./bq-form.scss'],
+    providers: [
+        {
+            provide: ControlContainer,
+            useFactory: (comp: any) => <any>comp.form,
+            deps: [BqForm]
+        }
+    ],
+    standalone: false
 })
 export class BqForm implements AfterContentInit, BlockableUI {
 

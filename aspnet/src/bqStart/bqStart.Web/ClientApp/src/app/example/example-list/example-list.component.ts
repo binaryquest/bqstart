@@ -12,9 +12,10 @@ const OPTIONAL_DATA:ViewOptionalData = {
 };
 
 @Component({
-  selector: 'app-example-list',
-  templateUrl: './example-list.component.html',
-  styleUrls: ['./example-list.component.scss']
+    selector: 'app-example-list',
+    templateUrl: './example-list.component.html',
+    styleUrls: ['./example-list.component.scss'],
+    standalone: false
 })
 export class ExampleListComponent  extends BaseListView<ExampleClass> implements IBaseListViewEvents {
 

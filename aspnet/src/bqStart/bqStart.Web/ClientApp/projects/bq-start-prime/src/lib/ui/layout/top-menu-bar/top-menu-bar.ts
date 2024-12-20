@@ -11,8 +11,8 @@ import { BaseMenu } from '../base.menu';
 
 
 @Component({
-  selector: 'bq-top-menu-bar',
-  template: `
+    selector: 'bq-top-menu-bar',
+    template: `
     <p-menubar [model]="items">
       <ng-template #start>
         <img
@@ -54,6 +54,7 @@ import { BaseMenu } from '../base.menu';
       </ng-template>
     </p-menubar>
   `,
+    standalone: false
 })
 export class TopMenuBar extends BaseMenu {
   items: MenuItem[];

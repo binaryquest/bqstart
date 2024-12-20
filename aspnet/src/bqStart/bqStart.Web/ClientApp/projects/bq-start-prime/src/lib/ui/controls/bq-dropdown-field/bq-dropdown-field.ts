@@ -16,9 +16,10 @@ import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';
 import { intersectionWith, isArray } from 'lodash-es';
 
 @Component({
-  selector: 'bq-dropdown-field',
-  templateUrl: './bq-dropdown-field.html',
-  styleUrls: ['./bq-dropdown-field.scss'],
+    selector: 'bq-dropdown-field',
+    templateUrl: './bq-dropdown-field.html',
+    styleUrls: ['./bq-dropdown-field.scss'],
+    standalone: false
 })
 export class BqDropdownField extends BaseField {
 

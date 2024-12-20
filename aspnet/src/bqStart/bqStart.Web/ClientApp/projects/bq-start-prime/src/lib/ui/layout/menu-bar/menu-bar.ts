@@ -11,24 +11,25 @@ import { RouterService } from '../../../services/router.service';
 import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.service';
 
 @Component({
-  selector: 'bq-menu-bar',
-  templateUrl: './menu-bar.html',
-  styleUrls: ['./menu-bar.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('submenu', [
-      state('hidden', style({
-        height: '0',
-        overflow: 'hidden',
-        opacity: 0,
-      })),
-      state('visible', style({
-        height: '*',
-        opacity: 1
-      })),
-      transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
-    ])
-  ]
+    selector: 'bq-menu-bar',
+    templateUrl: './menu-bar.html',
+    styleUrls: ['./menu-bar.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [
+        trigger('submenu', [
+            state('hidden', style({
+                height: '0',
+                overflow: 'hidden',
+                opacity: 0,
+            })),
+            state('visible', style({
+                height: '*',
+                opacity: 1
+            })),
+            transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
+        ])
+    ],
+    standalone: false
 })
 export class MenuBar extends BaseMenu implements OnInit {
 

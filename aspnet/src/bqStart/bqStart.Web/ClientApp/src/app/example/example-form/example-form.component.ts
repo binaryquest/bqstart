@@ -10,9 +10,10 @@ const OPTIONAL_DATA:ViewOptionalData = {
 };
 
 @Component({
-  selector: 'app-example-form',
-  templateUrl: './example-form.component.html',
-  styleUrls: ['./example-form.component.scss']
+    selector: 'app-example-form',
+    templateUrl: './example-form.component.html',
+    styleUrls: ['./example-form.component.scss'],
+    standalone: false
 })
 export class ExampleFormComponent extends BaseFormView<ExampleClass> implements IBaseFormViewEvents {
 

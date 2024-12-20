@@ -18,9 +18,10 @@ import Aura from '@primeng/themes/aura';
  * @implements {OnInit}
  */
 @Component({
-  selector: 'bq-app-layout',
-  templateUrl: './app-layout.html',
-  styleUrls: ['./app-layout.scss'],
+    selector: 'bq-app-layout',
+    templateUrl: './app-layout.html',
+    styleUrls: ['./app-layout.scss'],
+    standalone: false
 })
 export class AppLayout implements OnInit, AfterContentInit {
 

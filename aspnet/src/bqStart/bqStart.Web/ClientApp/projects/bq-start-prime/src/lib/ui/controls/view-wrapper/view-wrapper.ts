@@ -2,9 +2,10 @@ import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { ViewWrapperService } from './view-wrapper.service';
 
 @Component({
-  selector: 'view-wrapper',
-  templateUrl: './view-wrapper.html',
-  styleUrls: ['./view-wrapper.scss']
+    selector: 'view-wrapper',
+    templateUrl: './view-wrapper.html',
+    styleUrls: ['./view-wrapper.scss'],
+    standalone: false
 })
 export class ViewWrapper implements OnInit {
 

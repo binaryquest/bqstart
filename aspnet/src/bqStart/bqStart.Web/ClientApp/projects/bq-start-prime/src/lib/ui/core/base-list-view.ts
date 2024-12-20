@@ -58,7 +58,8 @@ function canCallAfterServerDataReceived(arg: Object): arg is IBaseListViewEvents
  * @template TModel
  */
 @Component({
-  template: '',
+    template: '',
+    standalone: false
 })
 export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDestroy, IBaseView {
 

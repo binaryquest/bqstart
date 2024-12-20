@@ -20,8 +20,9 @@ import { ReplaySubject } from 'rxjs/internal/ReplaySubject';
  * @implements {AfterContentInit}
  */
 @Component({
-  selector: 'bq-form > base-field',
-  template: ''
+    selector: 'bq-form > base-field',
+    template: '',
+    standalone: false
 })
 
 export abstract class BaseField implements OnInit, AfterContentInit {

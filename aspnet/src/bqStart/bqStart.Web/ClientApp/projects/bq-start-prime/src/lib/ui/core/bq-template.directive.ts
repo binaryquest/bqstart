@@ -7,9 +7,9 @@ import { Directive, Input, TemplateRef } from "@angular/core";
  * @class BQTemplate
  */
 @Directive({
-  selector: '[bqTemplate]',
-  host: {
-  }
+    selector: '[bqTemplate]',
+    host: {},
+    standalone: false
 })
 export class BQTemplate {
 

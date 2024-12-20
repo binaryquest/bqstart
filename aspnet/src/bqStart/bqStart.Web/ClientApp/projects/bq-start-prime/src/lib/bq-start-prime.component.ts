@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'lib-bq-start-prime',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'lib-bq-start-prime',
+    imports: [],
+    template: `
     <p>
       bq-start-prime works!
     </p>
   `,
-  styles: ``
+    styles: ``
 })
 export class BqStartPrimeComponent {
 

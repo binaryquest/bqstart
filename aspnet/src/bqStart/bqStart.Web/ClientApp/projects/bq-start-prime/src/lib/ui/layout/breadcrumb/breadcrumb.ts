@@ -14,9 +14,10 @@ import { BaseComponent } from '../../base.component';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'breadcrumb',
-  templateUrl: './breadcrumb.html',
-  styleUrls: ['./breadcrumb.scss'],
+    selector: 'breadcrumb',
+    templateUrl: './breadcrumb.html',
+    styleUrls: ['./breadcrumb.scss'],
+    standalone: false
 })
 export class Breadcrumb extends BaseComponent implements OnInit {
   routeData$: Observable<any>;

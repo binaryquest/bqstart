@@ -12,9 +12,10 @@ import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';
  * @extends {BaseField}
  */
 @Component({
-  selector: 'bq-password-field',
-  templateUrl: './bq-password-field.html',
-  styleUrls: ['./bq-password-field.scss']
+    selector: 'bq-password-field',
+    templateUrl: './bq-password-field.html',
+    styleUrls: ['./bq-password-field.scss'],
+    standalone: false
 })
 export class BqPasswordField extends BaseField {
 

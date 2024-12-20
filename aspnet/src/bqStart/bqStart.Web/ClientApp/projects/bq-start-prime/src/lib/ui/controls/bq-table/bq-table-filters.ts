@@ -19,9 +19,10 @@ import { MenuItem } from 'primeng/api';
  * @implements {OnDestroy}
  */
 @Component({
-  selector: 'bq-table-filters',
-  templateUrl: './bq-table-filters.html',
-  styleUrls: ['./bq-table-filters.scss']
+    selector: 'bq-table-filters',
+    templateUrl: './bq-table-filters.html',
+    styleUrls: ['./bq-table-filters.scss'],
+    standalone: false
 })
 export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
 

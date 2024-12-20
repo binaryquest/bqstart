@@ -8,7 +8,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * @implements {PipeTransform}
  */
 @Pipe({
-  name: 'boolToYesNo'
+    name: 'boolToYesNo',
+    standalone: false
 })
 
 export class BoolToYesNoPipe implements PipeTransform {
@@ -29,7 +30,8 @@ export class BoolToYesNoPipe implements PipeTransform {
  * @implements {PipeTransform}
  */
 @Pipe({
-  name: 'password'
+    name: 'password',
+    standalone: false
 })
 export class PasswordPipe implements PipeTransform {
 

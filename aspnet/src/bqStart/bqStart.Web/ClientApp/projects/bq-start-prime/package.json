@@ -1,18 +1,17 @@
 {
   "name": "bq-start-prime",
-  "version": "4.0.3",
+  "version": "4.1.0",
   "license": "MIT",
   "author": "http://bqstart.com",
   "peerDependencies": {
-    "@angular/animations": "^18.0.0",
-    "@angular/cdk": "^18.0.0",
-    "@angular/common": "^18.0.0",
-    "@angular/compiler": "^18.0.0",
-    "@angular/core": "^18.0.0",
-    "@angular/forms": "^18.0.0",
-    "@angular/material": "^18.0.0",
-    "@angular/platform-browser": "^18.0.0",
-    "@angular/router": "^18.0.0",
+    "@angular/animations": "^19.0.5",
+    "@angular/cdk": "^19.0.0",
+    "@angular/common": "^19.0.5",
+    "@angular/compiler": "^19.0.5",
+    "@angular/core": "^19.0.5",
+    "@angular/forms": "^19.0.5",
+    "@angular/platform-browser": "^19.0.5",
+    "@angular/router": "^19.0.5",
     "@ng-select/ng-select": "^13.9.1",
     "@ngx-translate/core": "^16.0.3",
     "@ngx-translate/http-loader": "^16.0.0",
@@ -26,8 +25,8 @@
     "uuid": "^9.0.0",
     "validator": "^13.9.0",
     "zone.js": "^0.14.10",
-    "@primeng/themes": "18.0.0",
-    "primeng": "18.0.0"
+    "@primeng/themes": "19.0.0",
+    "primeng": "19.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

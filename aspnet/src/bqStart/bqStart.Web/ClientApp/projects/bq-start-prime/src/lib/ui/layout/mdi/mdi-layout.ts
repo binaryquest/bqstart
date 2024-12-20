@@ -18,15 +18,15 @@ import Aura from '@primeng/themes/aura';
  * @implements {OnInit}
  */
 @Component({
-  selector: 'bq-mdi-app-layout',
-  styles: [
-    `
+    selector: 'bq-mdi-app-layout',
+    styles: [
+        `
       .mdi-layout {
         height: calc(100vh - 60px);
       }
     `,
-  ],
-  template: `
+    ],
+    template: `
     <div class="layout-wrapper">
       <bq-top-menu-bar (onTopRightMenuClicked)="handleTopMenuClick($event)"></bq-top-menu-bar>
       <div class="layout-content-inactive mdi-layout flex flex-col">
@@ -54,6 +54,7 @@ import Aura from '@primeng/themes/aura';
       <bq-footer-bar></bq-footer-bar>
     </ng-template>
   `,
+    standalone: false
 })
 export class MDILayoutComponent implements OnInit, AfterContentInit {
   isAuthenticated: boolean;

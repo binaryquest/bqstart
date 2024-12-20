@@ -4,8 +4,8 @@ import { Department } from '../../models/department';
 import { SharedUtilityService } from '../shared/shared.service';
 
 @Component({
-  selector: 'admin-test',
-  template: `
+    selector: 'admin-test',
+    template: `
   <div>
     test local name {{local}}
   </div>
@@ -16,7 +16,8 @@ import { SharedUtilityService } from '../shared/shared.service';
   <div>
     <button (click)="showDirect()">Test using direct</button>
   </div>
-  `
+  `,
+    standalone: false
 })
 
 export class AdminComponent extends BaseComponent {

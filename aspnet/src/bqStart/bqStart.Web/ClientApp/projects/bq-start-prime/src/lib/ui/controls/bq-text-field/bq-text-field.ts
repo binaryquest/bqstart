@@ -13,9 +13,10 @@ import { ValidationType } from 'bq-start-core';
  * @extends {BaseField}
  */
 @Component({
-  selector: 'bq-text-field',
-  templateUrl: './bq-text-field.html',
-  styleUrls: ['./bq-text-field.scss']
+    selector: 'bq-text-field',
+    templateUrl: './bq-text-field.html',
+    styleUrls: ['./bq-text-field.scss'],
+    standalone: false
 })
 export class BqTextField extends BaseField {
 

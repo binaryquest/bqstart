@@ -17,8 +17,8 @@ export class ApplicationUser{
 }
 
 @Component({
-  selector: 'app-user-list',
-  template: `
+    selector: 'app-user-list',
+    template: `
     <bq-table [model]='models'
           [metaData]='metaData'
           [tableParams]='tableParams'
@@ -46,8 +46,8 @@ export class ApplicationUser{
 
 </bq-table>
   `,
-  styles: [
-  ]
+    styles: [],
+    standalone: false
 })
 export class UserList extends BaseListView<ApplicationUser> {
 
@@ -58,8 +58,8 @@ export class UserList extends BaseListView<ApplicationUser> {
 }
 
 @Component({
-  selector: 'app-user-form',
-  template: `
+    selector: 'app-user-form',
+    template: `
     <bq-form>
     <div class="grid grid-cols-12 gap-4">
     <bq-form-block [labelSize]="3" class="col-span-12 md:col-span-6">
@@ -84,8 +84,8 @@ export class UserList extends BaseListView<ApplicationUser> {
     </div>
     </bq-form>
   `,
-  styles: [
-  ]
+    styles: [],
+    standalone: false
 })
 export class UserForm extends BaseFormView<ApplicationUser> implements IBaseFormViewEvents, IEditFormViewEvents {
 

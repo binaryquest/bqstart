@@ -10,9 +10,10 @@ const OPTIONAL_DATA:ViewOptionalData = {
 };
 
 @Component({
-  selector: 'app-department-list',
-  templateUrl: './department-list.component.html',
-  styleUrls: ['./department-list.component.scss']
+    selector: 'app-department-list',
+    templateUrl: './department-list.component.html',
+    styleUrls: ['./department-list.component.scss'],
+    standalone: false
 })
 export class DepartmentListComponent extends BaseListView<Department> {
 

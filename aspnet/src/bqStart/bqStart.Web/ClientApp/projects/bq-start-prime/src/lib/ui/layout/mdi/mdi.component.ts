@@ -9,8 +9,8 @@ import { ViewWrapperService } from '../../controls/view-wrapper/view-wrapper.ser
  * @class MDIComponent
  */
 @Component({
-  selector: 'bq-mdi',
-  template: `
+    selector: 'bq-mdi',
+    template: `
 <!-- <p-tabView class="grow flex flex-col" [(activeIndex)]="regionSvc.activeIndex"
           (onClose)="handleClose($event)" (activeIndex)="handleTabChange()"
           [controlClose]="true"
@@ -23,7 +23,8 @@ import { ViewWrapperService } from '../../controls/view-wrapper/view-wrapper.ser
     <dyn-mdi-loader [viewRunningData]="item"></dyn-mdi-loader>
   </p-tabPanel>
 </p-tabView> -->
-`
+`,
+    standalone: false
 })
 
 export class MDIComponent {

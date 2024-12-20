@@ -9,8 +9,9 @@ import { MetadataField, Predicate } from 'bq-start-core';
  * @implements {OnInit}
  */
 @Component({
-  selector: 'bq-table>bq-table-filter',
-  template: ``,
+    selector: 'bq-table>bq-table-filter',
+    template: ``,
+    standalone: false
 })
 export class TableFilter implements OnInit {
   /**

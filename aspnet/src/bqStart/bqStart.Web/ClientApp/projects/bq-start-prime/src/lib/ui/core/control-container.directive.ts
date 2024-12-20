@@ -10,7 +10,8 @@ import { controlContainerProvider } from './control-container.provider';
  * @see https://stackoverflow.com/questions/39242219
  */
 @Directive({
-  selector: '[ngModel],[ngModelGroup]',
-  providers: [controlContainerProvider]
+    selector: '[ngModel],[ngModelGroup]',
+    providers: [controlContainerProvider],
+    standalone: false
 })
 export class ControlContainerDirective { }

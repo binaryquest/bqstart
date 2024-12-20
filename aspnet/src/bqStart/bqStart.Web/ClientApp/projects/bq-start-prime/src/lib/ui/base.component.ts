@@ -13,7 +13,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { Settings } from "luxon";
 
 @Component({
-  template: ''
+    template: '',
+    standalone: false
 })
 export class BaseComponent {
 

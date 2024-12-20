@@ -10,16 +10,17 @@ import { BqForm } from '../bq-form/bq-form';
  * @implements {OnInit}
  */
 @Component({
-  selector: 'bq-form-block',
-  templateUrl: './form-block.html',
-  styleUrls: ['./form-block.scss'],
-  providers: [
-    {
-      provide: ControlContainer,
-      useFactory: (comp:any) => <any>comp.form,
-      deps: [BqForm]
-    }
-  ],
+    selector: 'bq-form-block',
+    templateUrl: './form-block.html',
+    styleUrls: ['./form-block.scss'],
+    providers: [
+        {
+            provide: ControlContainer,
+            useFactory: (comp: any) => <any>comp.form,
+            deps: [BqForm]
+        }
+    ],
+    standalone: false
 })
 export class FormBlock implements OnInit {
 

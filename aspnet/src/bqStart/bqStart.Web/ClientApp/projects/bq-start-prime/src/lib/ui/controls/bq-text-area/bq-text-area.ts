@@ -12,9 +12,10 @@ import { ViewWrapperService } from '../view-wrapper/view-wrapper.service';
  * @extends {BaseField}
  */
 @Component({
-  selector: 'bq-text-area',
-  templateUrl: './bq-text-area.html',
-  styleUrls: ['./bq-text-area.scss']
+    selector: 'bq-text-area',
+    templateUrl: './bq-text-area.html',
+    styleUrls: ['./bq-text-area.scss'],
+    standalone: false
 })
 export class BqTextArea extends BaseField {
 

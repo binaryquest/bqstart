@@ -15,15 +15,16 @@ import { DropdownChangeEvent } from 'primeng/dropdown';
  * @implements {OnInit}
  */
 @Component({
-  selector: 'bq-table-custom-filter',
-  templateUrl: './bq-table-custom-filter.html',
-  styles: [
-    `:host ::ng-deep .ng-invalid { border-color: #f44336; }
+    selector: 'bq-table-custom-filter',
+    templateUrl: './bq-table-custom-filter.html',
+    styles: [
+        `:host ::ng-deep .ng-invalid { border-color: #f44336; }
      :host ::ng-deep .ng-invalid input { border-color: #f44336; }
      :host ::ng-deep .ng-valid { border-color: #7FF08EFF; }
      :host ::ng-deep .ng-valid input { border-color: #7FF08EFF; }
     `
-  ]
+    ],
+    standalone: false
 })
 
 export class CustomFilter implements OnInit {
