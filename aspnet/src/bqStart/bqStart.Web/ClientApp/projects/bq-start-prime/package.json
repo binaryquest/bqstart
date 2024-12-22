@@ -1,6 +1,6 @@
 {
   "name": "bq-start-prime",
-  "version": "4.1.0",
+  "version": "4.1.1",
   "license": "MIT",
   "author": "http://bqstart.com",
   "peerDependencies": {
@@ -15,18 +15,18 @@
     "@ng-select/ng-select": "^13.9.1",
     "@ngx-translate/core": "^16.0.3",
     "@ngx-translate/http-loader": "^16.0.0",
+    "@primeng/themes": "19.0.1",
     "lodash-es": "^4.17.21",
     "luxon": "^3.4.2",
     "ng-keyboard-shortcuts": "^13.0.8",
     "oidc-client": "^1.11.5",
     "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",
+    "primeng": "19.0.1",
     "rxjs": "^7.8.1",
     "uuid": "^9.0.0",
     "validator": "^13.9.0",
-    "zone.js": "^0.14.10",
-    "@primeng/themes": "19.0.0",
-    "primeng": "19.0.0"
+    "zone.js": "^0.15.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

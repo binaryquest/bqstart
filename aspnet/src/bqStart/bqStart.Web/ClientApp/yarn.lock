@@ -157,10 +157,10 @@
   optionalDependencies:
     lmdb "3.1.5"
 
-"@angular/cdk@^19.0.5":
-  version "19.0.0"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-19.0.0.tgz#ef1d0baa821d1f56d2f36bb69a76550338197341"
-  integrity sha512-KcOYhCwN4Bw3L4+W4ymTfPGqRjrkwD8M5jX8GM7YsZ5DsX9OEd/gNrwRvjn+8JItzimXLXdGrcqXrMTxkq7QPA==
+"@angular/cdk@^19.0.0":
+  version "19.0.4"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-19.0.4.tgz#2728efdf11f0871ed4382da7f604834f08539b27"
+  integrity sha512-P8V1n6AFFjBUJG3YRgw8DiiNDWPZVrwQ42wbwgZxd4s2TQAuNFg3YY8h/DSMVxt2sXpavrshZsoLtP9yLKZjHA==
   dependencies:
     tslib "^2.3.0"
   optionalDependencies:
@@ -2062,10 +2062,10 @@
   resolved "https://registry.yarnpkg.com/@pkgjs/parseargs/-/parseargs-0.11.0.tgz#a77ea742fab25775145434eb1d2328cf5013ac33"
   integrity sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==
 
-"@primeng/themes@19.0.0":
-  version "19.0.0"
-  resolved "https://registry.yarnpkg.com/@primeng/themes/-/themes-19.0.0.tgz#0b77656855b33319771a23ed284b15b2942c8722"
-  integrity sha512-oG38G0aE3L7tXnFIVrglhid64ZbQrkjUGdqovPcLR2e2S89P9f5vafMNtUdGCZaCGgz2WqGdfeqZKw1TF0OT4A==
+"@primeng/themes@19.0.1":
+  version "19.0.1"
+  resolved "https://registry.yarnpkg.com/@primeng/themes/-/themes-19.0.1.tgz#2ef5437adeeef7a6010c72b0064b773af10c4bf8"
+  integrity sha512-vssxWAqnIGU5kweP07M+rk8TNKYlRjTm2XBGBFCo54OI+0+DL6GkTzbkwQ80nUzJMj8tl+KEgc+Qt/7CRbfnbg==
   dependencies:
     "@primeuix/styled" "^0.3.2"
 
@@ -6061,10 +6061,10 @@ primeicons@^7.0.0:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-7.0.0.tgz#6b25c3fdcb29bb745a3035bdc1ed5902f4a419cf"
   integrity sha512-jK3Et9UzwzTsd6tzl2RmwrVY/b8raJ3QZLzoDACj+oTJ0oX7L9Hy+XnVwgo4QVKlKpnP/Ur13SXV/pVh4LzaDw==
 
-primeng@19.0.0:
-  version "19.0.0"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-19.0.0.tgz#a3536d6ae60165926bc13cc6cd3ed2454c8a6f36"
-  integrity sha512-A2i1dzYc67nyho2lEvJVHvWFKdMm1YvM5Z4lPdOykUEcWd1gmDSMHsvzs1zHY/CQQswL/+uWRrw2J+K0upQMnQ==
+primeng@19.0.1:
+  version "19.0.1"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-19.0.1.tgz#2a163e52406651b51a91810b4a58280020c611a5"
+  integrity sha512-YMShhmnIZUArZpg2BeBGkocjsFship2c8LIX6oDICMRSBjX3VJ2T+RDEVwEZgCsv7UK8BVBTOjPoeETv76XTKg==
   dependencies:
     "@primeuix/styled" "^0.3.2"
     "@primeuix/utils" "^0.3.2"
