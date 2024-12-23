@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { AdminComponent } from './admin.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { BQStartPrimeModule } from "../../../../projects/bq-start-prime/src/lib/bq-start-prime.module";
+import { ConfirmationService } from 'primeng/api';
 
 
 
@@ -9,14 +11,15 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     SharedModule,
     RouterModule.forChild([
-      { path: 'manage-users', component: AdminComponent },
-    ])
-  ],
+        { path: 'manage-users', component: AdminComponent },
+    ]),
+    BQStartPrimeModule
+],
   exports: [
     AdminComponent,
   ],
   declarations: [AdminComponent],
-  providers: [],
+  providers: [ConfirmationService],
 })
 export class AdminModule {
   public getAdminComponent(){
