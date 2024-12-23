@@ -17,6 +17,10 @@ import { ConfirmationService } from 'primeng/api';
   <div>
     <p-button (click)="showDirect()" severity="danger">Test using direct</p-button>
   </div>
+  <br/>
+  <div>
+    <p-button (click)="showErrorDialog()" severity="danger">Test error dialog</p-button>
+  </div>
   `,
     standalone: false
 })
@@ -50,10 +54,18 @@ export class AdminComponent extends BaseComponent {
       acceptIcon: 'pi pi-user',
       rejectIcon: 'pi pi-users',
       rejectLabel: 'Cancel-Custom',
+      acceptVisible: true,
+      rejectVisible: true,
+      acceptButtonStyleClass: 'p-button-primary',
+      rejectButtonStyleClass: 'p-button-secondary',
       icon: 'pi pi-question-circle',
       accept: () => {
         console.log("test confirm");
       },
     });
+   }
+
+   showErrorDialog(){
+    this.dialogService.errorDialog('test error message', 'Test Error Dialog');
    }
 }

@@ -53,6 +53,9 @@ export class DialogService {
       acceptIcon: 'pi pi-check',
       rejectIcon: 'pi pi-times',
       rejectLabel: 'Cancel',
+      acceptVisible: true,
+      rejectVisible: true,
+      acceptButtonStyleClass: 'p-button-primary',
       rejectButtonStyleClass: 'p-button-secondary',
     });
   }
