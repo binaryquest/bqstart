@@ -1,6 +1,7 @@
 
 import { ViewData, ViewType } from "bq-start-core";
 import { Injector, createNgModule } from "@angular/core";
+import { ConfirmationService } from "primeng/api";
 
 
 export const ADMIN_MODULE_CONFIG = {

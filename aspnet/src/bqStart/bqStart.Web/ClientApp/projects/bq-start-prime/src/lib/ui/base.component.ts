@@ -1,4 +1,4 @@
-import { Component, Injector, inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { AuthorizeService, IUser } from "../api-authorization/authorize.service";
 import { BQConfigData, BQConfigService } from "bq-start-core";
@@ -47,7 +47,7 @@ export class BaseComponent {
     this.dialogService = inject(DialogService);
     this.localeService = inject(LocaleService);
     this.translate = inject(TranslateService);
-    if (!this.localeService.isInitialized()){
+    if (this.localeService && !this.localeService.isInitialized()){
       this.localeService.initLocale(Settings.defaultLocale, Settings.defaultLocale);
     }
   }

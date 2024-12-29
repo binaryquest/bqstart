@@ -38,11 +38,12 @@ export class AdminComponent extends BaseComponent {
    }
 
    show(){
-    // this.messageSvc.showMessage("test", "test", MessageType.info);
-    // this.svc.test();
-    this.dialogService.confirm('test dialog message', 'Test Dialog', () => {
-      console.log("test");
-    });
+    console.log("show called");
+    this.messageSvc.showMessage("test", "test", MessageType.info);
+    this.svc.test();
+    // this.dialogService.confirm('test dialog message', 'Test Dialog', () => {
+    //   console.log("test");
+    // });
    }
 
    showDirect(){

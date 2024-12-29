@@ -118,19 +118,6 @@
     [disabled]="disabled ? true : field?.autoGen ? true : false"
     #myField="ngModel"
   />
-  <!-- <p-calendar
-    [name]="id"
-    hourFormat="12"
-    [showSeconds]="true"
-    [showTime]="showTime"
-    [(ngModel)]="dateModel"
-    (ngModelChange)="onChange($event)"
-    [required]="isRequired"
-    [dateFormat]="localeFormat"
-    [styleClass]="'w-full'"
-    [disabled]="disabled ? true : field?.autoGen ? true : false"
-    #myField="ngModel"
-  ></p-calendar> -->
 
   <ng-container
     [ngTemplateOutlet]="errorBlock"

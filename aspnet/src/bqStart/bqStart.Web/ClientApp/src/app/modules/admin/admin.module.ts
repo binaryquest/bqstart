@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { AdminComponent } from './admin.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { BQStartPrimeModule } from "../../../../projects/bq-start-prime/src/lib/bq-start-prime.module";
+import { BQStartPrimeModule } from "bq-start-prime";
 import { ConfirmationService } from 'primeng/api';
 
 

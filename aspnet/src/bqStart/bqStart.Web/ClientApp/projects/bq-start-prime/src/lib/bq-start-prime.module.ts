@@ -133,13 +133,14 @@ export function initializeApp(appInitService: AppInitService) {
     SplitButton,
     PanelModule,
     KeyboardShortcutsModule.forRoot(),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useClass: LocaleService,
-        deps: [HttpClient]
-      },
-    }),
+    TranslateModule,
+    // TranslateModule.forRoot({
+    //   loader: {
+    //     provide: TranslateLoader,
+    //     useClass: LocaleService,
+    //     deps: [HttpClient]
+    //   },
+    // }),
     ButtonModule,
     Tooltip,
     Popover,
@@ -277,7 +278,7 @@ export function initializeApp(appInitService: AppInitService) {
     NavigationService,
     ViewWrapperService,
     DialogService,
-    ConfirmationService,
+    //ConfirmationService,
     RouterService,
     MainRegionAdapterService,
     KeyShortcutService
@@ -304,12 +305,12 @@ export class BQStartPrimeModule {
           multi: true
         },
         { provide: InternalLogService },
-        LocaleService,
-        ConfirmationService,
-        DialogService,
+        //LocaleService,
+        //ConfirmationService,
+        //DialogService,
         //PrimeMS,
-        MessageService,
-        KeyShortcutService
+        //MessageService,
+        //KeyShortcutService
       ]
     }
   }

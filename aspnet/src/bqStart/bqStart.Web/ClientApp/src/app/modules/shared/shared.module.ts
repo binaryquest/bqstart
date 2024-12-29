@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 
 
 import { SharedUtilityService } from './shared.service';
 import { SharedComponent } from './shared.component';
 import { Checkbox } from 'primeng/checkbox';
-import { RadioButton } from 'primeng/radiobutton';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
   imports: [
@@ -20,9 +20,15 @@ import { ButtonModule } from 'primeng/button';
   ],
   exports: [SharedComponent],
   declarations: [SharedComponent],
-  providers: [SharedUtilityService],
+  providers: [],
 })
 export class SharedModule {
+  static forRoot(): ModuleWithProviders<SharedModule> {
+    return {
+      ngModule: SharedModule,
+      providers: [MessageService]
+    }
+  }
   constructor(){
     console.log("loading shared module");
   }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_ID, NgModule, provideZoneChangeDetection } from '@angular/core';
+import { APP_ID, importProvidersFrom, NgModule, provideZoneChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -38,6 +38,7 @@ import { DrawerModule } from 'primeng/drawer';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
+import { ConfirmationService } from 'primeng/api';
 
 
 registerLocaleData(localeBn);
@@ -81,7 +82,7 @@ registerLocaleData(localeAu);
       },
     }),
     BQStartPrimeModule.forRoot(APP_CONFIG),
-    SharedModule,
+    SharedModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthorizeGuard], title: "BQ Start" },
       { path: 'counter', component: CounterComponent, title: 'Counter' },
@@ -91,6 +92,7 @@ registerLocaleData(localeAu);
   providers: [
     { provide: APP_ID, useValue: 'ng-cli-universal' },
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    ConfirmationService,
     LocaleProvider
   ],
   bootstrap: [AppComponent]
