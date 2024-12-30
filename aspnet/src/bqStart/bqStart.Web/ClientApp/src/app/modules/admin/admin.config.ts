@@ -9,9 +9,9 @@ export const ADMIN_MODULE_CONFIG = {
     {
       label: "Admin", icon: "pi pi-chart-bar", allowedRoles: [], childMenus: [
         {label: "Admin Component", icon: "pi pi-user-plus", childMenus:[], viewId: "admin-com", },
-        {label: "Admin Custom", icon: "pi pi-user-plus", childMenus:[], path:"/admin/manage-users", componentFactory: async (injector: Injector) => {
+        {label: "Admin Custom", icon: "pi pi-user-plus", childMenus:[], componentFactory: async () => {
           const {AdminModule} = await import("./admin.module");
-          const moduleRef = createNgModule(AdminModule, injector);
+          const moduleRef = createNgModule(AdminModule);
           const lazyComponent = moduleRef.instance.getAdminComponent();
           return lazyComponent;
         }},

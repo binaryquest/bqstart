@@ -54,16 +54,16 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
 
     const routerSvc: RouterService = new RouterService(this.route, this.router, this.regionSvc);
 
-    const injector =
-    Injector.create({providers: [
-      {provide: RouterService, useValue:routerSvc},
-      {provide: DialogService, useValue:this.dialogSvc},
-      {provide: ConfirmationService, useValue:this.confService},
-      {provide: LocaleService, useValue:this.localSvc},
-      {provide: TranslateService, useValue:this.tranSvc},
-      {provide: NavigationService, useValue:this.navSvc},
-      {provide: MessageService, useValue:this.msgSvc},
-    ], parent: this.injector},);
+    // const injector =
+    // Injector.create({providers: [
+    //   {provide: RouterService, useValue:routerSvc},
+    //   {provide: DialogService, useValue:this.dialogSvc},
+    //   {provide: ConfirmationService, useValue:this.confService},
+    //   {provide: LocaleService, useValue:this.localSvc},
+    //   {provide: TranslateService, useValue:this.tranSvc},
+    //   {provide: NavigationService, useValue:this.navSvc},
+    //   {provide: MessageService, useValue:this.msgSvc},
+    // ], parent: this.injector},);
 
 
     const viewContainerRef = this.adHost.viewContainerRef;
@@ -72,7 +72,7 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
     if (this.componentFactory){
       this.componentType = await this.componentFactory(this.injector);
     }
-    const componentRef = viewContainerRef.createComponent(this.componentType, {injector: injector});
+    const componentRef = viewContainerRef.createComponent(this.componentType);
 
   }
 }

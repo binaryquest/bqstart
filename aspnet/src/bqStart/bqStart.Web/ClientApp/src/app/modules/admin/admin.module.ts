@@ -11,7 +11,7 @@ import { ConfirmationService } from 'primeng/api';
   imports: [
     SharedModule,
     RouterModule.forChild([
-        { path: 'manage-users', component: AdminComponent },
+        //{ path: 'manage-users', component: AdminComponent },
     ]),
     BQStartPrimeModule
 ],
@@ -19,7 +19,7 @@ import { ConfirmationService } from 'primeng/api';
     AdminComponent,
   ],
   declarations: [AdminComponent],
-  providers: [ConfirmationService],
+  providers: [],
 })
 export class AdminModule {
   public getAdminComponent(){
