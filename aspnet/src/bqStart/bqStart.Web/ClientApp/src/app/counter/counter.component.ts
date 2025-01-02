@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DialogService } from 'bq-start-prime';
+import { DialogService, MessageService, MessageType } from 'bq-start-prime';
 
 @Component({
     selector: 'app-counter-component',
@@ -9,12 +9,13 @@ import { DialogService } from 'bq-start-prime';
 export class CounterComponent {
   public currentCount = 0;
 
-  constructor(private dialogSvc:DialogService){
+  constructor(private dialogSvc:DialogService, private messageSvc:MessageService){
 
   }
 
   public incrementCounter() {
     this.currentCount++;
-    this.dialogSvc.alert("Hello world", "Heading");
+    //this.dialogSvc.alert("Hello world", "Heading");
+    this.messageSvc.showMessage("Hello world", "Heading", MessageType.info);
   }
 }

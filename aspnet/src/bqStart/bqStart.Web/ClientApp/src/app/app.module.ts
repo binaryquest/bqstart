@@ -19,7 +19,7 @@ import { RoleList, RoleForm } from './adminUI/roles/roles';
 import { UserList, UserForm } from './adminUI/users/users';
 
 //import { BQStartPrimeModule, AuthorizeGuard, AuthorizeInterceptor, LocaleProvider, LocaleService } from 'projects/bq-start-prime/bq-start-module';
-import { BQStartPrimeModule, AuthorizeGuard, AuthorizeInterceptor, LocaleProvider, LocaleService } from 'bq-start-prime';
+import { BQStartPrimeModule, AuthorizeGuard, AuthorizeInterceptor, LocaleProvider, LocaleService, MessageService } from 'bq-start-prime';
 import { APP_CONFIG } from './app.config';
 
 //language locals
@@ -82,7 +82,7 @@ registerLocaleData(localeAu);
       },
     }),
     BQStartPrimeModule.forRoot(APP_CONFIG),
-    SharedModule.forRoot(),
+    SharedModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthorizeGuard], title: "BQ Start" },
       { path: 'counter', component: CounterComponent, title: 'Counter' },
@@ -92,8 +92,8 @@ registerLocaleData(localeAu);
   providers: [
     { provide: APP_ID, useValue: 'ng-cli-universal' },
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    ConfirmationService,
-    LocaleProvider
+    ConfirmationService
+    //importProvidersFrom(BQStartPrimeModule),
   ],
   bootstrap: [AppComponent]
 })

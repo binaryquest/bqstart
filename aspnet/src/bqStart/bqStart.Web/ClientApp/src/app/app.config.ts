@@ -122,13 +122,13 @@ export const APP_CONFIG: BQConfigData = {
       viewType: ViewType.List,
       component: ExampleListComponent
     },
-    {
-      viewId: "example-form",
-      typeName: "ExampleClass",
-      title: "Example Class",
-      viewType: ViewType.Form,
-      component: ExampleFormComponent
-    },
+    // {
+    //   viewId: "example-form",
+    //   typeName: "ExampleClass",
+    //   title: "Example Class",
+    //   viewType: ViewType.Form,
+    //   component: ExampleFormComponent
+    // },
     ...ADMIN_MODULE_CONFIG.views
   ]
 }

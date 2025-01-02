@@ -39,7 +39,7 @@ export class BaseComponent {
     this.config = inject(BQConfigService);
     this.appInitService = inject(AppInitService);
     this.authorizeService = inject(AuthorizeService);
-    this.messageSvc = inject(MessageService);
+    this.messageSvc = inject(MessageService, {skipSelf: true});
     this.logger = inject(LogService);
     this.authorizeService.getUser().subscribe(x => this.user = x);
     this.authorizeService.isAuthenticated().subscribe(x => this.isAuthenticated = x);

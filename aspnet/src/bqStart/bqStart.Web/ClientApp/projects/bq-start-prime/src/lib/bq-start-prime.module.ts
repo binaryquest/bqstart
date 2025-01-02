@@ -270,18 +270,18 @@ export function initializeApp(appInitService: AppInitService) {
     AppInjector,
     AppInitService,
     MetaDataService,
-    MessageService,
-    PrimeMS,
-    LocaleService,
-    LogPublishersService,
-    LogService,
-    NavigationService,
-    ViewWrapperService,
-    DialogService,
-    //ConfirmationService,
-    RouterService,
-    MainRegionAdapterService,
-    KeyShortcutService
+    // MessageService,
+    // PrimeMS,
+    //LocaleService,
+    //LogPublishersService,
+    //LogService,
+    //NavigationService,
+    //ViewWrapperService,
+    //DialogService,
+    ////ConfirmationService,
+    //RouterService,
+    //MainRegionAdapterService,
+    //KeyShortcutService
   ]
 })
 export class BQStartPrimeModule {

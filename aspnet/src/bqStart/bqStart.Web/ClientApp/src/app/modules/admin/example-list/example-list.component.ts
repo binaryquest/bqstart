@@ -1,0 +1,52 @@
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PREDICATE_EQUALS, ViewOptionalData } from 'bq-start-core';
+import { ODataResponse } from 'bq-start-prime';
+import { BaseListView, RouterService, PredefinedFilter, IBaseListViewEvents, RowExpandedEventData } from 'bq-start-prime';
+import { map } from 'rxjs';
+import { ExampleClass, ExampleClassType } from '../../../models/exampleClass';
+
+const OPTIONAL_DATA:ViewOptionalData = {
+  $expandClause: "Department"
+};
+
+@Component({
+    selector: 'app-example-list',
+    templateUrl: './example-list.component.html',
+    styleUrls: ['./example-list.component.scss'],
+    standalone: false
+})
+export class ExampleListComponent  extends BaseListView<ExampleClass> implements IBaseListViewEvents {
+
+  departmentList:any[] = [];
+
+  constructor(protected override routerSvc: RouterService, private http:HttpClient) {
+    super(routerSvc, OPTIONAL_DATA);
+
+    this.predefinedFilters = [
+      new PredefinedFilter({field: this.metaData.fields.ClassType, filterName: 'Regular Class', predicate: PREDICATE_EQUALS.key, value: "RegularClass"}),
+      new PredefinedFilter({field: this.metaData.fields.ClassType, filterName: 'Prospective Class', predicate: PREDICATE_EQUALS.key, value: "NewClass"}),
+    ];
+  }
+  onAfterInitComplete(): void {
+    var ob = this.http.get("/odata/Department/?$count=true").pipe(map(x => new ODataResponse<any>(x)));
+    ob.subscribe({
+      next: data => {
+        this.departmentList = data.entities;
+      }
+    });
+  }
+  onAfterServerDataReceived(): void {
+
+  }
+
+  onExpanded(ev:RowExpandedEventData){
+    console.log(ev);
+  }
+
+  onRowSelected(row:any){
+    console.log("row selected", row);
+
+  }
+}

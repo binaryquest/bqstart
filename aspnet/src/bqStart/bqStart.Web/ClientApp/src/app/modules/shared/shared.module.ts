@@ -9,6 +9,7 @@ import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { BQStartPrimeModule } from 'bq-start-prime';
 
 @NgModule({
   imports: [
@@ -16,19 +17,13 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     NgOptionHighlightModule,
     SidebarModule,
     ButtonModule,
-    Checkbox
+    Checkbox,
   ],
   exports: [SharedComponent],
   declarations: [SharedComponent],
-  providers: [],
+  providers: [MessageService],
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders<SharedModule> {
-    return {
-      ngModule: SharedModule,
-      providers: [MessageService]
-    }
-  }
   constructor(){
     console.log("loading shared module");
   }
