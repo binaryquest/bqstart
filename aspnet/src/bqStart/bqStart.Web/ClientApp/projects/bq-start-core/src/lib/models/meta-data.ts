@@ -54,9 +54,11 @@ export class TypeSystem {
       case 'Double':
       case 'Single':
         break;
+      case 'Int16':
       case 'Int32':
       case 'Int64':
         break;
+      case 'UInt16':
       case 'UInt32':
       case 'UInt64':
         break;
@@ -124,9 +126,11 @@ export const TYPE_SYSTEM: Dictionary<TypeSystem> = {
   "Decimal": new TypeSystem('Decimal', numberPredicates),
   "Double": new TypeSystem('Double', numberPredicates),
   "Single": new TypeSystem('Single', numberPredicates),
+  "Int16": new TypeSystem('Int16', numberPredicates),
   "Int32": new TypeSystem('Int32', numberPredicates),
   "Int64": new TypeSystem('Int64', numberPredicates),
   "UInt32": new TypeSystem('UInt32', numberPredicates),
+  "UInt16": new TypeSystem('UInt16', numberPredicates),
   "UInt64": new TypeSystem('UInt64', numberPredicates),
   "String": new TypeSystem('String', [PREDICATE_CONTAINS, PREDICATE_NOT_CONTAINS, PREDICATE_STARTS, PREDICATE_ENDS, ...numberPredicatesWithoutBetween]),
   "Enum": new TypeSystem('Enum', onlyEuqals),

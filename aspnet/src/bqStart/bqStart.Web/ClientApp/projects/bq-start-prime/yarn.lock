@@ -2,25 +2,6 @@
 # yarn lockfile v1
 
 
-"@primeng/themes@19.0.2":
-  version "19.0.2"
-  resolved "https://registry.yarnpkg.com/@primeng/themes/-/themes-19.0.2.tgz#f2e8b62651a0de7cebc3ef6c14a92f9b02642d63"
-  integrity sha512-rPLSUkoW6M36Jjd27XD0biiT6C0VdRx024he6ZRgGpFH5WrnKDJPbbzCdLNFF7JCvEgmBHWEDwnmpHgywjrn2g==
-  dependencies:
-    "@primeuix/styled" "^0.3.2"
-
-"@primeuix/styled@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@primeuix/styled/-/styled-0.3.2.tgz#a6093e81a66fc78b915b5e8d998cc73c2c47a1dc"
-  integrity sha512-ColZes0+/WKqH4ob2x8DyNYf1NENpe5ZguOvx5yCLxaP8EIMVhLjWLO/3umJiDnQU4XXMLkn2mMHHw+fhTX/mw==
-  dependencies:
-    "@primeuix/utils" "^0.3.2"
-
-"@primeuix/utils@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@primeuix/utils/-/utils-0.3.2.tgz#dbf92f6b5e18abe214f592a0b51bf4ca02a1f808"
-  integrity sha512-B+nphqTQeq+i6JuICLdVWnDMjONome2sNz0xI65qIOyeB4EF12CoKRiCsxuZ5uKAkHi/0d1LqlQ9mIWRSdkavw==
-
 "@types/lodash-es@~4.17.7":
   version "4.17.12"
   resolved "https://registry.yarnpkg.com/@types/lodash-es/-/lodash-es-4.17.12.tgz#65f6d1e5f80539aa7cfbfc962de5def0cf4f341b"
@@ -47,15 +28,6 @@
   version "13.7.17"
   resolved "https://registry.yarnpkg.com/@types/validator/-/validator-13.7.17.tgz#0a6d1510395065171e3378a4afc587a3aefa7cc1"
   integrity sha512-aqayTNmeWrZcvnG2MG9eGYI6b7S5fl+yKgPs6bAjOTwPS316R5SxBGKvtSExfyoJU7pIeHJfsHI0Ji41RVMkvQ==
-
-primeng@19.0.2:
-  version "19.0.2"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-19.0.2.tgz#1a5fda286d404d5bd8bc7f10897a44b7ad677b03"
-  integrity sha512-7vizB1ynvvADjZBE9/Ks/YFwbY/d2tKYo+8Uq3OsBq9+rf9pIwKQIhd9GKkpe1gXx5Ig2SOFVeTp1Ru4H/vlVA==
-  dependencies:
-    "@primeuix/styled" "^0.3.2"
-    "@primeuix/utils" "^0.3.2"
-    tslib "^2.3.0"
 
 tslib@^2.3.0:
   version "2.8.1"

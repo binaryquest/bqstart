@@ -222,9 +222,11 @@ export class BqTextField extends BaseField {
       case 'Decimal':
       case 'Double':
       case 'Single':
+      case 'Int16':
       case 'Int32':
       case 'Int64':
       case 'UInt32':
+      case 'UInt16':
       case 'UInt64':
       case 'Char':
       case 'Guid':
@@ -246,11 +248,13 @@ export class BqTextField extends BaseField {
         this.controlRenderTemplate = this.numberRender;
         this.rangeValidationSetup();
         break;
+      case 'Int16':
       case 'Int32':
       case 'Int64':
         this.controlRenderTemplate = this.integerRender;
         this.rangeValidationSetup();
         break;
+      case 'UInt16':
       case 'UInt32':
       case 'UInt64':
         this.controlRenderTemplate = this.integerRender;
@@ -272,7 +276,7 @@ export class BqTextField extends BaseField {
         if (this.field?.hasEmailValidator()) {
           this.controlRenderTemplate = this.emailRender;
         }
-        let maxVal = this.field?.validations.filter(f => f.validationType == ValidationType.maxLength);
+        let maxVal = this.field?.validations.filter((f: any) => f.validationType == ValidationType.maxLength);
         if (maxVal.length > 0) {
           if (this.maxLength === undefined && maxVal[0].maxLength !== undefined) {
             this.maxLength = maxVal[0].maxLength;
@@ -281,17 +285,17 @@ export class BqTextField extends BaseField {
             this.minLength = maxVal[0].minLength;
           }
         }
-        let minVal = this.field?.validations.filter(f => f.validationType == ValidationType.minLength);
+        let minVal = this.field?.validations.filter((f: any) => f.validationType == ValidationType.minLength);
         if (minVal.length > 0) {
           if (this.minLength === undefined && minVal[0].minLength !== undefined) {
             this.minLength = minVal[0].minLength;
           }
         }
-        let regVal = this.field?.validations.filter(f => f.validationType == ValidationType.regularExpression);
+        let regVal = this.field?.validations.filter((f: any) => f.validationType == ValidationType.regularExpression);
         if (regVal !== undefined && regVal.length > 0 && this.regexPattern !== undefined) {
           this.regexPattern = regVal[0].pattern;
         }
-        let comVal = this.field?.validations.filter(f => f.validationType == ValidationType.compare);
+        let comVal = this.field?.validations.filter((f: any) => f.validationType == ValidationType.compare);
         if (comVal !== undefined && comVal.length > 0 && this.compareTo !== undefined && comVal[0].otherProperty !== undefined) {
           this.compareTo = comVal[0].otherProperty;
         }
@@ -303,7 +307,7 @@ export class BqTextField extends BaseField {
   }
 
   private rangeValidationSetup() {
-    let rangeVal = this.field?.validations.filter(f => f.validationType == ValidationType.range);
+    let rangeVal = this.field?.validations.filter((f: any) => f.validationType == ValidationType.range);
     if (rangeVal!==undefined && rangeVal.length > 0) {
       const val = rangeVal[0];
       if (this.min === undefined && val.minRange !== undefined) {

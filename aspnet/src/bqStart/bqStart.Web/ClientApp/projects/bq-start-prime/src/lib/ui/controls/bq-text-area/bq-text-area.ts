@@ -86,9 +86,11 @@ export class BqTextArea extends BaseField {
       case 'Decimal':
       case 'Double':
       case 'Single':
+      case 'Int16':
       case 'Int32':
       case 'Int64':
       case 'UInt32':
+      case 'UInt16':
       case 'UInt64':
       case 'Char':
       case 'Guid':
@@ -106,16 +108,18 @@ export class BqTextArea extends BaseField {
       case 'Decimal':
       case 'Double':
       case 'Single':
+      case 'Int16':
       case 'Int32':
       case 'Int64':
       case 'UInt32':
+      case 'UInt16':
       case 'UInt64':
       case 'Char':
       case 'Guid':
       case 'DateTime':
       case 'String':
         this.controlRenderTemplate = this.stringRender;
-        let maxVal = this.field?.validations.filter(f => f.validationType == ValidationType.maxLength);
+        let maxVal = this.field?.validations.filter((f: any) => f.validationType == ValidationType.maxLength);
         if (maxVal.length > 0) {
           if (this.maxLength === undefined && maxVal[0].maxLength !== undefined) {
             this.maxLength = maxVal[0].maxLength;
@@ -124,7 +128,7 @@ export class BqTextArea extends BaseField {
             this.minLength = maxVal[0].minLength;
           }
         }
-        let minVal = this.field?.validations.filter(f => f.validationType == ValidationType.minLength);
+        let minVal = this.field?.validations.filter((f: any) => f.validationType == ValidationType.minLength);
         if (minVal.length > 0) {
           if (this.minLength === undefined && minVal[0].minLength !== undefined) {
             this.minLength = minVal[0].minLength;
