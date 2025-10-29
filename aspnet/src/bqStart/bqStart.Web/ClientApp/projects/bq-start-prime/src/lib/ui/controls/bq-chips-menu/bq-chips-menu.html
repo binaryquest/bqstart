@@ -47,9 +47,9 @@
         />
       </li>
     </ul>
-    <div class="bq-chip-menu-overlay p-dropdown-panel" *ngIf="menuVisible">
-      <li class="p-dropdown-items">
-        <ul
+    <div class="bq-chip-menu-overlay p-menu p-component p-menu-overlay" *ngIf="menuVisible">
+      <ul class="p-menu-item-content p-2">
+        <li
           *ngFor="let filter of defaultFilters"
           class="p-dropdown-item p-ripple"
           [ngClass]="{'p-highlight': filter == selectedFilter}"
@@ -57,8 +57,8 @@
         >
         <i class="pi pi-arrow-right" *ngIf="filter == selectedFilter"></i>
           {{'bq-start.filters.search' | translate}} {{filter.caption}} {{filter.defaultPredicate.display | translate}} {{typedText}}
-        </ul>
-      </li>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

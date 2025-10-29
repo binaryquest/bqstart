@@ -42,10 +42,12 @@
           <ng-container *ngIf="optionColumnTemplate; else defaultOptionRender" [ngTemplateOutlet]="optionColumnTemplate"
             [ngTemplateOutletContext]="{row:data}"></ng-container>
           <ng-template #defaultOptionRender>
-            <span class="p-buttonset">
-              <button *ngIf="expandedRowTemplate" pButton [icon]="expanded ? 'pi pi-arrow-up' : 'pi pi-arrow-down'" aria-label="Expand" type="button" class="p-button-secondary p-button-sm" (click)="expandRow(data, expanded, $event)" ></button>
-              <button *ngIf="allowEdit" pButton icon="pi pi-pencil" aria-label="Edit" type="button" class="p-button-primary p-button-sm" (click)="gotoEdit(data)"></button>
-              <button *ngIf="allowDetails" pButton icon="pi pi-file" aria-label="Details" type="button" class="p-button-secondary p-button-sm" (click)="gotoDetails(data)"></button>
+            <span class="inline-flex gap-2">
+              @if (expandedRowTemplate){
+              <p-button [icon]="expanded ? 'pi pi-arrow-up' : 'pi pi-arrow-down'" (click)="expandRow(data, expanded, $event)" severity="secondary"></p-button>
+              }
+              <p-button *ngIf="allowEdit" icon="pi pi-pencil" (click)="gotoEdit(data)" severity="primary"></p-button>
+              <p-button *ngIf="allowDetails" icon="pi pi-file" (click)="gotoDetails(data)" severity="secondary"></p-button>
             </span>
           </ng-template>
         </td>

@@ -1,48 +1,35 @@
 {
   "name": "bq-start-prime",
-  "version": "3.17.30",
-  "homepage": "https://github.com/binaryquest/bqstart",
-  "keywords": [
-    "bqStart",
-    "starter",
-    "aspnet",
-    "aspnet core",
-    "PrimeNG",
-    "Binaryquest"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/binaryquest/bqstart.git"
-  },
+  "version": "4.1.8",
   "license": "MIT",
   "author": "http://bqstart.com",
-  "module": "bq-start-prime.js",
-  "typings": "bq-start-prime.d.ts",
   "peerDependencies": {
-    "@angular/animations": "^17.3.0",
-    "@angular/cdk": "^17.3.0",
-    "@angular/common": "^17.3.0",
-    "@angular/core": "^17.3.0",
-    "@angular/forms": "^17.3.0",
-    "@angular/material": "^17.3.0",
-    "@angular/platform-browser": "^17.3.0",
-    "rxjs": "^7.8.1",
-    "zone.js": "^0.14.3"
-  },
-  "dependencies": {
-    "@ng-select/ng-select": "^12.0.6",
-    "@ngx-translate/core": "^15.0.0",
-    "@ngx-translate/http-loader": "^8.0.0",
+    "@angular/animations": "^19.0.5",
+    "@angular/cdk": "^19.0.0",
+    "@angular/common": "^19.0.5",
+    "@angular/compiler": "^19.0.5",
+    "@angular/core": "^19.0.5",
+    "@angular/forms": "^19.0.5",
+    "@angular/platform-browser": "^19.0.5",
+    "@angular/router": "^19.0.5",
+    "@ng-select/ng-select": "^13.9.1",
+    "@ngx-translate/core": "^16.0.3",
+    "@ngx-translate/http-loader": "^16.0.0",
     "lodash-es": "^4.17.21",
     "luxon": "^3.4.2",
     "ng-keyboard-shortcuts": "^13.0.8",
     "oidc-client": "^1.11.5",
-    "primeflex": "^3.3.0",
+    "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",
-    "primeng": "17.17.0",
-    "tslib": "^2.3.0",
+    "@primeng/themes": "19.0.2",
+    "primeng": "19.0.2",
+    "rxjs": "^7.8.1",
     "uuid": "^9.0.0",
-    "validator": "^13.9.0"
+    "validator": "^13.9.0",
+    "zone.js": "^0.15.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@types/lodash-es": "~4.17.7",

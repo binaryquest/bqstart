@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BaseComponent } from '../../base.component';
 
 @Component({
-  selector: 'bq-footer-bar',
-  templateUrl: './footer-bar.html',
-  styleUrls: ['./footer-bar.scss']
+    selector: 'bq-footer-bar',
+    templateUrl: './footer-bar.html',
+    styleUrls: ['./footer-bar.scss'],
+    standalone: false
 })
 export class FooterBar extends BaseComponent implements OnInit {
 

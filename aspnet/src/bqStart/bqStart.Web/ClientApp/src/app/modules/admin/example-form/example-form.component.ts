@@ -1,0 +1,31 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ViewOptionalData } from 'bq-start-core';
+import { BaseFormView, IBaseFormViewEvents, RouterService } from 'bq-start-prime';
+import { ExampleClass } from '../../../models/exampleClass';
+
+
+const OPTIONAL_DATA:ViewOptionalData = {
+  $expandClause: "Department"
+};
+
+@Component({
+    selector: 'app-example-form',
+    templateUrl: './example-form.component.html',
+    styleUrls: ['./example-form.component.scss'],
+    standalone: false
+})
+export class ExampleFormComponent extends BaseFormView<ExampleClass> implements IBaseFormViewEvents {
+
+  constructor(protected override routerSvc: RouterService) {
+    super(routerSvc, OPTIONAL_DATA);
+  }
+
+  onAfterInitComplete(): void {
+
+  }
+
+  onAfterServerDataReceived(): void {
+
+  }
+}

@@ -48,7 +48,15 @@ export class DialogService {
       header: heading,
       icon: 'pi pi-exclamation-triangle',
       accept: accept,
-      reject: cancel
+      reject: cancel,
+      acceptLabel: 'OK',
+      acceptIcon: 'pi pi-check',
+      rejectIcon: 'pi pi-times',
+      rejectLabel: 'Cancel',
+      acceptVisible: true,
+      rejectVisible: true,
+      acceptButtonStyleClass: 'p-button-primary',
+      rejectButtonStyleClass: 'p-button-secondary',
     });
   }
 

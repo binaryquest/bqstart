@@ -36,9 +36,10 @@ export enum TableDensity {
  * @implements {OnChanges}
  */
 @Component({
-  selector: 'bq-table',
-  templateUrl: './bq-table.html',
-  styleUrls: ['./bq-table.scss']
+    selector: 'bq-table',
+    templateUrl: './bq-table.html',
+    styleUrls: ['./bq-table.scss'],
+    standalone: false
 })
 export class Table implements OnInit, OnDestroy, OnChanges {
 

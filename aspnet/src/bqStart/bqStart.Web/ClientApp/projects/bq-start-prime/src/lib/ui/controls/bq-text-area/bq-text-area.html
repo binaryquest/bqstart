@@ -17,7 +17,7 @@
       {{myField.errors?.minlength?.requiredLength}}<br/></small
     >
     <small class="p-error" *ngIf="myField.errors?.maxlength"
-      >* maxium length allowed
+      >* maximum length allowed
       {{myField.errors?.maxlength?.requiredLength}}<br/></small
     >
 
@@ -32,7 +32,7 @@
         [id]="id"
         [name]="id"
         [rows]="row"
-        pInputTextarea [autoResize]="autoResize"
+        pTextarea  [autoResize]="autoResize"
         [(ngModel)]="model"
     (ngModelChange)="onChange($event)"
     class="inputfield w-full"

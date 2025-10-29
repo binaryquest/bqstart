@@ -19,7 +19,8 @@ export const CHIPS_VALUE_ACCESSOR: any = {
     providers: [CHIPS_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./bq-chips-menu.css']
+    styleUrls: ['./bq-chips-menu.css'],
+    standalone: false
 })
 export class ChipsMenu implements AfterContentInit,ControlValueAccessor, OnInit {
 
@@ -322,6 +323,7 @@ export class ChipsMenu implements AfterContentInit,ControlValueAccessor, OnInit 
     }
 
     menuClicked(filter:TableFilter, event:MouseEvent){
+      console.log("menuClicked", this.inputViewChild.nativeElement.value);
       this.selectedFilter = filter;
       this.addItem(event, this.inputViewChild.nativeElement.value, true);
     }

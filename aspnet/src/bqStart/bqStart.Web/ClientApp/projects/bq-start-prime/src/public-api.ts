@@ -2,7 +2,7 @@
  * Public API Surface of bq-start-prime
  */
 
-//export * from './lib/models/meta-data';
+
 export * from './lib/api-authorization/authorize.guard';
 export * from './lib/api-authorization/authorize.interceptor';
 export * from './lib/api-authorization/authorize.service';

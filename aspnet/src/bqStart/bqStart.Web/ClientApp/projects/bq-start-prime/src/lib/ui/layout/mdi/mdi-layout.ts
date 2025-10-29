@@ -1,5 +1,5 @@
-import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, inject, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { PrimeNG } from 'primeng/config';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
 import { BQConfigData, BQConfigService } from 'bq-start-core';
 import { AppInjector } from '../../../services/app-injector.service';
@@ -7,6 +7,7 @@ import { MainRegionAdapterService } from '../../../services/mainRegionAdapter.se
 import { BQTemplate } from '../../core/bq-template.directive';
 import { Dictionary } from 'bq-start-core';
 import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts';
+import Aura from '@primeng/themes/aura';
 
 /**
  * Main layout component for showing views as a Tabbed MDI interface. The config option should
@@ -17,20 +18,20 @@ import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts
  * @implements {OnInit}
  */
 @Component({
-  selector: 'bq-mdi-app-layout',
-  styles: [
-    `
+    selector: 'bq-mdi-app-layout',
+    styles: [
+        `
       .mdi-layout {
         height: calc(100vh - 60px);
       }
     `,
-  ],
-  template: `
+    ],
+    template: `
     <div class="layout-wrapper">
       <bq-top-menu-bar (onTopRightMenuClicked)="handleTopMenuClick($event)"></bq-top-menu-bar>
-      <div class="layout-content-inactive mdi-layout flex flex-column">
+      <div class="layout-content-inactive mdi-layout flex flex-col">
         <div
-          class="flex-grow-1 flex flex-column"
+          class="grow flex flex-col"
           style="overflow-y: scroll;height:83vh;padding: 3px;"
         >
           <view-wrapper
@@ -39,8 +40,8 @@ import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts
             </bq-mdi>
           </view-wrapper>
         </div>
-        <div class="flex-shrink flex align-items-stretch">
-          <div class="layout-footer flex-grow-1 p-3">
+        <div class="flex-shrink flex items-stretch">
+          <div class="layout-footer grow p-4">
             <ng-container [ngTemplateOutlet]="controlFooterTemplate" *ngIf="isAuthenticated"></ng-container>
           </div>
         </div>
@@ -53,10 +54,11 @@ import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts
       <bq-footer-bar></bq-footer-bar>
     </ng-template>
   `,
+    standalone: false
 })
 export class MDILayoutComponent implements OnInit, AfterContentInit {
   isAuthenticated: boolean;
-
+  prime: PrimeNG = inject(PrimeNG);
   @Input()
   injector: any;
   config: BQConfigData;
@@ -100,9 +102,18 @@ export class MDILayoutComponent implements OnInit, AfterContentInit {
   }
 
   constructor(
-    private primengConfig: PrimeNGConfig,
     private authorizeService: AuthorizeService
   ) {
+    this.prime.theme.set({
+      preset: Aura,
+      options: {
+        darkModeSelector: '.my-app-dark',
+        cssLayer: {
+          //name: 'primeng',
+          //order: 'tailwind-base, primeng, tailwind-utilities'
+        }
+      }
+    });
     this.authorizeService.isAuthenticated().subscribe((x) => {
       this.isAuthenticated = x;
     });

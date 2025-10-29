@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewOptionalData } from 'bq-start-core';
-import { BaseFormView, IBaseFormViewEvents, RouterService } from 'projects/bq-start-prime/src/public-api';
-import { ExampleClass } from 'src/app/models/exampleClass';
+import { BaseFormView, IBaseFormViewEvents, RouterService } from 'bq-start-prime';
+import { ExampleClass } from '../../models/exampleClass';
 
 
 const OPTIONAL_DATA:ViewOptionalData = {
@@ -10,9 +10,10 @@ const OPTIONAL_DATA:ViewOptionalData = {
 };
 
 @Component({
-  selector: 'app-example-form',
-  templateUrl: './example-form.component.html',
-  styleUrls: ['./example-form.component.scss']
+    selector: 'app-example-form',
+    templateUrl: './example-form.component.html',
+    styleUrls: ['./example-form.component.scss'],
+    standalone: false
 })
 export class ExampleFormComponent extends BaseFormView<ExampleClass> implements IBaseFormViewEvents {
 

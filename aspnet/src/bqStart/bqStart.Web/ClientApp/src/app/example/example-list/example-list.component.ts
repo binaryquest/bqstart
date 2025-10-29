@@ -3,18 +3,19 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PREDICATE_EQUALS, ViewOptionalData } from 'bq-start-core';
 import { ODataResponse } from 'bq-start-prime';
-import { BaseListView, RouterService, PredefinedFilter, IBaseListViewEvents, RowExpandedEventData } from 'projects/bq-start-prime/src/public-api';
+import { BaseListView, RouterService, PredefinedFilter, IBaseListViewEvents, RowExpandedEventData } from 'bq-start-prime';
 import { map } from 'rxjs';
-import { ExampleClass, ExampleClassType } from 'src/app/models/exampleClass';
+import { ExampleClass, ExampleClassType } from '../../models/exampleClass';
 
 const OPTIONAL_DATA:ViewOptionalData = {
   $expandClause: "Department"
 };
 
 @Component({
-  selector: 'app-example-list',
-  templateUrl: './example-list.component.html',
-  styleUrls: ['./example-list.component.scss']
+    selector: 'app-example-list',
+    templateUrl: './example-list.component.html',
+    styleUrls: ['./example-list.component.scss'],
+    standalone: false
 })
 export class ExampleListComponent  extends BaseListView<ExampleClass> implements IBaseListViewEvents {
 

@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterService, BaseFormView, BaseListView } from 'projects/bq-start-prime/src/public-api';
+import { Component } from '@angular/core';
+import { RouterService, BaseFormView, BaseListView } from 'bq-start-prime';
 
 
 @Component({
-  selector: 'app-role-list',
-  template: `
+    selector: 'app-role-list',
+    template: `
     <bq-table [model]='models'
           [metaData]='metaData'
           [tableParams]='tableParams'
@@ -21,8 +20,8 @@ import { RouterService, BaseFormView, BaseListView } from 'projects/bq-start-pri
 
 </bq-table>
   `,
-  styles: [
-  ]
+    styles: [],
+    standalone: false
 })
 export class RoleList extends BaseListView<any> {
 
@@ -33,14 +32,14 @@ export class RoleList extends BaseListView<any> {
 }
 
 @Component({
-  selector: 'app-role-form',
-  template: `
+    selector: 'app-role-form',
+    template: `
     <bq-form>
       <bq-text-field [field]="metaData.fields['Name']" [(model)]="model.Name"></bq-text-field>
     </bq-form>
   `,
-  styles: [
-  ]
+    styles: [],
+    standalone: false
 })
 export class RoleForm extends BaseFormView<any> {
 

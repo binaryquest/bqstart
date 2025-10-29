@@ -1,10 +1,9 @@
-<div class="flex">
-  <div class="flex-shrink flex align-items-start">
+<div class="flex justify-between" style="background-color: var(--p-panel-background);">
+  <div class="flex">
     <span>{{ 'bq-start.copyright' | translate }} {{year}}, {{copyright}}</span>
   </div>
-  <div class="flex-grow-1 flex">&nbsp;</div>
-  <div class="flex-shrink flex align-items-end justify-content-right">
-    <span>{{applicationName}}</span>&nbsp;
-    <a href="https://binaryquest.com">{{'bq-start.poweredby' | translate}}</a>
+  <div class="flex items-end justify-end gap-2">
+    <span>{{applicationName}}</span>
+    <a href="https://binaryquest.com">{{'bq-start.poweredby' | translate}}&nbsp;&nbsp;</a>
   </div>
 </div>

@@ -7,11 +7,36 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "bq-start-upgrade": {
+    "bqStartNext": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "skipTests": true,
+          "standalone": false
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true,
+          "standalone": false
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true,
+          "standalone": false
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
         }
       },
       "root": "",
@@ -19,42 +44,49 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/bq-start-upgrade",
+            "outputPath": "dist/bq-start-next",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "public"
+              },
               "src/assets"
             ],
             "styles": [
-              "node_modules/primeicons/primeicons.css",
-              "node_modules/primeflex/primeflex.scss",
               "src/styles.scss"
             ],
-            "scripts": [],
+            "stylePreprocessorOptions": {
+              "sass": {
+                "silenceDeprecations": ["mixed-decls", "color-functions", "global-builtin", "import"]
+              }
+            },
             "allowedCommonJsDependencies": [
-              "validator"
-            ]
+              "validator",
+              "oidc-client"
+            ],
+            "scripts": []
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "3mb",
-                  "maximumError": "7mb"
+                  "maximumWarning": "4MB",
+                  "maximumError": "6MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
                 }
               ],
               "fileReplacements": [
@@ -66,12 +98,9 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -80,19 +109,16 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "bq-start-upgrade:build:production"
+              "buildTarget": "bqStartNext:build:production"
             },
             "development": {
-              "buildTarget": "bq-start-upgrade:build:development"
+              "buildTarget": "bqStartNext:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "bq-start-upgrade:build"
-          }
+          "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -104,53 +130,15 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
             ],
             "styles": [
               "src/styles.scss"
             ],
             "scripts": []
-          }
-        }
-      }
-    },
-    "bq-start-prime": {
-      "projectType": "library",
-      "root": "projects/bq-start-prime",
-      "sourceRoot": "projects/bq-start-prime/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "project": "projects/bq-start-prime/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/bq-start-prime/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/bq-start-prime/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "tsConfig": "projects/bq-start-prime/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
-          }
-        },
-        "deploy": {
-          "builder": "ngx-deploy-npm:deploy",
-          "options": {
-            "access": "public",
-            "buildTarget": "production"
           }
         }
       }
@@ -180,6 +168,39 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/bq-start-core/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "bq-start-prime": {
+      "projectType": "library",
+      "root": "projects/bq-start-prime",
+      "sourceRoot": "projects/bq-start-prime/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/bq-start-prime/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/bq-start-prime/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/bq-start-prime/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/bq-start-prime/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"

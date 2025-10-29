@@ -10,7 +10,8 @@
       "discard": "ক্যান্সেল",
       "filter": "ফিল্টার",
       "applyFilter": "অ্যাপ্লাই",
-      "addCondition": "কন্ডিশন যোগ"
+      "addCondition": "কন্ডিশন যোগ",
+      "cancel": "বাতিল"
     },
     "messages":{
       "confirmation": "Confirmation",
@@ -36,7 +37,9 @@
       "lt": "<",
       "le": "<=",
       "isSet": "সেট আছে",
-      "isNotSet": "সেট করা নাই"
+      "isNotSet": "সেট করা নাই",
+      "term-error": "সার্চ টার্ম {{term}} সঠিক নয় {{caption}} এর জন্য",
+      "term-error-title": "ইনপুট ভুল"
     }
   }
 }

@@ -1,5 +1,45 @@
 {
   "bq-start": {
-    "copyright": "en-SG Copyright ©"
+    "copyright": "en-SG Copyright ©",
+    "poweredby": "Powered By bqStart",
+    "buttons":{
+      "new": "New",
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
+      "discard": "Discard",
+      "filter": "Filter",
+      "applyFilter": "Apply",
+      "addCondition": "Add Condition",
+      "cancel": "Cancel"
+    },
+    "messages":{
+      "confirmation": "Confirmation",
+      "deleteConfirm": "Are you sure that you want to delete?",
+      "discardConfirm": "Are you sure that you want to discard?",
+      "recordDeleted": "Record Deleted",
+      "recordSaved": "Record Saved",
+      "dataLoaded": "Server Data Loaded",
+      "error":"Error"
+    },
+    "filters":{
+      "title": "Filters",
+      "customTitle": "Custom Filters",
+      "search": "Search",
+      "contains": "containing",
+      "notContains":"not containing",
+      "startsWith":"starts with",
+      "endsWith":"ends with",
+      "between":"between",
+      "eq":"=",
+      "gt":">",
+      "ge":">=",
+      "lt":"<",
+      "le":"<=",
+      "isSet":"is set",
+      "isNotSet":"is not set",
+      "term-error": "Search Term {{term}} is not valid for {{caption}}",
+      "term-error-title": "Input Error"
+    }
   }
 }

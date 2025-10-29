@@ -10,6 +10,7 @@ import { BQConfigData, BQConfigService } from "bq-start-core";
 
 export const DataServiceToken = new InjectionToken<DataServiceOptions>('GSvcDataOptions');
 export declare class DataServiceOptions {
+  $rootApiUrl?: string;
   $expandClause?: string;
   $selectClause?: string;
   //fixed filters from view backend
@@ -39,6 +40,9 @@ export class GenericDataService implements OnDestroy {
       console.warn("options is undefined or null in GenericDataService");
     }
     this.rootUrl = config.apiRootUrl ?? '';
+    if(options && options.$rootApiUrl){
+      this.rootUrl = options.$rootApiUrl;
+    }
     this.rootUrl = this.rootUrl.endsWith('/') ? this.rootUrl.slice(0, -1) : this.rootUrl;
   }
 

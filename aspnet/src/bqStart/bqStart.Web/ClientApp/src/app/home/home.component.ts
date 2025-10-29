@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorizeService, IUser } from 'projects/bq-start-prime/src/public-api';
+import { AuthorizeService, IUser } from 'bq-start-prime';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    standalone: false
 })
 export class HomeComponent implements OnInit {
 

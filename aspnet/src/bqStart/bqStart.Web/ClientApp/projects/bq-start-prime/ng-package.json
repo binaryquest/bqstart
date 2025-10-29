@@ -8,18 +8,4 @@
     "./src/lib/styles/*.scss",
     "./src/lib/assets/**/*.*"
   ],
-  "allowedNonPeerDependencies":[
-    "primeflex",
-    "primeng",
-    "primeicons",
-    "oidc-client",
-    "@ngx-translate/core",
-    "@ngx-translate/http-loader",
-    "validator",
-    "lodash-es",
-    "@ng-select/ng-select",
-    "uuid",
-    "luxon",
-    "ng-keyboard-shortcuts"
-  ]
 }

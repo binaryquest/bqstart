@@ -1,0 +1,54 @@
+<bq-form>
+  <div class="grid grid-cols-12 gap-4">
+  <bq-form-block [labelSize]="3" class="col-span-12 md:col-span-6">
+
+  <bq-text-field
+    [field]="metaData.fields.ClassName"
+    [(model)]="model.ClassName"
+  ></bq-text-field>
+
+  <bq-text-area
+    [field]="metaData.fields.ClassName"
+    [(model)]="model.ClassName"
+    [autoResize]="true"
+    [row]="5">
+  </bq-text-area>
+
+  <bq-text-field
+    [field]="metaData.fields.ClassDate"
+    [(model)]="model.ClassDate"
+    [showTime]="true"
+  ></bq-text-field>
+
+  <bq-text-field
+  [field]="metaData.fields.CreatedOn"
+  [(model)]="model.CreatedOn"
+></bq-text-field>
+
+
+  <bq-dropdown-field [field]="metaData.fields.DepartmentId" [(model)]="model.DepartmentId" [itemSource]="lookupDataModel.departmentList" displayName="name" valueName="id">
+    //optional display template
+    <ng-template bqTemplate="displayLabel">
+        {{model.Department?.DepartmentName}}
+    </ng-template>
+  </bq-dropdown-field>
+
+  <bq-text-field
+    [field]="metaData.fields.IsActive"
+    [(model)]="model.IsActive"
+  ></bq-text-field>
+
+  <bq-dropdown-field [field]="metaData.fields.ClassType" [(model)]="model.ClassType" [showAsEnum]="true">
+  </bq-dropdown-field>
+
+  </bq-form-block>
+</div>
+</bq-form>
+
+<hr/>
+
+
+<hr/>
+
+
+<hr/>

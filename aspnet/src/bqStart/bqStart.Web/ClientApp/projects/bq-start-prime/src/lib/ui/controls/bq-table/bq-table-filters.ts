@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ElementRef, EventEmitter, Input, NgZone, OnDestroy, OnInit, Output, QueryList, Renderer2, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, computed, ElementRef, EventEmitter, input, Input, InputSignal, NgZone, OnDestroy, OnInit, Output, QueryList, Renderer2, ViewChild } from '@angular/core';
 import { find, Subject, Subscription } from 'rxjs';
 import { MetadataField, ModelMetadata, PREDICATE_CONTAINS, PREDICATE_EQUALS } from 'bq-start-core';
 import { FilterByClause, PredefinedFilter, TableParams } from '../../../models/table-data';
@@ -7,6 +7,7 @@ import { TableFilter } from './bq-table-filter';
 import { DomHandler } from 'primeng/dom';
 //import { tap } from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
+import { MenuItem } from 'primeng/api';
 
 /**
  * Represent a filter component inside bq-table
@@ -18,9 +19,10 @@ import { TranslateService } from '@ngx-translate/core';
  * @implements {OnDestroy}
  */
 @Component({
-  selector: 'bq-table-filters',
-  templateUrl: './bq-table-filters.html',
-  styleUrls: ['./bq-table-filters.scss']
+    selector: 'bq-table-filters',
+    templateUrl: './bq-table-filters.html',
+    styleUrls: ['./bq-table-filters.scss'],
+    standalone: false
 })
 export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
 
@@ -57,8 +59,7 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
    * @type {PredefinedFilter[]}
    * @memberof TableFilters
    */
-  @Input()
-  predefinedFilters: PredefinedFilter[];
+  predefinedFilters = input<PredefinedFilter[]>([]);
 
   /**
    * If it will show additional filter add option
@@ -82,42 +83,40 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
 
   customFilters: FilterByClause[];
 
-  showMenu: boolean;
+  customFilterMenuItem: MenuItem = {
+    label: 'New Custom Filter'
+  };
 
-  container: HTMLDivElement | null;
-  isContainerClicked: boolean = true;
-  documentClickListener: any;
-  target: any;
+  filterMenuItems = computed(() => [...this.predefinedFilters()??[], {
+    separator: true
+}, this.customFilterMenuItem]);
 
   constructor(private msgSvc: MessageService, public el: ElementRef, public renderer: Renderer2, private zone: NgZone, private translate:TranslateService) { }
 
   ngAfterViewInit(): void {
-    this.container = this.el.nativeElement.getElementsByClassName("bq-filter-overlay")[0];
-    if (this.container && this.filters.length > 0) {
-      this.bindDocumentClickListener();
-    }
+
   }
 
 
 
   ngOnInit() {
     if (this.tableParams) {
-      this.predefinedFilters = this.predefinedFilters ?? [];
+      //this.predefinedFilters = this.predefinedFilters ?? [];
       //lets sync query string to internal table
       this.tableParamsSub = this.tableParams.getChanges().subscribe(_ => {
         this.appliedFilters = this.tableParams.filterByCollection ?? [];
         if (this.filters.length > 0) {
           const firstFilter: TableFilter = this.filters.first;
-          this.customFilters = [FilterByClause.GetDefault(firstFilter.caption, firstFilter.field)];
+          this.customFilters = [];
         } else {
           this.customFilters = [];
         }
         //map if predefined filters is selected
         try {
-          this.predefinedFilters.map(pf => pf.isSelected = false);
+          this.predefinedFilters().map(pf => pf.isSelected = false);
           this.appliedFilters.map(f => {
             if (f.CustomName) {
-              const findResult = this.predefinedFilters.find(ff => ff.filterName == f.CustomName);
+              const findResult = this.predefinedFilters().find(ff => ff.filterName == f.CustomName);
               if (findResult !== undefined){
                 findResult.isSelected = true;
               }
@@ -186,11 +185,6 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
-  toggleMenu() {
-    this.isContainerClicked = true;
-    this.showMenu = !this.showMenu;
-  }
-
   addCondition() {
     if (this.filters.length > 0) {
       const firstFilter: TableFilter = this.filters.first;
@@ -203,7 +197,6 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
     if (validFilterClauses.length > 0) {
       //console.log("set filter",validFilterClauses);
       this.tableParams.addFilters(validFilterClauses);
-      this.showMenu = false;
     } else {
       this.msgSvc.showMessage("Please enter search term", "Input Error", MessageType.error);
     }
@@ -216,43 +209,15 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
-  onContainerClick() {
-    this.isContainerClicked = true;
-  }
-
-  bindDocumentClickListener() {
-    if (!this.documentClickListener) {
-      this.zone.runOutsideAngular(() => {
-        let documentEvent = DomHandler.isIOS() ? 'touchstart' : 'click';
-        const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
-
-        this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-          if (this.container!==null && !this.container.contains(event.target) && !this.isContainerClicked) {
-            this.zone.run(() => {
-              this.showMenu = false;
-            });
-          }
-
-          this.isContainerClicked = false;
-        });
-      });
-    }
-  }
-
-  unbindDocumentClickListener() {
-    if (this.documentClickListener) {
-      this.documentClickListener();
-      this.documentClickListener = null;
+  removeAllCondition() {
+    //console.log("remove here " + index);
+    if (this.customFilters.length > 0) {
+      this.customFilters = [];
     }
   }
 
   ngOnDestroy(): void {
     //InternalLogService.logger.debug("TableFilters.ngOnDestroy", this.container);
-    this.target = null;
-    if (this.container) {
-      this.unbindDocumentClickListener();
-      this.container = null;
-    }
   }
 
   pfMenuClicked(filter: PredefinedFilter, event: MouseEvent) {
@@ -266,7 +231,6 @@ export class TableFilters implements AfterViewInit, OnInit, OnDestroy {
     else{ //Add
       this.tableParams.addFilter(pfc);
     }
-    this.showMenu = false;
   }
 
   gotoAddView(){

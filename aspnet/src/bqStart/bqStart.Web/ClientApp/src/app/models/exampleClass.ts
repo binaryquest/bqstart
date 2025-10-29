@@ -1,4 +1,4 @@
-import { BaseEntity } from "projects/bq-start-core/src/public-api";
+import { BaseEntity } from "bq-start-core";
 import { Department } from "./department";
 
 export class ExampleClass extends BaseEntity<number>{

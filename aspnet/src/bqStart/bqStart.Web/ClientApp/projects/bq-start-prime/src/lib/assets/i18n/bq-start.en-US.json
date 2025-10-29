@@ -10,7 +10,8 @@
       "discard": "Discard",
       "filter": "Filter",
       "applyFilter": "Apply",
-      "addCondition": "Add Condition"
+      "addCondition": "Add Condition",
+      "cancel": "Cancel"
     },
     "messages":{
       "confirmation": "Confirmation",

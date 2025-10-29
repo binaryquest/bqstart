@@ -1,89 +1,89 @@
-<div class="p-d-flex p-flex-column p-fluid p-mb-2">
+<div class="flex flex-col md:flex-row flex-wrap gap-1">
 
   <!-- field -->
-  <p-dropdown class="p-pt-2" [options]="filters" optionLabel="caption" (ngModelChange)="fieldUpdated($event)"
+  <p-select styleClass="w-full md:w-auto" [options]="filters" optionLabel="caption" (ngModelChange)="fieldUpdated($event)"
     [(ngModel)]="selectedFilter" [name]="'fn' + formName">
-  </p-dropdown>
+  </p-select>
 
   <!-- predicate -->
-  <p-dropdown class="p-pt-2" [options]="selectedFilter.field.typeSystem.predicates" *ngIf="!showDropDownValue"
+  <p-select class="" [options]="selectedFilter.field.typeSystem.predicates" *ngIf="!showDropDownValue"
     [name]="'pd' + formName"
     [(ngModel)]="selectedPredicate" (ngModelChange)="predicateUpdated($event, selectedFilter)">
 
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
       {{item.display | translate}}
     </ng-template>
-    <ng-template pTemplate="selectedItem" let-item>
+    <ng-template #selectedItem let-item>
       <span *ngIf="item">
       {{item.display | translate}}
       </span>
     </ng-template>
 
-  </p-dropdown>
+  </p-select>
 
   <!-- predicate -->
-  <p-dropdown class="p-pt-2" [options]="showEquals" *ngIf="showDropDownValue"
+  <p-select class="" [options]="showEquals" *ngIf="showDropDownValue"
     [name]="'pd' + formName"
     [(ngModel)]="selectedPredicate" (ngModelChange)="predicateUpdated($event, selectedFilter)">
 
-    <ng-template pTemplate="item" let-item>
+    <ng-template #item let-item>
       {{item.display | translate}}
     </ng-template>
-    <ng-template pTemplate="selectedItem" let-item>
+    <ng-template #selectedItem let-item>
       {{item.display | translate}}
     </ng-template>
 
-  </p-dropdown>
+  </p-select>
 
   <!-- first parameter -->
   <ng-container *ngIf="showValue && !showDropDownValue">
-    <div class="p-mt-2" *ngIf="selectedFilter.field.isString">
+    <div class="" *ngIf="selectedFilter.field.isString">
       <input [name]="formName" type="text" pInputText placeholder="Search Term" [(ngModel)]="value" (ngModelChange)="valueUpdated($event)" required>
     </div>
-    <div class="p-mt-2" *ngIf="selectedFilter.field.isNumber">
+    <div class="" *ngIf="selectedFilter.field.isNumber">
       <p-inputNumber [name]="formName" placeholder="Search Number" [(ngModel)]="value" mode="decimal" [maxFractionDigits]="4"
         [minFractionDigits]="2" (ngModelChange)="valueUpdated($event)" [required]="true"></p-inputNumber>
     </div>
-    <div class="p-mt-2" *ngIf="selectedFilter.field.isInteger">
+    <div class="" *ngIf="selectedFilter.field.isInteger">
       <p-inputNumber [name]="formName" [(ngModel)]="value" placeholder="Search Number" (ngModelChange)="valueUpdated($event)" [required]="true"></p-inputNumber>
     </div>
-    <div class="p-mt-2" *ngIf="selectedFilter.field.isBool">
-      <p-dropdown [name]="formName" [options]="boolValues" optionLabel="display" optionValue="value" [(ngModel)]="value" (ngModelChange)="valueUpdated($event)">
-      </p-dropdown>
+    <div class="" *ngIf="selectedFilter.field.isBool">
+      <p-select [name]="formName" [options]="boolValues" optionLabel="display" optionValue="value" [(ngModel)]="value" (ngModelChange)="valueUpdated($event)">
+      </p-select>
     </div>
-    <div class="p-mt-2" *ngIf="selectedFilter.field.isEnum">
-      <p-dropdown [name]="formName" [options]="selectedFilter.field.enums" optionLabel="name" optionValue="name" [(ngModel)]="value" (ngModelChange)="valueUpdated($event)">
-      </p-dropdown>
+    <div class="" *ngIf="selectedFilter.field.isEnum">
+      <p-select [name]="formName" [options]="selectedFilter.field.enums" optionLabel="name" optionValue="name" [(ngModel)]="value" (ngModelChange)="valueUpdated($event)">
+      </p-select>
     </div>
-    <div class="p-mt-2" *ngIf="selectedFilter.field.isDate">
-      <p-calendar [name]="formName" hourFormat="12" [showSeconds]="true" [(ngModel)]="value" placeholder="Search Date" [showTime]="selectedFilter.showTime"
-        [dateFormat]="localeFormat" (ngModelChange)="valueUpdated($event)" [required]="true"></p-calendar>
+    <div class="" *ngIf="selectedFilter.field.isDate">
+      <p-datePicker [inputId]="formName" [name]="formName" hourFormat="12" [showSeconds]="true" [(ngModel)]="value" placeholder="Search Date" [showTime]="selectedFilter.showTime"
+        [dateFormat]="localeFormat" (ngModelChange)="valueUpdated($event)" [required]="true"></p-datePicker>
     </div>
   </ng-container>
 
   <ng-container *ngIf="showDropDownValue">
-    <div class="p-mt-2">
-      <p-dropdown class="p-pt-2" [options]="selectedFilter.itemSource"
+    <div class="">
+      <p-select class="" [options]="selectedFilter.itemSource"
                   [optionLabel]="selectedFilter.displayName"
                   [optionValue]="selectedFilter.valueName"
                   (ngModelChange)="valueUpdated($event)"
                   [(ngModel)]="value" [name]="formName">
-      </p-dropdown>
+      </p-select>
     </div>
   </ng-container>
 
   <!-- second parameter -->
   <ng-container *ngIf="showToValue">
-    <div class="p-mt-2" *ngIf="selectedFilter.field.isNumber">
+    <div class="" *ngIf="selectedFilter.field.isNumber">
       <p-inputNumber [name]="'to' + formName" placeholder="To Number" [(ngModel)]="toValue" mode="decimal" [maxFractionDigits]="4"
         [minFractionDigits]="2" (ngModelChange)="valueToUpdated($event)" [required]="true"></p-inputNumber>
     </div>
-    <div class="p-mt-2" *ngIf="selectedFilter.field.isInteger">
+    <div class="" *ngIf="selectedFilter.field.isInteger">
       <p-inputNumber [name]="'to' + formName" [(ngModel)]="toValue" placeholder="To Number" (ngModelChange)="valueToUpdated($event)" [required]="true"></p-inputNumber>
     </div>
-    <div class="p-mt-2" *ngIf="selectedFilter.field.isDate">
-      <p-calendar [name]="'to' + formName" hourFormat="12" [showSeconds]="true" [(ngModel)]="toValue" placeholder="To Date" [showTime]="selectedFilter.showTime"
-        [dateFormat]="localeFormat" (ngModelChange)="valueToUpdated($event)" [required]="true"></p-calendar>
+    <div class="" *ngIf="selectedFilter.field.isDate">
+      <p-datepicker [inputId]="'to' + formName" [name]="'to' + formName" hourFormat="12" [showSeconds]="true" [(ngModel)]="toValue" placeholder="To Date" [showTime]="selectedFilter.showTime"
+        [dateFormat]="localeFormat" (ngModelChange)="valueToUpdated($event)" [required]="true"></p-datepicker>
     </div>
   </ng-container>
 </div>

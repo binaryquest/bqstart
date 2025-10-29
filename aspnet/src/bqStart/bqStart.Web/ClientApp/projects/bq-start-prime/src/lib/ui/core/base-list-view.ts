@@ -58,7 +58,8 @@ function canCallAfterServerDataReceived(arg: Object): arg is IBaseListViewEvents
  * @template TModel
  */
 @Component({
-  template: '',
+    template: '',
+    standalone: false
 })
 export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDestroy, IBaseView {
 
@@ -116,6 +117,7 @@ export class BaseListView<TModel> extends BaseComponent implements OnInit, OnDes
       dataServiceOptions.$expandClause = optionalData.$expandClause;
       dataServiceOptions.$selectClause = optionalData.$selectClause;
       dataServiceOptions.$filterClause = optionalData.$filterClause;
+      dataServiceOptions.$rootApiUrl = optionalData.$rootApiUrl;
     }
 
     const injector =

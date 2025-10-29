@@ -2,6 +2,56 @@
 
 <p>This is a simple example of an Angular component.</p>
 
-<p aria-live="polite">Current count: <strong>{{ currentCount }}</strong></p>
+<button (click)="incrementCounter()">Increment</button>
 
-<button class="btn btn-primary" (click)="incrementCounter()">Increment</button>
+<p>Current count: {{ currentCount }}</p>
+
+<p-tabs value="0">
+  <p-tablist>
+      <p-tab value="0">Header I</p-tab>
+      <p-tab value="1">Header II</p-tab>
+      <p-tab value="2">Header III</p-tab>
+  </p-tablist>
+  <p-tabpanels>
+      <p-tabpanel value="0">
+          <p class="m-0">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+              ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+              anim id est laborum.
+          </p>
+      </p-tabpanel>
+      <p-tabpanel value="1">
+          <p class="m-0">
+              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+              aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+              Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+              dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
+              modi.
+          </p>
+      </p-tabpanel>
+      <p-tabpanel value="2">
+          <div>
+
+<ol class="flex flex-row pr-2 pl-2">
+  <li class="flex flex-row"><a class="cursor-pointer" href="/"><i class="pi pi-home text-blue-500 font-medium"></i></a></li>
+  <li class="flex flex-row"><i class="pi pi-angle-right text-surface-500 dark:text-surface-300"></i></li>
+  <li class="flex flex-row"><a class="text-surface-600 dark:text-surface-200 font-medium">test</a></li>
+</ol>
+<div class="flex md:justify-between flex-wrap gap-2 pb-4 justify-center">
+  <img alt="logo" class="pr-2 hidden md:inline-block" src="assets/images/logo.png" style="height: 25px;">
+  <div class="col-span-12"></div>
+  <div class="col-span-9"></div>
+  <div class="col-span-3"></div>
+  <div class="col-span-4"></div>
+  <div class="col-span-2"></div>
+  <div class="col-span-1"></div>
+  <div class="col-span-8"></div>
+</div>
+
+
+          </div>
+      </p-tabpanel>
+  </p-tabpanels>
+</p-tabs>

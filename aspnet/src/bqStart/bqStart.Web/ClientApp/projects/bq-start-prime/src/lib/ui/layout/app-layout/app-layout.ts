@@ -1,5 +1,5 @@
-import { AfterContentInit, Component, ContentChildren, EventEmitter, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { AfterContentInit, Component, ContentChildren, EventEmitter, inject, Input, OnInit, Output, QueryList, TemplateRef, ViewChild } from '@angular/core';
+import { PrimeNG } from 'primeng/config';
 import { AuthorizeService } from '../../../api-authorization/authorize.service';
 import { BQConfigService, BQConfigData } from 'bq-start-core';
 import { AppInjector } from '../../../services/app-injector.service';
@@ -9,7 +9,7 @@ import { Dictionary } from 'bq-start-core';
 import { KeyboardShortcutsComponent, ShortcutInput } from 'ng-keyboard-shortcuts';
 import { DialogService } from '../../../services/dialog.service';
 import { KeyShortcutService } from '../../../services/keyShortcut.service';
-
+import Aura from '@primeng/themes/aura';
 /**
  * Main layout Component which is responsible for showing Menu bar footer etc
  *
@@ -18,12 +18,14 @@ import { KeyShortcutService } from '../../../services/keyShortcut.service';
  * @implements {OnInit}
  */
 @Component({
-  selector: 'bq-app-layout',
-  templateUrl: './app-layout.html',
-  styleUrls: ['./app-layout.scss'],
+    selector: 'bq-app-layout',
+    templateUrl: './app-layout.html',
+    styleUrls: ['./app-layout.scss'],
+    standalone: false
 })
 export class AppLayout implements OnInit, AfterContentInit {
 
+  prime: PrimeNG = inject(PrimeNG);
   title = 'app';
   menuActive: boolean;
   showLeftMenu: boolean;
@@ -67,10 +69,19 @@ export class AppLayout implements OnInit, AfterContentInit {
   dialogService: DialogService;
 
   constructor(
-    private primengConfig: PrimeNGConfig,
     private authorizeService: AuthorizeService,
     public keySvc:KeyShortcutService
   ) {
+    this.prime.theme.set({
+      preset: Aura,
+      options: {
+        darkModeSelector: '.my-app-dark',
+        cssLayer: {
+          //name: 'primeng',
+          //order: 'tailwind-base, primeng, tailwind-utilities'
+        }
+      }
+    });
     this.authorizeService.isAuthenticated().subscribe((x) => {
       this.showLeftMenu = x && !this.showMenuOnTop;
       this.isAuthenticated = x;
@@ -110,7 +121,7 @@ export class AppLayout implements OnInit, AfterContentInit {
   }
 
   ngOnInit(): void {
-    this.primengConfig.ripple = true;
+
   }
 
   onMenuButtonClick() {

@@ -1,16 +1,61 @@
-@import "~primeng/resources/themes/aura-light-blue/theme.css";
-@import "~primeng/resources/primeng.css";
-@import './_core';
-@import './_topbar';
-@import './_menu';
-@import './_content';
-@import './_footer';
-@import './_responsive';
-@import './_components';
-@import './ng-select';
-
+@import "primeicons/primeicons.css";
+// @import "primeflex/primeflex.css";
+@import "./ng-select";
 
 :root {
   --bq-border-color: #cbd5e1;
   --bq-background: #ffffff;
+  --glow-image: url("/pattern.png");
+  --glow-blend: hard-light, multiply;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  background: var(--ground-background);
+}
+
+.dock-app {
+  background-image: var(--glow-image);
+  background-blend-mode: var(--glow-blend);
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: auto 20rem;
+  opacity: 0.8;
+
+  .p-menubar {
+    padding: 0.4rem;
+    border-radius: 0;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: calc(100% - var(--scrollbar-width, 0px));
+    z-index: 1100;
+    transition:
+    background-color 0.5s,
+    border-color 0.5s;
+    border-bottom: 1px solid var(--surface-border);
+    background-color: var(--topbar-sticky-bg);
+    backdrop-filter: blur(8px);
+  }
+
+  .dock-window {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    background-color: transparent;
+    --p-panel-header-padding: 5px;
+  }
+}
+
+html.my-app-dark {
+  body {
+    background: unset !important;
+  }
+  .dock-window {
+    background-image: unset !important;
+    background-color: transparent !important;
+  }
+  --bq-border-color: var(--surface-800);
+  --bq-background: var(--surface-900);
 }

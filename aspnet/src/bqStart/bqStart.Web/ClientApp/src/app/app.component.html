@@ -1,12 +1,12 @@
 <bq-app-layout [showMenuOnTop]="true" *ngIf="!tabbedInterface"
                [stickyFooter]="true" (onTopRightMenuClicked)="handleTopMenuClick($event)">
   <router-outlet></router-outlet>
-  <ng-template bqTemplate="footer">
+  <!-- <ng-template bqTemplate="footer">
     Hello World
-  </ng-template>
+  </ng-template> -->
   <ng-template bqTemplate="topRight">
     <span class="mr-2">
-      <input type="text" pInputText placeholder="View Order" />
+      <input type="text" pInputText placeholder="View Order" [dt]="smallInputFieldStyles" />
     </span>
   </ng-template>
 </bq-app-layout>
@@ -16,10 +16,10 @@
     Hello World
   </ng-template>
 </bq-mdi-app-layout>
-<p-sidebar [(visible)]="sidebarVisible" position="right">
+<p-drawer [(visible)]="sidebarVisible" position="right">
   <h3>Alert Details</h3>
   <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </p>
-</p-sidebar>
+</p-drawer>

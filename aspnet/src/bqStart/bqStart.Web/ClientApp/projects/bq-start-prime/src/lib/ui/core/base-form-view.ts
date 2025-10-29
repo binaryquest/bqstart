@@ -95,7 +95,8 @@ function canCallBeforeDelete(
  * @template TModel
  */
 @Component({
-  template: '',
+    template: '',
+    standalone: false
 })
 export class BaseFormView<TModel>
   extends BaseComponent
@@ -140,6 +141,7 @@ export class BaseFormView<TModel>
       dataServiceOptions.$expandClause = optionalData.$expandClause;
       dataServiceOptions.$selectClause = optionalData.$selectClause;
       dataServiceOptions.$filterClause = optionalData.$filterClause;
+      dataServiceOptions.$rootApiUrl = optionalData.$rootApiUrl;
     }
 
     const injector =

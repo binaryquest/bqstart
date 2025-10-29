@@ -14,10 +14,11 @@ import { MessageService } from '../../services/message.service';
 
 
 @Component({
-  selector: 'dyn-loader',
-  template: `
+    selector: 'dyn-loader',
+    template: `
 <ng-template dynHost></ng-template>
-`
+`,
+    standalone: false
 })
 
 export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
@@ -53,16 +54,16 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
 
     const routerSvc: RouterService = new RouterService(this.route, this.router, this.regionSvc);
 
-    const injector =
-    Injector.create({providers: [
-      {provide: RouterService, useValue:routerSvc},
-      {provide: DialogService, useValue:this.dialogSvc},
-      {provide: ConfirmationService, useValue:this.confService},
-      {provide: LocaleService, useValue:this.localSvc},
-      {provide: TranslateService, useValue:this.tranSvc},
-      {provide: NavigationService, useValue:this.navSvc},
-      {provide: MessageService, useValue:this.msgSvc},
-    ], parent: this.injector},);
+     const injector =
+     Injector.create({providers: [
+       {provide: RouterService, useValue:routerSvc},
+    //   {provide: DialogService, useValue:this.dialogSvc},
+    //   {provide: ConfirmationService, useValue:this.confService},
+    //   {provide: LocaleService, useValue:this.localSvc},
+    //   {provide: TranslateService, useValue:this.tranSvc},
+    //   {provide: NavigationService, useValue:this.navSvc},
+    //   {provide: MessageService, useValue:this.msgSvc},
+     ], parent: this.injector},);
 
 
     const viewContainerRef = this.adHost.viewContainerRef;
@@ -77,10 +78,11 @@ export class DynamicLoaderComponent implements AfterContentInit, OnDestroy {
 }
 
 @Component({
-  selector: 'dyn-mdi-loader',
-  template: `
+    selector: 'dyn-mdi-loader',
+    template: `
 <ng-template dynHost></ng-template>
-`
+`,
+    standalone: false
 })
 
 export class DynamicMDILoaderComponent implements AfterContentInit, OnDestroy {

@@ -8,6 +8,23 @@ import { ExampleFormComponent } from "./example/example-form/example-form.compon
 import { ExampleListComponent } from "./example/example-list/example-list.component";
 import { ADMIN_MODULE_CONFIG } from "./modules/admin/admin.config";
 
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideRouter } from '@angular/router';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeng/themes/aura';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: Aura
+      }
+    })
+  ]
+};
 
 export const APP_CONFIG: BQConfigData = {
   applicationName: 'bqStart Template',
@@ -25,7 +42,9 @@ export const APP_CONFIG: BQConfigData = {
   //   response_type:"code",
   //   scope:'bqStart.WebAPI openid profile'
   // },
-  topRightMenus: [{icon:"pi pi-bell",title:"Side bar Menu", eventName:"sidebar",buttonClass:"p-button-rounded p-button-warning"}],
+  topRightMenus: [{icon:"pi pi-bell",title:"Side bar Menu", eventName:"sidebar",buttonClass:"warn"}],
+  darkModeSwitchEnabled: true,
+  hideLogoInTopMenuBar: false,
   userMenus: [
     {icon:"pi pi-user",label:"Manage", eventName:"manage", url:"/Identity/Account/Manage", target:"_self"},
     {icon:"pi pi-sign-out",label:"Logout", eventName:"logout"}
@@ -103,13 +122,13 @@ export const APP_CONFIG: BQConfigData = {
       viewType: ViewType.List,
       component: ExampleListComponent
     },
-    {
-      viewId: "example-form",
-      typeName: "ExampleClass",
-      title: "Example Class",
-      viewType: ViewType.Form,
-      component: ExampleFormComponent
-    },
+    // {
+    //   viewId: "example-form",
+    //   typeName: "ExampleClass",
+    //   title: "Example Class",
+    //   viewType: ViewType.Form,
+    //   component: ExampleFormComponent
+    // },
     ...ADMIN_MODULE_CONFIG.views
   ]
 }

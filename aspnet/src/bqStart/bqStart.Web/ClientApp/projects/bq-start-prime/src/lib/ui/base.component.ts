@@ -1,4 +1,4 @@
-import { Component, Injector, inject } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { AuthorizeService, IUser } from "../api-authorization/authorize.service";
 import { BQConfigData, BQConfigService } from "bq-start-core";
@@ -13,7 +13,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { Settings } from "luxon";
 
 @Component({
-  template: ''
+    template: '',
+    standalone: false
 })
 export class BaseComponent {
 
@@ -38,7 +39,7 @@ export class BaseComponent {
     this.config = inject(BQConfigService);
     this.appInitService = inject(AppInitService);
     this.authorizeService = inject(AuthorizeService);
-    this.messageSvc = inject(MessageService);
+    this.messageSvc = inject(MessageService, {skipSelf: true});
     this.logger = inject(LogService);
     this.authorizeService.getUser().subscribe(x => this.user = x);
     this.authorizeService.isAuthenticated().subscribe(x => this.isAuthenticated = x);
@@ -46,7 +47,7 @@ export class BaseComponent {
     this.dialogService = inject(DialogService);
     this.localeService = inject(LocaleService);
     this.translate = inject(TranslateService);
-    if (!this.localeService.isInitialized()){
+    if (this.localeService && !this.localeService.isInitialized()){
       this.localeService.initLocale(Settings.defaultLocale, Settings.defaultLocale);
     }
   }

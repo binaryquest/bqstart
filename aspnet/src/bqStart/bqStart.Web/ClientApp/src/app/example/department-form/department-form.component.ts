@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ViewOptionalData } from 'bq-start-core';
 import { IBaseFormViewEvents } from 'bq-start-prime';
-import { BaseFormView, IEditFormViewEvents, RouterService } from 'projects/bq-start-prime/src/public-api';
-import { Address, Department } from 'src/app/models/department';
+import { BaseFormView, IEditFormViewEvents, RouterService } from 'bq-start-prime';
+import { Address, Department } from '../../models/department';
 
 const OPTIONAL_DATA:ViewOptionalData = {
   //$filterClause: "contains(DepartmentName,'dd')",
   $expandClause: "AddressNavigation"
 };
 @Component({
-  selector: 'app-department-form',
-  templateUrl: './department-form.component.html',
-  styleUrls: ['./department-form.component.scss']
+    selector: 'app-department-form',
+    templateUrl: './department-form.component.html',
+    styleUrls: ['./department-form.component.scss'],
+    standalone: false
 })
 export class DepartmentFormComponent extends BaseFormView<Department> implements IBaseFormViewEvents, IEditFormViewEvents {
 
