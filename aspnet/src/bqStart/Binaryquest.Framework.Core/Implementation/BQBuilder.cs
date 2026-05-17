@@ -43,7 +43,6 @@ namespace BinaryQuest.Framework.Core.Implementation
             Builder.UseRouting();
             
             Builder.UseAuthentication();
-            Builder.UseIdentityServer();
             Builder.UseAuthorization();            
             
             

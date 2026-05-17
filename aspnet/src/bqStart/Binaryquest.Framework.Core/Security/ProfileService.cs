@@ -1,6 +1,4 @@
 ﻿using BinaryQuest.Framework.Core.Data;
-using Duende.IdentityServer.Models;
-using Duende.IdentityServer.Services;
 using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -13,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BinaryQuest.Framework.Core.Security
 {
-    public class ProfileService<T> : IProfileService where T:BaseUser
+    public class ProfileService<T> where T:BaseUser
     {
         protected readonly UserManager<T> _userManager;
 
@@ -23,9 +21,13 @@ namespace BinaryQuest.Framework.Core.Security
             _userManager = userManager;
         }
 
-        public async Task GetProfileDataAsync(ProfileDataRequestContext context)
+        public async Task<IList<Claim>> GetProfileDataAsync(ClaimsPrincipal principal)
         {
-            BaseUser user = await _userManager.GetUserAsync(context.Subject);
+            BaseUser? user = await _userManager.GetUserAsync(principal);
+            if (user == null)
+            {
+                return new List<Claim>();
+            }
 
             IList<string> roles = await _userManager.GetRolesAsync((T)user);
 
@@ -63,12 +65,7 @@ namespace BinaryQuest.Framework.Core.Security
                     roleClaims.Add(new Claim(pi.Name, propValue.ToString()!));
                 }
             }
-            context.IssuedClaims.AddRange(roleClaims);
-        }
-
-        public Task IsActiveAsync(IsActiveContext context)
-        {
-            return Task.CompletedTask;
+            return roleClaims;
         }
     }
 }

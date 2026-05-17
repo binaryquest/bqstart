@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<Company>Binary Quest Software Pty Ltd</Company>
 		<Authors>Binary Quest</Authors>
 		<Description>bqStart - asp.net core starter templates core</Description>

@@ -1,11 +1,9 @@
 ﻿using BinaryQuest.Framework.Core.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BinaryQuest.Framework.Core.Implementation
 {
@@ -113,32 +111,39 @@ namespace BinaryQuest.Framework.Core.Implementation
             IQueryable<TEntity> query = dbSet.AsNoTracking();            
 
             var keys = context.Model.FindEntityType(typeof(TEntity))!.FindPrimaryKey()!.Properties;
+            if (keys.Count != keyValues.Length)
+            {
+                throw new ArgumentException("The number of key values does not match the entity primary key definition.", nameof(keyValues));
+            }
 
-            if (keys.Count == 1)
+            Expression? predicateBody = null;
+            var parameter = Expression.Parameter(typeof(TEntity), "entity");
+            for (var i = 0; i < keys.Count; i++)
             {
-                var prop = keys[0];
-                query = query.Where(e => EF.Property<object>(e, prop.Name) == keyValues.First());
+                var prop = keys[i];
+                var propertyAccess = Expression.Call(
+                    typeof(EF),
+                    nameof(EF.Property),
+                    new[] { prop.ClrType },
+                    parameter,
+                    Expression.Constant(prop.Name));
+
+                var convertedValue = ConvertKeyValue(keyValues[i], prop.ClrType);
+                var valueExpression = Expression.Constant(convertedValue, prop.ClrType);
+
+                var equalsExpression = Expression.Equal(propertyAccess, valueExpression);
+                predicateBody = predicateBody == null
+                    ? equalsExpression
+                    : Expression.AndAlso(predicateBody, equalsExpression);
             }
-            else if (keys.Count == 2)
+
+            if (predicateBody == null)
             {
-                var prop1 = keys[0];
-                var prop2 = keys[1];
-                query = query.Where(e => EF.Property<object>(e, prop1.Name) == keyValues[0]
-                && EF.Property<object>(e, prop2.Name) == keyValues[1]);
+                throw new NotSupportedException("No key predicate could be generated for the entity type.");
             }
-            else if (keys.Count == 3)
-            {
-                var prop1 = keys[0];
-                var prop2 = keys[1];
-                var prop3 = keys[1];
-                query = query.Where(e => EF.Property<object>(e, prop1.Name) == keyValues[0]
-                && EF.Property<object>(e, prop2.Name) == keyValues[1]
-                && EF.Property<object>(e, prop3.Name) == keyValues[2]);
-            }
-            else
-            {
-                throw new NotSupportedException("Composite key of more than 3 property not supported");
-            }
+
+            var predicate = Expression.Lambda<Func<TEntity, bool>>(predicateBody, parameter);
+            query = query.Where(predicate);
 
             if (!string.IsNullOrWhiteSpace(includeProperties))
             {
@@ -150,6 +155,35 @@ namespace BinaryQuest.Framework.Core.Implementation
             }
 
             return query;
+        }
+
+        private static object? ConvertKeyValue(object? keyValue, Type destinationType)
+        {
+            if (keyValue == null)
+            {
+                return null;
+            }
+
+            var targetType = Nullable.GetUnderlyingType(destinationType) ?? destinationType;
+
+            if (targetType.IsEnum)
+            {
+                return Enum.ToObject(targetType, keyValue);
+            }
+
+            if (targetType == typeof(Guid))
+            {
+                return keyValue is Guid guid
+                    ? guid
+                    : Guid.Parse(keyValue.ToString()!);
+            }
+
+            if (targetType == typeof(string))
+            {
+                return keyValue.ToString();
+            }
+
+            return Convert.ChangeType(keyValue, targetType, CultureInfo.InvariantCulture);
         }
 
         public void Attach(TEntity entity)

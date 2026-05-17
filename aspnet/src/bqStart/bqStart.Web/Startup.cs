@@ -1,6 +1,7 @@
 using BinaryQuest.Framework.Core.Extensions;
 using BinaryQuest.Framework.Core.Security;
 using bqStart.Data;
+using bqStart.Web.Services;
 using bqStart.Web.Controllers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -17,10 +18,9 @@ using Serilog;
 using TimeZoneConverter;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BinaryQuest.Framework.Identity;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Duende.IdentityServer.Services;
-using Duende.IdentityServer.Models;
+using Microsoft.AspNetCore.Authorization;
+using OpenIddict.Validation.AspNetCore;
+using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace bqStart.Web
 {
@@ -46,64 +46,63 @@ namespace bqStart.Web
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MainDataContext>();
 
-
-            services.AddSingleton<ICorsPolicyService>((container) => {
-                var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
-                return new DefaultCorsPolicyService(logger)
-                {
-                    //AllowedOrigins = { "https://localhost:44301", "app://localhost" },
-                    AllowAll = true
-                };
-            });
-
             services.AddCors(opt => {
                 opt.AddDefaultPolicy(opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             });
 
-            services.AddIdentityServer()
-            .AddApiAuthorization<ApplicationUser, MainDataContext>(opt => {                
-
-                var nativeClient = ClientBuilder
-                    .NativeApp("electronapp")
-                    .WithRedirectUri("app://localhost/authentication/login-callback")
-                    .WithRedirectUri("https://oauth.pstmn.io/v1/callback")
-                    .WithLogoutRedirectUri("app://localhost/authentication/logout-callback")
-                    .WithScopes("openid profile bqStart.WebAPI offline_access")
-                    .Build();
-
-                nativeClient.AllowedCorsOrigins = new[]
+            services.AddOpenIddict()
+                .AddCore(options =>
                 {
-                    "app://localhost"
-                };
-
-                opt.Clients.Add(nativeClient);
-
-                var apiClient = new Client
+                    options.UseEntityFrameworkCore()
+                        .UseDbContext<MainDataContext>();
+                })
+                .AddServer(options =>
                 {
-                    ClientId = "cmsclient",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    // secret for authentication
-                    ClientSecrets =
-                        {
-                            new Secret("secret".Sha256())
-                        },
+                    options.SetAuthorizationEndpointUris("/connect/authorize")
+                        .SetTokenEndpointUris("/connect/token")
+                        .SetEndSessionEndpointUris("/connect/logout");
 
-                    // scopes that client has access to
-                    AllowedScopes = { "bqStart.WebAPI" }
-                };
+                    options.AllowAuthorizationCodeFlow()
+                        .AllowClientCredentialsFlow()
+                        .AllowRefreshTokenFlow();
 
-                opt.Clients.Add(apiClient);
-            })
-                .AddProfileService<ProfileService<ApplicationUser>>();
+                    options.RequireProofKeyForCodeExchange();
+                    options.RegisterScopes(Scopes.OpenId, Scopes.Profile, Scopes.OfflineAccess, "bqStart.WebAPI");
+
+                    options.AddDevelopmentEncryptionCertificate()
+                        .AddDevelopmentSigningCertificate();
+
+                    options.DisableAccessTokenEncryption();
+
+                    options.UseAspNetCore()
+                        .EnableAuthorizationEndpointPassthrough()
+                        .EnableTokenEndpointPassthrough()
+                        .EnableEndSessionEndpointPassthrough();
+                })
+                .AddValidation(options =>
+                {
+                    options.UseLocalServer();
+                    options.UseAspNetCore();
+                });
             
             services.AddAuthentication()
-                .AddIdentityServerJwt()
                 //.AddGoogle(options =>
                 //{                    
                 //    options.ClientId = Configuration["ExternalProviders:OAuth:GoogleClientId"];
                 //    options.ClientSecret = Configuration["ExternalProviders:OAuth:GoogleSecret"];
                 //});
                 ;            
+
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(
+                        IdentityConstants.ApplicationScheme,
+                        OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
+
+            services.AddHostedService<OpenIddictSeeder>();
             
             //BQ Admin related
             services.AddBqAdminServices<ApplicationUser, MainDataContext>(options =>

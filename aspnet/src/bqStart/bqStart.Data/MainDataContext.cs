@@ -1,6 +1,4 @@
 ﻿using BinaryQuest.Framework.Core.Data;
-using Duende.IdentityServer.EntityFramework.Options;
-using IdentityModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,13 +10,14 @@ namespace bqStart.Data
 {
     public class MainDataContext : BQDataContext<ApplicationUser>
     {
-        public MainDataContext(DbContextOptions options, Microsoft.Extensions.Options.IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
+        public MainDataContext(DbContextOptions options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.UseOpenIddict();
 
             builder.Entity<Address>(entity =>
             {

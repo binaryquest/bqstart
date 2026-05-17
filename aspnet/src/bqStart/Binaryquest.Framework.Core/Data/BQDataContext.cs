@@ -1,8 +1,6 @@
 ﻿using BinaryQuest.Framework.Core.Interface;
-using Duende.IdentityServer.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +8,9 @@ using System.Text;
 
 namespace BinaryQuest.Framework.Core.Data
 {
-    public abstract class BQDataContext<T> : ApiAuthorizationDbContext<T> where T : BaseUser
+    public abstract class BQDataContext<T> : IdentityDbContext<T> where T : BaseUser
     {
-        public BQDataContext(
-            DbContextOptions options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
+        public BQDataContext(DbContextOptions options) : base(options)
         {
         }
 

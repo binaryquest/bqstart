@@ -25,7 +25,7 @@ namespace BinaryQuest.Framework.Identity
         /// <param name="services">The <see cref="IServiceCollection"/>.</param>
         /// <returns>The <see cref="IdentityBuilder"/>.</returns>
         public static IdentityBuilder AddDefaultIdentityWithBQUI<TUser>(this IServiceCollection services) where TUser : class
-            => services.AddDefaultIdentity<TUser>(_ => { });
+            => services.AddDefaultIdentityWithBQUI<TUser>(_ => { });
 
         /// <summary>
         /// Adds a set of common identity services to the application, including a default UI, token providers,
