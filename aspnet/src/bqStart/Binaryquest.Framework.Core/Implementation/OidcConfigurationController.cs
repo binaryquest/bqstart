@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 
 namespace BinaryQuest.Framework.Core.Implementation
 {
@@ -23,21 +21,21 @@ namespace BinaryQuest.Framework.Core.Implementation
             var loginCallbackPath = Configuration[$"OpenIddict:Clients:{clientId}:LoginCallbackPath"] ?? "authentication/login-callback";
             var logoutCallbackPath = Configuration[$"OpenIddict:Clients:{clientId}:LogoutCallbackPath"] ?? "authentication/logout-callback";
 
-            var parameters = new Dictionary<string, string?>
+            // Return typed JSON (not string dictionary) for oidc-client compatibility.
+            // loadUserInfo must be false: OpenIddict does not expose a userinfo endpoint by default.
+            return Ok(new
             {
-                ["authority"] = authority,
-                ["client_id"] = clientId,
-                ["redirect_uri"] = $"{authority}/{loginCallbackPath.TrimStart('/')}",
-                ["post_logout_redirect_uri"] = $"{authority}/{logoutCallbackPath.TrimStart('/')}",
-                ["response_type"] = "code",
-                ["scope"] = scope,
-                ["automaticSilentRenew"] = "true",
-                ["includeIdTokenInSilentRenew"] = "true",
-                ["loadUserInfo"] = "true",
-                ["metadata"] = $"{authority}{basePath}/.well-known/openid-configuration"
-            };
-
-            return Ok(parameters);
+                authority,
+                client_id = clientId,
+                redirect_uri = $"{authority}/{loginCallbackPath.TrimStart('/')}",
+                post_logout_redirect_uri = $"{authority}/{logoutCallbackPath.TrimStart('/')}",
+                response_type = "code",
+                scope,
+                automaticSilentRenew = true,
+                includeIdTokenInSilentRenew = true,
+                loadUserInfo = false,
+                metadataUrl = $"{authority}{basePath}/.well-known/openid-configuration"
+            });
         }
     }
 }

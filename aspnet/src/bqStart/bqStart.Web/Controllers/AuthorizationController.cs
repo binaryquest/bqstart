@@ -14,7 +14,7 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace bqStart.Web.Controllers
 {
-    [ApiController]
+    // Not an API controller: OAuth authorize must redirect (302) to Identity login, not return 401.
     public class AuthorizationController : Controller
     {
         private static readonly HashSet<string> AllowedScopes = new(StringComparer.Ordinal)
@@ -76,6 +76,16 @@ namespace bqStart.Web.Controllers
             }
 
             var principal = await signInManager.CreateUserPrincipalAsync(user);
+
+            // Identity uses NameIdentifier; OpenIddict requires the standard "sub" claim.
+            principal.SetClaim(Claims.Subject, await userManager.GetUserIdAsync(user));
+
+            var userName = await userManager.GetUserNameAsync(user);
+            if (!string.IsNullOrEmpty(userName))
+            {
+                principal.SetClaim(Claims.Name, userName);
+            }
+
             principal.SetScopes(request.GetScopes().Where(AllowedScopes.Contains));
             principal.SetResources("bqStart.WebAPI");
 
@@ -175,7 +185,8 @@ namespace bqStart.Web.Controllers
         {
             return claim.Type switch
             {
-                Claims.Name or Claims.Subject or Claims.Role =>
+                Claims.Name or Claims.Subject or Claims.Role or Claims.Email or
+                Claims.GivenName or Claims.FamilyName or Claims.PreferredUsername =>
                 [Destinations.AccessToken, Destinations.IdentityToken],
                 _ =>
                 [Destinations.AccessToken]
